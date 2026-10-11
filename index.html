@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vocaloid Song Quiz</title>
+<style>
+:root{--g:#0d9488;--g2:#0f766e;--gl:#e6f7f5;--bg:#f2fbfa;--text:#0f2f2e;--mute:#5a7f7c;--red:#e5484d}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:14px;
+ background:radial-gradient(circle at 12% 8%,#cdf1ed,transparent 45%),radial-gradient(circle at 90% 95%,#e0f6f3,transparent 45%),var(--bg);
+ color:var(--text);font-family:"Segoe UI","Noto Sans Thai",Tahoma,sans-serif}
+.wrap{width:100%;max-width:980px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+@media(min-width:860px){.layout{grid-template-columns:minmax(0,1fr) 290px;align-items:start}}
+.info{background:#fff;border:2px solid var(--g);border-radius:14px;padding:16px;text-align:left;min-height:120px}
+.info.empty{border-style:dashed;border-color:#b7e4e0;color:var(--mute);display:flex;align-items:center;justify-content:center;text-align:center;font-size:.9rem}
+.info h3{margin:0 0 12px;font-size:1.25rem;color:var(--g2);line-height:1.25}
+.info dl{margin:0}
+.info dt{font-size:.75rem;font-weight:600;color:var(--mute);margin-top:10px}
+.info dd{margin:2px 0 0;font-size:.95rem;word-break:break-word}
+.info .foot{margin-top:12px;font-size:.72rem;color:var(--mute)}
+.info .foot a{color:var(--g2)}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:600}
+.top h1{margin:0;font-size:1.1rem;letter-spacing:2px;color:var(--g2)}
+.top span b{color:var(--g2)}
+.stage{position:relative;width:100%;aspect-ratio:16/9;background:#0b2e2c;border-radius:10px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.18)}
+#yt,#yt iframe{position:absolute;inset:0;width:100%;height:100%;display:block}
+.cover{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ background:linear-gradient(160deg,#134e4a,#0b2e2c);color:#fff;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.cover.off{display:none}
+#big{font-size:clamp(4rem,22vw,8rem);font-weight:300;line-height:1}
+#big.icon{font-size:clamp(3.5rem,16vw,6rem)}
+#small{margin-top:8px;font-size:.95rem;color:#b7e4e0}
+.progress{position:absolute;left:0;bottom:0;height:5px;width:0;background:#2dd4bf;z-index:3}
+.progress.warn{background:#f87171}
+.cover.warn #big{color:#fca5a5}
+.skip{position:absolute;right:10px;top:50%;transform:translateY(-50%);z-index:4;display:none;padding:10px 14px;border:0;border-radius:999px;
+ background:rgba(11,46,44,.8);color:#fff;font:inherit;font-size:.9rem;cursor:pointer}
+.skip:hover{background:var(--g)}
+.opts.wait .opt{opacity:.7;cursor:not-allowed}
+.hint{font-size:.85rem;color:var(--mute);min-height:1.4em;margin:8px 0;text-align:center}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 8px}
+.opt{font:inherit;cursor:pointer;padding:16px 14px;border:2px solid var(--g);color:var(--text);background:#fff;font-size:1rem;font-weight:600;
+ transform:skewX(-10deg);transition:.15s}
+.opt span{display:inline-block;transform:skewX(10deg)}
+.opt:not(:disabled):hover{background:var(--gl);border-color:var(--g2)}
+.opt:disabled{cursor:not-allowed}
+.opt.correct{background:var(--g);border-color:var(--g2);color:#fff}
+.opt.wrong{background:var(--red);border-color:#b42318;color:#fff}
+#modal{position:fixed;inset:0;background:rgba(15,47,46,.55);display:none;align-items:center;justify-content:center;padding:16px}
+.box{background:#fff;border:2px solid var(--g);border-radius:16px;padding:24px;max-width:360px;width:100%;text-align:center}
+.box h2{color:var(--g2);margin-top:0}
+#final{font-size:2.4rem;font-weight:700;color:var(--g);margin:8px 0 18px}
+.box button{width:100%;padding:14px;border:0;border-radius:10px;background:var(--g);color:#fff;font:inherit;font-weight:600;font-size:1.05rem;cursor:pointer}
+/* หน้าเริ่ม / เลือกจำนวนเพลง */
+.screen{position:fixed;inset:0;z-index:20;display:flex;overflow-y:auto;padding:16px;
+ background:radial-gradient(circle at 12% 8%,#cdf1ed,transparent 45%),radial-gradient(circle at 90% 95%,#e0f6f3,transparent 45%),var(--bg)}
+.screen.hide{display:none}
+.panel{margin:auto;width:100%;max-width:420px;background:#fff;border:2px solid var(--g);border-radius:20px;padding:28px 24px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.panel h1{margin:0 0 6px;font-size:2rem;letter-spacing:3px;color:var(--g2)}
+.panel h2{margin:0 0 14px;font-size:1.2rem;color:var(--g2)}
+.panel p{margin:0 0 22px;color:var(--mute);font-size:.95rem}
+.go{width:100%;padding:16px;border:0;border-radius:12px;background:var(--g);color:#fff;font:inherit;font-size:1.15rem;font-weight:600;cursor:pointer}
+.go:hover{background:var(--g2)}
+.cnt{font-size:3rem;font-weight:700;color:var(--g);line-height:1}
+.cnt small{font-size:1rem;color:var(--mute);font-weight:400}
+#range{width:100%;margin:16px 0 10px;accent-color:var(--g)}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.chip{padding:8px 14px;border:2px solid var(--g);border-radius:999px;background:#fff;color:var(--g2);font:inherit;font-weight:600;cursor:pointer}
+.chip.on,.chip:hover{background:var(--g);color:#fff}
+.note{min-height:2.6em;font-size:.82rem;color:var(--mute);margin-bottom:14px}
+.addbox{margin-top:20px;padding-top:16px;border-top:2px dashed #b7e4e0;text-align:left}
+.addttl{font-weight:600;color:var(--g2);margin-bottom:10px;text-align:center}
+.addbox input{width:100%;padding:11px 12px;margin-bottom:8px;border:2px solid #b7e4e0;border-radius:10px;font:inherit;font-size:.9rem;color:var(--text);background:#fff}
+.addbox input:focus{outline:none;border-color:var(--g)}
+.addbox .more{margin-bottom:10px}
+.addbox .more summary{cursor:pointer;font-size:.82rem;color:var(--mute);margin-bottom:8px}
+.addbox .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.go.alt{background:#fff;color:var(--g2);border:2px solid var(--g);margin-top:10px}
+.go.alt:hover{background:var(--gl)}
+.tin,.lobbycfg select{width:100%;padding:12px;margin-bottom:10px;border:2px solid #b7e4e0;border-radius:10px;font:inherit;color:var(--text);background:#fff}
+.tin:focus,.lobbycfg select:focus{outline:none;border-color:var(--g)}
+.code{letter-spacing:6px;color:var(--g);font-size:1.6rem}
+.lobbylist{margin:12px 0;text-align:left}
+.lobbycfg{text-align:left;margin-top:8px}
+.players{display:none;text-align:left}
+.plt{font-weight:600;color:var(--g2);margin-bottom:8px}
+.pl{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;margin-bottom:6px;border:1px solid #b7e4e0;border-radius:10px;background:#fff;font-size:.9rem}
+.pl.me{border:2px solid var(--g);background:var(--gl)}
+.pl .nm{font-weight:600;word-break:break-word}
+.pl .st{font-size:.75rem;color:var(--mute)}
+.pl .st.ok{color:var(--g2);font-weight:600}
+.pl .sc{font-weight:700;font-size:1.1rem;color:var(--g2)}
+.rank{text-align:left;margin:10px 0 16px}
+.skip:disabled{opacity:.6;cursor:default}
+.wrap.online{max-width:1240px}
+.wrap.online .players{display:block}
+@media(min-width:860px){.wrap.online .layout{grid-template-columns:minmax(0,1fr) 290px}.wrap.online .players{grid-column:1/-1}}
+@media(min-width:1100px){.wrap.online .layout{grid-template-columns:210px minmax(0,1fr) 290px}.wrap.online .players{grid-column:auto}}
+.lbl{font-size:.85rem;color:var(--mute);margin:12px 0 6px;font-weight:600}
+.box .ghost{background:#fff;color:var(--g2);border:2px solid var(--g);margin-top:10px}
+.box .ghost:hover{background:var(--gl)}
+.add{margin:0 0 14px;text-align:left}
+.add summary{cursor:pointer;color:var(--g2);font-weight:600;text-align:center}
+.add textarea{width:100%;margin:10px 0 8px;padding:10px;border:2px solid #b7e4e0;border-radius:10px;font:inherit;font-size:.85rem;color:var(--text);resize:vertical}
+.add textarea:focus{outline:none;border-color:var(--g)}
+.add .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+@media(max-width:420px){.opt{font-size:.9rem;padding:14px 10px}}
+</style>
+</head>
+<body>
+<div class="screen" id="startScreen"><div class="panel">
+  <h1>VOCALOID<br>QUIZ</h1><p>ฟังเพลงใบ้แล้วทายชื่อเพลง</p>
+  <button class="go" id="goBtn">เล่นคนเดียว</button>
+  <button class="go alt" id="onlineBtn">ห้องออนไลน์ (สูงสุด 8 คน)</button>
+</div></div>
+<div class="screen hide" id="setupScreen"><div class="panel">
+  <h2>จะทายกี่เพลง?</h2>
+  <div class="cnt"><span id="cnt">10</span> <small>เพลง</small></div>
+  <input type="range" id="range" min="1" max="50" value="10">
+  <div class="chips" id="chips"></div>
+  <div class="lbl">เวลาฟังเพลง (วินาที)</div>
+  <div class="chips" id="listenChips"></div>
+  <div class="lbl">เวลานับตอบหลังเพลงจบ (วินาที)</div>
+  <div class="chips" id="graceChips"></div>
+  <div class="note" id="note"></div>
+  <button class="go" id="playBtn">เริ่มเล่น</button>
+  <div class="addbox">
+    <div class="addttl">➕ เพิ่มเพลง</div>
+    <input id="fTitle" type="text" placeholder="ชื่อเพลง">
+    <input id="fUrl" type="url" placeholder="ลิงก์ YouTube (วางได้เลย)">
+    <input id="fStart" type="text" inputmode="numeric" placeholder="เวลาเริ่มเล่น เช่น 0:45 หรือ 45">
+    <details class="more"><summary>ข้อมูลเพิ่มเติม (ไม่บังคับ — ถ้าว่าง จะดึงจาก VocaDB)</summary>
+      <input id="fVocal" type="text" placeholder="เสียงร้อง">
+      <input id="fComposer" type="text" placeholder="ผู้แต่ง">
+      <input id="fArr" type="text" placeholder="Arrangement">
+      <input id="fDate" type="text" placeholder="วันที่ปล่อย เช่น 7 ธันวาคม 2007">
+    </details>
+    <div class="row"><button class="chip" id="addBtn">เพิ่มเข้าคลัง</button><button class="chip" id="clrBtn">ล้างเพลงที่เพิ่มเอง</button></div>
+    <div class="note" id="addMsg" style="margin:8px 0 0"></div>
+  </div>
+</div></div>
+<div class="screen hide" id="onlineScreen"><div class="panel">
+  <h2>ห้องออนไลน์</h2>
+  <input class="tin" id="nameIn" maxlength="12" placeholder="ชื่อของคุณ">
+  <button class="go" id="createBtn">สร้างห้อง</button>
+  <div class="lbl" style="text-align:center">หรือเข้าร่วมห้องของเพื่อน</div>
+  <input class="tin" id="codeIn" maxlength="4" placeholder="รหัสห้อง 4 ตัว" style="text-transform:uppercase;text-align:center;letter-spacing:4px">
+  <button class="go alt" id="joinBtn">เข้าร่วม</button>
+  <div class="note" id="onMsg" style="margin-top:10px"></div>
+  <button class="chip" id="onBack">← กลับ</button>
+</div></div>
+<div class="screen hide" id="lobbyScreen"><div class="panel">
+  <h2>ห้อง <span class="code" id="roomCode"></span></h2>
+  <div class="note" style="min-height:0">ส่งรหัสนี้ให้เพื่อน (สูงสุด 8 คน)</div>
+  <div class="lobbylist" id="lobbyList"></div>
+  <div class="lobbycfg" id="hostCfg">
+    <div class="lbl">จำนวนเพลง</div><select id="oN"></select>
+    <div class="lbl">เวลาฟังเพลง (วินาที)</div><select id="oL"></select>
+    <div class="lbl">เวลานับตอบหลังเพลงจบ (วินาที)</div><select id="oG"></select>
+    <button class="go" id="startRoomBtn">เริ่มเกม</button>
+  </div>
+  <div class="note" id="waitMsg">รอโฮสต์เริ่มเกม...</div>
+  <button class="chip" id="leaveBtn">ออกจากห้อง</button>
+</div></div>
+<div class="wrap">
+  <div class="top"><h1>VOCALOID QUIZ</h1><span>ข้อ <b id="qNo">1</b>/<span id="qTotal">3</span> · คะแนน <b id="score">0</b></span></div>
+  <div class="layout"><aside class="players" id="players"></aside><div class="left">
+  <div class="stage">
+    <div id="yt"><div id="player"></div></div>
+    <div class="cover" id="cover"><div id="big" class="icon">▶</div><div id="small"></div></div>
+    <button class="skip" id="skipBtn">ข้าม ⏭</button>
+    <div class="progress" id="bar"></div>
+  </div>
+  <div class="hint" id="hint"></div>
+  <div class="opts" id="opts"></div>
+  </div>
+  <aside class="info empty" id="info">ข้อมูลเพลงจะแสดงที่นี่หลังตอบ</aside>
+  </div>
+</div>
+<div id="modal"><div class="box"><h2>🎉 จบเกม!</h2><div id="finalLbl">คะแนนรวมของคุณ</div><div id="final">0</div><div class="rank" id="rank"></div><button id="restartBtn">เริ่มใหม่</button><button class="ghost" id="homeBtn">กลับหน้าหลัก</button></div></div>
+
+<script>
+/* ===== คลังเพลง: เพิ่มเพลงได้โดยเติมบรรทัดใหม่ในรายการนี้ =====
+   รูปแบบ (เว้นว่างได้ ตั้งแต่ช่องที่ 3 เป็นต้นไป):
+   ชื่อเพลง | ลิงก์ YouTube | เวลาเริ่ม | ลิงก์สำรอง | เสียงร้อง | ผู้แต่ง | Arrangement | วันที่ปล่อย
+   เวลาเริ่มใส่เป็นวินาที (50) หรือ นาที:วินาที (0:50) | บรรทัดที่ขึ้นต้นด้วย # = หมายเหตุ */
+const SONG_LIST = `
+Melt | https://www.youtube.com/watch?v=3MW44tvmvKg | 0:50 | https://www.youtube.com/watch?v=4dkRoZ4lzKU | Hatsune Miku | ryo (supercell) | ryo (supercell) | 7 ธันวาคม 2007
+Senbonzakura | https://www.youtube.com/watch?v=shs0rAiwsGQ | 0:45 | https://www.youtube.com/watch?v=3GNa3w-7qU8 | Hatsune Miku | Kurousa-P (WhiteFlame) | Kurousa-P (WhiteFlame) | กันยายน 2011
+World is Mine | https://www.youtube.com/watch?v=tczcAHLCyKM | 0:40 | https://www.youtube.com/watch?v=YGYaOLTVDR8 | Hatsune Miku | ryo (supercell) | ryo (supercell) | 2008 (อัลบั้ม supercell: 4 มีนาคม 2009)
+Tell Your World | https://www.youtube.com/watch?v=PqJNc9KVIZE | 1:00 | https://www.youtube.com/watch?v=4n94ukt15qg | Hatsune Miku | kz (livetune) | kz (livetune) | 2011 (EP: 14 มีนาคม 2012)
+Rolling Girl | https://www.youtube.com/watch?v=vnw8zURAxkU | 0:45 | https://www.youtube.com/watch?v=DGMtJ0FngHg | Hatsune Miku | wowaka | wowaka | 14 กุมภาพันธ์ 2010
+Ghost Rule | https://www.youtube.com/watch?v=KushW6zvazM | 0:50 | https://www.youtube.com/watch?v=gGweinZEhik | Hatsune Miku (V4X) | DECO*27 | DECO*27, Naoki Itai | 8 มกราคม 2016
+Romeo and Cinderella | https://www.youtube.com/watch?v=9HrOqmiEsN8 | 0:45 | https://www.youtube.com/watch?v=naQjypGoOHY | Hatsune Miku | doriko | doriko | ราวปี 2009
+Kagerou Daze | https://www.youtube.com/watch?v=EMGyiiTC7sg | 0:50 | https://www.youtube.com/watch?v=lBnAY4VH9T4 | Hatsune Miku | Jin (Shizen no Teki-P) | Jin (Shizen no Teki-P) | 30 กันยายน 2011
+Vampire | https://www.youtube.com/watch?v=e1xCOsgWG0M | 0:55 |  | Hatsune Miku | DECO*27 | Rockwell | 9 มีนาคม 2021
+Love is War | https://www.youtube.com/watch?v=-8oMArcHEp8 | 0:50 | https://www.youtube.com/watch?v=qWRMoi8P8kc | Hatsune Miku | ryo (supercell) | ryo (supercell) | ราวปี 2008
+Hibana | https://www.youtube.com/watch?v=hxSg2Ioz3LM | 0:45 |  | Hatsune Miku (เสียงประสานอังกฤษ: Mes) | DECO*27 | Rockwell | 4 สิงหาคม 2017
+Mesmerizer | https://www.youtube.com/watch?v=19y8YTbvri8 | 0:40 | https://www.youtube.com/watch?v=ibjWftkJrd4 | Hatsune Miku, Kasane Teto | 32ki | 32ki | ราวปี 2024
+`;
+
+const ytId = u => (String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/)||[])[1];
+function parseTime(t){
+  if(!t) return 45; t=t.trim();
+  if(t.includes(':')){ const [m,sec]=t.split(':'); return (+m||0)*60+(+sec||0); }
+  return +t||45;
+}
+function parseSongs(text){
+  const ok=[], bad=[];
+  text.split('\n').forEach(l=>{
+    l=l.trim(); if(!l||l[0]==='#') return;
+    const p=l.split('|').map(x=>x.trim());
+    if(p.length<2||!p[0]||!ytId(p[1])){ bad.push(l); return; }
+    const o={title:p[0],url:p[1],start:parseTime(p[2])};
+    if(p[3]&&ytId(p[3])) o.alt=p[3];
+    o.vocal=p[4]||''; o.composer=p[5]||''; o.arr=p[6]||''; o.date=p[7]||'';
+    ok.push(o);
+  });
+  return {ok,bad};
+}
+const SONGS = parseSongs(SONG_LIST).ok;
+const CUSTOM_KEY='vq_custom_songs';
+function loadCustom(){ try{ (JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]')).forEach(x=>{ if(!SONGS.some(y=>ytId(y.url)===ytId(x.url))) SONGS.push(x); }); }catch(e){} }
+function saveCustom(list){ try{ localStorage.setItem(CUSTOM_KEY,JSON.stringify(list)); }catch(e){} }
+loadCustom();
+/* ชื่อเพลงหลอก (ใช้เป็นตัวเลือกผิดเพิ่มเติม) */
+const DECOYS = ["Matryoshka","Po Pi Po","Kokoro","Sweet Devil","Triple Baka","Magnet","Black Rock Shooter","Ievan Polkka","Kimagure Mercy"];
+const MAX_ROUNDS = 50;   // จำนวนเพลงสูงสุดที่เลือกได้
+const POINTS = 10;
+let CLIP_SECONDS = 15;   // เวลาฟังเพลง (เลือกได้ที่หน้าตั้งค่า)
+
+const shuffle = a => a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+const $ = id => document.getElementById(id);
+
+let GRACE_SECONDS = 3;   // เวลานับตอบหลังเพลงจบ (เลือกได้ที่หน้าตั้งค่า)
+let player, ready=false, tick=null, revTick=null, order=[], idx=0, score=0, phase='idle'; // idle | playing | grace | done
+
+function onYouTubeIframeAPIReady(){
+  player = new YT.Player('player',{
+    height:'100%', width:'100%',
+    playerVars:{playsinline:1,controls:1,rel:0},
+    events:{
+      onReady:()=>{ready=true;},
+      onError:()=>{ const s=order[idx];
+        if(s && s.alt && !s.useAlt){ s.useAlt=true; $('hint').textContent="ลิงก์แรกเล่นไม่ได้ กำลังลองลิงก์สำรอง..."; loadClip(); }
+        else $('hint').textContent="⚠ เล่นเพลงนี้ไม่ได้ (ลิงก์ห้ามฝัง?) แก้ลิงก์ใน SONGS"; }
+    }
+  });
+}
+const tag=document.createElement('script');
+tag.src="https://www.youtube.com/iframe_api";
+tag.onerror=()=>{$('hint').textContent="⚠ โหลด YouTube API ไม่ได้ (ตรวจอินเทอร์เน็ต)";};
+document.head.appendChild(tag);
+
+function loadClip(){
+  const s=order[idx];
+  player.loadVideoById({videoId:ytId(s.useAlt?s.alt:s.url), startSeconds:s.start});
+  player.setVolume(100);
+}
+function pause(){ if(ready) try{player.pauseVideo();}catch(e){} }
+function clearTimers(){ clearInterval(tick); clearInterval(revTick); tick=revTick=null; }
+
+/* เริ่มฟัง (ฟังได้ครั้งเดียว) */
+function startListen(){
+  if(phase!=='idle') return;
+  if(!ready){ $('hint').textContent="กำลังโหลดตัวเล่น... ลองอีกครั้งในอีกสักครู่"; return; }
+  phase='playing'; loadClip();
+  $('opts').classList.remove('wait');
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=false);
+  $('hint').textContent="เลือกคำตอบได้เลย";
+  $('big').className=""; $('small').textContent="กำลังเล่น...";
+  let t0=Date.now();
+  const loop=()=>{
+    const el=(Date.now()-t0)/1000;
+    if(phase==='playing'){
+      if(el>=CLIP_SECONDS){
+        pause(); phase='grace'; t0=Date.now();
+        $('cover').classList.add('warn'); $('bar').classList.add('warn');
+        $('small').textContent="หมดเวลาฟังแล้ว! รีบตอบ"; $('big').textContent=GRACE_SECONDS; $('bar').style.width="0";
+        return;
+      }
+      $('big').textContent=Math.ceil(CLIP_SECONDS-el);
+      $('bar').style.width=(el/CLIP_SECONDS*100)+"%";
+    } else if(phase==='grace'){
+      if(el>=GRACE_SECONDS){ answer(null,null); return; }   // หมดเวลา = ผิด
+      $('big').textContent=Math.ceil(GRACE_SECONDS-el);
+      $('bar').style.width=(el/GRACE_SECONDS*100)+"%";
+    }
+  };
+  loop(); tick=setInterval(loop,100);
+}
+
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ===== ดึงข้อมูลเพลงจาก VocaDB (ถ้าดึงไม่ได้จะใช้ข้อมูลที่ใส่ไว้ใน SONG_LIST แทน) ===== */
+const USE_VOCADB = true, VOCADB='https://vocadb.net/api';
+const MONTHS=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const fmtDate=iso=>{ const m=/^(\d{4})-(\d\d)-(\d\d)/.exec(iso||''); return m? (+m[3])+' '+MONTHS[+m[2]-1]+' '+m[1] : ''; };
+const uniq=a=>[...new Set(a.filter(Boolean))].join(', ');
+function parseVocaDB(j,via){
+  const list=j.artists||[];
+  const nm=a=>a.name||(a.artist&&a.artist.name)||'';
+  const role=(a,w)=>String(a.effectiveRoles||a.roles||'').toLowerCase().includes(w);
+  return { id:j.id, via,
+    vocal:uniq(list.filter(a=>String(a.categories||'').includes('Vocalist')).map(nm)),
+    composer:uniq(list.filter(a=>role(a,'composer')||role(a,'lyricist')).map(nm)),
+    arr:uniq(list.filter(a=>role(a,'arranger')).map(nm)),
+    date:fmtDate(j.publishDate) };
+}
+function getInfo(song){
+  if(!USE_VOCADB) return Promise.resolve(null);
+  if(song._vdb) return song._vdb;
+  const key=ytId(song.url), ck='vq_vdb_'+key;
+  try{ const c=localStorage.getItem(ck); if(c) return (song._vdb=Promise.resolve(JSON.parse(c))); }catch(e){}
+  return (song._vdb=(async()=>{
+    try{
+      let j=null, via='pv';
+      try{ const r=await fetch(VOCADB+'/songs/byPV?pvService=Youtube&pvId='+key+'&fields=Artists&lang=English'); if(r.ok){ const t=await r.json(); if(t&&t.id) j=t; } }catch(e){}
+      if(!j){ via='search';
+        const r=await fetch(VOCADB+'/songs?query='+encodeURIComponent(song.title)+'&nameMatchMode=Auto&songTypes=Original&sort=RatingScore&maxResults=1&fields=Artists&lang=English');
+        if(r.ok){ const t=await r.json(); j=t.items&&t.items[0]; } }
+      if(!j) return null;
+      const v=parseVocaDB(j,via);
+      try{ localStorage.setItem(ck,JSON.stringify(v)); }catch(e){}
+      return v;
+    }catch(e){ console.warn('VocaDB fetch failed:',e); return null; }
+  })());
+}
+function renderInfo(song,v,loading){
+  const f=k=>(v&&v[k])||song[k]||'';
+  const row=(l,x)=>'<dt>'+l+'</dt><dd>'+esc(x||'—')+'</dd>';
+  const foot = loading ? 'กำลังโหลดข้อมูลจาก VocaDB...'
+    : v ? 'ข้อมูลจาก <a href="https://vocadb.net/S/'+v.id+'" target="_blank" rel="noopener">VocaDB</a>'+(v.via==='search'?' (ค้นจากชื่อเพลง อาจไม่ตรง)':'')
+    : 'ข้อมูลที่ใส่ไว้ในไฟล์ (บางรายการเป็นปีโดยประมาณ)';
+  const el=$('info'); el.className='info';
+  el.innerHTML='<h3>'+esc(song.title)+'</h3><dl>'+row('เสียงร้อง',f('vocal'))+row('ผู้แต่ง',f('composer'))+row('Arrangement',f('arr'))+row('วันที่ปล่อย',f('date'))+'</dl><div class="foot">'+foot+'</div>';
+}
+function showInfo(song){
+  renderInfo(song,null,USE_VOCADB);
+  getInfo(song).then(v=>{ if(order[idx]===song && phase==='done') renderInfo(song,v,false); });
+}
+function resetInfo(){ const el=$('info'); el.className='info empty'; el.textContent='ข้อมูลเพลงจะแสดงที่นี่หลังตอบ'; }
+function showQuestion(){
+  resetInfo(); getInfo(order[idx]);
+  clearTimers(); pause(); phase='idle';
+  $('cover').classList.remove('off','warn'); $('bar').classList.remove('warn'); $('bar').style.width="0";
+  $('skipBtn').style.display="none"; $('skipBtn').disabled=false;
+  $('big').className="icon"; $('big').textContent="▶"; $('small').textContent="แตะเพื่อเริ่มฟัง ("+CLIP_SECONDS+" วินาที ฟังได้ครั้งเดียว)";
+  const s=order[idx];
+  $('qNo').textContent=idx+1; $('qTotal').textContent=order.length; $('score').textContent=score;
+  $('hint').textContent="กดที่กรอบเพื่อเริ่มฟังก่อนตอบ";
+  $('opts').innerHTML=""; $('opts').classList.add('wait');
+  (online&&online.qs?online.qs[idx].choices:makeChoices(s)).forEach(c=>{
+    const b=document.createElement('button');
+    b.className="opt"; b.innerHTML="<span></span>"; b.firstChild.textContent=c; b.disabled=true; b.onclick=()=>answer(b,c);
+    $('opts').appendChild(b);
+  });
+}
+
+function answer(btn,choice){
+  if(phase!=='playing' && phase!=='grace') return;
+  phase='done'; clearTimers(); pause();
+  const right=order[idx].title;
+  document.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; if(b.textContent===right && choice!==right) b.classList.add('correct'); });
+  if(choice===right){ btn.classList.add('correct'); score+=POINTS; $('score').textContent=score; $('hint').textContent="✔ ถูกต้อง! +"+POINTS; }
+  else if(btn){ btn.classList.add('wrong'); $('hint').textContent="✘ คำตอบที่ถูกคือ "+right; }
+  else { $('hint').textContent="⏱ หมดเวลา! ถือว่าผิด คำตอบคือ "+right; }
+  $('score').textContent=score;
+  $('skipBtn').textContent = idx===order.length-1 ? "ดูผลสรุป ⏭" : (online ? "พร้อมไปข้อต่อไป ⏭" : "ข้าม ⏭");
+  $('skipBtn').style.display="block";
+  showInfo(order[idx]);
+  if(online) netAnswer(choice===right);
+  reveal();
+}
+
+/* เฉลย: เล่นช่วงที่ทายซ้ำอีกรอบให้ครบ มีปุ่มข้ามทางขวา */
+function reveal(){
+  $('cover').classList.add('off'); $('cover').classList.remove('warn'); $('bar').classList.remove('warn'); $('bar').style.width="0";
+  if(!ready) return;
+  loadClip();
+  const t0=Date.now();
+  revTick=setInterval(()=>{
+    const el=(Date.now()-t0)/1000;
+    if(el>=CLIP_SECONDS){ stopReveal(); return; }   // ปุ่มข้ามยังอยู่ กดเพื่อไปข้อต่อไป
+    $('bar').style.width=(el/CLIP_SECONDS*100)+"%";
+  },100);
+}
+function stopReveal(){
+  clearInterval(revTick); revTick=null; pause(); $('bar').style.width="0";
+}
+
+function next(){
+  stopReveal();
+  if(online){ netReady(); return; }
+  if(idx<order.length-1){ idx++; showQuestion(); }
+  else { $('final').textContent=score+" / "+order.length*POINTS; $('modal').style.display="flex"; }
+}
+/* สุ่มลำดับเพลง n ข้อ (ถ้า n มากกว่าคลังเพลง จะวนสุ่มซ้ำรอบใหม่) */
+function buildOrder(n){
+  const out=[];
+  while(out.length<n){
+    const cyc=shuffle(SONGS);
+    if(out.length && cyc.length>1 && cyc[0]===out[out.length-1]) [cyc[0],cyc[1]]=[cyc[1],cyc[0]];
+    out.push(...cyc);
+  }
+  return out.slice(0,n);
+}
+function start(n){ resetModal(); order=buildOrder(n); idx=0; score=0; $('modal').style.display="none"; showQuestion(); }
+
+/* หน้าเริ่ม + เลือกจำนวนเพลง */
+function updateCount(v){
+  v=Math.max(1,Math.min(MAX_ROUNDS,+v||1));
+  $('range').value=v; $('cnt').textContent=v;
+  document.querySelectorAll('#chips .chip').forEach(c=>c.classList.toggle('on',+c.dataset.n===v));
+  $('note').textContent = v>SONGS.length
+    ? "คลังมี "+SONGS.length+" เพลง เพลงจะถูกวนซ้ำ (เพิ่มเพลงใน SONGS เพื่อให้ไม่ซ้ำ)"
+    : "สุ่มจากคลัง "+SONGS.length+" เพลง";
+}
+[5,10,20,30,50].forEach(n=>{
+  const c=document.createElement('button'); c.className='chip'; c.dataset.n=n; c.textContent=n;
+  c.onclick=()=>updateCount(n); $('chips').appendChild(c);
+});
+function makeChips(id,vals,def,onPick){
+  const box=$(id);
+  vals.forEach(v=>{
+    const c=document.createElement('button'); c.className='chip'+(v===def?' on':''); c.textContent=v;
+    c.onclick=()=>{ box.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); c.classList.add('on'); onPick(v); };
+    box.appendChild(c);
+  });
+}
+let selListen=15, selGrace=3, lastN=10;
+makeChips('listenChips',[5,10,15,20,30],15,v=>selListen=v);
+makeChips('graceChips',[3,5,10,15],3,v=>selGrace=v);
+$('range').max=MAX_ROUNDS; $('range').oninput=e=>updateCount(e.target.value);
+const customList=()=>{ try{return JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]');}catch(e){return [];} };
+$('addBtn').onclick=()=>{
+  const v=id=>$(id).value.trim();
+  const title=v('fTitle'), url=v('fUrl');
+  if(!title){ $('addMsg').textContent="⚠ กรอกชื่อเพลงก่อน"; return; }
+  if(!ytId(url)){ $('addMsg').textContent="⚠ ลิงก์ YouTube ไม่ถูกต้อง"; return; }
+  if(SONGS.some(y=>ytId(y.url)===ytId(url))){ $('addMsg').textContent="เพลงนี้มีอยู่ในคลังแล้ว"; return; }
+  const o={title,url,start:parseTime(v('fStart')),vocal:v('fVocal'),composer:v('fComposer'),arr:v('fArr'),date:v('fDate')};
+  SONGS.push(o); saveCustom(customList().concat([o]));
+  ['fTitle','fUrl','fStart','fVocal','fComposer','fArr','fDate'].forEach(id=>$(id).value="");
+  $('addMsg').textContent="เพิ่ม \""+title+"\" แล้ว (คลังมี "+SONGS.length+" เพลง)";
+  updateCount(+$('range').value);
+};
+$('clrBtn').onclick=()=>{
+  const n=customList().length; if(!n){ $('addMsg').textContent="ไม่มีเพลงที่เพิ่มเอง"; return; }
+  if(!confirm("ล้างเพลงที่เพิ่มเอง "+n+" เพลง?")) return;
+  const urls=new Set(customList().map(x=>x.url));
+  for(let i=SONGS.length-1;i>=0;i--) if(urls.has(SONGS[i].url)) SONGS.splice(i,1);
+  saveCustom([]); $('addMsg').textContent="ล้างแล้ว "+n+" เพลง"; updateCount(+$('range').value);
+};
+$('goBtn').onclick=()=>{ $('startScreen').classList.add('hide'); $('setupScreen').classList.remove('hide'); updateCount(10); };
+$('playBtn').onclick=()=>{ CLIP_SECONDS=selListen; GRACE_SECONDS=selGrace; lastN=+$('range').value; $('setupScreen').classList.add('hide'); start(lastN); };
+$('cover').onclick=startListen;
+$('skipBtn').onclick=next;
+$('restartBtn').onclick=()=>{ if(online) returnLobby(); else start(lastN); };   // เริ่มใหม่ด้วยการตั้งค่าเดิม
+$('homeBtn').onclick=()=>{ if(online){ leaveRoom(); return; } $('modal').style.display="none"; clearTimers(); pause(); $('startScreen').classList.remove('hide'); };
+
+/* ================= ห้องออนไลน์ (PeerJS: โฮสต์เป็นผู้คุมเกม ผู้เล่นต่อตรงถึงโฮสต์) ================= */
+const PEER_SRC="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js";
+const MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
+const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
+const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function makeChoices(s){
+  const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
+  return shuffle([s.title,...wrong]);
+}
+function resetModal(){ $('finalLbl').textContent="คะแนนรวมของคุณ"; $('final').style.display=""; $('rank').innerHTML=""; $('restartBtn').style.display=""; $('restartBtn').textContent="เริ่มใหม่"; }
+const onMsg=t=>{ $('onMsg').textContent=t; };
+
+/* ----- สร้างห้อง (โฮสต์) ----- */
+async function createRoom(name){
+  await loadPeer();
+  online=null;
+  for(let t=0;t<5&&!online;t++){
+    const code=mkCode();
+    try{
+      await new Promise((res,rej)=>{
+        let opened=false; const p=new Peer('vq-'+code);
+        p.on('open',()=>{ opened=true; online={host:true,peer:p,conns:{},code,myId:'H',roster:{},started:false,i:0}; res(); });
+        p.on('error',e=>{ if(!opened){ try{p.destroy();}catch(_){} rej(e); } else console.warn(e); });
+      });
+    }catch(e){ if(e.type!=='unavailable-id') throw new Error('เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ ('+(e.type||e.message)+')'); }
+  }
+  if(!online) throw new Error('สร้างห้องไม่ได้ ลองใหม่อีกครั้ง');
+  online.roster.H={name,score:0,ans:false,ready:false};
+  online.peer.on('connection',hostAccept);
+  broadcastState(); enterLobby();
+}
+function hostAccept(conn){
+  conn.on('data',m=>hostMsg(conn,m));
+  conn.on('close',()=>dropPlayer(conn.peer));
+  conn.on('error',()=>dropPlayer(conn.peer));
+}
+function uniqueName(n){ n=(n||'ผู้เล่น').slice(0,12); const used=Object.values(online.roster).map(r=>r.name); let c=n,k=2; while(used.includes(c)) c=n+k++; return c; }
+function hostMsg(conn,m){
+  if(!online||!m) return;
+  const id=conn.peer, r=online.roster[id];
+  if(m.t==='join'){
+    const send=o=>{ try{conn.send(o);}catch(e){} };
+    if(online.started){ send({t:'reject',msg:'เกมเริ่มไปแล้ว'}); setTimeout(()=>conn.close(),300); return; }
+    if(Object.keys(online.roster).length>=MAXP){ send({t:'reject',msg:'ห้องเต็ม (สูงสุด 8 คน)'}); setTimeout(()=>conn.close(),300); return; }
+    online.conns[id]=conn; online.roster[id]={name:uniqueName(m.name),score:0,ans:false,ready:false};
+    send({t:'welcome',id}); broadcastState();
+  } else if(m.t==='ans' && r){ hostAns(id,!!m.ok,m.i); }
+  else if(m.t==='ready' && r){ r.ready=true; broadcastState(); checkAdvance(); }
+}
+function dropPlayer(id){
+  if(!online||!online.host||!online.roster[id]) return;
+  delete online.conns[id]; delete online.roster[id];
+  broadcastState(); if(online.started) checkAdvance();
+}
+const rosterList=()=>Object.entries(online.roster).map(([id,r])=>({id,name:r.name,score:r.score,ans:r.ans,ready:r.ready,host:id==='H'}));
+const sendAll=o=>Object.values(online.conns).forEach(c=>{ try{ if(c.open) c.send(o); }catch(e){} });
+function broadcastState(){ const l=rosterList(); sendAll({t:'state',list:l}); applyState(l); }
+function applyState(l){ online.players=l; renderPlayers(); renderLobby(); }
+
+/* ----- เข้าร่วมห้อง (ผู้เล่น) ----- */
+async function joinRoom(code,name){
+  await loadPeer();
+  online=null;
+  await new Promise((res,rej)=>{
+    let done=false; const fail=m=>{ if(!done){ done=true; try{p.destroy();}catch(_){} online=null; rej(new Error(m)); } };
+    const p=new Peer();
+    p.on('error',e=>fail(e.type==='peer-unavailable'?'ไม่พบห้องนี้':'เชื่อมต่อไม่ได้ ('+(e.type||e.message)+')'));
+    p.on('open',()=>{
+      const conn=p.connect('vq-'+code,{reliable:true,serialization:'json'});
+      online={host:false,peer:p,hostConn:conn,code,myId:null,players:[],started:false,i:0};
+      const to=setTimeout(()=>fail('เชื่อมต่อห้องไม่สำเร็จ (หมดเวลา)'),12000);
+      conn.on('open',()=>conn.send({t:'join',name}));
+      conn.on('data',m=>{
+        if(m.t==='welcome'){ clearTimeout(to); done=true; online.myId=m.id; res(); }
+        else if(m.t==='reject'){ clearTimeout(to); fail(m.msg); }
+        else guestMsg(m);
+      });
+      conn.on('close',()=>{ clearTimeout(to); if(!done) fail('ห้องปิดการเชื่อมต่อ'); else if(online&&!online.leaving){ alert('หลุดจากห้อง (โฮสต์ออกหรือการเชื่อมต่อขาด)'); leaveRoom(); } });
+    });
+  });
+  enterLobby();
+}
+function guestMsg(m){
+  if(!online) return;
+  if(m.t==='state') applyState(m.list);
+  else if(m.t==='start') beginOnline(m);
+  else if(m.t==='q') onQ(m.i);
+  else if(m.t==='end') endOnline(m.list);
+  else if(m.t==='lobby') backToLobby();
+}
+
+/* ----- ล็อบบี้ ----- */
+function enterLobby(){
+  showScreen('lobbyScreen'); $('roomCode').textContent=online.code;
+  $('hostCfg').style.display=online.host?'':'none'; $('waitMsg').style.display=online.host?'none':'';
+  renderLobby();
+}
+function renderLobby(){
+  if(!online||!online.players) return;
+  $('lobbyList').innerHTML='<div class="plt">ผู้เล่น '+online.players.length+'/'+MAXP+'</div>'+
+    online.players.map(p=>'<div class="pl'+(p.id===online.myId?' me':'')+'"><span class="nm">'+(p.host?'👑 ':'')+esc(p.name)+'</span></div>').join('');
+}
+function fillSel(id,vals,def){ $(id).innerHTML=vals.map(v=>'<option'+(v===def?' selected':'')+'>'+v+'</option>').join(''); }
+fillSel('oN',[5,10,15,20,30,50].filter(v=>v<=MAX_ROUNDS),10); fillSel('oL',[5,10,15,20,30],15); fillSel('oG',[3,5,10,15],3);
+
+/* ----- เริ่ม/จบเกม (โฮสต์คุม) ----- */
+function startRoom(){
+  if(!online||!online.host) return;
+  const n=+$('oN').value, clip=+$('oL').value, grace=+$('oG').value;
+  const qs=buildOrder(n).map(s=>({song:{title:s.title,url:s.url,alt:s.alt||'',start:s.start,vocal:s.vocal||'',composer:s.composer||'',arr:s.arr||'',date:s.date||''},choices:makeChoices(s)}));
+  Object.values(online.roster).forEach(r=>{ r.score=0; r.ans=false; r.ready=false; });
+  online.started=true; online.i=0;
+  const msg={t:'start',qs,clip,grace};
+  sendAll(msg); broadcastState(); beginOnline(msg);
+}
+function beginOnline(m){
+  online.started=true; online.qs=m.qs; online.i=0;
+  order=m.qs.map(q=>q.song); CLIP_SECONDS=m.clip; GRACE_SECONDS=m.grace; idx=0; score=0;
+  resetModal(); $('modal').style.display="none"; showScreen(null);
+  document.querySelector('.wrap').classList.add('online'); renderPlayers(); showQuestion();
+}
+function onQ(i){ online.i=i; idx=i; showQuestion(); }
+function netAnswer(ok){ if(online.host) hostAns('H',ok,online.i); else { try{online.hostConn.send({t:'ans',ok,i:idx});}catch(e){} } }
+function hostAns(id,ok,i){
+  const r=online.roster[id]; if(!r||r.ans||i!==online.i) return;
+  r.ans=true; if(ok) r.score+=POINTS; broadcastState();
+}
+function netReady(){
+  $('skipBtn').disabled=true; $('skipBtn').textContent="รอผู้เล่นอื่น...";
+  if(online.host){ online.roster.H.ready=true; broadcastState(); checkAdvance(); }
+  else { try{online.hostConn.send({t:'ready',i:idx});}catch(e){} }
+}
+function checkAdvance(){
+  if(!online||!online.host||!online.started) return;
+  if(Object.values(online.roster).every(r=>r.ready)) advance();
+}
+function advance(){
+  if(online.i>=online.qs.length-1){
+    online.started=false; const l=rosterList(); sendAll({t:'end',list:l}); applyState(l); endOnline(l); return;
+  }
+  Object.values(online.roster).forEach(r=>{ r.ans=false; r.ready=false; });
+  online.i++; broadcastState(); sendAll({t:'q',i:online.i}); onQ(online.i);
+}
+function forceNext(){ if(online&&online.host&&online.started){ Object.values(online.roster).forEach(r=>r.ready=true); advance(); } }
+function endOnline(list){
+  online.started=false; clearTimers(); pause(); stopReveal();
+  const sorted=[...list].sort((a,b)=>b.score-a.score), medals=['🥇','🥈','🥉'];
+  $('finalLbl').textContent="อันดับผู้เล่น"; $('final').style.display="none";
+  $('rank').innerHTML=sorted.map((p,k)=>'<div class="pl'+(p.id===online.myId?' me':'')+'"><span class="nm">'+(medals[k]||(k+1)+'.')+' '+esc(p.name)+'</span><span class="sc">'+p.score+'</span></div>').join('');
+  $('restartBtn').style.display=online.host?'':'none'; $('restartBtn').textContent="กลับห้อง (เล่นใหม่)";
+  $('modal').style.display="flex";
+}
+function returnLobby(){
+  Object.values(online.roster).forEach(r=>{ r.score=0; r.ans=false; r.ready=false; });
+  sendAll({t:'lobby'}); backToLobby(); broadcastState();
+}
+function backToLobby(){
+  online.started=false; clearTimers(); pause(); $('modal').style.display="none"; resetModal(); enterLobby(); renderPlayers();
+}
+function leaveRoom(){
+  if(online){ online.leaving=true; try{online.peer.destroy();}catch(e){} }
+  online=null; clearTimers(); pause(); resetModal();
+  $('modal').style.display="none"; document.querySelector('.wrap').classList.remove('online'); renderPlayers();
+  showScreen('startScreen');
+}
+
+/* ----- แถบผู้เล่นด้านซ้าย ----- */
+function renderPlayers(){
+  const el=$('players');
+  if(!online||!online.players){ el.innerHTML=''; return; }
+  el.innerHTML='<div class="plt">ผู้เล่น '+online.players.length+'/'+MAXP+'</div>'+online.players.map(p=>{
+    const st=!online.started?'':(p.ready?'<div class="st ok">⏭ พร้อมไปต่อ</div>':p.ans?'<div class="st ok">✓ ตอบแล้ว</div>':'<div class="st">… ยังไม่ตอบ</div>');
+    return '<div class="pl'+(p.id===online.myId?' me':'')+'"><div><div class="nm">'+(p.host?'👑 ':'')+esc(p.name)+'</div>'+st+'</div><div class="sc">'+p.score+'</div></div>';
+  }).join('')+(online.host&&online.started?'<button class="chip" id="forceBtn" style="width:100%;margin-top:4px">ไปข้อต่อไปทันที</button>':'');
+}
+$('players').onclick=e=>{ if(e.target.id==='forceBtn') forceNext(); };
+
+/* ----- ปุ่มต่างๆ ----- */
+$('onlineBtn').onclick=()=>{ try{ $('nameIn').value=localStorage.getItem('vq_name')||''; }catch(e){} onMsg(''); showScreen('onlineScreen'); };
+$('onBack').onclick=()=>showScreen('startScreen');
+const getName=()=>{ const n=$('nameIn').value.trim(); if(!n){ onMsg('⚠ กรอกชื่อก่อน'); return null; } try{localStorage.setItem('vq_name',n);}catch(e){} return n; };
+$('createBtn').onclick=async()=>{ const n=getName(); if(!n) return; onMsg('กำลังสร้างห้อง...'); try{ await createRoom(n); onMsg(''); }catch(e){ onMsg('⚠ '+e.message); } };
+$('joinBtn').onclick=async()=>{ const n=getName(); if(!n) return; const c=$('codeIn').value.trim().toUpperCase(); if(c.length!==4){ onMsg('⚠ รหัสห้องต้องมี 4 ตัว'); return; } onMsg('กำลังเข้าร่วม...'); try{ await joinRoom(c,n); onMsg(''); }catch(e){ onMsg('⚠ '+e.message); } };
+$('startRoomBtn').onclick=startRoom;
+$('leaveBtn').onclick=leaveRoom;
+</script>
+</body>
+</html>
