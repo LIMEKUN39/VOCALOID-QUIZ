@@ -74,6 +74,7 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
 .addttl{font-weight:600;color:var(--g2);margin-bottom:10px;text-align:center}
 .addbox input{width:100%;padding:11px 12px;margin-bottom:8px;border:2px solid #b7e4e0;border-radius:10px;font:inherit;font-size:.9rem;color:var(--text);background:#fff}
 .addbox input:focus{outline:none;border-color:var(--g)}
+#addScreen .addbox{margin-top:0;padding-top:0;border-top:0}
 .addbox .more{margin-bottom:10px}
 .addbox .more summary{cursor:pointer;font-size:.82rem;color:var(--mute);margin-bottom:8px}
 .addbox .row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
@@ -94,6 +95,7 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
 .pl .sc{font-weight:700;font-size:1.1rem;color:var(--g2)}
 .rank{text-align:left;margin:10px 0 16px}
 .skip:disabled{opacity:.6;cursor:default}
+.opt.picked{background:#c7ece8;border-color:var(--g2)}
 .wrap.online{max-width:1240px}
 .wrap.online .players{display:block}
 @media(min-width:860px){.wrap.online .layout{grid-template-columns:minmax(0,1fr) 290px}.wrap.online .players{grid-column:1/-1}}
@@ -114,6 +116,7 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
   <h1>VOCALOID<br>QUIZ</h1><p>ฟังเพลงใบ้แล้วทายชื่อเพลง</p>
   <button class="go" id="goBtn">เล่นคนเดียว</button>
   <button class="go alt" id="onlineBtn">ห้องออนไลน์ (สูงสุด 8 คน)</button>
+  <button class="chip" id="addOpenBtn" style="margin-top:18px">➕ เพิ่มเพลงเอง</button>
 </div></div>
 <div class="screen hide" id="setupScreen"><div class="panel">
   <h2>จะทายกี่เพลง?</h2>
@@ -126,8 +129,11 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
   <div class="chips" id="graceChips"></div>
   <div class="note" id="note"></div>
   <button class="go" id="playBtn">เริ่มเล่น</button>
+</div></div>
+<div class="screen hide" id="addScreen"><div class="panel">
+  <h2>เพิ่มเพลงเอง</h2>
+  <div class="note" id="libCount" style="min-height:0;margin-bottom:12px"></div>
   <div class="addbox">
-    <div class="addttl">➕ เพิ่มเพลง</div>
     <input id="fTitle" type="text" placeholder="ชื่อเพลง">
     <input id="fUrl" type="url" placeholder="ลิงก์ YouTube (วางได้เลย)">
     <input id="fStart" type="text" inputmode="numeric" placeholder="เวลาเริ่มเล่น เช่น 0:45 หรือ 45">
@@ -140,6 +146,7 @@ body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:c
     <div class="row"><button class="chip" id="addBtn">เพิ่มเข้าคลัง</button><button class="chip" id="clrBtn">ล้างเพลงที่เพิ่มเอง</button></div>
     <div class="note" id="addMsg" style="margin:8px 0 0"></div>
   </div>
+  <button class="chip" id="addBack" style="margin-top:14px">← กลับหน้าหลัก</button>
 </div></div>
 <div class="screen hide" id="onlineScreen"><div class="panel">
   <h2>ห้องออนไลน์</h2>
@@ -199,6 +206,9 @@ Vampire | https://www.youtube.com/watch?v=e1xCOsgWG0M | 0:55 |  | Hatsune Miku |
 Love is War | https://www.youtube.com/watch?v=-8oMArcHEp8 | 0:50 | https://www.youtube.com/watch?v=qWRMoi8P8kc | Hatsune Miku | ryo (supercell) | ryo (supercell) | ราวปี 2008
 Hibana | https://www.youtube.com/watch?v=hxSg2Ioz3LM | 0:45 |  | Hatsune Miku (เสียงประสานอังกฤษ: Mes) | DECO*27 | Rockwell | 4 สิงหาคม 2017
 Mesmerizer | https://www.youtube.com/watch?v=19y8YTbvri8 | 0:40 | https://www.youtube.com/watch?v=ibjWftkJrd4 | Hatsune Miku, Kasane Teto | 32ki | 32ki | ราวปี 2024
+Black Rock Shooter | https://www.youtube.com/watch?v=axw8DFXr23o | 0:50 | https://www.youtube.com/watch?v=sqt8WiKOG1g | Hatsune Miku | ryo (supercell) | ryo (supercell) | 13 มิถุนายน 2008
+Like a Shooting Star | https://www.youtube.com/watch?v=teA1BPNCAQY | 0:50 | https://www.youtube.com/watch?v=238bgxS9QJE | Hatsune Miku V6 | Crusher | YZYX | 9 มีนาคม 2026
+Exorcist | https://www.youtube.com/watch?v=TzH5BsJj81Y | 0:50 |  | Ui, Gemini (TTS), Hatsune Miku, Kasane Teto (คอรัส) | Something's off with my Vocaloid |  | 31 กรกฎาคม 2026
 `;
 
 const ytId = u => (String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/)||[])[1];
@@ -226,7 +236,7 @@ function loadCustom(){ try{ (JSON.parse(localStorage.getItem(CUSTOM_KEY)||'[]'))
 function saveCustom(list){ try{ localStorage.setItem(CUSTOM_KEY,JSON.stringify(list)); }catch(e){} }
 loadCustom();
 /* ชื่อเพลงหลอก (ใช้เป็นตัวเลือกผิดเพิ่มเติม) */
-const DECOYS = ["Matryoshka","Po Pi Po","Kokoro","Sweet Devil","Triple Baka","Magnet","Black Rock Shooter","Ievan Polkka","Kimagure Mercy"];
+const DECOYS = ["Matryoshka","Po Pi Po","Kokoro","Sweet Devil","Triple Baka","Magnet","Ievan Polkka","Kimagure Mercy"];
 const MAX_ROUNDS = 50;   // จำนวนเพลงสูงสุดที่เลือกได้
 const POINTS = 10;
 let CLIP_SECONDS = 15;   // เวลาฟังเพลง (เลือกได้ที่หน้าตั้งค่า)
@@ -263,14 +273,15 @@ function pause(){ if(ready) try{player.pauseVideo();}catch(e){} }
 function clearTimers(){ clearInterval(tick); clearInterval(revTick); tick=revTick=null; }
 
 /* เริ่มฟัง (ฟังได้ครั้งเดียว) */
-function startListen(){
+function startListen(auto){
+  if(online&&!auto){ if(phase==='playing'&&ready) try{player.playVideo();}catch(e){} return; }
   if(phase!=='idle') return;
-  if(!ready){ $('hint').textContent="กำลังโหลดตัวเล่น... ลองอีกครั้งในอีกสักครู่"; return; }
+  if(!ready){ $('hint').textContent="กำลังโหลดตัวเล่น... ลองอีกครั้งในอีกสักครู่"; if(online) setTimeout(()=>{ if(online&&phase==='idle') startListen(true); },500); return; }
   phase='playing'; loadClip();
   $('opts').classList.remove('wait');
   document.querySelectorAll('.opt').forEach(b=>b.disabled=false);
   $('hint').textContent="เลือกคำตอบได้เลย";
-  $('big').className=""; $('small').textContent="กำลังเล่น...";
+  $('big').className=""; $('small').textContent="กำลังเล่น..."+(online?" (ไม่ได้ยินเสียง? แตะที่กรอบ)":"");
   let t0=Date.now();
   const loop=()=>{
     const el=(Date.now()-t0)/1000;
@@ -278,13 +289,13 @@ function startListen(){
       if(el>=CLIP_SECONDS){
         pause(); phase='grace'; t0=Date.now();
         $('cover').classList.add('warn'); $('bar').classList.add('warn');
-        $('small').textContent="หมดเวลาฟังแล้ว! รีบตอบ"; $('big').textContent=GRACE_SECONDS; $('bar').style.width="0";
+        $('small').textContent=(online&&online.picked)?"หมดเวลาฟังแล้ว รอเฉลย...":"หมดเวลาฟังแล้ว! รีบตอบ"; $('big').textContent=GRACE_SECONDS; $('bar').style.width="0";
         return;
       }
       $('big').textContent=Math.ceil(CLIP_SECONDS-el);
       $('bar').style.width=(el/CLIP_SECONDS*100)+"%";
     } else if(phase==='grace'){
-      if(el>=GRACE_SECONDS){ answer(null,null); return; }   // หมดเวลา = ผิด
+      if(el>=GRACE_SECONDS){ if(online) onlineTimeout(); else answer(null,null); return; }   // หมดเวลา = ผิด
       $('big').textContent=Math.ceil(GRACE_SECONDS-el);
       $('bar').style.width=(el/GRACE_SECONDS*100)+"%";
     }
@@ -344,22 +355,25 @@ function showInfo(song){
 function resetInfo(){ const el=$('info'); el.className='info empty'; el.textContent='ข้อมูลเพลงจะแสดงที่นี่หลังตอบ'; }
 function showQuestion(){
   resetInfo(); getInfo(order[idx]);
+  if(online){ online.picked=false; online.myChoice=null; online.rev=false; }
   clearTimers(); pause(); phase='idle';
   $('cover').classList.remove('off','warn'); $('bar').classList.remove('warn'); $('bar').style.width="0";
   $('skipBtn').style.display="none"; $('skipBtn').disabled=false;
   $('big').className="icon"; $('big').textContent="▶"; $('small').textContent="แตะเพื่อเริ่มฟัง ("+CLIP_SECONDS+" วินาที ฟังได้ครั้งเดียว)";
   const s=order[idx];
   $('qNo').textContent=idx+1; $('qTotal').textContent=order.length; $('score').textContent=score;
-  $('hint').textContent="กดที่กรอบเพื่อเริ่มฟังก่อนตอบ";
+  $('hint').textContent=online?"เตรียมพร้อม! เพลงจะเริ่มพร้อมกันทุกคน":"กดที่กรอบเพื่อเริ่มฟังก่อนตอบ";
   $('opts').innerHTML=""; $('opts').classList.add('wait');
   (online&&online.qs?online.qs[idx].choices:makeChoices(s)).forEach(c=>{
     const b=document.createElement('button');
     b.className="opt"; b.innerHTML="<span></span>"; b.firstChild.textContent=c; b.disabled=true; b.onclick=()=>answer(b,c);
     $('opts').appendChild(b);
   });
+  if(online) startCountdown();
 }
 
 function answer(btn,choice){
+  if(online) return onlineAnswer(btn,choice);
   if(phase!=='playing' && phase!=='grace') return;
   phase='done'; clearTimers(); pause();
   const right=order[idx].title;
@@ -392,8 +406,8 @@ function stopReveal(){
 }
 
 function next(){
+  if(online){ if(phase==='done'){ stopReveal(); netReady(); } else netSkip(); return; }
   stopReveal();
-  if(online){ netReady(); return; }
   if(idx<order.length-1){ idx++; showQuestion(); }
   else { $('final').textContent=score+" / "+order.length*POINTS; $('modal').style.display="flex"; }
 }
@@ -445,29 +459,29 @@ $('addBtn').onclick=()=>{
   SONGS.push(o); saveCustom(customList().concat([o]));
   ['fTitle','fUrl','fStart','fVocal','fComposer','fArr','fDate'].forEach(id=>$(id).value="");
   $('addMsg').textContent="เพิ่ม \""+title+"\" แล้ว (คลังมี "+SONGS.length+" เพลง)";
-  updateCount(+$('range').value);
+  updateCount(+$('range').value); libInfo();
 };
 $('clrBtn').onclick=()=>{
   const n=customList().length; if(!n){ $('addMsg').textContent="ไม่มีเพลงที่เพิ่มเอง"; return; }
   if(!confirm("ล้างเพลงที่เพิ่มเอง "+n+" เพลง?")) return;
   const urls=new Set(customList().map(x=>x.url));
   for(let i=SONGS.length-1;i>=0;i--) if(urls.has(SONGS[i].url)) SONGS.splice(i,1);
-  saveCustom([]); $('addMsg').textContent="ล้างแล้ว "+n+" เพลง"; updateCount(+$('range').value);
+  saveCustom([]); $('addMsg').textContent="ล้างแล้ว "+n+" เพลง"; updateCount(+$('range').value); libInfo();
 };
 $('goBtn').onclick=()=>{ $('startScreen').classList.add('hide'); $('setupScreen').classList.remove('hide'); updateCount(10); };
 $('playBtn').onclick=()=>{ CLIP_SECONDS=selListen; GRACE_SECONDS=selGrace; lastN=+$('range').value; $('setupScreen').classList.add('hide'); start(lastN); };
-$('cover').onclick=startListen;
+$('cover').onclick=()=>startListen(false);
 $('skipBtn').onclick=next;
 $('restartBtn').onclick=()=>{ if(online) returnLobby(); else start(lastN); };   // เริ่มใหม่ด้วยการตั้งค่าเดิม
 $('homeBtn').onclick=()=>{ if(online){ leaveRoom(); return; } $('modal').style.display="none"; clearTimers(); pause(); $('startScreen').classList.remove('hide'); };
 
 /* ================= ห้องออนไลน์ (PeerJS: โฮสต์เป็นผู้คุมเกม ผู้เล่นต่อตรงถึงโฮสต์) ================= */
 const PEER_SRC="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js";
-const MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -510,17 +524,18 @@ function hostMsg(conn,m){
     online.conns[id]=conn; online.roster[id]={name:uniqueName(m.name),score:0,ans:false,ready:false};
     send({t:'welcome',id}); broadcastState();
   } else if(m.t==='ans' && r){ hostAns(id,!!m.ok,m.i); }
-  else if(m.t==='ready' && r){ r.ready=true; broadcastState(); checkAdvance(); }
+  else if(m.t==='skip' && r){ if(r.ans && !online.rev){ r.skip=true; broadcastState(); checkSkip(); } }
+  else if(m.t==='ready' && r){ if(online.rev){ r.ready=true; broadcastState(); checkAdvance(); } }
 }
 function dropPlayer(id){
   if(!online||!online.host||!online.roster[id]) return;
   delete online.conns[id]; delete online.roster[id];
-  broadcastState(); if(online.started) checkAdvance();
+  broadcastState(); if(online.started){ if(online.rev) checkAdvance(); else checkSkip(); }
 }
-const rosterList=()=>Object.entries(online.roster).map(([id,r])=>({id,name:r.name,score:r.score,ans:r.ans,ready:r.ready,host:id==='H'}));
+const rosterList=()=>Object.entries(online.roster).map(([id,r])=>({id,name:r.name,score:r.score,ans:r.ans,skip:!!r.skip,ready:r.ready,host:id==='H'}));
 const sendAll=o=>Object.values(online.conns).forEach(c=>{ try{ if(c.open) c.send(o); }catch(e){} });
 function broadcastState(){ const l=rosterList(); sendAll({t:'state',list:l}); applyState(l); }
-function applyState(l){ online.players=l; renderPlayers(); renderLobby(); }
+function applyState(l){ online.players=l; renderPlayers(); renderLobby(); const me=l.find(p=>p.id===online.myId); if(me&&online.started) $('score').textContent=me.score; }
 
 /* ----- เข้าร่วมห้อง (ผู้เล่น) ----- */
 async function joinRoom(code,name){
@@ -550,6 +565,7 @@ function guestMsg(m){
   if(m.t==='state') applyState(m.list);
   else if(m.t==='start') beginOnline(m);
   else if(m.t==='q') onQ(m.i);
+  else if(m.t==='reveal') onlineReveal(m.list);
   else if(m.t==='end') endOnline(m.list);
   else if(m.t==='lobby') backToLobby();
 }
@@ -576,7 +592,7 @@ function startRoom(){
   Object.values(online.roster).forEach(r=>{ r.score=0; r.ans=false; r.ready=false; });
   online.started=true; online.i=0;
   const msg={t:'start',qs,clip,grace};
-  sendAll(msg); broadcastState(); beginOnline(msg);
+  sendAll(msg); broadcastState(); beginOnline(msg); hostQStart();
 }
 function beginOnline(m){
   online.started=true; online.qs=m.qs; online.i=0;
@@ -585,28 +601,84 @@ function beginOnline(m){
   document.querySelector('.wrap').classList.add('online'); renderPlayers(); showQuestion();
 }
 function onQ(i){ online.i=i; idx=i; showQuestion(); }
+function hostQStart(){
+  clearTimeout(online.revTimer); clearTimeout(online.qTimer); online.rev=false;
+  Object.values(online.roster).forEach(r=>{ r.ans=false; r.skip=false; r.ready=false; r.pend=0; });
+  online.qTimer=setTimeout(hostReveal,(COUNTDOWN+CLIP_SECONDS+GRACE_SECONDS)*1000+800);
+}
 function netAnswer(ok){ if(online.host) hostAns('H',ok,online.i); else { try{online.hostConn.send({t:'ans',ok,i:idx});}catch(e){} } }
 function hostAns(id,ok,i){
-  const r=online.roster[id]; if(!r||r.ans||i!==online.i) return;
-  r.ans=true; if(ok) r.score+=POINTS; broadcastState();
+  const r=online.roster[id]; if(!r||r.ans||i!==online.i||online.rev) return;
+  r.ans=true; r.pend=ok?POINTS:0; broadcastState();   // คะแนนจะนับตอนเฉลย (ไม่เปิดเผยว่าใครถูก/ผิดก่อน)
+}
+function netSkip(){
+  $('skipBtn').disabled=true; $('skipBtn').textContent="รอทุกคนกดข้าม...";
+  if(online.host){ online.roster.H.skip=true; broadcastState(); checkSkip(); }
+  else { try{online.hostConn.send({t:'skip',i:idx});}catch(e){} }
 }
 function netReady(){
   $('skipBtn').disabled=true; $('skipBtn').textContent="รอผู้เล่นอื่น...";
   if(online.host){ online.roster.H.ready=true; broadcastState(); checkAdvance(); }
   else { try{online.hostConn.send({t:'ready',i:idx});}catch(e){} }
 }
+function checkSkip(){
+  if(!online||!online.host||!online.started||online.rev) return;
+  if(Object.values(online.roster).every(r=>r.skip)) hostReveal();
+}
 function checkAdvance(){
-  if(!online||!online.host||!online.started) return;
+  if(!online||!online.host||!online.started||!online.rev) return;
   if(Object.values(online.roster).every(r=>r.ready)) advance();
 }
+function hostReveal(){
+  if(!online||!online.host||!online.started||online.rev) return;
+  online.rev=true; clearTimeout(online.qTimer);
+  Object.values(online.roster).forEach(r=>{ r.score+=r.pend||0; r.pend=0; r.skip=false; r.ready=false; });
+  const l=rosterList(); sendAll({t:'reveal',list:l}); applyState(l); onlineReveal(l);
+  online.revTimer=setTimeout(advance,(CLIP_SECONDS+3)*1000);   // เฉลยจบแล้วไปข้อต่อไปเอง
+}
 function advance(){
+  clearTimeout(online.revTimer); clearTimeout(online.qTimer);
   if(online.i>=online.qs.length-1){
     online.started=false; const l=rosterList(); sendAll({t:'end',list:l}); applyState(l); endOnline(l); return;
   }
-  Object.values(online.roster).forEach(r=>{ r.ans=false; r.ready=false; });
-  online.i++; broadcastState(); sendAll({t:'q',i:online.i}); onQ(online.i);
+  online.i++; hostQStart(); broadcastState(); sendAll({t:'q',i:online.i}); onQ(online.i);
 }
-function forceNext(){ if(online&&online.host&&online.started){ Object.values(online.roster).forEach(r=>r.ready=true); advance(); } }
+function forceNext(){ if(!online||!online.host||!online.started) return; if(online.rev) advance(); else hostReveal(); }
+
+/* ----- ฝั่งผู้เล่น: นับถอยหลัง / ตอบ / หมดเวลา / เฉลย ----- */
+function startCountdown(){
+  clearTimers(); phase='cd'; $('cover').classList.remove('off','warn'); $('bar').classList.remove('warn');
+  const t0=Date.now();
+  const step=()=>{
+    const el=(Date.now()-t0)/1000;
+    if(el>=COUNTDOWN){ clearInterval(tick); tick=null; phase='idle'; startListen(true); return; }
+    $('big').className=""; $('big').textContent=Math.ceil(COUNTDOWN-el);
+    $('small').textContent="เตรียมพร้อม... เพลงจะเริ่มพร้อมกัน"; $('bar').style.width=(el/COUNTDOWN*100)+"%";
+  };
+  step(); tick=setInterval(step,100);
+}
+function onlineAnswer(btn,choice){
+  if((phase!=='playing'&&phase!=='grace')||online.picked) return;
+  online.picked=true; online.myChoice=choice; btn.classList.add('picked');
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  $('hint').textContent="ตอบแล้ว! รอเฉลย — กดข้ามเพื่อดูเฉลยเร็วขึ้นได้";
+  $('skipBtn').disabled=false; $('skipBtn').textContent="ข้ามไปเฉลย ⏭"; $('skipBtn').style.display="block";
+  netAnswer(choice===order[idx].title);
+}
+function onlineTimeout(){
+  clearTimers(); pause(); phase='wait';
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  $('skipBtn').style.display="none"; $('big').textContent="…"; $('small').textContent="รอเฉลย...";
+  $('hint').textContent=online.picked?"ตอบแล้ว! รอเฉลย...":"⏱ หมดเวลา รอเฉลย...";
+}
+function onlineReveal(list){
+  online.rev=true; clearTimers(); pause(); phase='done';
+  const right=order[idx].title, my=online.myChoice;
+  document.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; b.classList.remove('picked'); const t=b.textContent; if(t===right) b.classList.add('correct'); else if(my&&t===my) b.classList.add('wrong'); });
+  $('hint').textContent = my===right ? "✔ ถูกต้อง! +"+POINTS : (my ? "✘ คำตอบที่ถูกคือ "+right : "⏱ ไม่ได้ตอบ คำตอบคือ "+right);
+  applyState(list); showInfo(order[idx]); reveal();
+  $('skipBtn').disabled=false; $('skipBtn').textContent = idx===order.length-1 ? "ดูผลสรุป ⏭" : "ไปข้อต่อไป ⏭"; $('skipBtn').style.display="block";
+}
 function endOnline(list){
   online.started=false; clearTimers(); pause(); stopReveal();
   const sorted=[...list].sort((a,b)=>b.score-a.score), medals=['🥇','🥈','🥉'];
@@ -634,15 +706,18 @@ function renderPlayers(){
   const el=$('players');
   if(!online||!online.players){ el.innerHTML=''; return; }
   el.innerHTML='<div class="plt">ผู้เล่น '+online.players.length+'/'+MAXP+'</div>'+online.players.map(p=>{
-    const st=!online.started?'':(p.ready?'<div class="st ok">⏭ พร้อมไปต่อ</div>':p.ans?'<div class="st ok">✓ ตอบแล้ว</div>':'<div class="st">… ยังไม่ตอบ</div>');
+    const st=!online.started?'':(online.rev?(p.ready?'<div class="st ok">⏭ พร้อมไปต่อ</div>':'<div class="st">👀 ดูเฉลย</div>'):(p.skip?'<div class="st ok">⏭ กดข้ามแล้ว</div>':p.ans?'<div class="st ok">✓ ตอบแล้ว</div>':'<div class="st">… ยังไม่ตอบ</div>'));
     return '<div class="pl'+(p.id===online.myId?' me':'')+'"><div><div class="nm">'+(p.host?'👑 ':'')+esc(p.name)+'</div>'+st+'</div><div class="sc">'+p.score+'</div></div>';
-  }).join('')+(online.host&&online.started?'<button class="chip" id="forceBtn" style="width:100%;margin-top:4px">ไปข้อต่อไปทันที</button>':'');
+  }).join('')+(online.host&&online.started?'<button class="chip" id="forceBtn" style="width:100%;margin-top:4px">'+(online.rev?'ไปข้อต่อไปทันที':'ข้ามไปเฉลยทันที')+'</button>':'');
 }
 $('players').onclick=e=>{ if(e.target.id==='forceBtn') forceNext(); };
 
 /* ----- ปุ่มต่างๆ ----- */
 $('onlineBtn').onclick=()=>{ try{ $('nameIn').value=localStorage.getItem('vq_name')||''; }catch(e){} onMsg(''); showScreen('onlineScreen'); };
 $('onBack').onclick=()=>showScreen('startScreen');
+const libInfo=()=>{ $('libCount').textContent="ตอนนี้ในคลังมี "+SONGS.length+" เพลง"; };
+$('addOpenBtn').onclick=()=>{ $('addMsg').textContent=''; libInfo(); showScreen('addScreen'); };
+$('addBack').onclick=()=>showScreen('startScreen');
 const getName=()=>{ const n=$('nameIn').value.trim(); if(!n){ onMsg('⚠ กรอกชื่อก่อน'); return null; } try{localStorage.setItem('vq_name',n);}catch(e){} return n; };
 $('createBtn').onclick=async()=>{ const n=getName(); if(!n) return; onMsg('กำลังสร้างห้อง...'); try{ await createRoom(n); onMsg(''); }catch(e){ onMsg('⚠ '+e.message); } };
 $('joinBtn').onclick=async()=>{ const n=getName(); if(!n) return; const c=$('codeIn').value.trim().toUpperCase(); if(c.length!==4){ onMsg('⚠ รหัสห้องต้องมี 4 ตัว'); return; } onMsg('กำลังเข้าร่วม...'); try{ await joinRoom(c,n); onMsg(''); }catch(e){ onMsg('⚠ '+e.message); } };
