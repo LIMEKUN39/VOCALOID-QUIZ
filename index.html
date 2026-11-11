@@ -179,12 +179,6 @@ button{-webkit-tap-highlight-color:transparent}
 .addbox .row{display:flex;gap:8px;justify-content:flex-start;flex-wrap:wrap}
 
 /* ห้องออนไลน์ / ล็อบบี้ */
-.code{display:inline-block;margin-left:6px;padding:0 10px 0 .7em;border:2px dashed var(--teal-d);border-radius:10px;background:var(--mint);color:var(--teal-d);font:700 1.5rem/1.5 var(--disp);letter-spacing:.3em;cursor:pointer}
-.code:hover{background:var(--mint2)}
-.lobbylist{margin:14px 0;text-align:left}
-.lobbycfg{text-align:left;margin-top:8px}
-.lobbycfg .lbl{margin-top:12px}
-.lobbycfg .go{margin-top:6px}
 
 .players{display:none;text-align:left}
 .plt{margin-bottom:8px;font:600 .9rem var(--disp);color:var(--mute)}
@@ -227,6 +221,59 @@ button{-webkit-tap-highlight-color:transparent}
 .box .ghost:hover{background:var(--mint)}
 .box .ghost:active{box-shadow:0 1px 0 var(--mint2)}
 
+
+/* ============ หน้ารอง: คอลัมน์ข้อความชิดซ้าย + แผงเนื้อหา ============ */
+.page{margin:auto;width:100%;max-width:980px;display:grid;grid-template-columns:minmax(0,1fr);gap:22px;align-items:start;padding:4px 0}
+@media(min-width:900px){.page{grid-template-columns:330px minmax(0,1fr);gap:64px}}
+.page .panel{margin:0;max-width:540px}
+.side h2{margin:14px 0 10px;font:700 clamp(2rem,7vw,2.8rem)/1.05 var(--disp);letter-spacing:-.025em}
+.side p{margin:0;max-width:28ch;color:var(--mute)}
+.back{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:6px 14px 6px 6px;margin-left:-6px;border:0;border-radius:10px;background:transparent;color:var(--mute);font-weight:600;cursor:pointer}
+.back svg{width:20px;height:20px;flex:none}
+.back:hover{background:var(--mint);color:var(--teal-d)}
+.fl{display:block;margin:0 0 7px;font-size:.88rem;font-weight:600;color:var(--mute)}
+.sec{margin-top:20px;padding-top:20px;border-top:2px solid var(--mint2)}
+.hintx{margin:-4px 0 12px;font-size:.8rem;color:var(--mute)}
+
+/* ตัวเลือกแบบแถบต่อเนื่อง */
+.seg{gap:0;margin:0;border:2px solid var(--teal-d);border-radius:12px;overflow:hidden;background:#fff}
+.seg .chip{flex:1;min-width:0;min-height:46px;padding:6px 4px;border:0;border-radius:0;border-left:2px solid var(--mint2)}
+.seg .chip:first-child{border-left:0}
+
+/* ช่องกรอกคู่กับปุ่ม */
+.joinrow{display:flex;gap:10px;align-items:stretch}
+.joinrow .tin{flex:1;min-width:0;margin:0}
+.joinrow .go{flex:none;width:auto;margin:0;padding:0 22px}
+.codein{text-transform:uppercase;text-align:center;letter-spacing:.35em;font:600 1.2rem var(--disp)}
+.or{display:flex;align-items:center;gap:12px;margin:22px 0 16px;font-size:.85rem;color:var(--mute)}
+.or::before,.or::after{content:"";flex:1;height:2px;background:var(--mint2)}
+.lobbycfg select{-webkit-appearance:none;appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%230f766e' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:18px}
+
+/* ล็อบบี้ */
+.code{display:block;width:fit-content;margin:4px 0 14px;padding:4px 14px 4px calc(14px + .3em);border:2px dashed var(--teal-d);border-radius:14px;background:#fff;color:var(--teal-d);font:700 clamp(2.8rem,12vw,4.2rem)/1.15 var(--disp);letter-spacing:.3em;cursor:pointer}
+.code:hover{background:var(--mint)}
+.lobbylist{margin:0 0 18px;text-align:left}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.slots .pl{margin:0;min-height:46px}
+.pl.empty{border-style:dashed;background:transparent;color:var(--mute)}
+.pl.empty .nm{font-weight:400}
+.lobbycfg{margin:0;padding-top:20px;border-top:2px solid var(--mint2);text-align:left}
+.cfg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.cfg select{margin:0}
+.wait{display:flex;align-items:center;gap:10px;margin:0;min-height:0;padding:12px 14px;border:2px dashed var(--line);border-radius:12px;color:var(--mute);font-size:.92rem}
+.wait::before{content:"";flex:none;width:10px;height:10px;border-radius:50%;background:var(--teal);animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.25}}
+
+/* อันดับ */
+#lbList>.pl:nth-child(1) .rk{background:var(--deep)}
+#lbList>.pl:nth-child(3) .rk{background:#5eead4;color:var(--ink)}
+
+/* สรุปผล */
+.meter{height:10px;margin:0 0 10px;border-radius:99px;background:var(--mint2);overflow:hidden}
+.meter i{display:block;width:0;height:100%;border-radius:99px;background:var(--teal-d)}
+#finalSub{margin-bottom:18px;color:var(--mute);font-size:.92rem}
+.danger{border-color:transparent;background:transparent;color:var(--red-d);min-height:36px;padding-left:0}
+.danger:hover{background:transparent;color:var(--red);text-decoration:underline;text-underline-offset:4px}
 @media(max-width:420px){
   .panel,.box{padding:24px 18px}
   .opts{gap:8px;padding:0 6px}
@@ -256,77 +303,80 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="vopts"><div class="mo"><span>Melt</span></div><div class="mo"><span>Hibana</span></div><div class="mo ok"><span>Senbonzakura</span></div><div class="mo"><span>Mesmerizer</span></div></div>
   </div>
 </main></div>
-<div class="screen hide" id="setupScreen"><div class="panel">
-  <h2>ตั้งค่าเกม</h2>
-  <div class="lbl" style="margin-top:0">จำนวนเพลง</div>
-  <div class="cnt"><span id="cnt">10</span> <small>เพลง</small></div>
-  <input type="range" id="range" min="1" max="50" value="10" aria-label="จำนวนเพลง">
-  <div class="chips" id="chips"></div>
-  <div class="lbl">เวลาฟังเพลง (วินาที)</div>
-  <div class="chips" id="listenChips"></div>
-  <div class="lbl">เวลานับตอบหลังเพลงจบ (วินาที)</div>
-  <div class="chips" id="graceChips"></div>
-  <div class="note" id="note"></div>
-  <button class="go" id="playBtn">เริ่มเล่น</button>
-  <button class="chip quiet" id="setupBack" style="margin-top:14px">กลับ</button>
+<div class="screen hide" id="setupScreen"><div class="page">
+  <aside class="side"><button class="back" id="setupBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตั้งค่าเกม</h2><p>เลือกจำนวนเพลงและเวลา แล้วเริ่มเล่นได้เลย</p></aside>
+  <div class="panel">
+    <div class="fl">จำนวนเพลง</div>
+    <div class="cnt"><span id="cnt">10</span> <small>เพลง</small></div>
+    <input type="range" id="range" min="1" max="50" value="10" aria-label="จำนวนเพลง">
+    <div class="chips seg" id="chips"></div>
+    <div class="sec"><div class="fl">เวลาฟังเพลง (วินาที)</div><div class="chips seg" id="listenChips"></div></div>
+    <div class="sec"><div class="fl">เวลานับตอบหลังเพลงจบ (วินาที)</div><div class="chips seg" id="graceChips"></div></div>
+    <div class="note" id="note"></div>
+    <button class="go" id="playBtn">เริ่มเล่น</button>
+  </div>
 </div></div>
-<div class="screen hide" id="accountScreen"><div class="panel">
-  <h2>บัญชีของฉัน</h2>
-  <div class="note" id="acctMail" style="min-height:0"></div>
-  <div class="lbl" style="text-align:left">ชื่อที่แสดง (ในห้องออนไลน์และตารางอันดับ)</div>
-  <input class="tin" id="acctName" maxlength="20">
-  <button class="go" id="saveName">บันทึกชื่อ</button>
-  <div class="stats" id="acctStats"></div>
-  <div class="lobbylist" id="acctHist"></div>
-  <div class="note" id="acctMsg" style="min-height:0"></div>
-  <button class="go alt" id="logoutBtn">ออกจากระบบ</button>
-  <button class="chip quiet" id="acctBack" style="margin-top:14px">กลับ</button>
+<div class="screen hide" id="accountScreen"><div class="page">
+  <aside class="side"><button class="back" id="acctBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>บัญชีของฉัน</h2><p id="acctMail" style="word-break:break-all"></p><button class="chip" id="logoutBtn" style="margin-top:22px">ออกจากระบบ</button></aside>
+  <div class="panel">
+    <label class="fl" for="acctName">ชื่อที่แสดง (ในห้องออนไลน์และตารางอันดับ)</label>
+    <div class="joinrow"><input class="tin" id="acctName" maxlength="20"><button class="go" id="saveName">บันทึก</button></div>
+    <div class="note" id="acctMsg" style="min-height:0;margin:8px 0 0"></div>
+    <div class="stats" id="acctStats"></div>
+    <div class="lobbylist" id="acctHist" style="margin:0"></div>
+  </div>
 </div></div>
-<div class="screen hide" id="lbScreen"><div class="panel">
-  <h2>ตารางอันดับ (คะแนนรวม)</h2>
-  <div class="lobbylist" id="lbList">กำลังโหลด...</div>
-  <button class="chip quiet" id="lbBack">กลับ</button>
+<div class="screen hide" id="lbScreen"><div class="page">
+  <aside class="side"><button class="back" id="lbBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตารางอันดับ</h2><p>จัดอันดับจากคะแนนรวมทุกเกม แสดง 20 อันดับแรก</p></aside>
+  <div class="panel"><div class="lobbylist" id="lbList" style="margin:0">กำลังโหลด...</div></div>
 </div></div>
-<div class="screen hide" id="addScreen"><div class="panel">
-  <h2>เพิ่มเพลงเอง</h2>
-  <div class="note" id="libCount" style="min-height:0;margin-bottom:14px"></div>
-  <div class="addbox">
-    <input id="fTitle" type="text" placeholder="ชื่อเพลง">
-    <input id="fUrl" type="url" placeholder="ลิงก์ YouTube (วางได้เลย)">
-    <input id="fStart" type="text" inputmode="numeric" placeholder="เวลาเริ่มเล่น เช่น 0:45 หรือ 45">
+<div class="screen hide" id="addScreen"><div class="page">
+  <aside class="side"><button class="back" id="addBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับหน้าหลัก</button><h2>เพิ่มเพลงเอง</h2><p>เพิ่มเพลงจาก YouTube เข้าคลังของคุณ เพลงที่เพิ่มจะเก็บไว้ในเครื่องนี้ ล็อกอินแล้วซิงก์ข้ามเครื่องได้</p><div class="note" id="libCount" style="min-height:0;margin-top:16px;font-weight:600"></div></aside>
+  <div class="panel addbox">
+    <label class="fl" for="fTitle">ชื่อเพลง</label>
+    <input id="fTitle" type="text" autocomplete="off">
+    <label class="fl" for="fUrl">ลิงก์ YouTube</label>
+    <input id="fUrl" type="url" placeholder="วางลิงก์ได้เลย" autocomplete="off">
+    <label class="fl" for="fStart">เวลาเริ่มเล่น</label>
+    <input id="fStart" type="text" placeholder="เช่น 0:45 หรือ 45" autocomplete="off">
+    <div class="hintx">เลือกช่วงที่จำง่าย เช่น ท่อนฮุก ถ้าเว้นว่างจะเริ่มที่ 0:45</div>
     <details class="more"><summary>ข้อมูลเพิ่มเติม (ไม่บังคับ ถ้าว่างจะดึงจาก VocaDB)</summary>
-      <input id="fVocal" type="text" placeholder="เสียงร้อง">
-      <input id="fComposer" type="text" placeholder="ผู้แต่ง">
-      <input id="fArr" type="text" placeholder="Arrangement">
-      <input id="fDate" type="text" placeholder="วันที่ปล่อย เช่น 7 ธันวาคม 2007">
+      <label class="fl" for="fVocal">เสียงร้อง</label><input id="fVocal" type="text">
+      <label class="fl" for="fComposer">ผู้แต่ง</label><input id="fComposer" type="text">
+      <label class="fl" for="fArr">Arrangement</label><input id="fArr" type="text">
+      <label class="fl" for="fDate">วันที่ปล่อย</label><input id="fDate" type="text" placeholder="เช่น 7 ธันวาคม 2007">
     </details>
-    <div class="row"><button class="chip on" id="addBtn">เพิ่มเข้าคลัง</button><button class="chip" id="clrBtn">ล้างเพลงที่เพิ่มเอง</button></div>
-    <div class="note" id="addMsg" style="margin:10px 0 0"></div>
+    <button class="go" id="addBtn">เพิ่มเข้าคลัง</button>
+    <div class="note" id="addMsg" style="margin:10px 0 4px;min-height:1.4em"></div>
+    <button class="chip danger" id="clrBtn">ล้างเพลงที่เพิ่มเอง</button>
   </div>
-  <button class="chip quiet" id="addBack" style="margin-top:14px">กลับหน้าหลัก</button>
 </div></div>
-<div class="screen hide" id="onlineScreen"><div class="panel">
-  <h2>ห้องออนไลน์</h2>
-  <input class="tin" id="nameIn" maxlength="12" placeholder="ชื่อของคุณ">
-  <button class="go" id="createBtn">สร้างห้อง</button>
-  <div class="lbl">หรือเข้าร่วมห้องของเพื่อน</div>
-  <input class="tin" id="codeIn" maxlength="4" placeholder="รหัสห้อง 4 ตัว" style="text-transform:uppercase;text-align:center;letter-spacing:4px">
-  <button class="go alt" id="joinBtn">เข้าร่วม</button>
-  <div class="note" id="onMsg" style="margin-top:10px"></div>
-  <button class="chip quiet" id="onBack">กลับ</button>
-</div></div>
-<div class="screen hide" id="lobbyScreen"><div class="panel">
-  <h2>ห้อง <span class="code" id="roomCode" role="button" tabindex="0" title="แตะเพื่อคัดลอกรหัส"></span></h2>
-  <div class="note" id="codeNote" style="min-height:0">แตะรหัสเพื่อคัดลอก แล้วส่งให้เพื่อน (สูงสุด 8 คน)</div>
-  <div class="lobbylist" id="lobbyList"></div>
-  <div class="lobbycfg" id="hostCfg">
-    <div class="lbl">จำนวนเพลง</div><select id="oN"></select>
-    <div class="lbl">เวลาฟังเพลง (วินาที)</div><select id="oL"></select>
-    <div class="lbl">เวลานับตอบหลังเพลงจบ (วินาที)</div><select id="oG"></select>
-    <button class="go" id="startRoomBtn">เริ่มเกม</button>
+<div class="screen hide" id="onlineScreen"><div class="page">
+  <aside class="side"><button class="back" id="onBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เล่นกับเพื่อน</h2><p>สร้างห้องแล้วส่งรหัส 4 ตัวให้เพื่อน เล่นพร้อมกันได้สูงสุด 8 คน</p></aside>
+  <div class="panel">
+    <label class="fl" for="nameIn">ชื่อของคุณ</label>
+    <input class="tin" id="nameIn" maxlength="12" placeholder="ไม่เกิน 12 ตัวอักษร" autocomplete="nickname">
+    <button class="go" id="createBtn">สร้างห้องใหม่</button>
+    <div class="or">หรือเข้าห้องของเพื่อน</div>
+    <label class="fl" for="codeIn">รหัสห้อง</label>
+    <div class="joinrow"><input class="tin codein" id="codeIn" maxlength="4" placeholder="A1B2" autocomplete="off"><button class="go alt" id="joinBtn">เข้าร่วม</button></div>
+    <div class="note" id="onMsg" style="margin:12px 0 0;min-height:1.4em;font-weight:500"></div>
   </div>
-  <div class="note" id="waitMsg">รอโฮสต์เริ่มเกม...</div>
-  <button class="chip quiet" id="leaveBtn">ออกจากห้อง</button>
+</div></div>
+<div class="screen hide" id="lobbyScreen"><div class="page">
+  <aside class="side"><button class="back" id="leaveBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>ออกจากห้อง</button><h2>ห้องออนไลน์</h2><div class="fl" style="margin-top:6px">รหัสห้อง</div><span class="code" id="roomCode" role="button" tabindex="0" title="แตะเพื่อคัดลอกรหัส"></span><p id="codeNote">แตะรหัสเพื่อคัดลอก แล้วส่งให้เพื่อน</p></aside>
+  <div class="panel">
+    <div class="lobbylist" id="lobbyList"></div>
+    <div class="lobbycfg" id="hostCfg">
+      <div class="cfg">
+        <div><label class="fl" for="oN">จำนวนเพลง</label><select id="oN"></select></div>
+        <div><label class="fl" for="oL">เวลาฟัง (วิ)</label><select id="oL"></select></div>
+        <div><label class="fl" for="oG">เวลาตอบ (วิ)</label><select id="oG"></select></div>
+      </div>
+      <button class="go" id="startRoomBtn">เริ่มเกม</button>
+    </div>
+    <div class="wait" id="waitMsg">รอโฮสต์เริ่มเกม...</div>
+  </div>
 </div></div>
 <div class="wrap">
   <div class="top">
@@ -346,7 +396,7 @@ button{-webkit-tap-highlight-color:transparent}
   <aside class="info empty" id="info">ข้อมูลเพลงจะแสดงที่นี่หลังตอบ</aside>
   </div>
 </div>
-<div id="modal"><div class="box"><h2>จบเกม</h2><div id="finalLbl">คะแนนรวมของคุณ</div><div id="final">0</div><div class="rank" id="rank"></div><button id="restartBtn">เริ่มใหม่</button><button class="ghost" id="homeBtn">กลับหน้าหลัก</button></div></div>
+<div id="modal"><div class="box"><h2>จบเกมแล้ว</h2><div id="finalLbl">คะแนนรวมของคุณ</div><div id="final">0</div><div id="soloSum" style="display:none"><div class="meter"><i id="meterFill"></i></div><div id="finalSub"></div></div><div class="rank" id="rank"></div><button id="restartBtn">เริ่มใหม่</button><button class="ghost" id="homeBtn">กลับหน้าหลัก</button></div></div>
 
 <script>
 /* ===== คลังเพลง: เพิ่มเพลงได้โดยเติมบรรทัดใหม่ในรายการนี้ =====
@@ -569,7 +619,7 @@ function next(){
   if(online){ if(phase==='done'){ stopReveal(); netReady(); } else netSkip(); return; }
   stopReveal();
   if(idx<order.length-1){ idx++; showQuestion(); }
-  else { $('final').textContent=score+" / "+order.length*POINTS; $('modal').style.display="flex"; saveResult({mode:'solo',score,rounds:order.length,correct:correctCount}); }
+  else { $('final').textContent=score+" / "+order.length*POINTS; $('soloSum').style.display=''; $('meterFill').style.width=Math.round(score/(order.length*POINTS)*100)+'%'; $('finalSub').textContent='ตอบถูก '+correctCount+' จาก '+order.length+' ข้อ'; $('modal').style.display="flex"; saveResult({mode:'solo',score,rounds:order.length,correct:correctCount}); }
 }
 /* สุ่มลำดับเพลง n ข้อ (ถ้า n มากกว่าคลังเพลง จะวนสุ่มซ้ำรอบใหม่) */
 function buildOrder(n){
@@ -646,7 +696,7 @@ function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
 }
-function resetModal(){ $('finalLbl').textContent="คะแนนรวมของคุณ"; $('final').style.display=""; $('rank').innerHTML=""; $('restartBtn').style.display=""; $('restartBtn').textContent="เริ่มใหม่"; }
+function resetModal(){ $('soloSum').style.display='none'; $('finalLbl').textContent="คะแนนรวมของคุณ"; $('final').style.display=""; $('rank').innerHTML=""; $('restartBtn').style.display=""; $('restartBtn').textContent="เริ่มใหม่"; }
 const onMsg=t=>{ $('onMsg').textContent=t; };
 
 /* ----- สร้างห้อง (โฮสต์) ----- */
@@ -739,7 +789,7 @@ function enterLobby(){
 function renderLobby(){
   if(!online||!online.players) return;
   $('lobbyList').innerHTML='<div class="plt">ผู้เล่น '+online.players.length+'/'+MAXP+'</div>'+
-    online.players.map(p=>'<div class="pl'+(p.id===online.myId?' me':'')+'"><span class="nm">'+(p.host?'<span class="tag">โฮสต์</span>':'')+esc(p.name)+'</span></div>').join('');
+    '<div class="slots">'+online.players.map(p=>'<div class="pl'+(p.id===online.myId?' me':'')+'"><span class="nm">'+(p.host?'<span class="tag">โฮสต์</span>':'')+esc(p.name)+'</span></div>').join('')+Array.from({length:Math.max(0,MAXP-online.players.length)},()=>'<div class="pl empty"><span class="nm">รอผู้เล่น</span></div>').join('')+'</div>';
 }
 function fillSel(id,vals,def){ $(id).innerHTML=vals.map(v=>'<option'+(v===def?' selected':'')+'>'+v+'</option>').join(''); }
 fillSel('oN',[5,10,15,20,30,50].filter(v=>v<=MAX_ROUNDS),10); fillSel('oL',[5,10,15,20,30],15); fillSel('oG',[3,5,10,15],3);
