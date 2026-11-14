@@ -293,6 +293,17 @@ button{-webkit-tap-highlight-color:transparent}
 .ph .v{width:58%}
 .phc{margin-top:22px}
 @media(max-width:859px){.ph{display:none}.phc{margin:0}}
+
+/* กำแพงปกเพลง: 3 แถวเลื่อนสวนกัน เอียงตามปุ่มตัวเลือก */
+.wall{--tw:176px;--g:12px;position:relative;overflow:hidden;padding:6px 0 10px;opacity:0;transition:opacity .6s;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.wall.on{opacity:1}
+.wall[hidden]{display:none}
+.wallin{display:flex;flex-direction:column;gap:16px;transform:skewX(-8deg)}
+.mtrack{display:flex;width:max-content;animation:mq var(--d,40s) linear infinite}
+.mtrack img{display:block;flex:none;width:var(--tw);aspect-ratio:16/9;object-fit:cover;margin-right:var(--g);border:2px solid var(--teal-d);border-radius:10px;background:var(--mint2);box-shadow:3px 3px 0 var(--mint2);user-select:none}
+@keyframes mq{to{transform:translateX(-50%)}}
+@media(max-width:560px){.wall{--tw:132px;--g:10px}.wallin{gap:12px}}
 @media(max-width:420px){
   .panel,.box{padding:24px 18px}
   .opts{gap:8px;padding:0 6px}
@@ -318,8 +329,11 @@ button{-webkit-tap-highlight-color:transparent}
     </div>
   </div>
   <div class="vis" aria-hidden="true">
+    <div class="wall" id="wall" hidden></div>
+    <div id="visFallback">
     <div class="vstage"><svg viewBox="0 0 480 280" preserveAspectRatio="xMidYMid slice" focusable="false"><g stroke="#fff" stroke-opacity=".07" stroke-width="1"><path d="M0 20.5H480"/><path d="M0 42.5H480"/><path d="M0 64.5H480"/><path d="M0 86.5H480"/><path d="M0 108.5H480"/><path d="M0 130.5H480"/><path d="M0 152.5H480"/><path d="M0 174.5H480"/><path d="M0 196.5H480"/><path d="M0 218.5H480"/><path d="M0 240.5H480"/><path d="M0 262.5H480"/><path d="M60.5 0V280"/><path d="M120.5 0V280"/><path d="M180.5 0V280"/><path d="M240.5 0V280"/><path d="M300.5 0V280"/><path d="M360.5 0V280"/><path d="M420.5 0V280"/></g><rect class="nn" style="--i:0" x="20" y="208" width="48" height="16" rx="5" fill="#5eead4" opacity="1"/><rect class="nn" style="--i:1" x="76" y="186" width="36" height="16" rx="5" fill="#2dd4bf" opacity="1"/><rect class="nn" style="--i:2" x="120" y="164" width="60" height="16" rx="5" fill="#14b8a6" opacity="1"/><rect class="nn" style="--i:3" x="188" y="186" width="40" height="16" rx="5" fill="#5eead4" opacity="1"/><rect class="nn" style="--i:4" x="236" y="142" width="44" height="16" rx="5" fill="#ffffff" opacity="1"/><rect class="nn" style="--i:5" x="290" y="120" width="52" height="16" rx="5" fill="#2dd4bf" opacity="0.45"/><rect class="nn" style="--i:6" x="350" y="98" width="36" height="16" rx="5" fill="#14b8a6" opacity="0.45"/><rect class="nn" style="--i:7" x="394" y="142" width="66" height="16" rx="5" fill="#5eead4" opacity="0.45"/><rect class="nn" style="--i:8" x="20" y="234" width="92" height="16" rx="5" fill="#0d9488" opacity="1"/><rect class="nn" style="--i:9" x="120" y="234" width="60" height="16" rx="5" fill="#0d9488" opacity="1"/><rect class="nn" style="--i:10" x="188" y="212" width="76" height="16" rx="5" fill="#0f9f92" opacity="1"/><rect class="nn" style="--i:11" x="272" y="234" width="88" height="16" rx="5" fill="#0d9488" opacity="0.45"/><rect class="nn" style="--i:12" x="370" y="234" width="90" height="16" rx="5" fill="#0d9488" opacity="0.45"/><path d="M262 0V280" stroke="#fff" stroke-width="2"/><path d="M253 0h18l-9 11z" fill="#fff"/></svg><div class="vbar"></div></div>
     <div class="vopts"><div class="mo"><span>Melt</span></div><div class="mo"><span>Hibana</span></div><div class="mo ok"><span>Senbonzakura</span></div><div class="mo"><span>Mesmerizer</span></div></div>
+    </div>
   </div>
 </main></div>
 <div class="screen hide" id="setupScreen"><div class="page">
@@ -1076,6 +1090,39 @@ document.addEventListener('keydown',e=>{
   const k=+e.key; if(!(k>=1&&k<=4)) return;
   const b=document.querySelectorAll('.opt')[k-1]; if(b&&!b.disabled) b.click();
 });
+
+/* ===== กำแพงปกเพลงหน้าแรก (รูปตัวอย่างวิดีโอจาก YouTube เฉพาะเพลงที่มีในคลัง) ===== */
+const thumbUrl=id=>'https://i.ytimg.com/vi/'+id+'/mqdefault.jpg';
+const loadThumb=src=>new Promise(res=>{ const im=new Image(); im.onload=()=>res(im.naturalWidth>120?src:null); im.onerror=()=>res(null); im.src=src; });
+const thumbCache=new Map();
+function thumbFor(s){
+  if(!thumbCache.has(s.url)) thumbCache.set(s.url,(async()=>{
+    for(const u of [s.url,s.alt]){ const id=u&&ytId(u); if(!id) continue; const r=await loadThumb(thumbUrl(id)); if(r) return r; }
+    return null;
+  })());
+  return thumbCache.get(s.url);
+}
+let wallKey='';
+async function buildWall(){
+  const wall=$('wall'), fb=$('visFallback'); if(!wall||!fb) return;
+  const key=SONGS.map(s=>s.url).join('|');
+  if(key===wallKey) return;
+  wallKey=key;
+  const srcs=(await Promise.all(shuffle(SONGS).slice(0,36).map(thumbFor))).filter(Boolean);
+  if(wallKey!==key) return;
+  if(srcs.length<3){ wall.hidden=true; wall.classList.remove('on'); fb.hidden=false; wallKey=''; return; }
+  const rows=[[],[],[]]; srcs.forEach((s,i)=>rows[i%3].push(s));
+  const secPerTile=[7.5,6,8.5];
+  wall.innerHTML='<div class="wallin">'+rows.map((r,i)=>{
+    let list=r.slice(0,12); while(list.length<7) list=list.concat(r.slice(0,12));
+    const tiles=list.map(s=>'<img src="'+s+'" alt="" draggable="false">').join('');
+    return '<div class="mtrack" style="--d:'+(list.length*secPerTile[i])+'s;animation-delay:-'+(i*3.7)+'s;animation-direction:'+(i===1?'reverse':'normal')+'">'+tiles+tiles+'</div>';
+  }).join('')+'</div>';
+  fb.hidden=true; wall.hidden=false;
+  requestAnimationFrame(()=>wall.classList.add('on'));
+}
+{ const _ss=showScreen; showScreen=function(id){ _ss(id); if(id==='startScreen') buildWall(); }; }
+buildWall();
 initFirebase();
 </script>
 </body>
