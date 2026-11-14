@@ -106,7 +106,7 @@ button{-webkit-tap-highlight-color:transparent}
 @media(max-width:859px){.info.empty{min-height:0;padding:12px}}
 
 /* ============ หน้าจอเต็ม (เมนู ตั้งค่า ฯลฯ) ============ */
-.screen{position:fixed;inset:0;z-index:20;display:flex;overflow-y:auto;padding:16px}
+.screen{position:fixed;inset:0;z-index:20;display:flex;overflow-x:hidden;overflow-y:auto;padding:16px}
 .screen.hide{display:none}
 
 /* ============ หน้าแรก: เลย์เอาต์ชิดซ้าย สองคอลัมน์ ============ */
@@ -305,6 +305,16 @@ button{-webkit-tap-highlight-color:transparent}
 @keyframes mq{to{transform:translateX(-50%)}}
 @media(max-width:899px){.wall{--tw:clamp(160px,38vw,260px)}}
 @media(max-width:560px){.wall{--g:12px}.wallin{gap:14px}}
+
+/* แถบปกยาวทะลุไปถึงขอบจอ (ขวาบนคอม / สองข้างบนมือถือ) */
+@media(min-width:900px){
+  .vis{margin-right:calc(-1 * max(16px,(100vw - 1240px)/2))}
+  .wall{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%);mask-image:linear-gradient(90deg,transparent,#000 10%)}
+}
+@media(max-width:899px){
+  .vis{margin:0 -16px}
+  .wall{-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+}
 @media(max-width:420px){
   .panel,.box{padding:24px 18px}
   .opts{gap:8px;padding:0 6px}
