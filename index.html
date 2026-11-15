@@ -345,7 +345,8 @@ button[hidden],a[hidden]{display:none!important}
   .opt{font-size:.92rem;padding:10px}
   .pill{padding:5px 10px;font-size:.82rem}
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* ผู้ใช้ที่ปิดแอนิเมชันในระบบ: ปิดเอฟเฟกต์ทั่วไป แต่ปกเพลงยังเลื่อนช้าลง (ไม่งั้นดูเหมือนรูปค้าง) */
+@media(prefers-reduced-motion:reduce){*:not(.mtrack){transition:none!important;animation:none!important}.mtrack{animation-duration:calc(var(--d,40s)*2.5)}}
 
 /* ===== ปุ่มเลือกภาษา ===== */
 #langSw{position:fixed;top:12px;right:12px;z-index:60;display:flex;gap:2px;padding:3px;background:#fff;border:1.5px solid var(--line);border-radius:999px;box-shadow:0 2px 0 var(--mint2)}
@@ -357,9 +358,43 @@ body.ingame #langSw{display:none}
 html[lang="ja"] .hero .copy>p{max-width:24em;text-wrap:balance}
 html[lang="ja"] body,html[lang="ja"] button,html[lang="ja"] input,html[lang="ja"] select,html[lang="ja"] h1,html[lang="ja"] h2,html[lang="ja"] h3{font-family:"Kanit","IBM Plex Sans Thai","Noto Sans JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans CJK JP","Noto Sans JP",sans-serif}
 @media(max-width:600px){#langSw{top:8px;right:8px}}
+
+/* ===== หน้าแรกเลื่อนลงไปอันดับ ===== */
+#startScreen{flex-direction:column;align-items:center}
+#startScreen .hero{margin:0 auto;flex:none;align-content:center;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px)}
+.scrollhint{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;height:56px;margin:0 auto;padding:0 18px;border:0;background:transparent;color:var(--mute);opacity:.65;font:500 .8rem var(--body);cursor:pointer;transition:opacity .15s}
+.scrollhint:hover,.scrollhint:focus-visible{opacity:1}
+.scrollhint svg{width:22px;height:22px;margin-top:-2px;animation:nudge 2.2s ease-in-out infinite}
+@keyframes nudge{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(4px)}}
+.lbsec{flex:none;width:100%;max-width:1240px;margin:0 auto;padding:40px 0 56px;border-top:2px solid var(--mint2)}
+.lbsec .page{margin:0 auto}
+#homeLb>.pl:nth-child(1) .rk{background:var(--deep)}
+#homeLb>.pl:nth-child(3) .rk{background:#5eead4;color:var(--ink)}
+#startScreen.nolb{align-items:stretch}
+#startScreen.nolb .hero{margin:auto;min-height:0}
+#startScreen.nolb .scrollhint,#startScreen.nolb .lbsec{display:none}
+@media(prefers-reduced-motion:reduce){.scrollhint svg{animation:none}}
+
+/* ===== เพื่อน/คำเชิญ ===== */
+.dot{display:inline-block;width:8px;height:8px;margin-left:6px;border-radius:50%;background:var(--red);vertical-align:2px;text-decoration:none}
+.dot[hidden]{display:none}
+.pl .acts{display:flex;gap:6px;flex:none}
+#inviteToast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;width:min(460px,calc(100vw - 24px));display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 16px;border:2px solid var(--teal-d);border-radius:14px;background:#fff;box-shadow:5px 5px 0 var(--mint2)}
+#inviteToast[hidden]{display:none}
+#inviteToast .t{flex:1 1 180px;font-weight:600;word-break:break-word}
+body.ingame #inviteToast{display:none}
+#frLists .plt~.plt,#frLists .pl+.plt{margin-top:18px}
+.lbgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:24px;align-items:start;max-width:1100px;margin:0 auto}
+.lbgrid .panel{margin:0;max-width:none}
+.lbgrid #topBtn{grid-column:1/-1}
+.lbh{margin:0 0 6px;font:700 1.7rem/1.1 var(--disp);letter-spacing:-.02em}
+.lbp{margin:0 0 18px;color:var(--mute);font-size:.9rem}
+#homeLbFr>.pl:nth-child(1) .rk{background:var(--deep)}
+#homeLbFr>.pl:nth-child(3) .rk{background:#5eead4;color:var(--ink)}
 </style>
 </head>
 <body>
+<div id="inviteToast" role="alert" hidden><div class="t" id="invText"></div><button class="go" id="invJoin" type="button" style="width:auto;min-height:40px;padding:6px 18px">เข้าร่วม</button><button class="chip mini" id="invNo" type="button" aria-label="ปิด">✕</button><div class="note" id="invNote" style="flex:1 1 100%;min-height:0;margin:0"></div></div>
 <div id="langSw" role="group" aria-label="Language"><button data-l="th" type="button">ไทย</button><button data-l="en" type="button">EN</button><button data-l="ja" type="button">日本語</button></div>
 <div class="screen" id="startScreen"><main class="hero">
   <div class="copy">
@@ -373,6 +408,7 @@ html[lang="ja"] body,html[lang="ja"] button,html[lang="ja"] input,html[lang="ja"
       <button class="chip" id="addOpenBtn">เพิ่มเพลงเอง</button>
       <button class="chip" id="lbBtn" style="display:none">อันดับ</button>
       <button class="chip" id="acctBtn" style="display:none">ล็อกอิน</button>
+      <button class="chip" id="friendsBtn" style="display:none">เพื่อน<span class="dot" id="friendsDot" hidden></span></button>
       <button class="chip" id="adminBtn" style="display:none">จัดการเพลง</button>
     </div>
   </div>
@@ -383,7 +419,14 @@ html[lang="ja"] body,html[lang="ja"] button,html[lang="ja"] input,html[lang="ja"
     <div class="vopts"><div class="mo"><span>Melt</span></div><div class="mo"><span>Hibana</span></div><div class="mo ok"><span>Senbonzakura</span></div><div class="mo"><span>Mesmerizer</span></div></div>
     </div>
   </div>
-</main></div>
+</main>
+<button class="scrollhint" id="scrollHint" type="button" aria-label="เพิ่มเติม"><span>เพิ่มเติม</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<section class="lbsec" id="lbSec"><div class="lbgrid">
+  <div class="panel"><h2 class="lbh">ตารางอันดับ</h2><p class="lbp">จัดอันดับจากคะแนนรวมทุกเกม แสดง 20 อันดับแรก</p><div class="lobbylist" id="homeLb" style="margin:0">กำลังโหลด...</div></div>
+  <div class="panel"><h2 class="lbh">อันดับเพื่อน</h2><p class="lbp">เรียงตามคะแนนรวมของคุณและเพื่อน</p><div class="lobbylist" id="homeLbFr" style="margin:0">กำลังโหลด...</div></div>
+  <button class="chip quiet" id="topBtn" type="button" style="justify-self:start;padding-left:0">กลับขึ้นด้านบน</button>
+</div></section>
+</div>
 <div class="screen hide" id="setupScreen"><div class="page">
   <aside class="side"><button class="back" id="setupBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตั้งค่าเกม</h2><p>เลือกจำนวนเพลงและเวลา แล้วเริ่มเล่นได้เลย</p></aside>
   <div class="panel">
@@ -449,6 +492,7 @@ html[lang="ja"] body,html[lang="ja"] button,html[lang="ja"] input,html[lang="ja"
   <aside class="side"><button class="back" id="leaveBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>ออกจากห้อง</button><h2>ห้องออนไลน์</h2><div class="fl" style="margin-top:6px">รหัสห้อง</div><span class="code" id="roomCode" role="button" tabindex="0" title="แตะเพื่อคัดลอกรหัส"></span><p id="codeNote">แตะรหัสเพื่อคัดลอก แล้วส่งให้เพื่อน</p></aside>
   <div class="panel">
     <div class="lobbylist" id="lobbyList"></div>
+    <div class="lobbylist" id="inviteBox" hidden><div class="plt">เชิญเพื่อน</div><div id="inviteList"></div><div class="note" id="inviteMsg" style="min-height:0;margin:6px 0 0"></div></div>
     <div class="lobbycfg" id="hostCfg">
       <div class="cfg">
         <div><label class="fl" for="oN">จำนวนเพลง</label><select id="oN"></select></div>
@@ -475,6 +519,17 @@ html[lang="ja"] body,html[lang="ja"] button,html[lang="ja"] input,html[lang="ja"
     </form>
     <div class="or">หรือ</div>
     <button class="go alt" id="loginGoogle" type="button">ดำเนินการต่อด้วย Google</button>
+  </div>
+</div></div>
+<div class="screen hide" id="friendsScreen"><div class="page">
+  <aside class="side"><button class="back" id="frBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เพื่อน</h2><p>เพิ่มเพื่อนด้วย UID แล้วเชิญเข้าห้องออนไลน์ได้</p></aside>
+  <div class="panel">
+    <div class="fl">UID ของคุณ (แตะเพื่อคัดลอก แล้วส่งให้เพื่อน)</div>
+    <div class="uid" id="myUid" role="button" tabindex="0"></div>
+    <label class="fl" for="frUid" style="margin-top:20px">เพิ่มเพื่อน</label>
+    <div class="joinrow"><input class="tin" id="frUid" placeholder="วาง UID ของเพื่อน" autocomplete="off" spellcheck="false"><button class="go" id="frAdd" type="button">เพิ่ม</button></div>
+    <div class="note" id="frMsg" style="margin:10px 0 14px;min-height:1.4em;font-weight:500"></div>
+    <div class="lobbylist" id="frLists" style="margin:0"></div>
   </div>
 </div></div>
 <div class="screen hide" id="adminScreen"><div class="page wide">
@@ -822,7 +877,7 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -1094,7 +1149,7 @@ async function initFirebase(){
 const cleanSong=x=>JSON.parse(JSON.stringify(x));
 const sameSong=(a,b)=>ytId(a.url)===ytId(b.url);
 async function onAuth(user){
-  if(!user){ acct=null; profile=null; renderAcct(); return; }
+  if(!user){ acct=null; profile=null; stopSocial(); renderAcct(); return; }
   acct={uid:user.uid,email:user.email||'',gname:user.displayName||''};
   try{
     const ref=db.collection('profiles').doc(user.uid); let snap=await ref.get();
@@ -1103,7 +1158,7 @@ async function onAuth(user){
       snap=await ref.get();
     }
     profile=snap.data(); renderAcct();
-    await syncSongs(); await checkAdmin();
+    await syncSongs(); await checkAdmin(); startSocial();
   }catch(e){ console.warn(e); alert('เชื่อมต่อฐานข้อมูลไม่ได้ ('+(e.code||e.message)+') ตรวจกฎ Firestore และโดเมนที่อนุญาต'); }
   renderAcct();
 }
@@ -1164,7 +1219,7 @@ async function openLeaderboard(){
   }catch(e){ $('lbList').textContent='โหลดอันดับไม่ได้ ('+(e.code||e.message)+')'; }
 }
 $('acctBtn').onclick=()=>{ if(acct) openAccount(); else openLogin(); };
-$('lbBtn').onclick=openLeaderboard;
+
 $('lbBack').onclick=()=>showScreen('startScreen');
 $('acctBack').onclick=()=>showScreen('startScreen');
 $('saveName').onclick=async()=>{
@@ -1399,6 +1454,169 @@ $('loginForgot').onclick=async()=>{
 };
 $('loginGoogle').onclick=async()=>{ await signIn(); if(auth&&auth.currentUser) showScreen('startScreen'); };
 
+/* ===== อันดับใต้หน้าแรก (เลื่อนลงหรือกดลูกศร) ===== */
+let hlbT=0, hlbBusy=false, frBusy=false, frAgain=false;
+const lbRow=(id,x,k)=>'<div class="pl'+(acct&&id===acct.uid?' me':'')+'"><div><div class="nm"><span class="rk">'+(k+1)+'</span> '+esc(x.name||'ผู้เล่น')+'</div><div class="st">'+(x.games||0)+' เกม · สูงสุด '+(x.best||0)+'</div></div><div class="sc">'+(x.totalScore||0)+'</div></div>';
+async function dbReady(){ for(let i=0;i<20&&!db;i++) await new Promise(r=>setTimeout(r,500)); return !!db; }
+async function loadGlobalLb(){
+  const el=$('homeLb'); if(!el.dataset.ok) el.textContent='กำลังโหลด...';
+  if(!await dbReady()){ el.textContent='ระบบยังไม่พร้อม ลองอีกครั้ง'; return; }
+  try{
+    const q=await db.collection('profiles').orderBy('totalScore','desc').limit(20).get();
+    el.innerHTML=q.docs.map((d,k)=>lbRow(d.id,d.data(),k)).join('')||'ยังไม่มีข้อมูล'; el.dataset.ok='1';
+  }catch(e){ el.textContent='โหลดอันดับไม่ได้ ('+(e.code||e.message)+')'; }
+}
+async function loadFriendsLb(){
+  if(!FB_ON) return;
+  if(frBusy){ frAgain=true; return; }
+  frBusy=true;
+  const el=$('homeLbFr');
+  try{
+    if(!acct){ el.textContent='ล็อกอินเพื่อดูอันดับเพื่อน'; return; }
+    if(!await dbReady()){ el.textContent='ระบบยังไม่พร้อม ลองอีกครั้ง'; return; }
+    const ids=frDocs.filter(f=>f.status==='ok').map(f=>f.other).slice(0,50);
+    if(!ids.length){ el.textContent='ยังไม่มีเพื่อน เพิ่มเพื่อนที่หน้า "เพื่อน" เพื่อดูอันดับ'; return; }
+    const got=await Promise.all(ids.concat(acct.uid).map(u=>db.collection('profiles').doc(u).get().then(s=>({id:u,x:s.exists?s.data():null})).catch(()=>({id:u,x:null}))));
+    el.innerHTML=got.filter(r=>r.x).sort((a,b)=>(b.x.totalScore||0)-(a.x.totalScore||0)).map((r,k)=>lbRow(r.id,r.x,k)).join('')||'ยังไม่มีข้อมูล';
+  }catch(e){ el.textContent='โหลดอันดับไม่ได้ ('+(e.code||e.message)+')'; }
+  finally{ frBusy=false; if(frAgain){ frAgain=false; loadFriendsLb(); } }
+}
+async function loadHomeLb(){
+  if(!FB_ON||hlbBusy) return; hlbBusy=true;
+  await Promise.all([loadGlobalLb(),loadFriendsLb()]);
+  hlbT=Date.now(); hlbBusy=false;
+}
+if(!FB_ON){ $('startScreen').classList.add('nolb'); $('scrollHint').hidden=true; $('lbSec').hidden=true; }
+else{
+  const goLb=()=>$('lbSec').scrollIntoView({behavior:'smooth',block:'start'});
+  $('scrollHint').onclick=goLb;
+  $('lbBtn').onclick=goLb;
+  $('topBtn').onclick=()=>$('startScreen').scrollTo({top:0,behavior:'smooth'});
+  if('IntersectionObserver' in window) new IntersectionObserver(es=>{ if(es.some(e=>e.isIntersecting)&&Date.now()-hlbT>30000) loadHomeLb(); },{root:$('startScreen'),threshold:.05}).observe($('lbSec'));
+  else loadHomeLb();
+  const _ss2=showScreen;
+  showScreen=function(id){ _ss2(id); if(id==='startScreen'){ hlbT=0; $('startScreen').scrollTop=0; } };
+}
+
+/* ===== เพื่อน (เพิ่มด้วย UID) + เชิญเข้าห้องออนไลน์ =====
+   Firestore: friendships/{uidเล็ก_uidใหญ่} {users:[a,b],from,status:'pending'|'ok'}
+              invites/{to_from} {from,fromName,to,code,ts}  (เชิญได้เฉพาะคนที่เป็นเพื่อนกันแล้ว กฎฝั่งเซิร์ฟเวอร์เป็นตัวบังคับ) */
+let frDocs=[], frUnsub=[], invMap={}, invited=new Set(), invRoom=null;
+const frNames=new Map();
+const fmsg=t=>{ $('frMsg').textContent=t||''; };
+async function nameOf(uid){
+  if(frNames.has(uid)) return frNames.get(uid);
+  let n='?'; try{ const s=await db.collection('profiles').doc(uid).get(); if(s.exists) n=s.data().name||'?'; }catch(e){}
+  frNames.set(uid,n); return n;
+}
+function stopSocial(){
+  frUnsub.forEach(f=>{ try{ f(); }catch(e){} }); frUnsub=[]; frDocs=[]; invMap={};
+  $('friendsBtn').style.display='none'; $('friendsDot').hidden=true; $('inviteToast').hidden=true; renderInviteBox();
+}
+function startSocial(){
+  stopSocial(); if(!db||!acct) return;
+  $('friendsBtn').style.display=''; $('myUid').textContent=acct.uid;
+  loadGlobalLb();   // โหลดอันดับรวมใหม่เพื่อไฮไลต์แถวของเรา
+  frUnsub.push(db.collection('friendships').where('users','array-contains',acct.uid).onSnapshot(async snap=>{
+    frDocs=snap.docs.map(d=>{ const x=d.data(); return {id:d.id,other:(x.users||[]).find(u=>u!==acct.uid),from:x.from,status:x.status}; }).filter(f=>f.other);
+    await Promise.all(frDocs.map(f=>nameOf(f.other)));
+    renderFriends();
+  },e=>console.warn('friends listener',e)));
+  frUnsub.push(db.collection('invites').where('to','==',acct.uid).onSnapshot(snap=>{
+    snap.docChanges().forEach(ch=>{ if(ch.type==='removed') delete invMap[ch.doc.id]; else invMap[ch.doc.id]={id:ch.doc.id,...ch.doc.data()}; });
+    showInvite();
+  },e=>console.warn('invites listener',e)));
+}
+function renderFriends(){
+  if(!acct) return;
+  const inc=frDocs.filter(f=>f.status==='pending'&&f.from!==acct.uid), out=frDocs.filter(f=>f.status==='pending'&&f.from===acct.uid), ok=frDocs.filter(f=>f.status==='ok');
+  $('friendsDot').hidden=!inc.length;
+  const nm=f=>esc(frNames.get(f.other)||'?');
+  const row=(f,btns)=>'<div class="pl" data-id="'+esc(f.id)+'"><div><div class="nm">'+nm(f)+'</div></div><div class="acts">'+btns+'</div></div>';
+  const box=(title,rows)=>rows.length?'<div class="plt">'+title+'</div>'+rows.join(''):'';
+  $('frLists').innerHTML=
+    box('คำขอเป็นเพื่อน',inc.map(f=>row(f,'<button class="chip mini" data-a="acc">ยอมรับ</button><button class="chip mini del" data-a="del">ปฏิเสธ</button>')))+
+    box('เพื่อนของคุณ',ok.map(f=>row(f,'<button class="chip mini del" data-a="rm">ลบ</button>')))+
+    box('ส่งคำขอแล้ว (รอยอมรับ)',out.map(f=>row(f,'<button class="chip mini" data-a="del">ยกเลิก</button>')))||
+    '<div class="note" style="min-height:0">ยังไม่มีเพื่อน ส่ง UID ของคุณให้เพื่อน หรือวาง UID ของเพื่อนด้านบน</div>';
+  renderInviteBox();
+  loadFriendsLb();
+}
+const acceptFr=f=>db.collection('friendships').doc(f.id).update({status:'ok'});
+$('frAdd').onclick=async()=>{
+  const u=$('frUid').value.trim();
+  if(!db||!acct){ fmsg('⚠ ต้องล็อกอินก่อน'); return; }
+  if(!u){ fmsg('⚠ วาง UID ของเพื่อนก่อน'); return; }
+  if(!/^[A-Za-z0-9_-]{6,128}$/.test(u)){ fmsg('⚠ UID ไม่ถูกต้อง'); return; }
+  if(u===acct.uid){ fmsg('⚠ นี่คือ UID ของคุณเอง'); return; }
+  const ex=frDocs.find(f=>f.other===u);
+  try{
+    if(ex){
+      if(ex.status==='ok'){ fmsg('เป็นเพื่อนกันอยู่แล้ว'); return; }
+      if(ex.from===acct.uid){ fmsg('ส่งคำขอไปแล้ว รอเพื่อนกดยอมรับ'); return; }
+      await acceptFr(ex); $('frUid').value=''; fmsg('เป็นเพื่อนกันแล้ว'); return;
+    }
+    fmsg('กำลังตรวจสอบ...');
+    const p=await db.collection('profiles').doc(u).get();
+    if(!p.exists){ fmsg('⚠ ไม่พบผู้เล่นที่มี UID นี้ (ต้องเคยล็อกอินเข้าเกมแล้ว)'); return; }
+    const nmv=p.data().name||'?'; frNames.set(u,nmv);
+    const pair=[acct.uid,u].sort();
+    await db.collection('friendships').doc(pair.join('_')).set({users:pair,from:acct.uid,status:'pending',ts:firebase.firestore.FieldValue.serverTimestamp()});
+    $('frUid').value=''; fmsg('ส่งคำขอถึง "'+nmv+'" แล้ว');
+  }catch(e){ fmsg('⚠ ทำไม่สำเร็จ ('+(e.code||e.message)+')'); }
+};
+$('frLists').onclick=async e=>{
+  const b=e.target.closest('button[data-a]'); if(!b) return;
+  const f=frDocs.find(x=>x.id===b.closest('.pl').dataset.id); if(!f) return;
+  try{
+    if(b.dataset.a==='acc'){ await acceptFr(f); fmsg('เป็นเพื่อนกับ "'+(frNames.get(f.other)||'?')+'" แล้ว'); }
+    else if(b.dataset.a==='rm'){ if(confirm('ลบ "'+(frNames.get(f.other)||'?')+'" ออกจากเพื่อน?')) await db.collection('friendships').doc(f.id).delete(); }
+    else await db.collection('friendships').doc(f.id).delete();
+  }catch(err){ fmsg('⚠ ทำไม่สำเร็จ ('+(err.code||err.message)+')'); }
+};
+$('myUid').onclick=async()=>{ try{ await navigator.clipboard.writeText(acct.uid); fmsg('คัดลอก UID แล้ว ส่งให้เพื่อนได้เลย'); }catch(e){ fmsg('แตะค้างที่รหัสเพื่อคัดลอก'); } };
+$('friendsBtn').onclick=()=>{ fmsg(''); renderFriends(); showScreen('friendsScreen'); };
+$('frBack').onclick=()=>showScreen('startScreen');
+
+/* ----- เชิญเพื่อนในล็อบบี้ ----- */
+function renderInviteBox(){
+  const box=$('inviteBox'), ok=frDocs.filter(f=>f.status==='ok');
+  if(!acct||!online||!ok.length){ box.hidden=true; return; }
+  if(invRoom!==online.code){ invRoom=online.code; invited=new Set(); }
+  box.hidden=false;
+  $('inviteList').innerHTML=ok.map(f=>{ const d=invited.has(f.other); return '<div class="pl"><span class="nm">'+esc(frNames.get(f.other)||'?')+'</span><button class="chip mini" data-u="'+esc(f.other)+'"'+(d?' disabled':'')+'>'+(d?'ส่งคำเชิญแล้ว':'เชิญ')+'</button></div>'; }).join('');
+}
+const _rl=renderLobby; renderLobby=function(){ _rl(); renderInviteBox(); };
+$('inviteList').onclick=async e=>{
+  const b=e.target.closest('button[data-u]'); if(!b||b.disabled||!online||!acct) return;
+  const to=b.dataset.u; b.disabled=true; $('inviteMsg').textContent='';
+  try{
+    await db.collection('invites').doc(to+'_'+acct.uid).set({from:acct.uid,fromName:(profile&&profile.name)||'',to,code:online.code,ts:firebase.firestore.FieldValue.serverTimestamp()});
+    invited.add(to);
+  }catch(err){ $('inviteMsg').textContent='⚠ ทำไม่สำเร็จ ('+(err.code||err.message)+')'; }
+  renderInviteBox();
+};
+
+/* ----- แถบคำเชิญที่ได้รับ ----- */
+function showInvite(){
+  const now=Date.now(), t=$('inviteToast');
+  const list=Object.values(invMap).map(v=>({...v,ms:v.ts&&v.ts.toMillis?v.ts.toMillis():now})).filter(v=>now-v.ms<15*60000&&/^[A-Z0-9]{4}$/i.test(String(v.code||''))).sort((a,b)=>b.ms-a.ms);
+  if(!list.length){ t.hidden=true; return; }
+  const v=list[0]; t.dataset.id=v.id; t.dataset.code=String(v.code).toUpperCase();
+  $('invText').textContent=(v.fromName||'?')+' เชิญคุณเล่นด้วยกัน'; $('invNote').textContent=''; t.hidden=false;
+}
+function dropInvite(){ const id=$('inviteToast').dataset.id; delete invMap[id]; showInvite(); if(db&&id) db.collection('invites').doc(id).delete().catch(()=>{}); }
+$('invNo').onclick=dropInvite;
+$('invJoin').onclick=async()=>{
+  const code=$('inviteToast').dataset.code;
+  if(online){ $('invNote').textContent='ออกจากห้องปัจจุบันก่อน'; return; }
+  if(document.body.classList.contains('ingame')){ $('invNote').textContent='เล่นให้จบก่อน แล้วค่อยกดเข้าร่วม'; return; }
+  const name=((profile&&profile.name)||'ผู้เล่น').slice(0,12);
+  dropInvite();
+  try{ await joinRoom(code,name); }
+  catch(e){ showScreen('onlineScreen'); onMsg('⚠ '+e.message); }
+};
+
 /* ===== หลายภาษา: ไทย / English / 日本語 =====
    ข้อความในโค้ดเขียนเป็นภาษาไทย ตัวแปลจะจับข้อความไทยบนหน้าจอแล้วสลับเป็นภาษาที่เลือก
    (ข้อความที่ไม่มีในตารางจะแสดงเป็นภาษาไทยตามเดิม) ชื่อเพลงไม่ถูกแปล */
@@ -1428,6 +1646,43 @@ const E=[
 ['ลองหลายครั้งเกินไป รอสักครู่แล้วลองใหม่','Too many attempts. Wait a moment and try again.','試行回数が多すぎます。しばらくしてからお試しください'],
 ['เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ต','Couldn\'t connect. Check your internet.','接続できません。ネット接続を確認してください'],
 ['ยังไม่ได้เปิดล็อกอินด้วยอีเมลใน Firebase','Email sign-in isn\'t enabled in Firebase yet','Firebaseでメールログインがまだ有効になっていません'],
+['เพิ่มเติม','More','もっと見る'],
+['กลับขึ้นด้านบน','Back to top','トップに戻る'],
+['เพื่อน','Friends','フレンド'],
+['เพิ่มเพื่อนด้วย UID แล้วเชิญเข้าห้องออนไลน์ได้','Add friends by UID and invite them to online rooms.','UIDでフレンドを追加して、オンラインルームに招待できます。'],
+['UID ของคุณ (แตะเพื่อคัดลอก แล้วส่งให้เพื่อน)','Your UID (tap to copy and send it to friends)','あなたのUID（タップでコピーして友達に送信）'],
+['เพิ่มเพื่อน','Add a friend','フレンドを追加'],
+['วาง UID ของเพื่อน','Paste your friend\'s UID','フレンドのUIDを貼り付け'],
+['เพิ่ม','Add','追加'],
+['คำขอเป็นเพื่อน','Friend requests','フレンド申請'],
+['เพื่อนของคุณ','Your friends','フレンド一覧'],
+['ส่งคำขอแล้ว (รอยอมรับ)','Sent requests (pending)','送信済み（承認待ち）'],
+['ยอมรับ','Accept','承認'],
+['ปฏิเสธ','Decline','拒否'],
+['ยกเลิก','Cancel','キャンセル'],
+['ยังไม่มีเพื่อน ส่ง UID ของคุณให้เพื่อน หรือวาง UID ของเพื่อนด้านบน','No friends yet. Send your UID to a friend, or paste a friend\'s UID above.','まだフレンドがいません。自分のUIDを友達に送るか、上にフレンドのUIDを貼り付けてください。'],
+['ต้องล็อกอินก่อน','You need to sign in first','先にログインしてください'],
+['วาง UID ของเพื่อนก่อน','Paste your friend\'s UID first','先にフレンドのUIDを貼り付けてください'],
+['UID ไม่ถูกต้อง','Invalid UID','UIDが正しくありません'],
+['นี่คือ UID ของคุณเอง','That\'s your own UID','これはあなた自身のUIDです'],
+['เป็นเพื่อนกันอยู่แล้ว','You\'re already friends','すでにフレンドです'],
+['ส่งคำขอไปแล้ว รอเพื่อนกดยอมรับ','Request already sent. Waiting for your friend to accept.','申請済みです。相手の承認をお待ちください'],
+['เป็นเพื่อนกันแล้ว','You\'re now friends','フレンドになりました'],
+['กำลังตรวจสอบ...','Checking...','確認中...'],
+['ไม่พบผู้เล่นที่มี UID นี้ (ต้องเคยล็อกอินเข้าเกมแล้ว)','No player found with this UID (they must have signed in to the game at least once)','このUIDのプレイヤーが見つかりません（一度ゲームにログインしている必要があります）'],
+['คัดลอก UID แล้ว ส่งให้เพื่อนได้เลย','UID copied. Send it to your friend.','UIDをコピーしました。友達に送ってください'],
+['แตะค้างที่รหัสเพื่อคัดลอก','Press and hold the code to copy it','コードを長押ししてコピーしてください'],
+['เชิญเพื่อน','Invite friends','フレンドを招待'],
+['เชิญ','Invite','招待'],
+['ส่งคำเชิญแล้ว','Invited','招待済み'],
+['ออกจากห้องปัจจุบันก่อน','Leave your current room first','先に現在のルームを出てください'],
+['เล่นให้จบก่อน แล้วค่อยกดเข้าร่วม','Finish your game first, then press Join','ゲームを終えてから「参加」を押してください'],
+['ปิด','Close','閉じる'],
+['ทุกคน','Everyone','みんな'],
+['ล็อกอินเพื่อดูอันดับเพื่อน','Sign in to see your friends\' ranking','ログインするとフレンドのランキングを見られます'],
+['ยังไม่มีเพื่อน เพิ่มเพื่อนที่หน้า "เพื่อน" เพื่อดูอันดับ','No friends yet. Add friends on the "Friends" page to see the ranking.','まだフレンドがいません。「フレンド」ページで追加するとランキングが表示されます。'],
+['อันดับเพื่อน','Friends ranking','フレンドランキング'],
+['เรียงตามคะแนนรวมของคุณและเพื่อน','Ranked by total score: you and your friends','あなたとフレンドの合計スコア順'],
 ['ฟังท่อนสั้นๆ แล้วทายชื่อเพลงให้ทัน','Listen to a short clip and guess the song in time.','短いフレーズを聴いて、曲名を当てよう。'],
 ['เล่นคนเดียว','Play solo','ひとりで遊ぶ'],
 ['ตั้งจำนวนข้อและเวลาเองได้','Set the number of rounds and timers','問題数と制限時間を設定できます'],
@@ -1590,6 +1845,11 @@ E.forEach(a=>{ EX.en[a[0]]=a[1]; EX.ja[a[0]]=a[2]; });
 /* กฎที่มีตัวเลข/ชื่อแทรก: [regex, อังกฤษ, ญี่ปุ่น] ($1.. = ค่าที่จับได้) */
 const R=[
 [/^ไม่สำเร็จ \(([\s\S]*)\)$/,'Failed ($1)','失敗しました（$1）'],
+[/^ส่งคำขอถึง "([\s\S]*)" แล้ว$/,'Request sent to "$1"','「$1」に申請しました'],
+[/^เป็นเพื่อนกับ "([\s\S]*)" แล้ว$/,'You\'re now friends with "$1"','「$1」とフレンドになりました'],
+[/^ลบ "([\s\S]*)" ออกจากเพื่อน\?$/,'Remove "$1" from your friends?','「$1」をフレンドから削除しますか？'],
+[/^ทำไม่สำเร็จ \(([\s\S]*)\)$/,'Failed ($1)','失敗しました（$1）'],
+[/^([\s\S]*) เชิญคุณเล่นด้วยกัน$/,'$1 invited you to play','$1さんがあなたを招待しています'],
 [/^แตะเพื่อเริ่มฟัง \((\d+) วินาที ฟังได้ครั้งเดียว\)$/,'Tap to listen ($1 s, one listen only)','タップして再生（$1秒・1回のみ）'],
 [/^ถูกต้อง! \+(\d+)$/,'Correct! +$1','正解！+$1'],
 [/^คำตอบที่ถูกคือ ([\s\S]+)$/,'The correct answer is $1','正解は $1'],
