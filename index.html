@@ -312,9 +312,33 @@ button{-webkit-tap-highlight-color:transparent}
   .wall{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%);mask-image:linear-gradient(90deg,transparent,#000 10%)}
 }
 @media(max-width:899px){
-  .vis{margin:0 -16px}
+  .hero{gap:26px}
+  .vis{order:-1;margin:0 -16px}
+  #visFallback{padding:0 16px}
   .wall{-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
 }
+
+/* ============ หน้าแอดมิน ============ */
+button[hidden],a[hidden]{display:none!important}
+.page.wide{max-width:1120px}
+@media(min-width:900px){.page.wide{grid-template-columns:300px minmax(0,1fr);gap:48px}}
+.page.wide .panel{max-width:none}
+.side p b{color:var(--teal-d)}
+.addbox .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+@media(max-width:520px){.addbox .two{grid-template-columns:1fr}}
+.srow{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:14px;align-items:center;padding:10px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:#fff}
+.srow img{display:block;width:104px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:var(--mint2)}
+.srow .t{font-weight:600;line-height:1.35;word-break:break-word}
+.srow .m{margin-top:2px;font-size:.8rem;color:var(--mute)}
+.srow.off{border-style:dashed;background:transparent}
+.srow.off img{opacity:.45}
+.srow .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.chip.mini{display:inline-flex;align-items:center;min-height:34px;padding:3px 12px;font-size:.85rem;text-decoration:none}
+.chip.mini.del{color:var(--red-d);border-color:var(--red-d)}
+.chip.mini.del:hover{background:#fde8e9}
+@media(max-width:620px){.srow{grid-template-columns:84px minmax(0,1fr);gap:10px}.srow img{width:84px}.srow .acts{grid-column:1/-1;justify-content:flex-start}}
+.adet summary{cursor:pointer;font-size:.85rem;color:var(--mute)}
+.uid{padding:10px 12px;border-radius:10px;background:var(--mint);font:500 .82rem ui-monospace,Menlo,Consolas,monospace;word-break:break-all;cursor:pointer;user-select:all}
 @media(max-width:420px){
   .panel,.box{padding:24px 18px}
   .opts{gap:8px;padding:0 6px}
@@ -337,6 +361,7 @@ button{-webkit-tap-highlight-color:transparent}
       <button class="chip" id="addOpenBtn">เพิ่มเพลงเอง</button>
       <button class="chip" id="lbBtn" style="display:none">อันดับ</button>
       <button class="chip" id="acctBtn" style="display:none">ล็อกอิน Google</button>
+      <button class="chip" id="adminBtn" style="display:none">จัดการเพลง</button>
     </div>
   </div>
   <div class="vis" aria-hidden="true">
@@ -368,6 +393,7 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="note" id="acctMsg" style="min-height:0;margin:8px 0 0"></div>
     <div class="stats" id="acctStats"></div>
     <div class="lobbylist" id="acctHist" style="margin:0"></div>
+    <details class="sec adet"><summary>สำหรับผู้ดูแลระบบ</summary><div class="note" style="min-height:0;margin:8px 0">รหัสผู้ใช้ (UID) ของบัญชีนี้ แตะเพื่อคัดลอก ใช้ตั้งสิทธิ์แอดมินในฐานข้อมูล</div><div class="uid" id="acctUid" role="button" tabindex="0"></div></details>
   </div>
 </div></div>
 <div class="screen hide" id="lbScreen"><div class="page">
@@ -420,6 +446,36 @@ button{-webkit-tap-highlight-color:transparent}
       <button class="go" id="startRoomBtn">เริ่มเกม</button>
     </div>
     <div class="waitbox" id="waitMsg">รอโฮสต์เริ่มเกม...</div>
+  </div>
+</div></div>
+<div class="screen hide" id="adminScreen"><div class="page wide">
+  <aside class="side"><button class="back" id="adminBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับหน้าหลัก</button><h2>จัดการคลังเพลง</h2><p id="adminInfo"></p>
+    <button class="go alt" id="adminImport" style="margin-top:22px;max-width:300px" hidden>นำเข้าเพลงที่มีอยู่</button>
+  </aside>
+  <div class="panel adm">
+    <div class="addbox">
+      <div class="fl" id="admFormTitle" style="font-size:1rem;color:var(--ink)">เพิ่มเพลงใหม่</div>
+      <label class="fl" for="admTitle">ชื่อเพลง</label><input id="admTitle" type="text" autocomplete="off">
+      <label class="fl" for="admUrl">ลิงก์ YouTube</label><input id="admUrl" type="url" autocomplete="off">
+      <div class="two">
+        <div><label class="fl" for="admStart">เวลาเริ่มเล่น</label><input id="admStart" type="text" placeholder="เช่น 0:45" autocomplete="off"></div>
+        <div><label class="fl" for="admAlt">ลิงก์สำรอง (ถ้ามี)</label><input id="admAlt" type="url" autocomplete="off"></div>
+      </div>
+      <details class="more"><summary>ข้อมูลเพิ่มเติม (ไม่บังคับ ถ้าว่างจะดึงจาก VocaDB)</summary>
+        <div class="two">
+          <div><label class="fl" for="admVocal">เสียงร้อง</label><input id="admVocal" type="text"></div>
+          <div><label class="fl" for="admComposer">ผู้แต่ง</label><input id="admComposer" type="text"></div>
+          <div><label class="fl" for="admArr">Arrangement</label><input id="admArr" type="text"></div>
+          <div><label class="fl" for="admDate">วันที่ปล่อย</label><input id="admDate" type="text"></div>
+        </div>
+      </details>
+      <div class="row"><button class="go" id="admSave" style="width:auto;padding:0 28px">เพิ่มเพลง</button><button class="chip" id="admCancel" hidden>ยกเลิกการแก้ไข</button></div>
+      <div class="note" id="admMsg" style="margin:10px 0 0;min-height:1.4em;font-weight:500"></div>
+    </div>
+    <div class="sec">
+      <input class="tin" id="admSearch" type="search" placeholder="ค้นหาชื่อเพลง" aria-label="ค้นหาชื่อเพลง">
+      <div id="admList"></div>
+    </div>
   </div>
 </div></div>
 <div class="wrap">
@@ -737,7 +793,7 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -985,10 +1041,12 @@ $('leaveBtn').onclick=leaveRoom;
    วิธีตั้งค่า: สร้างโปรเจกต์ที่ console.firebase.google.com → เปิด Authentication (Google) และ Firestore
    แล้วนำค่า config ของเว็บแอปมาวางแทนค่าด้านล่าง (ค่าเหล่านี้ใส่ในหน้าเว็บได้ตามปกติของ Firebase) */
 const FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCIwG6cgJDhkkFxhW_oc7g4iryJvWKeXVI",
+  authDomain: "vocaloid-quiz-39.firebaseapp.com",
+  projectId: "vocaloid-quiz-39",
+  storageBucket: "vocaloid-quiz-39.firebasestorage.app",
+  messagingSenderId: "288922926957",
+  appId: "1:288922926957:web:19cd7be530982ca3716464"
 };
 const FB_ON = !String(FIREBASE_CONFIG.apiKey).startsWith('YOUR_');
 const FB_VER = "10.12.2";
@@ -1000,6 +1058,7 @@ async function initFirebase(){
   try{
     for(const m of ['app','auth','firestore']) await loadJs('https://www.gstatic.com/firebasejs/'+FB_VER+'/firebase-'+m+'-compat.js');
     firebase.initializeApp(FIREBASE_CONFIG); auth=firebase.auth(); db=firebase.firestore();
+    loadShared();
     auth.onAuthStateChanged(onAuth);
   }catch(e){ console.warn(e); }
 }
@@ -1015,7 +1074,7 @@ async function onAuth(user){
       snap=await ref.get();
     }
     profile=snap.data(); renderAcct();
-    await syncSongs();
+    await syncSongs(); await checkAdmin();
   }catch(e){ console.warn(e); alert('เชื่อมต่อฐานข้อมูลไม่ได้ ('+(e.code||e.message)+') ตรวจกฎ Firestore และโดเมนที่อนุญาต'); }
   renderAcct();
 }
@@ -1057,7 +1116,7 @@ async function signIn(){
 }
 async function openAccount(){
   showScreen('accountScreen'); $('acctMsg').textContent='';
-  $('acctMail').textContent=acct.email; $('acctName').value=(profile&&profile.name)||'';
+  $('acctMail').textContent=acct.email; $('acctUid').textContent=acct.uid; $('acctName').value=(profile&&profile.name)||'';
   const p=profile||{}, acc=p.rounds?Math.round(p.correct/p.rounds*100)+'%':'—';
   $('acctStats').innerHTML=[['เกมที่เล่น',p.games||0],['คะแนนรวม',p.totalScore||0],['คะแนนสูงสุด/เกม',p.best||0],['ความแม่นยำ',acc]].map(([l,v])=>'<div class="stat">'+l+'<b>'+v+'</b></div>').join('');
   $('acctHist').innerHTML='<div class="plt">10 เกมล่าสุด</div><div class="note" style="min-height:0">กำลังโหลด...</div>';
@@ -1134,6 +1193,135 @@ async function buildWall(){
 }
 { const _ss=showScreen; showScreen=function(id){ _ss(id); if(id==='startScreen') buildWall(); }; }
 buildWall();
+
+/* ===== คลังกลางที่แอดมินดูแล (Firestore: songs/{id}, admins/{uid}) =====
+   - ถ้ามีเพลงในคลังกลาง เกมจะใช้ชุดนี้ชุดเดียว (ซ่อนปุ่มเพิ่มเพลงเองของผู้เล่น)
+   - ถ้ายังไม่มี/โหลดไม่ได้ ใช้เพลงในไฟล์ + เพลงที่เพิ่มในเครื่องเหมือนเดิม
+   - สิทธิ์แอดมิน = มีเอกสาร admins/{uid} (สร้างเองในหน้า Firestore) กฎความปลอดภัยฝั่งเซิร์ฟเวอร์เป็นตัวบังคับจริง */
+const BUILTIN=parseSongs(SONG_LIST).ok;
+let shared=null, isAdmin=false;           // shared = null (ไม่มี/โหลดไม่ได้) หรือ [{id,...เพลง}]
+const sharedMode=()=>Array.isArray(shared)&&shared.length>0;
+const songKey=x=>ytId(x.url);
+const pickSong=x=>({title:x.title||'',url:x.url||'',start:+x.start||0,alt:x.alt||'',vocal:x.vocal||'',composer:x.composer||'',arr:x.arr||'',date:x.date||''});
+function applyPool(){
+  let base=[];
+  if(sharedMode()) base=shared.filter(s=>!s.off);
+  if(!base.length){
+    base=BUILTIN.slice();
+    customList().forEach(x=>{ if(!base.some(y=>songKey(y)===songKey(x))) base.push(x); });
+  }
+  SONGS.length=0; base.forEach(s=>SONGS.push(s));
+  $('addOpenBtn').style.display=sharedMode()?'none':'';
+  updateCount(+$('range').value);
+  buildWall();
+}
+async function loadShared(){
+  if(!db) return;
+  try{
+    const q=await db.collection('songs').get();
+    shared=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.ord||0)-(b.ord||0));
+  }catch(e){ console.warn('โหลดคลังกลางไม่ได้',e); shared=null; }
+  applyPool();
+}
+async function checkAdmin(){
+  isAdmin=false;
+  try{ isAdmin=(await db.collection('admins').doc(acct.uid).get()).exists; }catch(e){ isAdmin=false; }
+  $('adminBtn').style.display=isAdmin?'':'none';
+  applyPool();
+}
+
+/* ----- หน้าแอดมิน ----- */
+let admEdit=null;
+const admFields=['admTitle','admUrl','admStart','admAlt','admVocal','admComposer','admArr','admDate'];
+const fmtT=s=>Math.floor(s/60)+':'+String(s%60).padStart(2,'0');
+const admMsg=t=>{ $('admMsg').textContent=t||''; };
+function admReset(){
+  admEdit=null; admFields.forEach(i=>{ $(i).value=''; });
+  $('admFormTitle').textContent='เพิ่มเพลงใหม่'; $('admSave').textContent='เพิ่มเพลง'; $('admCancel').hidden=true;
+}
+function importable(){
+  const have=new Set((shared||[]).map(songKey)), out=[];
+  BUILTIN.concat(customList()).forEach(x=>{ const k=songKey(x); if(k&&!have.has(k)){ have.add(k); out.push(x); } });
+  return out;
+}
+function renderAdmin(){
+  const on=sharedMode(), off=on?shared.filter(s=>s.off).length:0, imp=importable();
+  $('adminInfo').innerHTML=on
+    ? 'คลังกลางมี <b>'+shared.length+'</b> เพลง'+(off?' (ซ่อนอยู่ '+off+')':'')+' ทุกคนเล่นชุดนี้ และผู้เล่นทั่วไปเพิ่มเพลงเองไม่ได้'
+    : 'คลังกลางยังว่าง ตอนนี้เกมใช้เพลงในไฟล์รวมกับที่เพิ่มในเครื่องนี้ กด "นำเข้า" เพื่อเริ่มจัดการจากหน้านี้';
+  $('adminImport').hidden=!imp.length;
+  $('adminImport').textContent='นำเข้าเพลงที่มีอยู่ ('+imp.length+' เพลง)';
+  const q=$('admSearch').value.trim().toLowerCase();
+  const rows=(on?shared:[]).filter(s=>!q||String(s.title).toLowerCase().includes(q));
+  $('admList').innerHTML=rows.map(s=>{
+    const id=ytId(s.url)||'';
+    return '<div class="srow'+(s.off?' off':'')+'" data-id="'+esc(s.id)+'">'
+      +'<img src="https://i.ytimg.com/vi/'+id+'/mqdefault.jpg" alt="" loading="lazy">'
+      +'<div class="si"><div class="t">'+esc(s.title)+(s.off?' <span class="tag">ซ่อนอยู่</span>':'')+'</div>'
+      +'<div class="m">เริ่ม '+fmtT(s.start||0)+(s.composer?' · '+esc(s.composer):'')+'</div></div>'
+      +'<div class="acts"><a class="chip mini" target="_blank" rel="noopener" href="https://www.youtube.com/watch?v='+id+'&t='+(s.start||0)+'s">ลองฟัง</a>'
+      +'<button class="chip mini" data-a="edit">แก้ไข</button>'
+      +'<button class="chip mini" data-a="off">'+(s.off?'แสดง':'ซ่อน')+'</button>'
+      +'<button class="chip mini del" data-a="del">ลบ</button></div></div>';
+  }).join('')||(on?'<div class="note" style="min-height:0">ไม่พบเพลงที่ค้นหา</div>':'');
+}
+function openAdmin(){ if(!isAdmin) return; admMsg(''); admReset(); $('admSearch').value=''; showScreen('adminScreen'); renderAdmin(); }
+async function admWrite(fn,okMsg){
+  admMsg('กำลังบันทึก...');
+  try{ await fn(); await loadShared(); admMsg(okMsg); renderAdmin(); return true; }
+  catch(e){ admMsg('⚠ ทำไม่สำเร็จ ('+(e.code||e.message)+') ตรวจกฎ Firestore และสิทธิ์แอดมิน'); return false; }
+}
+$('adminBtn').onclick=openAdmin;
+$('adminBack').onclick=()=>showScreen('startScreen');
+$('admSearch').oninput=renderAdmin;
+$('admCancel').onclick=()=>{ admReset(); admMsg(''); };
+$('admSave').onclick=async()=>{
+  const v=id=>$(id).value.trim();
+  const title=v('admTitle'), url=v('admUrl'), alt=v('admAlt');
+  if(!sharedMode()){ admMsg('⚠ กด "นำเข้าเพลงที่มีอยู่" ก่อน ไม่งั้นคลังจะเหลือแค่เพลงที่เพิ่มใหม่'); return; }
+  if(!title){ admMsg('⚠ กรอกชื่อเพลงก่อน'); return; }
+  if(!ytId(url)){ admMsg('⚠ ลิงก์ YouTube ไม่ถูกต้อง'); return; }
+  if(alt&&!ytId(alt)){ admMsg('⚠ ลิงก์สำรองไม่ถูกต้อง'); return; }
+  if(shared.some(x=>x.id!==admEdit&&songKey(x)===ytId(url))){ admMsg('มีเพลงนี้ในคลังแล้ว'); return; }
+  const o={title,url,start:parseTime(v('admStart')),alt,vocal:v('admVocal'),composer:v('admComposer'),arr:v('admArr'),date:v('admDate')};
+  if(admEdit){
+    const id=admEdit;
+    if(await admWrite(()=>db.collection('songs').doc(id).update(o),'บันทึกการแก้ไข "'+title+'" แล้ว')) admReset();
+  }else{
+    if(await admWrite(()=>db.collection('songs').add({...o,off:false,ord:Date.now()}),'เพิ่ม "'+title+'" แล้ว')) admReset();
+  }
+};
+$('admList').onclick=async e=>{
+  const b=e.target.closest('button[data-a]'); if(!b) return;
+  const s=(shared||[]).find(x=>x.id===b.closest('.srow').dataset.id); if(!s) return;
+  if(b.dataset.a==='edit'){
+    admEdit=s.id;
+    [['admTitle','title'],['admUrl','url'],['admAlt','alt'],['admVocal','vocal'],['admComposer','composer'],['admArr','arr'],['admDate','date']].forEach(([i,k])=>{ $(i).value=s[k]||''; });
+    $('admStart').value=fmtT(s.start||0);
+    $('admFormTitle').textContent='แก้ไขเพลง'; $('admSave').textContent='บันทึกการแก้ไข'; $('admCancel').hidden=false;
+    admMsg(''); $('admTitle').scrollIntoView({block:'center'}); $('admTitle').focus();
+  }else if(b.dataset.a==='off'){
+    await admWrite(()=>db.collection('songs').doc(s.id).update({off:!s.off}),(s.off?'แสดง':'ซ่อน')+' "'+s.title+'" แล้ว');
+  }else if(b.dataset.a==='del'){
+    if(confirm('ลบ "'+s.title+'" ออกจากคลังกลางถาวร?')){
+      if(admEdit===s.id) admReset();
+      await admWrite(()=>db.collection('songs').doc(s.id).delete(),'ลบ "'+s.title+'" แล้ว');
+    }
+  }
+};
+$('adminImport').onclick=async()=>{
+  const src=importable(); if(!src.length) return;
+  if(!confirm('นำเข้า '+src.length+' เพลงเข้าคลังกลาง?\nหลังนำเข้า ทุกคนจะเล่นชุดนี้ และปุ่มเพิ่มเพลงเองของผู้เล่นจะถูกซ่อน')) return;
+  const base=Date.now();
+  await admWrite(async()=>{
+    for(let i=0;i<src.length;i+=400){
+      const b=db.batch();
+      src.slice(i,i+400).forEach((x,j)=>b.set(db.collection('songs').doc(),{...pickSong(x),off:false,ord:base+i+j}));
+      await b.commit();
+    }
+  },'นำเข้า '+src.length+' เพลงแล้ว');
+};
+$('acctUid').onclick=async()=>{ try{ await navigator.clipboard.writeText(acct.uid); $('acctMsg').textContent='คัดลอก UID แล้ว'; }catch(e){} };
 initFirebase();
 </script>
 </body>
