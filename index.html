@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,7 @@
 <title>Vocaloid Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 /* ============ Design tokens ============
    แนวคิด: หน้าจอ "ห้องอัดเสียง" — พื้นหลังเป็นตาราง piano roll (เหมือนโปรแกรม Vocaloid Editor)
@@ -19,7 +19,7 @@
   --mint:#e8f6f4; --mint2:#cfeae6; --line:#b5dcd7; --paper:#f6fbfa;
   --red:#d93a40; --red-d:#a82a2f;
   --r:14px; --hard:5px 5px 0 var(--mint2);
-  --disp:"Prompt","Noto Sans Thai",Tahoma,sans-serif;
+  --disp:"Kanit","Prompt","Noto Sans Thai",Tahoma,sans-serif;
   --body:"IBM Plex Sans Thai","Noto Sans Thai",Tahoma,sans-serif;
 }
 *{box-sizing:border-box}
@@ -112,7 +112,7 @@ button{-webkit-tap-highlight-color:transparent}
 /* ============ หน้าแรก: เลย์เอาต์ชิดซ้าย สองคอลัมน์ ============ */
 .hero{margin:auto;width:100%;max-width:1240px;display:grid;grid-template-columns:minmax(0,1fr);gap:44px;align-items:center;padding:8px 0}
 @media(min-width:900px){.hero{grid-template-columns:minmax(0,.8fr) minmax(0,1.35fr);gap:48px}}
-.hero h1{margin:0 0 16px;font:700 clamp(3rem,14vw,5.8rem)/.95 var(--disp);letter-spacing:-.035em}
+.hero h1{margin:0 0 16px;font:800 clamp(3rem,14vw,5.6rem)/.92 var(--disp);letter-spacing:-.03em;text-transform:uppercase}
 .hero p{margin:0 0 34px;max-width:32ch;font-size:1.2rem;line-height:1.5;color:var(--mute)}
 .menu{max-width:400px}
 .hero .go{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;padding:12px 18px 12px 22px;text-align:left}
@@ -346,9 +346,21 @@ button[hidden],a[hidden]{display:none!important}
   .pill{padding:5px 10px;font-size:.82rem}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== ปุ่มเลือกภาษา ===== */
+#langSw{position:fixed;top:12px;right:12px;z-index:60;display:flex;gap:2px;padding:3px;background:#fff;border:1.5px solid var(--line);border-radius:999px;box-shadow:0 2px 0 var(--mint2)}
+#langSw button{font:600 .78rem/1 var(--body);min-width:40px;height:30px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--teal-d);cursor:pointer}
+#langSw button:hover{background:var(--mint)}
+#langSw button.on{background:var(--teal);color:#fff}
+#langSw button:focus-visible{outline:2px solid var(--deep);outline-offset:1px}
+body.ingame #langSw{display:none}
+html[lang="ja"] .hero .copy>p{max-width:24em;text-wrap:balance}
+html[lang="ja"] body,html[lang="ja"] button,html[lang="ja"] input,html[lang="ja"] select,html[lang="ja"] h1,html[lang="ja"] h2,html[lang="ja"] h3{font-family:"Kanit","IBM Plex Sans Thai","Noto Sans JP","Hiragino Sans","Yu Gothic","Meiryo","Noto Sans CJK JP","Noto Sans JP",sans-serif}
+@media(max-width:600px){#langSw{top:8px;right:8px}}
 </style>
 </head>
 <body>
+<div id="langSw" role="group" aria-label="Language"><button data-l="th" type="button">ไทย</button><button data-l="en" type="button">EN</button><button data-l="ja" type="button">日本語</button></div>
 <div class="screen" id="startScreen"><main class="hero">
   <div class="copy">
     <h1>Vocaloid<br>Quiz</h1>
@@ -360,7 +372,7 @@ button[hidden],a[hidden]{display:none!important}
     <div class="hlinks">
       <button class="chip" id="addOpenBtn">เพิ่มเพลงเอง</button>
       <button class="chip" id="lbBtn" style="display:none">อันดับ</button>
-      <button class="chip" id="acctBtn" style="display:none">ล็อกอิน Google</button>
+      <button class="chip" id="acctBtn" style="display:none">ล็อกอิน</button>
       <button class="chip" id="adminBtn" style="display:none">จัดการเพลง</button>
     </div>
   </div>
@@ -446,6 +458,23 @@ button[hidden],a[hidden]{display:none!important}
       <button class="go" id="startRoomBtn">เริ่มเกม</button>
     </div>
     <div class="waitbox" id="waitMsg">รอโฮสต์เริ่มเกม...</div>
+  </div>
+</div></div>
+<div class="screen hide" id="loginScreen"><div class="page">
+  <aside class="side"><button class="back" id="loginBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เข้าสู่ระบบ</h2><p>ล็อกอินเพื่อบันทึกคะแนน ขึ้นตารางอันดับ และซิงก์เพลงข้ามเครื่อง</p></aside>
+  <div class="panel">
+    <div class="chips seg" id="loginTabs"><button type="button" class="chip on" data-m="in">เข้าสู่ระบบ</button><button type="button" class="chip" data-m="up">สมัครสมาชิก</button></div>
+    <form id="loginForm" style="margin-top:20px" novalidate>
+      <label class="fl" for="loginEmail">อีเมล</label>
+      <input class="tin" id="loginEmail" type="email" autocomplete="email" inputmode="email">
+      <label class="fl" for="loginPass">รหัสผ่าน</label>
+      <input class="tin" id="loginPass" type="password" autocomplete="current-password" placeholder="อย่างน้อย 6 ตัวอักษร">
+      <button class="go" id="loginSubmit" type="submit" style="margin-top:6px">เข้าสู่ระบบ</button>
+      <div class="note" id="loginMsg" style="margin:10px 0 0;min-height:1.4em;font-weight:500"></div>
+      <button class="chip quiet" id="loginForgot" type="button" style="padding-left:0">ลืมรหัสผ่าน?</button>
+    </form>
+    <div class="or">หรือ</div>
+    <button class="go alt" id="loginGoogle" type="button">ดำเนินการต่อด้วย Google</button>
   </div>
 </div></div>
 <div class="screen hide" id="adminScreen"><div class="page wide">
@@ -793,7 +822,7 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -1070,7 +1099,7 @@ async function onAuth(user){
   try{
     const ref=db.collection('profiles').doc(user.uid); let snap=await ref.get();
     if(!snap.exists){
-      await ref.set({name:(acct.gname.split(' ')[0]||'ผู้เล่น').slice(0,20),totalScore:0,games:0,correct:0,rounds:0,best:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+      await ref.set({name:(acct.gname.split(' ')[0]||String(acct.email).split('@')[0]||'ผู้เล่น').slice(0,20),totalScore:0,games:0,correct:0,rounds:0,best:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
       snap=await ref.get();
     }
     profile=snap.data(); renderAcct();
@@ -1103,7 +1132,7 @@ async function saveResult(r){
 }
 function renderAcct(){
   if(!FB_ON) return;
-  $('acctBtn').textContent = acct ? ''+((profile&&profile.name)||'บัญชี') : 'ล็อกอิน Google';
+  $('acctBtn').textContent = acct ? ''+((profile&&profile.name)||'บัญชี') : 'ล็อกอิน';
 }
 async function signIn(){
   if(!auth){ alert('ระบบบัญชียังโหลดไม่เสร็จ ลองอีกครั้ง'); return; }
@@ -1122,7 +1151,7 @@ async function openAccount(){
   $('acctHist').innerHTML='<div class="plt">10 เกมล่าสุด</div><div class="note" style="min-height:0">กำลังโหลด...</div>';
   try{
     const q=await db.collection('profiles').doc(acct.uid).collection('games').orderBy('ts','desc').limit(10).get();
-    const rows=q.docs.map(d=>{ const g=d.data(), t=g.ts?g.ts.toDate().toLocaleDateString('th-TH'):''; return '<div class="pl"><span class="nm">'+t+' · '+(g.mode==='online'?'ออนไลน์':'คนเดียว')+' · '+g.correct+'/'+g.rounds+' ข้อ</span><span class="sc">'+g.score+'</span></div>'; });
+    const rows=q.docs.map(d=>{ const g=d.data(), t=g.ts?g.ts.toDate().toLocaleDateString(({th:'th-TH',en:'en-US',ja:'ja-JP'})[LANG]||'th-TH'):''; return '<div class="pl"><span class="nm">'+t+' · '+(g.mode==='online'?'ออนไลน์':'คนเดียว')+' · '+g.correct+'/'+g.rounds+' ข้อ</span><span class="sc">'+g.score+'</span></div>'; });
     $('acctHist').innerHTML='<div class="plt">10 เกมล่าสุด</div>'+(rows.join('')||'<div class="note" style="min-height:0">ยังไม่มีประวัติ</div>');
   }catch(e){ $('acctHist').innerHTML='<div class="note">โหลดประวัติไม่ได้</div>'; console.warn(e); }
 }
@@ -1134,7 +1163,7 @@ async function openLeaderboard(){
     $('lbList').innerHTML=q.docs.map((d,k)=>{ const x=d.data(); return '<div class="pl'+(acct&&d.id===acct.uid?' me':'')+'"><div><div class="nm">'+'<span class="rk">'+(k+1)+'</span>'+' '+esc(x.name||'ผู้เล่น')+'</div><div class="st">'+(x.games||0)+' เกม · สูงสุด '+(x.best||0)+'</div></div><div class="sc">'+(x.totalScore||0)+'</div></div>'; }).join('')||'ยังไม่มีข้อมูล';
   }catch(e){ $('lbList').textContent='โหลดอันดับไม่ได้ ('+(e.code||e.message)+')'; }
 }
-$('acctBtn').onclick=()=>{ if(acct) openAccount(); else signIn(); };
+$('acctBtn').onclick=()=>{ if(acct) openAccount(); else openLogin(); };
 $('lbBtn').onclick=openLeaderboard;
 $('lbBack').onclick=()=>showScreen('startScreen');
 $('acctBack').onclick=()=>showScreen('startScreen');
@@ -1322,6 +1351,372 @@ $('adminImport').onclick=async()=>{
   },'นำเข้า '+src.length+' เพลงแล้ว');
 };
 $('acctUid').onclick=async()=>{ try{ await navigator.clipboard.writeText(acct.uid); $('acctMsg').textContent='คัดลอก UID แล้ว'; }catch(e){} };
+
+/* ===== ล็อกอินด้วยอีเมล/รหัสผ่าน (Firebase Auth: Email/Password) ===== */
+let loginMode='in';
+const lmsg=t=>{ $('loginMsg').textContent=t||''; };
+function setLoginMode(m){
+  loginMode=m;
+  document.querySelectorAll('#loginTabs .chip').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+  $('loginSubmit').textContent=m==='in'?'เข้าสู่ระบบ':'สมัครสมาชิก';
+  $('loginPass').autocomplete=m==='in'?'current-password':'new-password';
+  $('loginForgot').hidden=m!=='in'; lmsg('');
+}
+function openLogin(){ setLoginMode('in'); $('loginPass').value=''; showScreen('loginScreen'); }
+function authMsg(e){
+  const c=e&&e.code;
+  if(c==='auth/invalid-email') return 'อีเมลไม่ถูกต้อง';
+  if(['auth/user-not-found','auth/wrong-password','auth/invalid-credential','auth/invalid-login-credentials'].includes(c)) return 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
+  if(c==='auth/email-already-in-use') return 'อีเมลนี้สมัครไว้แล้ว ลองเข้าสู่ระบบแทน';
+  if(c==='auth/weak-password') return 'รหัสผ่านง่ายเกินไป (อย่างน้อย 6 ตัว)';
+  if(c==='auth/too-many-requests') return 'ลองหลายครั้งเกินไป รอสักครู่แล้วลองใหม่';
+  if(c==='auth/network-request-failed') return 'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ต';
+  if(c==='auth/operation-not-allowed') return 'ยังไม่ได้เปิดล็อกอินด้วยอีเมลใน Firebase';
+  return 'ไม่สำเร็จ ('+(c||(e&&e.message)||'?')+')';
+}
+$('loginBack').onclick=()=>showScreen('startScreen');
+document.querySelectorAll('#loginTabs .chip').forEach(b=>{ b.onclick=()=>setLoginMode(b.dataset.m); });
+$('loginForm').onsubmit=async ev=>{
+  ev.preventDefault();
+  if(!auth){ lmsg('⚠ ระบบบัญชียังโหลดไม่เสร็จ ลองอีกครั้ง'); return; }
+  const em=$('loginEmail').value.trim(), pw=$('loginPass').value;
+  if(!em||!pw){ lmsg('⚠ กรอกอีเมลและรหัสผ่านก่อน'); return; }
+  if(loginMode==='up'&&pw.length<6){ lmsg('⚠ รหัสผ่านต้องยาวอย่างน้อย 6 ตัว'); return; }
+  $('loginSubmit').disabled=true; lmsg('กำลังดำเนินการ...');
+  try{
+    if(loginMode==='in') await auth.signInWithEmailAndPassword(em,pw);
+    else await auth.createUserWithEmailAndPassword(em,pw);
+    $('loginPass').value=''; lmsg(''); showScreen('startScreen');
+  }catch(e){ lmsg('⚠ '+authMsg(e)); }
+  $('loginSubmit').disabled=false;
+};
+$('loginForgot').onclick=async()=>{
+  const em=$('loginEmail').value.trim();
+  if(!auth){ lmsg('⚠ ระบบบัญชียังโหลดไม่เสร็จ ลองอีกครั้ง'); return; }
+  if(!em){ lmsg('⚠ กรอกอีเมลก่อน แล้วกด "ลืมรหัสผ่าน?"'); return; }
+  try{ await auth.sendPasswordResetEmail(em); lmsg('ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว (ตรวจกล่องสแปมด้วย)'); }
+  catch(e){ lmsg('⚠ '+authMsg(e)); }
+};
+$('loginGoogle').onclick=async()=>{ await signIn(); if(auth&&auth.currentUser) showScreen('startScreen'); };
+
+/* ===== หลายภาษา: ไทย / English / 日本語 =====
+   ข้อความในโค้ดเขียนเป็นภาษาไทย ตัวแปลจะจับข้อความไทยบนหน้าจอแล้วสลับเป็นภาษาที่เลือก
+   (ข้อความที่ไม่มีในตารางจะแสดงเป็นภาษาไทยตามเดิม) ชื่อเพลงไม่ถูกแปล */
+var LANG='en';
+(function(){
+const TH=/[฀-๿]/;
+const E=[
+['เข้าสู่ระบบ','Sign in','ログイン'],
+['สมัครสมาชิก','Create account','新規登録'],
+['ล็อกอิน','Sign in','ログイン'],
+['ล็อกอินเพื่อบันทึกคะแนน ขึ้นตารางอันดับ และซิงก์เพลงข้ามเครื่อง','Sign in to save your scores, appear on the leaderboard, and sync songs across devices.','ログインすると、スコアの保存、ランキング掲載、端末間での曲の同期ができます。'],
+['อีเมล','Email','メールアドレス'],
+['รหัสผ่าน','Password','パスワード'],
+['อย่างน้อย 6 ตัวอักษร','At least 6 characters','6文字以上'],
+['ลืมรหัสผ่าน?','Forgot password?','パスワードをお忘れですか？'],
+['หรือ','Or','または'],
+['ดำเนินการต่อด้วย Google','Continue with Google','Googleで続ける'],
+['กำลังดำเนินการ...','Working...','処理中...'],
+['กรอกอีเมลและรหัสผ่านก่อน','Enter your email and password first','先にメールアドレスとパスワードを入力してください'],
+['รหัสผ่านต้องยาวอย่างน้อย 6 ตัว','The password must be at least 6 characters','パスワードは6文字以上にしてください'],
+['กรอกอีเมลก่อน แล้วกด "ลืมรหัสผ่าน?"','Enter your email first, then press "Forgot password?"','先にメールアドレスを入力して「パスワードをお忘れですか？」を押してください'],
+['ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว (ตรวจกล่องสแปมด้วย)','A password reset link was sent to your email (check spam too).','パスワード再設定のリンクをメールで送信しました（迷惑メールも確認してください）'],
+['อีเมลไม่ถูกต้อง','Invalid email address','メールアドレスが正しくありません'],
+['อีเมลหรือรหัสผ่านไม่ถูกต้อง','Incorrect email or password','メールアドレスまたはパスワードが正しくありません'],
+['อีเมลนี้สมัครไว้แล้ว ลองเข้าสู่ระบบแทน','This email is already registered. Try signing in instead.','このメールアドレスはすでに登録されています。ログインをお試しください'],
+['รหัสผ่านง่ายเกินไป (อย่างน้อย 6 ตัว)','The password is too weak (at least 6 characters)','パスワードが簡単すぎます（6文字以上）'],
+['ลองหลายครั้งเกินไป รอสักครู่แล้วลองใหม่','Too many attempts. Wait a moment and try again.','試行回数が多すぎます。しばらくしてからお試しください'],
+['เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ต','Couldn\'t connect. Check your internet.','接続できません。ネット接続を確認してください'],
+['ยังไม่ได้เปิดล็อกอินด้วยอีเมลใน Firebase','Email sign-in isn\'t enabled in Firebase yet','Firebaseでメールログインがまだ有効になっていません'],
+['ฟังท่อนสั้นๆ แล้วทายชื่อเพลงให้ทัน','Listen to a short clip and guess the song in time.','短いフレーズを聴いて、曲名を当てよう。'],
+['เล่นคนเดียว','Play solo','ひとりで遊ぶ'],
+['ตั้งจำนวนข้อและเวลาเองได้','Set the number of rounds and timers','問題数と制限時間を設定できます'],
+['เล่นกับเพื่อนออนไลน์','Play online with friends','オンラインで友達と遊ぶ'],
+['สร้างห้องได้สูงสุด 8 คน','Rooms for up to 8 players','最大8人のルームを作成'],
+['เพิ่มเพลงเอง','Add your songs','曲を追加'],
+['อันดับ','Leaderboard','ランキング'],
+['ล็อกอิน Google','Sign in with Google','Googleでログイン'],
+['จัดการเพลง','Manage songs','曲の管理'],
+['กลับ','Back','戻る'],
+['ตั้งค่าเกม','Game setup','ゲーム設定'],
+['เลือกจำนวนเพลงและเวลา แล้วเริ่มเล่นได้เลย','Choose the number of songs and timers, then start.','曲数と制限時間を選んで、すぐ始められます。'],
+['จำนวนเพลง','Number of songs','曲数'],
+['เพลง','songs','曲'],
+['เวลาฟังเพลง (วินาที)','Listening time (seconds)','試聴時間（秒）'],
+['เวลานับตอบหลังเพลงจบ (วินาที)','Answer time after the clip ends (seconds)','再生終了後の回答時間（秒）'],
+['เริ่มเล่น','Start','スタート'],
+['บัญชีของฉัน','My account','マイアカウント'],
+['ออกจากระบบ','Sign out','ログアウト'],
+['ชื่อที่แสดง (ในห้องออนไลน์และตารางอันดับ)','Display name (shown in online rooms and the leaderboard)','表示名（オンラインルームとランキングに表示）'],
+['บันทึก','Save','保存'],
+['สำหรับผู้ดูแลระบบ','For administrators','管理者向け'],
+['รหัสผู้ใช้ (UID) ของบัญชีนี้ แตะเพื่อคัดลอก ใช้ตั้งสิทธิ์แอดมินในฐานข้อมูล','This account\'s user ID (UID). Tap to copy. Used to grant admin rights in the database.','このアカウントのユーザーID（UID）。タップでコピー。データベースで管理者権限を付与するときに使います。'],
+['ตารางอันดับ','Leaderboard','ランキング表'],
+['จัดอันดับจากคะแนนรวมทุกเกม แสดง 20 อันดับแรก','Ranked by total score across all games. Top 20 shown.','全ゲームの合計スコア順。上位20位まで表示。'],
+['กำลังโหลด...','Loading...','読み込み中...'],
+['กลับหน้าหลัก','Back to home','ホームに戻る'],
+['เพิ่มเพลงจาก YouTube เข้าคลังของคุณ เพลงที่เพิ่มจะเก็บไว้ในเครื่องนี้ ล็อกอินแล้วซิงก์ข้ามเครื่องได้','Add songs from YouTube to your library. Added songs are stored on this device; sign in to sync across devices.','YouTubeの曲をライブラリに追加します。追加した曲はこの端末に保存され、ログインすると端末間で同期できます。'],
+['ชื่อเพลง','Song title','曲名'],
+['ลิงก์ YouTube','YouTube link','YouTubeリンク'],
+['วางลิงก์ได้เลย','Paste the link here','リンクを貼り付け'],
+['เวลาเริ่มเล่น','Start time','再生開始時間'],
+['เช่น 0:45 หรือ 45','e.g. 0:45 or 45','例: 0:45 または 45'],
+['เลือกช่วงที่จำง่าย เช่น ท่อนฮุก ถ้าเว้นว่างจะเริ่มที่ 0:45','Pick a memorable part, such as the chorus. If left blank, it starts at 0:45.','サビなど覚えやすい部分を選んでください。空欄の場合は0:45から再生します。'],
+['ข้อมูลเพิ่มเติม (ไม่บังคับ ถ้าว่างจะดึงจาก VocaDB)','More info (optional; if blank, it is fetched from VocaDB)','追加情報（任意。空欄の場合はVocaDBから取得）'],
+['เสียงร้อง','Vocals','ボーカル'],
+['ผู้แต่ง','Composer','作曲者'],
+['วันที่ปล่อย','Release date','公開日'],
+['เช่น 7 ธันวาคม 2007','e.g. 7 December 2007','例: 2007年12月7日'],
+['เพิ่มเข้าคลัง','Add to library','ライブラリに追加'],
+['ล้างเพลงที่เพิ่มเอง','Clear my added songs','追加した曲を削除'],
+['เล่นกับเพื่อน','Play with friends','友達と遊ぶ'],
+['สร้างห้องแล้วส่งรหัส 4 ตัวให้เพื่อน เล่นพร้อมกันได้สูงสุด 8 คน','Create a room and send the 4-character code to your friends. Up to 8 can play together.','ルームを作って4文字のコードを友達に送りましょう。最大8人で同時に遊べます。'],
+['ชื่อของคุณ','Your name','あなたの名前'],
+['ไม่เกิน 12 ตัวอักษร','Up to 12 characters','12文字まで'],
+['สร้างห้องใหม่','Create a new room','新しいルームを作成'],
+['หรือเข้าห้องของเพื่อน','Or join a friend\'s room','または友達のルームに参加'],
+['รหัสห้อง','Room code','ルームコード'],
+['เข้าร่วม','Join','参加'],
+['ออกจากห้อง','Leave room','ルームを出る'],
+['ห้องออนไลน์','Online room','オンラインルーム'],
+['แตะเพื่อคัดลอกรหัส','Tap to copy the code','タップでコードをコピー'],
+['แตะรหัสเพื่อคัดลอก แล้วส่งให้เพื่อน','Tap the code to copy it, then send it to your friends.','コードをタップしてコピーし、友達に送ってください。'],
+['เวลาฟัง (วิ)','Listen (s)','試聴(秒)'],
+['เวลาตอบ (วิ)','Answer (s)','回答(秒)'],
+['เริ่มเกม','Start game','ゲーム開始'],
+['รอโฮสต์เริ่มเกม...','Waiting for the host to start...','ホストの開始を待っています...'],
+['จัดการคลังเพลง','Manage song library','曲ライブラリの管理'],
+['นำเข้าเพลงที่มีอยู่','Import existing songs','既存の曲をインポート'],
+['เพิ่มเพลงใหม่','Add a new song','新しい曲を追加'],
+['ลิงก์สำรอง (ถ้ามี)','Backup link (optional)','予備リンク（任意）'],
+['เช่น 0:45','e.g. 0:45','例: 0:45'],
+['เพิ่มเพลง','Add song','曲を追加'],
+['ยกเลิกการแก้ไข','Cancel editing','編集をキャンセル'],
+['ค้นหาชื่อเพลง','Search by title','曲名で検索'],
+['ข้อ','Q','問'],
+['คะแนน','Score','スコア'],
+['ข้าม','Skip','スキップ'],
+['ข้อมูลเพลงจะแสดงที่นี่หลังตอบ','Song info appears here after you answer','回答後にここに曲情報が表示されます'],
+['จบเกมแล้ว','Game over','ゲーム終了'],
+['คะแนนรวมของคุณ','Your total score','あなたの合計スコア'],
+['เริ่มใหม่','Play again','もう一度'],
+['ลิงก์แรกเล่นไม่ได้ กำลังลองลิงก์สำรอง...','The first link won\'t play. Trying the backup link...','最初のリンクは再生できません。予備リンクを試しています...'],
+['เล่นเพลงนี้ไม่ได้ (ลิงก์ห้ามฝัง?) แก้ลิงก์ใน SONGS','Can\'t play this song (embedding disabled?). Fix the link in SONGS.','この曲は再生できません（埋め込み禁止？）。SONGSのリンクを修正してください'],
+['โหลด YouTube API ไม่ได้ (ตรวจอินเทอร์เน็ต)','Couldn\'t load the YouTube API (check your connection)','YouTube APIを読み込めません（接続を確認してください）'],
+['กำลังโหลดตัวเล่น... ลองอีกครั้งในอีกสักครู่','Loading the player... try again in a moment.','プレーヤーを読み込み中... 少し待ってからもう一度お試しください'],
+['เลือกคำตอบได้เลย','Pick your answer now','答えを選んでください'],
+['กำลังเล่น...','Playing...','再生中...'],
+['กำลังเล่น... (ไม่ได้ยินเสียง? แตะที่กรอบ)','Playing... (can\'t hear? tap the box)','再生中...（音が聞こえない？枠をタップ）'],
+['หมดเวลาฟังแล้ว รอเฉลย...','Listening time\'s up. Waiting for the answer...','試聴時間終了。正解発表を待っています...'],
+['หมดเวลาฟังแล้ว! รีบตอบ','Time\'s up! Answer quickly','試聴終了！急いで回答'],
+['กำลังโหลดข้อมูลจาก VocaDB...','Loading info from VocaDB...','VocaDBから情報を読み込み中...'],
+['ข้อมูลจาก','Data from','情報提供:'],
+['(ค้นจากชื่อเพลง อาจไม่ตรง)','(found by title, may not match)','（曲名で検索したため、一致しない場合があります）'],
+['ข้อมูลที่ใส่ไว้ในไฟล์ (บางรายการเป็นปีโดยประมาณ)','Data entered in the file (some dates are approximate years)','ファイルに入力された情報（一部は概算の年）'],
+['เตรียมพร้อม! เพลงจะเริ่มพร้อมกันทุกคน','Get ready! The song starts for everyone at once.','準備してください！全員同時に曲が始まります'],
+['กดที่กรอบเพื่อเริ่มฟังก่อนตอบ','Click the box to listen before answering','枠をクリックして再生してから回答'],
+['ดูผลสรุป','See results','結果を見る'],
+['พร้อมไปข้อต่อไป','Ready for next','次へ進む準備OK'],
+['กรอกชื่อเพลงก่อน','Enter the song title first','先に曲名を入力してください'],
+['ลิงก์ YouTube ไม่ถูกต้อง','Invalid YouTube link','YouTubeリンクが正しくありません'],
+['เพลงนี้มีอยู่ในคลังแล้ว','This song is already in the library','この曲はすでにライブラリにあります'],
+['ไม่มีเพลงที่เพิ่มเอง','No songs added yourself','追加した曲はありません'],
+['โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)','Couldn\'t load PeerJS (check your connection)','PeerJSを読み込めません（接続を確認してください）'],
+['สร้างห้องไม่ได้ ลองใหม่อีกครั้ง','Couldn\'t create the room. Try again.','ルームを作成できません。もう一度お試しください'],
+['ผู้เล่น','Player','プレイヤー'],
+['เกมเริ่มไปแล้ว','The game has already started','ゲームはすでに始まっています'],
+['ห้องเต็ม (สูงสุด 8 คน)','Room is full (max 8 players)','ルームが満員です（最大8人）'],
+['ไม่พบห้องนี้','Room not found','ルームが見つかりません'],
+['เชื่อมต่อห้องไม่สำเร็จ (หมดเวลา)','Couldn\'t connect to the room (timed out)','ルームに接続できませんでした（タイムアウト）'],
+['ห้องปิดการเชื่อมต่อ','The room closed the connection','ルームが接続を閉じました'],
+['หลุดจากห้อง (โฮสต์ออกหรือการเชื่อมต่อขาด)','Disconnected from the room (the host left or the connection dropped)','ルームから切断されました（ホストが退出、または接続が切れました）'],
+['โฮสต์','Host','ホスト'],
+['รอผู้เล่น','Waiting for player','プレイヤー待ち'],
+['รอทุกคนกดข้าม...','Waiting for everyone to skip...','全員のスキップを待っています...'],
+['รอผู้เล่นอื่น...','Waiting for other players...','他のプレイヤーを待っています...'],
+['เตรียมพร้อม... เพลงจะเริ่มพร้อมกัน','Get ready... the song starts for everyone at once','準備... 全員同時に曲が始まります'],
+['ตอบแล้ว! รอเฉลย — กดข้ามเพื่อดูเฉลยเร็วขึ้นได้','Answered! Waiting for the reveal — press skip to see it sooner.','回答済み！正解発表待ち — スキップで早く見られます'],
+['ข้ามไปเฉลย','Skip to answer','正解へスキップ'],
+['รอเฉลย...','Waiting for the answer...','正解発表待ち...'],
+['ตอบแล้ว! รอเฉลย...','Answered! Waiting for the answer...','回答済み！正解発表待ち...'],
+['หมดเวลา รอเฉลย...','Time\'s up. Waiting for the answer...','時間切れ。正解発表待ち...'],
+['ไปข้อต่อไป','Next question','次の問題へ'],
+['อันดับผู้เล่น','Player ranking','プレイヤーランキング'],
+['กลับห้อง (เล่นใหม่)','Back to room (play again)','ルームに戻る（もう一度）'],
+['พร้อมไปต่อ','Ready to continue','準備OK'],
+['ดูเฉลย','Viewing answer','正解を確認中'],
+['กดข้ามแล้ว','Skipped','スキップ済み'],
+['ตอบแล้ว','Answered','回答済み'],
+['ยังไม่ตอบ','Not answered','未回答'],
+['ไปข้อต่อไปทันที','Go to next now','すぐ次へ'],
+['ข้ามไปเฉลยทันที','Skip to answer now','すぐ正解へ'],
+['กรอกชื่อก่อน','Enter your name first','先に名前を入力してください'],
+['กำลังสร้างห้อง...','Creating the room...','ルームを作成中...'],
+['รหัสห้องต้องมี 4 ตัว','The room code must be 4 characters','ルームコードは4文字です'],
+['กำลังเข้าร่วม...','Joining...','参加中...'],
+['บัญชี','Account','アカウント'],
+['ระบบบัญชียังโหลดไม่เสร็จ ลองอีกครั้ง','The account system isn\'t ready yet. Try again.','アカウント機能の準備がまだです。もう一度お試しください'],
+['เกมที่เล่น','Games played','プレイしたゲーム'],
+['คะแนนรวม','Total score','合計スコア'],
+['คะแนนสูงสุด/เกม','Best score per game','ゲームごとの最高スコア'],
+['ความแม่นยำ','Accuracy','正答率'],
+['10 เกมล่าสุด','Last 10 games','直近10ゲーム'],
+['ยังไม่มีประวัติ','No history yet','まだ履歴がありません'],
+['โหลดประวัติไม่ได้','Couldn\'t load history','履歴を読み込めません'],
+['ระบบยังไม่พร้อม ลองอีกครั้ง','The system isn\'t ready. Try again.','準備ができていません。もう一度お試しください'],
+['ยังไม่มีข้อมูล','No data yet','データがありません'],
+['บันทึกชื่อแล้ว','Name saved','名前を保存しました'],
+['คัดลอกรหัสแล้ว ส่งให้เพื่อนได้เลย','Code copied. Send it to your friends.','コードをコピーしました。友達に送ってください'],
+['คัดลอกอัตโนมัติไม่ได้ จดรหัสนี้ส่งให้เพื่อนได้เลย','Couldn\'t copy automatically. Note this code and send it to your friends.','自動コピーできませんでした。このコードを控えて友達に送ってください'],
+['คัดลอก UID แล้ว','UID copied','UIDをコピーしました'],
+['คลังกลางมี','The shared library has','共有ライブラリ:'],
+['คลังกลางยังว่าง ตอนนี้เกมใช้เพลงในไฟล์รวมกับที่เพิ่มในเครื่องนี้ กด "นำเข้า" เพื่อเริ่มจัดการจากหน้านี้','The shared library is empty. The game currently uses the built-in songs plus those added on this device. Press "Import" to start managing from this page.','共有ライブラリはまだ空です。現在はファイル内の曲とこの端末で追加した曲を使っています。「インポート」を押すとこの画面で管理を始められます。'],
+['ซ่อนอยู่','Hidden','非表示中'],
+['ลองฟัง','Listen','試聴'],
+['แก้ไข','Edit','編集'],
+['แสดง','Show','表示'],
+['ซ่อน','Hide','非表示にする'],
+['ลบ','Delete','削除'],
+['ไม่พบเพลงที่ค้นหา','No songs found','該当する曲がありません'],
+['กำลังบันทึก...','Saving...','保存中...'],
+['กด "นำเข้าเพลงที่มีอยู่" ก่อน ไม่งั้นคลังจะเหลือแค่เพลงที่เพิ่มใหม่','Press "Import existing songs" first, or the library will contain only newly added songs.','先に「既存の曲をインポート」を押してください。押さないとライブラリには新しく追加した曲だけが残ります'],
+['ลิงก์สำรองไม่ถูกต้อง','Invalid backup link','予備リンクが正しくありません'],
+['มีเพลงนี้ในคลังแล้ว','This song is already in the library','この曲はすでにライブラリにあります'],
+['แก้ไขเพลง','Edit song','曲を編集'],
+['บันทึกการแก้ไข','Save changes','変更を保存']
+];
+const EX={en:{},ja:{}};
+E.forEach(a=>{ EX.en[a[0]]=a[1]; EX.ja[a[0]]=a[2]; });
+/* กฎที่มีตัวเลข/ชื่อแทรก: [regex, อังกฤษ, ญี่ปุ่น] ($1.. = ค่าที่จับได้) */
+const R=[
+[/^ไม่สำเร็จ \(([\s\S]*)\)$/,'Failed ($1)','失敗しました（$1）'],
+[/^แตะเพื่อเริ่มฟัง \((\d+) วินาที ฟังได้ครั้งเดียว\)$/,'Tap to listen ($1 s, one listen only)','タップして再生（$1秒・1回のみ）'],
+[/^ถูกต้อง! \+(\d+)$/,'Correct! +$1','正解！+$1'],
+[/^คำตอบที่ถูกคือ ([\s\S]+)$/,'The correct answer is $1','正解は $1'],
+[/^หมดเวลา! ถือว่าผิด คำตอบคือ ([\s\S]+)$/,'Time\'s up! Counted as wrong. The answer is $1','時間切れ！不正解です。正解は $1'],
+[/^ไม่ได้ตอบ คำตอบคือ ([\s\S]+)$/,'No answer. The answer is $1','未回答。正解は $1'],
+[/^ตอบถูก (\d+) จาก (\d+) ข้อ$/,'Correct: $1 of $2','$2問中$1問正解'],
+[/^คลังมี (\d+) เพลง เพลงจะถูกวนซ้ำ \(เพิ่มเพลงใน SONGS เพื่อให้ไม่ซ้ำ\)$/,'The library has $1 songs; songs will repeat (add songs to SONGS to avoid repeats)','ライブラリは$1曲。曲は繰り返されます（重複を避けるにはSONGSに曲を追加）'],
+[/^สุ่มจากคลัง (\d+) เพลง$/,'Randomly picked from $1 songs','$1曲のライブラリからランダムに出題'],
+[/^เพิ่ม "([\s\S]*)" แล้ว \(คลังมี (\d+) เพลง\)$/,'Added "$1" (library has $2 songs)','「$1」を追加しました（ライブラリは$2曲）'],
+[/^ล้างเพลงที่เพิ่มเอง (\d+) เพลง\?$/,'Clear the $1 songs you added?','追加した曲$1曲を削除しますか？'],
+[/^ล้างแล้ว (\d+) เพลง$/,'Cleared $1 songs','$1曲を削除しました'],
+[/^เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ \(([\s\S]*)\)$/,'Couldn\'t connect to the server ($1)','サーバーに接続できません（$1）'],
+[/^เชื่อมต่อไม่ได้ \(([\s\S]*)\)$/,'Couldn\'t connect ($1)','接続できません（$1）'],
+[/^ผู้เล่น (\d+)\/(\d+)$/,'Players $1/$2','プレイヤー $1/$2'],
+[/^ตอนนี้ในคลังมี (\d+) เพลง$/,'The library now has $1 songs','現在ライブラリには$1曲あります'],
+[/^โหลด (\S+) ไม่ได้$/,'Couldn\'t load $1','$1を読み込めません'],
+[/^เชื่อมต่อฐานข้อมูลไม่ได้ \(([\s\S]*)\) ตรวจกฎ Firestore และโดเมนที่อนุญาต$/,'Couldn\'t connect to the database ($1). Check the Firestore rules and authorized domains.','データベースに接続できません（$1）。Firestoreのルールと承認済みドメインを確認してください'],
+[/^ล็อกอินไม่สำเร็จ \(([\s\S]*)\)$/,'Sign-in failed ($1)','ログインに失敗しました（$1）'],
+[/^(.*) · (คนเดียว|ออนไลน์) · (\d+)\/(\d+) ข้อ$/,function(m,d,mode,c,r,l){ return d+' · '+(mode==='คนเดียว'?(l==='ja'?'ひとり':'Solo'):(l==='ja'?'オンライン':'Online'))+' · '+c+'/'+r+(l==='ja'?'問':' Q'); }],
+[/^(\d+) เกม · สูงสุด (\d+)$/,'$1 games · best $2','$1ゲーム・最高 $2'],
+[/^โหลดอันดับไม่ได้ \(([\s\S]*)\)$/,'Couldn\'t load the leaderboard ($1)','ランキングを読み込めません（$1）'],
+[/^บันทึกไม่สำเร็จ \(([\s\S]*)\)$/,'Couldn\'t save ($1)','保存できませんでした（$1）'],
+[/^เพลง(?: \(ซ่อนอยู่ (\d+)\))? ทุกคนเล่นชุดนี้ และผู้เล่นทั่วไปเพิ่มเพลงเองไม่ได้$/,function(m,h,l){ return l==='ja' ? '曲'+(h?'（非表示'+h+'曲）':'')+'。全員がこのセットで遊び、一般プレイヤーは曲を追加できません。' : 'songs'+(h?' ('+h+' hidden)':'')+'. Everyone plays this set, and regular players can\'t add songs.'; }],
+[/^นำเข้าเพลงที่มีอยู่ \((\d+) เพลง\)$/,'Import existing songs ($1)','既存の曲をインポート（$1曲）'],
+[/^เริ่ม (\S+)([\s\S]*)$/,'Start $1$2','開始 $1$2'],
+[/^ทำไม่สำเร็จ \(([\s\S]*)\) ตรวจกฎ Firestore และสิทธิ์แอดมิน$/,'Failed ($1). Check the Firestore rules and admin rights.','失敗しました（$1）。Firestoreのルールと管理者権限を確認してください'],
+[/^บันทึกการแก้ไข "([\s\S]*)" แล้ว$/,'Saved changes to "$1"','「$1」の変更を保存しました'],
+[/^แสดง "([\s\S]*)" แล้ว$/,'Showing "$1"','「$1」を表示しました'],
+[/^ซ่อน "([\s\S]*)" แล้ว$/,'Hid "$1"','「$1」を非表示にしました'],
+[/^ลบ "([\s\S]*)" ออกจากคลังกลางถาวร\?$/,'Permanently delete "$1" from the shared library?','「$1」を共有ライブラリから完全に削除しますか？'],
+[/^ลบ "([\s\S]*)" แล้ว$/,'Deleted "$1"','「$1」を削除しました'],
+[/^นำเข้า (\d+) เพลงเข้าคลังกลาง\?\n[\s\S]*$/,'Import $1 songs into the shared library?\nAfter importing, everyone plays this set and players\' "add song" button is hidden.','$1曲を共有ライブラリにインポートしますか？\nインポート後は全員がこのセットで遊び、プレイヤーの「曲を追加」ボタンは非表示になります。'],
+[/^นำเข้า (\d+) เพลงแล้ว$/,'Imported $1 songs','$1曲をインポートしました']
+];
+const MO=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const MEN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const PARTS=[
+ ['(เสียงประสานอังกฤษ:','(English backing vocals:','（英語コーラス:'],
+ ['(คอรัส)','(chorus)','（コーラス）'],
+ ['(อัลบั้ม','(album','（アルバム']
+];
+function parts(s,l){
+  const mo=MO.join('|');
+  s=s.replace(new RegExp('(\\d{1,2}) ('+mo+') (\\d{4})','g'),(m,d,mm,y)=>{ const i=MO.indexOf(mm); return l==='ja'?y+'年'+(i+1)+'月'+d+'日':d+' '+MEN[i]+' '+y; });
+  s=s.replace(new RegExp('('+mo+') (\\d{4})','g'),(m,mm,y)=>{ const i=MO.indexOf(mm); return l==='ja'?y+'年'+(i+1)+'月':MEN[i]+' '+y; });
+  s=s.replace(/ราวปี (\d{4})/g,(m,y)=>l==='ja'?y+'年頃':'c. '+y);
+  PARTS.forEach(p=>{ s=s.split(p[0]).join(l==='ja'?p[2]:p[1]); });
+  return s;
+}
+function trCore(c,l){
+  const ex=EX[l][c]; if(ex!==undefined) return ex;
+  for(const r of R){
+    const m=r[0].exec(c); if(!m) continue;
+    if(typeof r[1]==='function') return r[1](...m,l);
+    return c.replace(r[0],l==='ja'?r[2]:r[1]);
+  }
+  return undefined;
+}
+function tr(s,l){
+  if(l==='th'||!TH.test(s)) return s;
+  const m=/^(\s*)([\s\S]*?)(\s*)$/.exec(s), lead=m[1], core=m[2], trail=m[3];
+  let out=trCore(core,l);
+  if(out===undefined){
+    const p=/^([⚠✔✘⏱✓👀…]+️?\s*)([\s\S]+)$/.exec(core);
+    if(p){ const o2=trCore(p[2],l); if(o2!==undefined) out=p[1]+o2; }
+  }
+  if(out===undefined) out=parts(core,l);
+  return lead+out+trail;
+}
+window.i18nTr=s=>tr(String(s),LANG);
+
+/* ----- DOM: จำข้อความไทยเดิมของทุกโหนด แล้วแปลตามภาษาปัจจุบัน ----- */
+const orig=new WeakMap(), last=new WeakMap();
+function doText(n,force){
+  const v=n.nodeValue; let o=orig.get(n);
+  if(o!==undefined && v===last.get(n)){ if(!force) return; }
+  else if(TH.test(v)) o=v;
+  else{ orig.delete(n); last.delete(n); return; }
+  const t=tr(o,LANG); orig.set(n,o); last.set(n,t); if(t!==v) n.nodeValue=t;
+}
+const ATTRS=['placeholder','aria-label','title'];
+function doAttr(el,a,force){
+  const v=el.getAttribute(a); if(v===null) return;
+  const ko='i18o_'+a, kl='i18l_'+a; let o=el[ko];
+  if(o!==undefined && v===el[kl]){ if(!force) return; }
+  else if(TH.test(v)) o=v;
+  else{ el[ko]=undefined; el[kl]=undefined; return; }
+  const t=tr(o,LANG); el[ko]=o; el[kl]=t; if(t!==v) el.setAttribute(a,t);
+}
+function walk(root,force){
+  if(root.nodeType===3){ if(root.parentNode&&!/^(SCRIPT|STYLE)$/.test(root.parentNode.nodeName)) doText(root,force); return; }
+  if(root.nodeType!==1||/^(SCRIPT|STYLE)$/.test(root.nodeName)) return;
+  const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT);
+  const todo=[]; let n=root; do{ todo.push(n); }while((n=tw.nextNode()));
+  todo.forEach(x=>{
+    if(x.nodeType===3){ if(!/^(SCRIPT|STYLE)$/.test(x.parentNode.nodeName)) doText(x,force); }
+    else if(!/^(SCRIPT|STYLE)$/.test(x.nodeName)) ATTRS.forEach(a=>doAttr(x,a,force));
+  });
+}
+new MutationObserver(recs=>{
+  recs.forEach(r=>{
+    if(r.type==='characterData') doText(r.target);
+    else if(r.type==='attributes') doAttr(r.target,r.attributeName);
+    else r.addedNodes.forEach(n=>walk(n));
+  });
+}).observe(document.body,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:ATTRS});
+
+/* alert/confirm ก็แปลด้วย */
+const _al=window.alert.bind(window), _co=window.confirm.bind(window);
+window.alert=m=>_al(tr(String(m),LANG));
+window.confirm=m=>_co(tr(String(m),LANG));
+
+/* ----- ปุ่มเลือกภาษา ----- */
+const LANGS={th:'th',en:'en',ja:'ja'};
+function setLang(l){
+  if(!LANGS[l]) l='th';
+  LANG=l; document.documentElement.lang=l;
+  try{ localStorage.setItem('vq_lang',l); }catch(e){}
+  document.querySelectorAll('#langSw button').forEach(b=>{ const on=b.dataset.l===l; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); });
+  walk(document.body,true);
+}
+document.querySelectorAll('#langSw button').forEach(b=>{ b.onclick=()=>setLang(b.dataset.l); });
+const _ss=showScreen;
+showScreen=function(id){ _ss(id); document.body.classList.toggle('ingame',!id); };
+let saved=null; try{ saved=localStorage.getItem('vq_lang'); }catch(e){}
+setLang(saved||'en');
+})();
 initFirebase();
 </script>
 </body>
