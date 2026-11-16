@@ -375,6 +375,122 @@ html[lang="ja"] body,html[lang="ja"] button,html[lang="ja"] input,html[lang="ja"
 #startScreen.nolb .scrollhint,#startScreen.nolb .lbsec{display:none}
 @media(prefers-reduced-motion:reduce){.scrollhint svg{animation:none}}
 
+
+/* ===== เมนูซ้าย + หน้าอันดับ/คลังเพลง/ประวัติ ===== */
+#rail{position:fixed;z-index:30;left:0;top:0;bottom:0;width:150px;display:none;flex-direction:column;justify-content:center;padding-left:26px}
+body.rail #rail{display:flex}
+#rail::before{content:"";position:absolute;left:35px;top:calc(50% - 126px);height:252px;width:3px;background:var(--line);border-radius:2px}
+#rail button{position:relative;display:flex;align-items:center;gap:14px;height:84px;padding:0;border:0;background:transparent;color:var(--mute);font:500 .92rem var(--disp);text-align:left;cursor:pointer}
+#rail .d{flex:none;width:20px;height:20px;border-radius:50%;border:3px solid var(--line);background:var(--paper);transition:transform .15s,background .15s,border-color .15s}
+#rail button:hover{color:var(--teal-d)}
+#rail button:hover .d{border-color:var(--teal-d)}
+#rail button.on{color:var(--ink);font-weight:600}
+#rail button.on .d{background:var(--teal-d);border-color:var(--teal-d);transform:scale(1.25);box-shadow:0 0 0 5px var(--mint2)}
+body.rail .screen{padding-left:170px}
+@keyframes pgdn{from{opacity:.0;transform:translateY(28px)}to{opacity:1;transform:none}}@keyframes pgup{from{opacity:0;transform:translateY(-28px)}to{opacity:1;transform:none}}
+body:not(.ingame) .wrap{visibility:hidden}
+.screen.pgdn{animation:pgdn .3s ease-out}.screen.pgup{animation:pgup .3s ease-out}
+@media(max-width:1099px){#rail{width:64px;padding-left:16px}#rail::before{left:25px}#rail .l{position:absolute;left:-9999px}body.rail .screen{padding-left:84px}}
+@media(max-width:699px){
+  #rail{top:auto;width:100%;height:64px;flex-direction:row;justify-content:space-around;padding:0;background:#fff;border-top:2px solid var(--mint2)}
+  #rail::before{display:none}
+  #rail button{flex:1;height:64px;flex-direction:column;justify-content:center;gap:5px;font-size:.72rem}
+  #rail .l{position:static}
+  body.rail .screen{padding-left:16px;padding-bottom:84px}
+}
+.rkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:28px;width:100%}
+.rkh{margin:0 0 10px;font:600 1.1rem var(--disp)}
+.rkbox{display:flex;flex-direction:column;height:clamp(380px,calc(100svh - 190px),720px);border:2px solid var(--teal-d);border-radius:22px;background:#fff;overflow:hidden}
+.rklist{flex:1;min-height:0;overflow-y:auto;padding:6px 6px 4px}
+.rkme{flex:none;padding:8px 10px 10px;border-top:2px dashed var(--line);background:var(--paper)}
+.rr{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:6px;padding:10px 14px;border-radius:12px;font-size:.98rem}
+.rr .n{font:600 1.05rem var(--disp);color:var(--mute);font-variant-numeric:tabular-nums}
+.rr .nm{text-align:left;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rr .sc{font:700 1.1rem var(--disp);color:var(--teal-d);font-variant-numeric:tabular-nums}
+.rr+.rr{border-top:1px solid var(--line)}
+.rr.me{background:var(--mint);border:2px solid var(--teal-d)}
+.rr.me+.rr,.rr+.rr.me{border-top-width:2px}
+.rklist>.rr:nth-child(1) .n{color:var(--ink)}
+.rklist>.rr:nth-child(-n+3) .n{color:var(--teal-d)}
+.rkme .rr{border:2px solid var(--teal-d);border-radius:99px;background:var(--mint);padding:10px 18px}
+.rkme .rr+.rr{border-top:2px solid var(--teal-d)}
+.rkcols{display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:6px;padding:8px 20px 4px;font:600 .72rem var(--disp);color:var(--mute)}
+.rr.ph .nm,.rr.ph .n,.rr.ph .sc{color:var(--mute);font-weight:500}
+.rklist>.rr.ph+.rr.ph{border-top-color:var(--line)}
+.rkme,.rkbox.dim .rkme{background:var(--teal-d);border-top:0;padding:6px 10px}
+.rkme .rr,.rkme .rr.ph,.rkbox.dim .rkme .rr{background:transparent;border:0;border-radius:0;box-shadow:none;padding:12px 8px}
+.rkme .rr .n,.rkme .rr .nm,.rkme .rr .sc,.rkme .rr.ph .n,.rkme .rr.ph .nm,.rkme .rr.ph .sc{color:#fff}
+.rkbox.dim{background:#e9eeed;border-color:#b9c7c4}
+.rkbox.dim .rkcols{opacity:.35}
+.rkbox.dim .rklist{position:relative;opacity:1}
+.rkbox.dim .rklist .rr.ph{opacity:.5}
+.rkgate{position:absolute;inset:215px 0 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#46605c;padding:10px}
+.rkgate p{margin:0 0 16px;font-weight:500;line-height:1.6}
+.rkgate .go{display:inline-block;width:auto;min-width:160px}
+.rknote{padding:16px;font-size:.88rem;color:var(--mute)}
+.page.libpage{max-width:1120px;grid-template-columns:minmax(0,1fr);gap:12px}
+.libhead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.libhead h2{margin:14px 0 0;font:700 clamp(2rem,7vw,2.8rem)/1.05 var(--disp);letter-spacing:-.025em}
+.libhead .note{margin:0;min-height:0}
+.libbox{display:flex;flex-direction:column;height:clamp(380px,calc(100svh - 196px),760px);border:2px solid var(--teal-d);border-radius:22px;background:#fff;overflow:hidden}
+.libbar{flex:none;display:flex;gap:12px;align-items:center;padding:14px 16px;border-bottom:2px solid var(--teal-d)}
+.libbar .tin{flex:1;margin:0;min-width:0}
+.libbar .go{flex:none;width:auto;min-height:48px;padding:8px 20px;white-space:nowrap}
+.libgrid{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;padding:16px;align-content:start}
+.lcard{display:flex;flex-direction:column;gap:8px;padding:8px 8px 10px;border:2px solid var(--line);border-radius:14px;background:#fff;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.lcard:hover,.lcard:focus-visible{border-color:var(--teal-d);outline:none}
+.lcard img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:var(--mint2)}
+.lcard .t{font-weight:600;line-height:1.3;font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
+.lcard .m{font-size:.8rem;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.libgrid>.note{grid-column:1/-1}
+@media(max-width:620px){.libgrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;padding:12px}.libbar{padding:10px 12px}.libbar .go{padding:8px 12px}.libbox{height:clamp(360px,calc(100svh - 230px),760px)}}
+.sgcover{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:2px solid var(--line);border-radius:14px;background:var(--mint2);margin-bottom:16px}
+.sgt{margin:0 0 14px;font:600 1.4rem/1.3 var(--disp);word-break:break-word}
+.kv{display:grid;grid-template-columns:130px minmax(0,1fr);gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.kv .k{font-size:.82rem;color:var(--mute)}
+.kv .v{word-break:break-word}
+.sgact{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.sgact .chip{text-decoration:none}
+.addbox textarea{display:block;width:100%;min-height:84px;padding:11px 14px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+.addbox textarea:focus{outline:none;border-color:var(--teal-d)}
+.rq{padding:12px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:#fff;text-align:left}
+.rq .rqt{margin:6px 0;font-weight:600;word-break:break-word}
+.rq .df{font-size:.84rem;margin-bottom:3px;word-break:break-word}
+.rq .df .k{color:var(--mute)}
+.rq .df s{color:var(--mute)}
+.rq .note{min-height:0;margin:6px 0}
+.hchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.hcard{padding:16px;border:2px solid var(--line);border-radius:14px;background:#fff;margin-bottom:18px;text-align:left}
+.hcard h3{margin:0 0 8px;font:600 1.25rem var(--disp)}
+.hcard p{margin:0 0 12px}
+.hcard .warn{padding:8px 12px;border-radius:10px;background:#fef3c7;font-size:.85rem}
+.tl{list-style:none;margin:0 0 12px;padding:0 0 0 18px;border-left:3px solid var(--mint2)}
+.tl li{position:relative;display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;padding:6px 0}
+.tl li::before{content:"";position:absolute;left:-26px;top:13px;width:11px;height:11px;border-radius:50%;background:var(--teal-d)}
+.tl time{font:600 .82rem var(--disp);color:var(--teal-d)}
+.hsrc{font-size:.8rem;color:var(--mute)}
+.hsrc a{color:var(--teal-d)}
+.hsec{margin:6px 0 8px;font:600 .9rem var(--disp);color:var(--mute)}
+.hseg{display:inline-flex;align-self:start;justify-self:start;border:2px solid var(--teal-d);border-radius:12px;overflow:hidden;background:#fff}
+.hseg button{min-height:42px;padding:6px 20px;border:0;background:transparent;color:var(--teal-d);font:600 .92rem var(--disp);cursor:pointer}
+.hseg button+button{border-left:2px solid var(--teal-d)}
+.hseg button.on{background:var(--teal-d);color:#fff}
+.hbox{display:grid;grid-template-columns:minmax(240px,320px) minmax(0,1fr);height:clamp(340px,calc(100svh - 360px),720px);border:2px solid var(--teal-d);border-radius:22px;background:#fff;overflow:hidden}
+.hside{overflow-y:auto;padding:22px;border-right:2px solid var(--teal-d);background:var(--paper);text-align:left}
+.hside h3{margin:14px 0 0;font:700 1.5rem var(--disp)}
+.hside .hsub{margin:2px 0 12px;font:600 .85rem var(--disp);color:var(--mute)}
+.hside p{margin:0 0 12px;line-height:1.65;font-size:.95rem}
+.bigav{display:grid;place-items:center;width:112px;height:112px;border-radius:50%;background:var(--mint2);border:3px solid var(--teal-d);color:var(--teal-d);font:700 3rem var(--disp)}
+.hdetail{overflow-y:auto;padding:22px 26px;text-align:left}
+.hdetail h3{margin:0 0 12px;font:700 1.6rem var(--disp)}
+.hdetail .hsub{margin:2px 0 14px;font:600 .85rem var(--disp);color:var(--mute)}
+.hdetail p{margin:0 0 14px;line-height:1.7}
+@media(max-width:700px){.hbox{grid-template-columns:1fr;grid-template-rows:minmax(0,38%) minmax(0,1fr);height:clamp(420px,calc(100svh - 300px),760px)}.hside{border-right:0;border-bottom:2px solid var(--teal-d);padding:16px}.hdetail{padding:16px}}
+@media(max-width:520px){.tl li{grid-template-columns:1fr;gap:0}.kv{grid-template-columns:1fr;gap:2px}}
+
+
+.mtrack .blk{display:block;flex:none;width:var(--tw);aspect-ratio:16/9;margin-right:var(--g);border:2px solid var(--teal-d);border-radius:10px;background:var(--mint2);box-shadow:3px 3px 0 var(--mint2);opacity:.55}
+#visFallback{display:none!important}
 /* ===== เพื่อน/คำเชิญ ===== */
 .dot{display:inline-block;width:8px;height:8px;margin-left:6px;border-radius:50%;background:var(--red);vertical-align:2px;text-decoration:none}
 .dot[hidden]{display:none}
@@ -420,13 +536,62 @@ body.ingame #inviteToast{display:none}
     </div>
   </div>
 </main>
-<button class="scrollhint" id="scrollHint" type="button" aria-label="เพิ่มเติม"><span>เพิ่มเติม</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-<section class="lbsec" id="lbSec"><div class="lbgrid">
-  <div class="panel"><h2 class="lbh">ตารางอันดับ</h2><p class="lbp">จัดอันดับจากคะแนนรวมทุกเกม แสดง 20 อันดับแรก</p><div class="lobbylist" id="homeLb" style="margin:0">กำลังโหลด...</div></div>
-  <div class="panel"><h2 class="lbh">อันดับเพื่อน</h2><p class="lbp">เรียงตามคะแนนรวมของคุณและเพื่อน</p><div class="lobbylist" id="homeLbFr" style="margin:0">กำลังโหลด...</div></div>
-  <button class="chip quiet" id="topBtn" type="button" style="justify-self:start;padding-left:0">กลับขึ้นด้านบน</button>
-</div></section>
+
 </div>
+
+<nav id="rail" aria-label="เมนูหลัก">
+  <button type="button" data-p="startScreen"><span class="d"></span><span class="l">เล่นเกม</span></button>
+  <button type="button" data-p="rankScreen"><span class="d"></span><span class="l">อันดับ</span></button>
+  <button type="button" data-p="libScreen"><span class="d"></span><span class="l">คลังเพลง</span></button>
+  <button type="button" data-p="histScreen"><span class="d"></span><span class="l">ประวัติ</span></button>
+</nav>
+<div class="screen hide" id="rankScreen"><div class="page wide">
+  <aside class="side"><h2>อันดับ</h2><p>เรียงจากคะแนนรวมทุกเกม เลื่อนดูอันดับอื่นได้ แถวล่างสุดคืออันดับของคุณ</p></aside>
+  <div class="panel"><div class="rkgrid">
+    <section><h3 class="rkh">อันดับรวม</h3><div class="rkbox"><div class="rkcols"><span>อันดับ</span><span>ชื่อ</span><span>คะแนน</span></div><div class="rklist" id="rkAll">กำลังโหลด...</div><div class="rkme" id="rkAllMe"></div></div></section>
+    <section><h3 class="rkh">อันดับเพื่อน</h3><div class="rkbox"><div class="rkcols"><span>อันดับ</span><span>ชื่อ</span><span>คะแนน</span></div><div class="rklist" id="rkFr">กำลังโหลด...</div><div class="rkme" id="rkFrMe"></div></div></section>
+  </div></div>
+</div></div>
+<div class="screen hide" id="libScreen"><div class="page libpage">
+  <div class="libhead"><h2>คลังเพลง</h2><span class="note" id="libTotal"></span></div>
+  <div class="libbox">
+    <div class="libbar"><input class="tin" id="libQ" type="search" placeholder="ค้นหาเพลง ผู้แต่ง arrangement หรือเสียงร้อง" autocomplete="off"><button class="go alt" id="reqAddBtn" type="button">ขอเพิ่มเพลง</button></div>
+    <div class="libgrid" id="libList"></div>
+  </div>
+</div></div>
+<div class="screen hide" id="songScreen"><div class="page wide">
+  <aside class="side"><button class="back" id="sgBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับไปคลังเพลง</button><h2>รายละเอียดเพลง</h2></aside>
+  <div class="panel">
+    <img class="sgcover" id="sgImg" alt="">
+    <h3 class="sgt" id="sgTitle"></h3>
+    <div id="sgMeta"></div>
+    <div class="sgact"><a class="chip" id="sgPlay" target="_blank" rel="noopener">ลองฟังบน YouTube</a><button class="chip" id="sgReport" type="button">แจ้งข้อมูลผิด</button></div>
+  </div>
+</div></div>
+<div class="screen hide" id="reqScreen"><div class="page wide">
+  <aside class="side"><button class="back" id="rqBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="rqHead">แจ้งข้อมูลผิด</h2><p id="rqSub"></p></aside>
+  <div class="panel"><div class="addbox">
+    <div class="fl" id="rqSong" style="font-size:1rem;color:var(--ink)"></div>
+    <label class="fl" for="rqTitle">ชื่อเพลง</label><input id="rqTitle" type="text" autocomplete="off">
+    <label class="fl" for="rqUrl">ลิงก์ YouTube</label><input id="rqUrl" type="url" autocomplete="off">
+    <div class="two">
+      <div><label class="fl" for="rqStart">เวลาเริ่มเล่น</label><input id="rqStart" type="text" placeholder="เช่น 0:45" autocomplete="off"></div>
+      <div><label class="fl" for="rqDate">วันที่ปล่อย</label><input id="rqDate" type="text" autocomplete="off"></div>
+      <div><label class="fl" for="rqVocal">เสียงร้อง</label><input id="rqVocal" type="text" autocomplete="off"></div>
+      <div><label class="fl" for="rqComposer">ผู้แต่ง</label><input id="rqComposer" type="text" autocomplete="off"></div>
+      <div><label class="fl" for="rqArr">Arrangement</label><input id="rqArr" type="text" autocomplete="off"></div>
+    </div>
+    <label class="fl" for="rqNote">หมายเหตุถึงแอดมิน (ไม่บังคับ)</label><textarea id="rqNote" maxlength="500"></textarea>
+    <div class="row"><button class="go" id="rqSend" type="button" style="max-width:260px">ส่งเรื่อง</button></div>
+    <div class="note" id="rqMsg" role="status"></div>
+  </div></div>
+</div></div>
+<div class="screen hide" id="histScreen"><div class="page libpage">
+  <div class="libhead"><h2>ประวัติ</h2></div>
+  <div class="hseg" id="hMode"><button type="button" data-mode="soft">ประวัติโปรแกรมเสียงสังเคราะห์</button><button type="button" data-mode="voice">ประวัติเสียงร้อง</button></div>
+  <div class="hchips" id="hEras"></div>
+  <div class="hbox"><div class="hside" id="hSide"></div><div class="hdetail" id="hDetail"></div></div>
+</div></div>
 <div class="screen hide" id="setupScreen"><div class="page">
   <aside class="side"><button class="back" id="setupBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตั้งค่าเกม</h2><p>เลือกจำนวนเพลงและเวลา แล้วเริ่มเล่นได้เลย</p></aside>
   <div class="panel">
@@ -537,6 +702,7 @@ body.ingame #inviteToast{display:none}
     <button class="go alt" id="adminImport" style="margin-top:22px;max-width:300px" hidden>นำเข้าเพลงที่มีอยู่</button>
   </aside>
   <div class="panel adm">
+    <div class="addbox" style="margin-bottom:22px"><div class="fl" style="font-size:1rem;color:var(--ink)">คำร้องที่รอตรวจ</div><div id="admReq" style="margin-top:10px"></div></div>
     <div class="addbox">
       <div class="fl" id="admFormTitle" style="font-size:1rem;color:var(--ink)">เพิ่มเพลงใหม่</div>
       <label class="fl" for="admTitle">ชื่อเพลง</label><input id="admTitle" type="text" autocomplete="off">
@@ -877,7 +1043,7 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -1262,18 +1428,23 @@ async function buildWall(){
   const key=SONGS.map(s=>s.url).join('|');
   if(key===wallKey) return;
   wallKey=key;
-  const srcs=(await Promise.all(shuffle(SONGS).slice(0,36).map(thumbFor))).filter(Boolean);
-  if(wallKey!==key) return;
-  if(srcs.length<3){ wall.hidden=true; wall.classList.remove('on'); fb.hidden=false; wallKey=''; return; }
+  fb.hidden=true;
+  const paint=srcs=>{
   const rows=[[],[],[]]; srcs.forEach((s,i)=>rows[i%3].push(s));
   const secPerTile=[7.5,6,8.5];
   wall.innerHTML='<div class="wallin">'+rows.map((r,i)=>{
     let list=r.slice(0,12); while(list.length<7) list=list.concat(r.slice(0,12));
-    const tiles=list.map(s=>'<img src="'+s+'" alt="" draggable="false">').join('');
+    const tiles=list.map(s=>s?'<img src="'+s+'" alt="" draggable="false">':'<i class="blk"></i>').join('');
     return '<div class="mtrack" style="--d:'+(list.length*secPerTile[i])+'s;animation-delay:-'+(i*3.7)+'s;animation-direction:'+(i===1?'reverse':'normal')+'">'+tiles+tiles+'</div>';
   }).join('')+'</div>';
-  fb.hidden=true; wall.hidden=false;
+  wall.hidden=false;
   requestAnimationFrame(()=>wall.classList.add('on'));
+  };
+  if(wall.hidden) paint(new Array(21).fill(''));   // ระหว่างรอโหลด: กรอบว่างขยับไปก่อน
+  const srcs=(await Promise.all(shuffle(SONGS).slice(0,36).map(thumbFor))).filter(Boolean);
+  if(wallKey!==key) return;
+  if(srcs.length<3){ wallKey=''; return; }     // โหลดปกไม่ได้: คงกรอบว่างไว้ ลองใหม่ตอนกลับหน้าแรก
+  paint(srcs);
 }
 { const _ss=showScreen; showScreen=function(id){ _ss(id); if(id==='startScreen') buildWall(); }; }
 buildWall();
@@ -1349,7 +1520,7 @@ function renderAdmin(){
       +'<button class="chip mini del" data-a="del">ลบ</button></div></div>';
   }).join('')||(on?'<div class="note" style="min-height:0">ไม่พบเพลงที่ค้นหา</div>':'');
 }
-function openAdmin(){ if(!isAdmin) return; admMsg(''); admReset(); $('admSearch').value=''; showScreen('adminScreen'); renderAdmin(); }
+function openAdmin(){ if(!isAdmin) return; admMsg(''); admReset(); $('admSearch').value=''; showScreen('adminScreen'); renderAdmin(); loadReqs(); }
 async function admWrite(fn,okMsg){
   admMsg('กำลังบันทึก...');
   try{ await fn(); await loadShared(); admMsg(okMsg); renderAdmin(); return true; }
@@ -1454,49 +1625,269 @@ $('loginForgot').onclick=async()=>{
 };
 $('loginGoogle').onclick=async()=>{ await signIn(); if(auth&&auth.currentUser) showScreen('startScreen'); };
 
-/* ===== อันดับใต้หน้าแรก (เลื่อนลงหรือกดลูกศร) ===== */
-let hlbT=0, hlbBusy=false, frBusy=false, frAgain=false;
-const lbRow=(id,x,k)=>'<div class="pl'+(acct&&id===acct.uid?' me':'')+'"><div><div class="nm"><span class="rk">'+(k+1)+'</span> '+esc(x.name||'ผู้เล่น')+'</div><div class="st">'+(x.games||0)+' เกม · สูงสุด '+(x.best||0)+'</div></div><div class="sc">'+(x.totalScore||0)+'</div></div>';
-async function dbReady(){ for(let i=0;i<20&&!db;i++) await new Promise(r=>setTimeout(r,500)); return !!db; }
+/* ===== เมนูซ้าย 4 หน้า: เล่นเกม / อันดับ / คลังเพลง / ประวัติ ===== */
+const LNG=()=>document.documentElement.lang||'en';
+const pk=o=>o[LNG()]||o.en;
+const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen'};
+const _ssR=showScreen;
+showScreen=function(id){
+  _ssR(id);
+  const g=RAIL[id]; document.body.classList.toggle('rail',!!g);
+  document.querySelectorAll('#rail button').forEach(b=>{ const on=b.dataset.p===g; b.classList.toggle('on',on); if(on) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
+  if(id==='startScreen') $('startScreen').scrollTop=0;
+  if(id==='rankScreen') loadRank();
+  if(id==='libScreen') renderLib();
+  if(id==='histScreen') renderHist();
+};
+document.querySelectorAll('#rail button').forEach(b=>{ b.onclick=()=>showScreen(b.dataset.p); });
+$('lbBtn').onclick=()=>showScreen('rankScreen');
+showScreen('startScreen');   // ให้เมนูซ้ายขึ้นตั้งแต่เปิดเว็บ
+
+/* ----- เลื่อนขึ้น/ลงที่ขอบหน้า = ไปหน้าก่อนหน้า/ถัดไป (เมาส์ล้อ ทัชแพด และปัดนิ้ว) ----- */
+const PAGES=['startScreen','rankScreen','libScreen','histScreen'];
+let pgCool=0, pgAcc=0, pgAccT=0, pgTouchY=null;
+function pgCur(){ return PAGES.find(id=>!$(id).classList.contains('hide')); }
+function atEdge(t,scr,dir){
+  if(t&&t.closest&&t.closest('.libgrid,.rklist,.hside,.hdetail')) return false;   // เลื่อนในกล่องเพลง/อันดับ ไม่ย้ายหน้า
+  for(let el=t;el&&el!==document.body;el=el.parentElement){
+    if(el.nodeType!==1) continue;
+    const oy=getComputedStyle(el).overflowY;
+    if((oy==='auto'||oy==='scroll')&&el.scrollHeight>el.clientHeight+2){
+      if(dir>0?(el.scrollTop+el.clientHeight<el.scrollHeight-2):(el.scrollTop>2)) return false;
+    }
+    if(el===scr) break;
+  }
+  return true;
+}
+function pgGo(cur,dir){
+  const i=PAGES.indexOf(cur)+dir; if(i<0||i>=PAGES.length) return;
+  pgCool=Date.now()+800; pgAcc=0;
+  showScreen(PAGES[i]);
+  const el=$(PAGES[i]); el.scrollTop=dir>0?0:el.scrollHeight;
+  el.classList.remove('pgup','pgdn'); void el.offsetWidth; el.classList.add(dir>0?'pgdn':'pgup');
+}
+addEventListener('wheel',e=>{
+  const cur=pgCur(); if(!cur||e.ctrlKey||Math.abs(e.deltaY)<Math.abs(e.deltaX)) return;
+  const dir=e.deltaY>0?1:-1;
+  if(!atEdge(e.target,$(cur),dir)){ pgAcc=0; return; }
+  const now=Date.now(); if(now<pgCool) return;
+  if(now-pgAccT>400||Math.sign(pgAcc)!==dir) pgAcc=0;
+  pgAccT=now; pgAcc+=e.deltaY;
+  if(Math.abs(pgAcc)>=90) pgGo(cur,dir);
+},{passive:true});
+addEventListener('touchstart',e=>{ pgTouchY=e.touches.length===1?e.touches[0].clientY:null; },{passive:true});
+addEventListener('touchend',e=>{
+  if(pgTouchY===null) return; const cur=pgCur(); const dy=pgTouchY-e.changedTouches[0].clientY; pgTouchY=null;
+  if(!cur||Math.abs(dy)<90||Date.now()<pgCool) return;
+  const dir=dy>0?1:-1; if(atEdge(e.target,$(cur),dir)) pgGo(cur,dir);
+},{passive:true});
+
+/* ----- อันดับ: 10 อันดับแรกเห็นทันที เลื่อนดูต่อได้ (ดึง 100 อันดับ) แถวล่างสุดปักอันดับของเรา ----- */
+const rankOpen=()=>!$('rankScreen').classList.contains('hide');
+const lbRow=(id,x,k,lab)=>'<div class="rr'+(acct&&id===acct.uid?' me':'')+'"><span class="n">'+(lab||(k+1))+'</span><span class="nm">'+esc(x.name||'ผู้เล่น')+'</span><span class="sc">'+(x.totalScore||0)+'</span></div>';
+const padRows=n=>{ let h=''; for(let k=n;k<5;k++) h+='<div class="rr ph"><span class="n">'+(k+1)+'</span><span class="nm"></span><span class="sc"></span></div>'; return h; };
+const dbReady=async()=>{ for(let i=0;i<40&&!db;i++) await new Promise(r=>setTimeout(r,250)); return !!db; };
+async function realRank(score){
+  try{ const c=await db.collection('profiles').where('totalScore','>',score).count().get(); return String(c.data().count+1); }
+  catch(e){ return '100+'; }   // ถ้า count() ใช้ไม่ได้ใน SDK นี้
+}
+async function pinMe(el,rows,full){
+  if(!acct){ el.innerHTML='<div class="rr me ph"><span class="n">-</span><span class="nm">ล็อกอินเพื่อดูอันดับของคุณ</span><span class="sc">-</span></div>'; return; }
+  const i=rows.findIndex(r=>r.id===acct.uid);
+  const x=i>=0?rows[i].x:(profile||{name:(acct.gname||'').split(' ')[0]});
+  let lab=i>=0?String(i+1):'-';
+  el.innerHTML=lbRow(acct.uid,x,0,lab);
+  if(i<0&&full){ const r=await realRank(+x.totalScore||0); if(el.isConnected) el.innerHTML=lbRow(acct.uid,x,0,r); }
+}
+let rkBusy=false, frBusy=false, frAgain=false;
 async function loadGlobalLb(){
-  const el=$('homeLb'); if(!el.dataset.ok) el.textContent='กำลังโหลด...';
-  if(!await dbReady()){ el.textContent='ระบบยังไม่พร้อม ลองอีกครั้ง'; return; }
+  if(!FB_ON||!rankOpen()||rkBusy) return;
+  rkBusy=true; const el=$('rkAll');
+  if(!el.dataset.ok) el.textContent='กำลังโหลด...';
   try{
-    const q=await db.collection('profiles').orderBy('totalScore','desc').limit(20).get();
-    el.innerHTML=q.docs.map((d,k)=>lbRow(d.id,d.data(),k)).join('')||'ยังไม่มีข้อมูล'; el.dataset.ok='1';
-  }catch(e){ el.textContent='โหลดอันดับไม่ได้ ('+(e.code||e.message)+')'; }
+    if(!await dbReady()){ el.textContent='ระบบยังไม่พร้อม ลองอีกครั้ง'; return; }
+    const q=await db.collection('profiles').orderBy('totalScore','desc').limit(100).get();
+    const rows=q.docs.map(d=>({id:d.id,x:d.data()}));
+    el.innerHTML=rows.map((r,k)=>lbRow(r.id,r.x,k)).join('')+padRows(rows.length); el.dataset.ok='1';
+    pinMe($('rkAllMe'),rows,true);
+  }catch(e){ el.textContent='โหลดอันดับไม่ได้ ลองอีกครั้ง'; }
+  finally{ rkBusy=false; }
 }
 async function loadFriendsLb(){
-  if(!FB_ON) return;
+  if(!FB_ON||!rankOpen()) return;
+  const el=$('rkFr'), me=$('rkFrMe');
+  const box=el.closest('.rkbox');
+  if(!acct){
+    box.classList.add('dim');
+    el.innerHTML=padRows(0)+'<div class="rkgate"><p>ยังไม่ได้ล็อกอิน<br>โปรดล็อกอินเพื่อเช็คอันดับเพื่อน</p><button type="button" class="go" id="rkLoginBtn">ล็อกอิน</button></div>'; me.innerHTML='<div class="rr me ph"><span class="n">-</span><span class="nm">-</span><span class="sc">-</span></div>'; return;
+  }
+  box.classList.remove('dim');
   if(frBusy){ frAgain=true; return; }
   frBusy=true;
-  const el=$('homeLbFr');
   try{
-    if(!acct){ el.textContent='ล็อกอินเพื่อดูอันดับเพื่อน'; return; }
-    if(!await dbReady()){ el.textContent='ระบบยังไม่พร้อม ลองอีกครั้ง'; return; }
-    const ids=frDocs.filter(f=>f.status==='ok').map(f=>f.other).slice(0,50);
-    if(!ids.length){ el.textContent='ยังไม่มีเพื่อน เพิ่มเพื่อนที่หน้า "เพื่อน" เพื่อดูอันดับ'; return; }
-    const got=await Promise.all(ids.concat(acct.uid).map(u=>db.collection('profiles').doc(u).get().then(s=>({id:u,x:s.exists?s.data():null})).catch(()=>({id:u,x:null}))));
-    el.innerHTML=got.filter(r=>r.x).sort((a,b)=>(b.x.totalScore||0)-(a.x.totalScore||0)).map((r,k)=>lbRow(r.id,r.x,k)).join('')||'ยังไม่มีข้อมูล';
-  }catch(e){ el.textContent='โหลดอันดับไม่ได้ ('+(e.code||e.message)+')'; }
+    if(!await dbReady()) return;
+    const ids=[...new Set((typeof frDocs!=='undefined'?frDocs:[]).filter(f=>f.status==='ok').map(f=>f.other).concat(acct.uid))].slice(0,50);
+    const snaps=await Promise.all(ids.map(u=>db.collection('profiles').doc(u).get().catch(()=>null)));
+    const rows=snaps.filter(s=>s&&s.exists).map(s=>({id:s.id,x:s.data()})).sort((a,b)=>(b.x.totalScore||0)-(a.x.totalScore||0));
+    el.innerHTML=rows.map((r,k)=>lbRow(r.id,r.x,k)).join('')+padRows(rows.length)+(rows.length>1?'':'<div class="rknote">ยังไม่มีเพื่อน เพิ่มเพื่อนที่หน้า "เพื่อน" เพื่อดูอันดับ</div>');
+    pinMe(me,rows);
+  }catch(e){ el.textContent='โหลดอันดับไม่ได้ ลองอีกครั้ง'; }
   finally{ frBusy=false; if(frAgain){ frAgain=false; loadFriendsLb(); } }
 }
-async function loadHomeLb(){
-  if(!FB_ON||hlbBusy) return; hlbBusy=true;
-  await Promise.all([loadGlobalLb(),loadFriendsLb()]);
-  hlbT=Date.now(); hlbBusy=false;
+function loadRank(){ loadGlobalLb(); loadFriendsLb(); }
+$('rkFr').addEventListener('click',e=>{ if(e.target.closest('#rkLoginBtn')) openLogin(); });
+{ const _stopS=stopSocial; stopSocial=function(){ _stopS(); if(rankOpen()) loadFriendsLb(); }; }
+
+/* ----- คลังเพลง ----- */
+let libShown=60, curSong=null;
+const libText=s=>[s.title,s.vocal,s.composer,s.arr].join('\n').toLowerCase();
+function renderLib(reset){
+  if(reset) libShown=60;
+  const q=$('libQ').value.trim().toLowerCase();
+  const rows=q?SONGS.filter(s=>libText(s).includes(q)):SONGS;
+  $('libTotal').innerHTML='<span>เพลงทั้งหมด</span> <b>'+SONGS.length+'</b>';
+  $('libList').scrollTop=reset?0:$('libList').scrollTop; $('libList').innerHTML=rows.slice(0,600).map(s=>'<button type="button" class="lcard" data-k="'+esc(songKey(s))+'"><img src="https://i.ytimg.com/vi/'+esc(songKey(s))+'/mqdefault.jpg" alt="" loading="lazy"><div class="t">'+esc(s.title)+'</div><div class="m">'+esc(s.composer||s.vocal||'')+'</div></button>').join('')||'<div class="note">ไม่พบเพลงที่ค้นหา</div>';
 }
-if(!FB_ON){ $('startScreen').classList.add('nolb'); $('scrollHint').hidden=true; $('lbSec').hidden=true; }
-else{
-  const goLb=()=>$('lbSec').scrollIntoView({behavior:'smooth',block:'start'});
-  $('scrollHint').onclick=goLb;
-  $('lbBtn').onclick=goLb;
-  $('topBtn').onclick=()=>$('startScreen').scrollTo({top:0,behavior:'smooth'});
-  if('IntersectionObserver' in window) new IntersectionObserver(es=>{ if(es.some(e=>e.isIntersecting)&&Date.now()-hlbT>30000) loadHomeLb(); },{root:$('startScreen'),threshold:.05}).observe($('lbSec'));
-  else loadHomeLb();
-  const _ss2=showScreen;
-  showScreen=function(id){ _ss2(id); if(id==='startScreen'){ hlbT=0; $('startScreen').scrollTop=0; } };
+$('libQ').oninput=()=>renderLib(true);
+$('libList').onclick=e=>{ const b=e.target.closest('.lcard'); if(b) openSong(b.dataset.k); };
+function openSong(k){
+  const s=SONGS.find(x=>songKey(x)===k); if(!s) return; curSong=s;
+  const im=$('sgImg'); im.onerror=()=>{ im.onerror=null; im.src='https://i.ytimg.com/vi/'+k+'/hqdefault.jpg'; };
+  im.src='https://i.ytimg.com/vi/'+k+'/maxresdefault.jpg';
+  $('sgTitle').textContent=s.title;
+  const rows=[['เสียงร้อง',s.vocal],['ผู้แต่ง',s.composer],['Arrangement',s.arr],['วันที่ปล่อย',s.date],['เริ่มเล่นที่',fmtT(s.start||0)]];
+  $('sgMeta').innerHTML=rows.map(r=>'<div class="kv"><div class="k">'+r[0]+'</div><div class="v">'+(r[1]?esc(r[1]):'—')+'</div></div>').join('');
+  $('sgPlay').href='https://www.youtube.com/watch?v='+k+'&t='+(s.start||0)+'s';
+  showScreen('songScreen');
 }
+$('sgBack').onclick=()=>showScreen('libScreen');
+
+/* ----- ส่งเรื่องถึงแอดมิน: แจ้งข้อมูลผิด / ขอเพิ่มเพลง ----- */
+let reqMode='edit';
+const RQF=[['rqTitle','title'],['rqUrl','url'],['rqStart','start'],['rqVocal','vocal'],['rqComposer','composer'],['rqArr','arr'],['rqDate','date']];
+const rqMsg=t=>{ $('rqMsg').textContent=t||''; };
+function openReq(mode){
+  if(!FB_ON||!db){ alert('ระบบยังไม่พร้อม ลองอีกครั้ง'); return; }
+  if(!acct){ alert('ต้องล็อกอินก่อน'); openLogin(); return; }
+  reqMode=mode; rqMsg(''); $('rqSend').disabled=false;
+  const s=mode==='edit'?curSong:null;
+  $('rqHead').textContent=mode==='edit'?'แจ้งข้อมูลผิด':'ขอเพิ่มเพลง';
+  $('rqSub').textContent=mode==='edit'?'แก้ข้อมูลที่ผิดแล้วส่งเรื่อง แอดมินจะตรวจสอบก่อนแก้ในเว็บ':'กรอกข้อมูลเพลงแล้วส่งเรื่อง แอดมินจะตรวจสอบก่อนนำเข้าเว็บ';
+  $('rqSong').textContent=s?s.title:'';
+  RQF.forEach(([id,k])=>{ $(id).value=s?(k==='start'?fmtT(s.start||0):(s[k]||'')):''; });
+  $('rqNote').value='';
+  showScreen('reqScreen');
+}
+$('reqAddBtn').onclick=()=>openReq('add');
+$('sgReport').onclick=()=>openReq('edit');
+$('rqBack').onclick=()=>showScreen(reqMode==='edit'?'songScreen':'libScreen');
+$('rqSend').onclick=async()=>{
+  if(!acct||!db){ rqMsg('⚠ ต้องล็อกอินก่อน'); return; }
+  const v=id=>$(id).value.trim();
+  const title=v('rqTitle'), url=v('rqUrl');
+  if(!title){ rqMsg('⚠ กรอกชื่อเพลงก่อน'); return; }
+  if(!ytId(url)){ rqMsg('⚠ ลิงก์ YouTube ไม่ถูกต้อง'); return; }
+  const data={title,url,start:parseTime(v('rqStart')),vocal:v('rqVocal'),composer:v('rqComposer'),arr:v('rqArr'),date:v('rqDate')};
+  if(reqMode==='add'){
+    if(SONGS.some(s=>songKey(s)===ytId(url))){ rqMsg('⚠ มีเพลงนี้ในคลังแล้ว'); return; }
+  }else{
+    const c=curSong, same=['title','url','vocal','composer','arr','date'].every(k=>String(data[k]||'')===String(c[k]||''))&&data.start===(c.start||45);
+    if(same&&!v('rqNote')){ rqMsg('⚠ ไม่มีอะไรเปลี่ยนจากข้อมูลเดิม'); return; }
+  }
+  const e=reqMode==='edit';
+  const doc={type:reqMode,uid:acct.uid,name:String((profile&&profile.name)||'').slice(0,40),songId:e&&curSong.id?String(curSong.id):'',songKey:e?songKey(curSong):'',songTitle:e?curSong.title:'',data,note:v('rqNote').slice(0,500),status:'pending',ts:firebase.firestore.FieldValue.serverTimestamp()};
+  rqMsg('กำลังส่ง...'); $('rqSend').disabled=true;
+  try{
+    await db.collection('requests').add(doc);
+    rqMsg('✓ ส่งเรื่องแล้ว แอดมินจะตรวจสอบก่อนนำไปแก้หรือเพิ่มในเว็บ ขอบคุณที่ช่วยกัน');
+    setTimeout(()=>{ if(!$('reqScreen').classList.contains('hide')) showScreen(e?'songScreen':'libScreen'); },1800);
+  }catch(err){ rqMsg('⚠ ส่งไม่สำเร็จ ('+(err.code||err.message)+') ตรวจกฎ Firestore ของคำร้อง'); $('rqSend').disabled=false; }
+};
+
+/* ----- แอดมิน: ตรวจคำร้อง ----- */
+let reqList=[];
+const RQL={title:'ชื่อเพลง',url:'ลิงก์ YouTube',start:'เวลาเริ่มเล่น',vocal:'เสียงร้อง',composer:'ผู้แต่ง',arr:'Arrangement',date:'วันที่ปล่อย'};
+function cleanReq(d){
+  d=d||{}; const s=(x,n)=>String(x==null?'':x).slice(0,n||200);
+  return {title:s(d.title),url:s(d.url,300),start:Math.max(0,Math.min(36000,+d.start||45)),vocal:s(d.vocal),composer:s(d.composer),arr:s(d.arr),date:s(d.date,40)};
+}
+const reqTarget=r=>shared.find(x=>x.id===r.songId)||shared.find(x=>songKey(x)===r.songKey)||SONGS.find(x=>songKey(x)===r.songKey);
+async function loadReqs(){
+  const el=$('admReq'); if(!db||!isAdmin) return;
+  el.textContent='กำลังโหลด...';
+  try{
+    const q=await db.collection('requests').where('status','==','pending').get();
+    reqList=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.ts&&a.ts.toMillis?a.ts.toMillis():1e15)-(b.ts&&b.ts.toMillis?b.ts.toMillis():1e15));
+    renderReqs();
+  }catch(e){ el.textContent='โหลดคำร้องไม่ได้'; }
+}
+function renderReqs(){
+  $('admReq').innerHTML=reqList.map(r=>{
+    const d=cleanReq(r.data), t=r.type==='edit'?reqTarget(r):null;
+    const fv=(k,o)=>k==='start'?fmtT(o[k]||0):String(o[k]||'');
+    const lines=Object.keys(RQL).filter(k=>r.type==='add'?fv(k,d):(t?fv(k,d)!==fv(k,t):true)).map(k=>'<div class="df"><span class="k">'+RQL[k]+'</span>: '+(r.type==='edit'&&t&&fv(k,t)?'<s>'+esc(fv(k,t))+'</s> → ':'')+'<b>'+esc(fv(k,d)||'—')+'</b></div>').join('');
+    return '<div class="rq" data-id="'+esc(r.id)+'"><span class="tag">'+(r.type==='add'?'ขอเพิ่มเพลง':'แจ้งข้อมูลผิด')+'</span> <span class="st">'+esc(r.name||'?')+'</span><div class="rqt">'+esc(r.type==='edit'?(r.songTitle||d.title):d.title)+'</div>'+lines+(r.note?'<div class="note">'+esc(r.note)+'</div>':'')+'<div class="acts" style="display:flex;gap:8px;margin-top:8px"><button type="button" class="chip mini" data-a="ok">อนุมัติ</button><button type="button" class="chip mini del" data-a="no">ปฏิเสธ</button></div></div>';
+  }).join('')||'<div class="note">ไม่มีคำร้องที่รอตรวจ</div>';
+}
+$('admReq').onclick=async e=>{
+  const b=e.target.closest('button[data-a]'); if(!b) return;
+  const card=b.closest('[data-id]'), r=reqList.find(x=>x.id===card.dataset.id); if(!r) return;
+  b.disabled=true;
+  const done=(st,m)=>db.collection('requests').doc(r.id).update({status:st,by:acct.uid,decidedAt:firebase.firestore.FieldValue.serverTimestamp()}).then(()=>m);
+  try{
+    let msg;
+    if(b.dataset.a==='ok'){
+      if(!sharedMode()){ admMsg('⚠ กดนำเข้าเพลงที่มีอยู่ก่อน แล้วค่อยอนุมัติ'); b.disabled=false; return; }
+      const d=cleanReq(r.data);
+      if(!ytId(d.url)||!d.title){ admMsg('⚠ ลิงก์ YouTube ไม่ถูกต้อง'); b.disabled=false; return; }
+      if(r.type==='add'){
+        if(shared.some(x=>songKey(x)===ytId(d.url))){ admMsg('⚠ มีเพลงนี้ในคลังแล้ว'); b.disabled=false; return; }
+        await db.collection('songs').add({...d,alt:'',off:false,ord:Date.now()});
+      }else{
+        const t=shared.find(x=>x.id===r.songId)||shared.find(x=>songKey(x)===r.songKey);
+        if(!t){ admMsg('⚠ ไม่พบเพลงนี้ในคลังกลาง'); b.disabled=false; return; }
+        await db.collection('songs').doc(t.id).update(d);
+      }
+      msg=await done('approved','อนุมัติแล้ว');
+    }else msg=await done('rejected','ปฏิเสธแล้ว');
+    admMsg(msg); await loadShared(); renderAdmin(); loadReqs();
+  }catch(err){ admMsg('⚠ ทำไม่สำเร็จ ('+(err.code||err.message)+')'); b.disabled=false; }
+};
+
+/* ----- ประวัติ ----- */
+const HD={"ERAS": {"vocaloid": {"n": {"th": "Vocaloid", "en": "Vocaloid", "ja": "Vocaloid"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Yamaha พัฒนาร่วมกับมหาวิทยาลัยปอมเปว ฟาบรา (บาร์เซโลนา) ผู้ใช้ใส่เนื้อร้องกับทำนอง โปรแกรมจะร้องออกมาด้วยคลังเสียง (voicebank) ที่สร้างจากเสียงของนักร้องจริง", "en": "Yamaha's singing-voice synthesizer, developed with Pompeu Fabra University in Barcelona. You enter lyrics and a melody and the software sings them using a voicebank built from a real singer's voice.", "ja": "ヤマハが開発した歌声合成ソフト。バルセロナのポンペウ・ファブラ大学と共同開発。歌詞とメロディを入力すると、実在の歌手の声から作ったボイスバンクで歌ってくれる。"}, "ev": [["2000-03", {"th": "Yamaha เริ่มพัฒนา โดยทำงานด้านประมวลผลสัญญาณร่วมกับกลุ่ม Music Technology Group ของมหาวิทยาลัยปอมเปว ฟาบรา", "en": "Yamaha begins development, with signal processing done jointly with the Music Technology Group at Pompeu Fabra University.", "ja": "ヤマハが開発を開始。信号処理はポンペウ・ファブラ大学の音楽技術グループと共同で行った。"}], ["2004-01-15", {"th": "วางขายครั้งแรก พร้อมคลังเสียงภาษาอังกฤษชุดแรก Leon, Lola และ Miriam (ผลิตโดย Zero-G)", "en": "First commercial release, with the first English voicebanks Leon, Lola and Miriam (by Zero-G).", "ja": "初の商用リリース。最初の英語ボイスバンク Leon、Lola、Miriam（Zero-G製）が登場。"}], ["2004", {"th": "MEIKO คลังเสียงภาษาญี่ปุ่นชุดแรก (Yamaha ผลิต Crypton จำหน่าย)", "en": "MEIKO, one of the first Japanese voicebanks (made by Yamaha, sold by Crypton).", "ja": "最初の日本語ボイスバンクのひとつ MEIKO（ヤマハ製、クリプトン販売）。"}], ["2006-02-17", {"th": "KAITO วางจำหน่ายโดย Crypton", "en": "KAITO is distributed by Crypton.", "ja": "KAITO がクリプトンから発売。"}], ["2007-08-31", {"th": "Hatsune Miku (Vocaloid 2)", "en": "Hatsune Miku (Vocaloid 2).", "ja": "初音ミク（Vocaloid 2）発売。"}], ["2007-12-27", {"th": "Kagamine Rin/Len", "en": "Kagamine Rin/Len.", "ja": "鏡音リン・レン発売。"}], ["2011-10-21", {"th": "Vocaloid 3", "en": "Vocaloid 3 launches.", "ja": "Vocaloid 3 発売。"}], ["2018-07-12", {"th": "Vocaloid 5", "en": "Vocaloid 5 is released.", "ja": "Vocaloid 5 発売。"}], ["2022-10-13", {"th": "Vocaloid 6", "en": "Vocaloid 6 is released.", "ja": "Vocaloid 6 発売。"}]], "src": [["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"], ["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"]]}, "utau": {"n": {"th": "UTAU", "en": "UTAU", "ja": "UTAU"}, "s": {"th": "โปรแกรมสังเคราะห์เสียงร้องแบบแชร์แวร์ (รับบริจาค) สร้างโดยโปรแกรมเมอร์ชื่อ Ameya/Ayame ใช้ไฟล์เสียง WAV ที่ผู้ใช้อัดเองมาต่อกันเป็นเสียงร้อง (concatenative) คลังเสียงส่วนใหญ่ผู้สร้างแจกฟรี จึงมีตัวร้องจากแฟนๆ จำนวนมาก", "en": "A shareware (donation-supported) singing synthesizer by a programmer known as Ameya/Ayame. It strings together WAV recordings supplied by the user (concatenative synthesis). Most voicebanks are given away free by their creators, so there are a huge number of fan-made voices.", "ja": "Ameya/Ayame 氏が作った、寄付で支えられるシェアウェアの歌声合成ソフト。ユーザーが用意したWAV音源をつなげて歌わせる方式。音源の多くは作者が無料配布しており、ファン制作の歌声が数多くある。"}, "ev": [["2008-01-11", {"th": "ประกาศเครื่องมือบน Nico Nico Douga", "en": "The tool is announced on Nico Nico Douga.", "ja": "ニコニコ動画でツールが発表される。"}], ["2008-03-15", {"th": "เปลี่ยนชื่อเป็น UTAU", "en": "Renamed UTAU.", "ja": "「UTAU」に改名。"}], ["2011-05-27", {"th": "ออกเวอร์ชัน Mac (UTAU-Synth)", "en": "Mac version (UTAU-Synth) released.", "ja": "Mac版（UTAU-Synth）公開。"}]], "src": [["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "synthv": {"n": {"th": "Synthesizer V", "en": "Synthesizer V", "ja": "Synthesizer V"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Dreamtonics มีเวอร์ชันฟรี (Basic) และคลังเสียงแบบ AI ที่ให้เสียงเป็นธรรมชาติ", "en": "A singing synthesizer from Dreamtonics, with a free Basic edition and AI voicebanks that sound natural.", "ja": "Dreamtonics の歌声合成ソフト。無料のBasic版と、自然な歌声のAIボイスがある。"}, "ev": [["2020-06", {"th": "เปิดตัว Synthesizer V Studio", "en": "Synthesizer V Studio is unveiled.", "ja": "Synthesizer V Studio 発表。"}], ["2020-07-31", {"th": "เวอร์ชัน Basic ฟรีเปิดให้ใช้", "en": "The free Basic edition is released.", "ja": "無料のBasic版を公開。"}], ["2023-04-27", {"th": "Kasane Teto ออกเสียงแบบ Synthesizer V AI", "en": "Kasane Teto's Synthesizer V AI voice is released.", "ja": "重音テトの Synthesizer V AI ボイスが発売。"}]], "src": [["Synthesizer V (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Synthesizer_V_Studio"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "cevio": {"n": {"th": "CeVIO / VoiSona", "en": "CeVIO / VoiSona", "ja": "CeVIO / VoiSona"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงของ Techno-Speech ปัจจุบัน VoiSona (ชื่อเดิม CeVIO Pro) คือเทคโนโลยีรุ่นถัดไปของ CeVIO", "en": "Voice-synthesis software by Techno-Speech. VoiSona (formerly CeVIO Pro) is the next generation of CeVIO technology.", "ja": "Techno-Speech の音声合成ソフト。VoiSona（旧 CeVIO Pro）は CeVIO の次世代技術。"}, "ev": [["2022-02-19", {"th": "เปิดตัว Chis-A ซึ่งเป็นตัวร้องของ CeVIO Pro/VoiSona", "en": "Chis-A, the voice of CeVIO Pro/VoiSona, is revealed.", "ja": "CeVIO Pro/VoiSona の歌声 Chis-A が公開。"}], ["2022-02-24", {"th": "เปิดให้ใช้ CeVIO Pro เวอร์ชันอัลฟาฟรี", "en": "The CeVIO Pro alpha is released for free.", "ja": "CeVIO Pro のアルファ版を無料公開。"}]], "note": {"th": "ประวัติช่วงก่อนหน้านี้ของ CeVIO ยังไม่ได้ตรวจสอบกับแหล่งข้อมูล จึงยังไม่ใส่", "en": "Earlier CeVIO history hasn't been checked against sources yet, so it is not included.", "ja": "CeVIO のそれ以前の歴史は出典未確認のため、まだ載せていません。"}, "src": [["VoiSona (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/VoiSona"], ["Chis-A (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Chis-A"]]}, "others": {"n": {"th": "อื่นๆ", "en": "Others", "ja": "その他"}, "s": {"th": "เรื่องราวอื่นๆ ในวงการเสียงสังเคราะห์ เช่น ตัวละครที่แฟนๆ สร้างขึ้นและโปรแกรมอื่นๆ", "en": "Other stories from the synthesized-voice scene, such as fan-made characters and other software.", "ja": "合成音声の世界のその他の話題。ファンが生んだキャラクターや他のソフトなど。"}, "ev": [["2007-11-01", {"th": "ภาพวาดแรกของ Akita Neru ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ", "en": "The first illustration of Akita Neru, a fan-made character derived from Miku.", "ja": "ミクから生まれたファン制作キャラ・亜北ネルの最初のイラスト。"}], ["2008-04-15", {"th": "Crypton อนุญาตให้ Neru เป็นตัวละครที่ดัดแปลงจากมิกุอย่างเป็นทางการ", "en": "Crypton licenses Neru as a Miku derivative.", "ja": "クリプトンがネルをミクの派生キャラとして許諾。"}]], "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}}, "CH": {"miku": {"n": "Hatsune Miku", "era": "vocaloid", "unv": false, "t": {"th": "ตัวละครหลักของ Crypton Future Media ใช้เสียงของ Saki Fujita วางขายครั้งแรกบน Vocaloid 2 เมื่อ 31 สิงหาคม 2007 ชื่อแปลว่า \"เสียงแรกของอนาคต\" ตั้งค่าเป็นสาวอายุ 16 ปี ผมทวินเทลสีเขียวน้ำเงิน รหัส CV01 ต่อมามีเวอร์ชัน Append (2010) และ Piapro Studio NT (27 พฤศจิกายน 2020)", "en": "Crypton Future Media's flagship character, voiced by Saki Fujita and first released on Vocaloid 2 on 31 August 2007. Her name means \"first sound of the future\". She is officially a 16-year-old with turquoise twintails, code CV01. Later versions include Append (2010) and Piapro Studio NT (27 November 2020).", "ja": "クリプトンの看板キャラ。声は藤田咲、2007年8月31日に Vocaloid 2 で発売。名前は「初めての未来の音」の意。16歳、ターコイズのツインテール、コード名CV01。のちにAppend（2010年）やPiapro Studio NT（2020年11月27日）が登場。"}, "src": [["Wikipedia: Hatsune Miku", "https://en.wikipedia.org/wiki/Hatsune_Miku"]]}, "neru": {"n": "Akita Neru", "era": "others", "unv": false, "t": {"th": "ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ ภาพวาดแรกปรากฏ 1 พฤศจิกายน 2007 จากชุมชน 2channel ภาพลักษณ์คือสาวอารมณ์ไม่ดีที่ติดมือถือ ผมหางม้าข้างสีเหลือง ต่อมา Crypton อนุญาตให้เป็นตัวละครดัดแปลงของมิกุอย่างเป็นทางการเมื่อ 15 เมษายน 2008", "en": "A fan-made character derived from Miku. The first illustration appeared on 1 November 2007 on 2channel. She is known as a moody girl glued to her phone, with a yellow side ponytail. Crypton licensed her as a Miku derivative on 15 April 2008.", "ja": "ミクから生まれたファン制作キャラ。最初のイラストは2007年11月1日に2ちゃんねるで登場。携帯電話を手放さない不機嫌な少女で、黄色のサイドテール。2008年4月15日にクリプトンが派生キャラとして許諾。"}, "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"]]}, "teto": {"n": "Kasane Teto", "era": "utau", "unv": false, "t": {"th": "ตัวละคร UTAU ที่เริ่มถูกโปรโมตในปี 2008 ในรูปแบบมุกวันเอพริลฟูล ต่อมามีเสียงแบบ Synthesizer V AI วางขายเมื่อ 27 เมษายน 2023", "en": "A UTAU character first promoted in 2008 as an April Fools' joke. A Synthesizer V AI voice was released on 27 April 2023.", "ja": "2008年にエイプリルフールのネタとして登場したUTAUキャラ。2023年4月27日に Synthesizer V AI 版が発売。"}, "src": [["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "kaito": {"n": "KAITO", "era": "vocaloid", "unv": false, "t": {"th": "Yamaha ผลิตและ Crypton จำหน่าย วางขาย 17 กุมภาพันธ์ 2006 ใช้เสียงของ Naoto Fuga จุดเด่นคือผมสั้นสีน้ำเงินกับผ้าพันคอ ภาพลักษณ์ตัวละครแบบปัจจุบันมาจากการออกแบบใหม่ของ iXima สำหรับ Vocaloid 3 (15 กุมภาพันธ์ 2013)", "en": "Made by Yamaha and distributed by Crypton, released 17 February 2006, voiced by Naoto Fuga. Known for short blue hair and a scarf. His current look is iXima's redesign for Vocaloid 3 (15 February 2013).", "ja": "ヤマハ製、クリプトン販売。2006年2月17日発売、声は風雅なおと。青い短髪とマフラーが特徴。現在の姿はVocaloid 3版（2013年2月15日）でのiXima氏による再デザイン。"}, "src": [["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"]]}, "meiko": {"n": "MEIKO", "era": "vocaloid", "unv": false, "t": {"th": "หนึ่งในคลังเสียงภาษาญี่ปุ่นชุดแรกของ Vocaloid ปี 2004 (Yamaha ผลิต Crypton จำหน่าย) เสียงร้องโดย Meiko Haigo", "en": "One of the first Japanese Vocaloid voicebanks, from 2004 (made by Yamaha, sold by Crypton). Voice provider: Meiko Haigo.", "ja": "2004年発売の、最初期の日本語Vocaloid音源のひとつ（ヤマハ製、クリプトン販売）。声は拝郷メイコ。"}, "src": [["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"]]}, "luka": {"n": "Megurine Luka", "era": "vocaloid", "unv": false, "t": {"th": "Crypton Future Media วางขาย 30 มกราคม 2009 เสียงร้องโดย Yu Asakawa เป็น Vocaloid ตัวแรกที่รองรับทั้งภาษาญี่ปุ่นและอังกฤษเต็มรูปแบบ รหัส CV03 และเป็นตัวละครแรกของซีรีส์ที่ตั้งค่าเป็นผู้ใหญ่ (อายุ 20 ปี)", "en": "Crypton Future Media, released 30 January 2009, voiced by Yu Asakawa. The first Vocaloid to fully support both Japanese and English. Code CV03, and the first adult character in the series (officially 20).", "ja": "クリプトン、2009年1月30日発売。声は浅川悠。日本語と英語を完全にサポートした初のVocaloid。コード名CV03で、シリーズ初の大人キャラ（公式20歳）。"}, "src": [["Wikipedia: Megurine Luka", "https://en.wikipedia.org/wiki/Megurine_Luka"]]}, "rin": {"n": "Kagamine Rin", "era": "vocaloid", "unv": false, "t": {"th": "Crypton Future Media วางขายพร้อม Len เมื่อ 27 ธันวาคม 2007 เสียงร้องโดย Asami Shimoda ชุด Append (ธันวาคม 2010) ของ Rin มีแบบ Power, Warm และ Sweet", "en": "Released together with Len by Crypton Future Media on 27 December 2007, voiced by Asami Shimoda. Rin's Append (December 2010) adds Power, Warm and Sweet.", "ja": "2007年12月27日、レンと同時にクリプトンから発売。声は下田麻美。Append（2010年12月）にはPower・Warm・Sweetがある。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "len": {"n": "Kagamine Len", "era": "vocaloid", "unv": false, "t": {"th": "วางขายพร้อม Rin เมื่อ 27 ธันวาคม 2007 เสียงร้องโดย Asami Shimoda เช่นกัน ชุด Append (ธันวาคม 2010) ของ Len มีแบบ Power, Cold และ Serious", "en": "Released together with Rin on 27 December 2007, also voiced by Asami Shimoda. Len's Append (December 2010) adds Power, Cold and Serious.", "ja": "2007年12月27日にリンと同時発売。声は同じく下田麻美。Append（2010年12月）にはPower・Cold・Seriousがある。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "gumi": {"n": "GUMI (Megpoid)", "era": "vocaloid", "unv": true, "t": {"th": "Megpoid (GUMI) ผลิตโดย Internet Co. วางขายปี 2009 เสียงร้องโดย Megumi Nakajima", "en": "Megpoid (GUMI) by Internet Co., released in 2009, voiced by Megumi Nakajima.", "ja": "Internet社のMegpoid（GUMI）。2009年発売、声は中島愛。"}, "src": []}, "yixi": {"n": "Yi Xi", "era": "synthv", "unv": true, "t": {"th": "ตัวร้องของ Synthesizer V (Dreamtonics) รายละเอียดเช่นวันวางขายและผู้ให้เสียงยังไม่ได้ตรวจสอบ", "en": "A Synthesizer V voice (Dreamtonics). Details such as release date and voice provider haven't been verified yet.", "ja": "Synthesizer V（Dreamtonics）のボイス。発売日や声の提供者などの詳細は未確認。"}, "src": []}, "ui": {"n": "Ui", "era": "cevio", "unv": true, "t": {"th": "เข้าใจว่าเป็นตัวร้องในสาย VoiSona/CeVIO แต่ยังตรวจสอบข้อมูลไม่ได้ จึงยังไม่ใส่รายละเอียด", "en": "Believed to be a voice in the VoiSona/CeVIO family, but it couldn't be verified, so no details are given yet.", "ja": "VoiSona/CeVIO系のボイスと思われるが確認できていないため、詳細はまだ載せていません。"}, "src": []}, "chisa": {"n": "Chis-A", "era": "cevio", "unv": false, "t": {"th": "ตัวร้องภาษาญี่ปุ่นของ VoiSona (CeVIO Pro) จาก Techno-Speech เปิดตัว 19 กุมภาพันธ์ 2022 เป็นคลังเสียงเริ่มต้นของ CeVIO Pro ซึ่งประกาศว่าฟรี ไม่ใช่ Vocaloid", "en": "A Japanese VoiSona (CeVIO Pro) voice from Techno-Speech, revealed 19 February 2022. It is CeVIO Pro's default library, announced as free. Not a Vocaloid.", "ja": "Techno-Speech の日本語VoiSona（CeVIO Pro）ボイス。2022年2月19日公開。CeVIO Pro の標準ライブラリで無料と発表。Vocaloidではない。"}, "src": [["Chis-A (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Chis-A"]]}, "kaai": {"n": "Kaai Yuki", "era": "vocaloid", "unv": true, "t": {"th": "คลังเสียงที่รู้จักในวงการ Vocaloid แต่ยังไม่ได้ตรวจสอบรายละเอียด จึงยังไม่ใส่ข้อมูล", "en": "A voicebank known in the Vocaloid scene, but details haven't been verified yet, so none are given.", "ja": "Vocaloidシーンで知られるボイスだが、詳細は未確認のためまだ載せていません。"}, "src": []}}};
+let hEra='vocaloid', hChar=null;
+const HL={era:{th:'โปรแกรมสังเคราะห์เสียง',en:'Software',ja:'ソフト'},ch:{th:'ตัวละคร / ตัวร้อง',en:'Characters & voices',ja:'キャラクター／ボイス'},src:{th:'แหล่งข้อมูล',en:'Sources',ja:'出典'},unv:{th:'⚠ ข้อมูลส่วนนี้ยังไม่ผ่านการตรวจสอบ',en:'⚠ This part hasn\'t been verified yet',ja:'⚠ この部分は未確認です'},pick:{th:'เลือกตัวละครเพื่อดูประวัติ',en:'Pick a character to read about',ja:'キャラクターを選んで読む'}};
+const srcHtml=a=>a&&a.length?'<div class="hsrc">'+pk(HL.src)+': '+a.map(s=>'<a href="'+esc(s[1])+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>').join(' · ')+'</div>':'';
+let hMode='soft', hSel='vocaloid';
+Object.assign(HL,{soft:{th:'ประวัติโปรแกรมเสียงสังเคราะห์',en:'Software history',ja:'ソフトの歴史'},voice:{th:'ประวัติเสียงร้อง',en:'Voice history',ja:'ボイスの歴史'},ov:{th:'ภาพรวม',en:'Overview',ja:'概要'},hist:{th:'ประวัติ',en:'History',ja:'歴史'}});
+const hAv=n=>esc(String(n).trim().charAt(0).toUpperCase());
+function renderHist(){
+  const E=HD.ERAS, C=HD.CH;
+  if(hMode==='soft'&&!E[hSel]) hSel='vocaloid';
+  if(hMode==='voice'&&!C[hSel]) hSel='miku';
+  document.querySelectorAll('#hMode button').forEach(b=>{ b.classList.toggle('on',b.dataset.mode===hMode); b.textContent=pk(b.dataset.mode==='soft'?HL.soft:HL.voice); });
+  $('hEras').innerHTML=(hMode==='soft'?Object.keys(E).map(k=>[k,pk(E[k].n)]):Object.keys(C).map(k=>[k,C[k].n])).map(a=>'<button type="button" class="chip'+(a[0]===hSel?' on':'')+'" data-sel="'+a[0]+'">'+esc(a[1])+'</button>').join('');
+  let side, det;
+  if(hMode==='soft'){
+    const e=E[hSel];
+    side='<div class="bigav">★</div><h3>'+esc(pk(e.n))+'</h3><div class="hsub">'+esc(pk(HL.ov))+'</div><p>'+esc(pk(e.s))+'</p>'+(e.note?'<div class="warn">'+esc(pk(e.note))+'</div>':'');
+    det='<h3>'+esc(pk(HL.hist))+'</h3><ol class="tl">'+e.ev.map(v=>'<li><time>'+esc(v[0])+'</time><span>'+esc(pk(v[1]))+'</span></li>').join('')+'</ol>'+srcHtml(e.src);
+  }else{
+    const c=C[hSel];
+    side='<div class="bigav">'+hAv(c.n)+'</div><h3>'+esc(c.n)+'</h3><div class="hsub">'+esc(pk(E[c.era].n))+'</div>'+(c.unv?'<div class="warn">'+esc(pk(HL.unv))+'</div>':'');
+    det='<h3>'+esc(pk(HL.hist))+'</h3><p>'+esc(pk(c.t))+'</p>'+srcHtml(c.src);
+  }
+  $('hSide').innerHTML=side; $('hDetail').innerHTML=det; $('hDetail').scrollTop=0; $('hSide').scrollTop=0;
+}
+document.getElementById('histScreen').onclick=e=>{
+  const m=e.target.closest('[data-mode]'), c=e.target.closest('[data-sel]');
+  if(m){ hMode=m.dataset.mode; hSel=hMode==='soft'?'vocaloid':'miku'; renderHist(); }
+  else if(c){ hSel=c.dataset.sel; renderHist(); }
+};
+new MutationObserver(()=>{
+  if(!$('histScreen').classList.contains('hide')) renderHist();
+}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 
 /* ===== เพื่อน (เพิ่มด้วย UID) + เชิญเข้าห้องออนไลน์ =====
    Firestore: friendships/{uidเล็ก_uidใหญ่} {users:[a,b],from,status:'pending'|'ok'}
@@ -1838,7 +2229,57 @@ const E=[
 ['ลิงก์สำรองไม่ถูกต้อง','Invalid backup link','予備リンクが正しくありません'],
 ['มีเพลงนี้ในคลังแล้ว','This song is already in the library','この曲はすでにライブラリにあります'],
 ['แก้ไขเพลง','Edit song','曲を編集'],
-['บันทึกการแก้ไข','Save changes','変更を保存']
+['บันทึกการแก้ไข','Save changes','変更を保存'],
+["เมนูหลัก", "Main menu", "メインメニュー"],
+["เล่นเกม", "Play", "プレイ"],
+["อันดับ", "Ranking", "ランキング"],
+["คลังเพลง", "Song library", "曲ライブラリ"],
+["ประวัติ", "History", "歴史"],
+["เรียงจากคะแนนรวมทุกเกม เลื่อนดูอันดับอื่นได้ แถวล่างสุดคืออันดับของคุณ", "Ranked by total score across all games. Scroll to see other ranks; the bottom row is your own rank.", "全ゲームの合計スコア順。スクロールで他の順位も見られ、一番下があなたの順位です。"],
+["ประวัติของโปรแกรมและตัวละครในวงการเสียงสังเคราะห์", "History of the software and characters in the voice-synth scene", "音声合成ソフトとキャラクターの歴史"],
+["ยังไม่ได้ล็อกอิน", "You're not signed in", "ログインしていません"],
+["โปรดล็อกอินเพื่อเช็คอันดับเพื่อน", "Please sign in to see your friends' ranking", "フレンドの順位を見るにはログインしてください"],
+["ล็อกอิน", "Sign in", "ログイン"],
+["ชื่อ", "Name", "名前"],
+["คะแนน", "Score", "スコア"],
+["อันดับรวม", "All players", "全体ランキング"],
+["อันดับเพื่อน", "Friends", "フレンドランキング"],
+["อันดับของคุณ", "Your rank", "あなたの順位"],
+["ล็อกอินเพื่อดูอันดับของคุณ", "Sign in to see your rank", "ログインしてあなたの順位を見る"],
+["ระบบยังไม่พร้อม ลองอีกครั้ง", "Not ready yet. Please try again.", "準備ができていません。もう一度お試しください。"],
+["โหลดอันดับไม่ได้ ลองอีกครั้ง", "Couldn't load the ranking. Please try again.", "ランキングを読み込めません。もう一度お試しください。"],
+["ยังไม่มีเพื่อน เพิ่มเพื่อนที่หน้า \"เพื่อน\" เพื่อดูอันดับ", "No friends yet. Add friends on the Friends page to see a ranking.", "まだフレンドがいません。「フレンド」ページで追加するとランキングが見られます。"],
+["เพลงทั้งหมดในเว็บ ค้นหาได้จากชื่อเพลง ผู้แต่ง arrangement หรือเสียงร้อง", "Every song on the site. Search by title, composer, arrangement or vocal.", "サイト内の全曲。曲名・作曲者・アレンジ・ボーカルで検索できます。"],
+["ค้นหาเพลง ผู้แต่ง arrangement หรือเสียงร้อง", "Search title, composer, arrangement or vocal", "曲名・作曲者・アレンジ・ボーカルで検索"],
+["เพลงทั้งหมด", "Total songs", "全曲数"],
+["ขอเพิ่มเพลง", "Request a song", "曲の追加をリクエスト"],
+["แสดงเพิ่ม", "Show more", "もっと見る"],
+["ไม่พบเพลงที่ค้นหา", "No songs found", "曲が見つかりません"],
+["รายละเอียดเพลง", "Song details", "曲の詳細"],
+["กลับไปคลังเพลง", "Back to library", "ライブラリへ戻る"],
+["เสียงร้อง", "Vocal", "ボーカル"],
+["ผู้แต่ง", "Composer", "作曲者"],
+["วันที่ปล่อย", "Release date", "公開日"],
+["เริ่มเล่นที่", "Starts at", "再生開始位置"],
+["ลองฟังบน YouTube", "Listen on YouTube", "YouTubeで聴く"],
+["แจ้งข้อมูลผิด", "Report wrong info", "間違いを報告"],
+["แก้ข้อมูลที่ผิดแล้วส่งเรื่อง แอดมินจะตรวจสอบก่อนแก้ในเว็บ", "Fix the wrong info and submit. An admin will review it before it changes on the site.", "間違いを直して送信してください。管理者が確認してからサイトに反映します。"],
+["กรอกข้อมูลเพลงแล้วส่งเรื่อง แอดมินจะตรวจสอบก่อนนำเข้าเว็บ", "Fill in the song and submit. An admin will review it before it's added to the site.", "曲の情報を入力して送信してください。管理者が確認してからサイトに追加します。"],
+["หมายเหตุถึงแอดมิน (ไม่บังคับ)", "Note to admin (optional)", "管理者へのメモ（任意）"],
+["ส่งเรื่อง", "Submit", "送信"],
+["ต้องล็อกอินก่อน", "You need to sign in first", "先にログインしてください"],
+["ไม่มีอะไรเปลี่ยนจากข้อมูลเดิม", "Nothing changed from the current info", "現在の情報から変更がありません"],
+["ส่งเรื่องแล้ว แอดมินจะตรวจสอบก่อนนำไปแก้หรือเพิ่มในเว็บ ขอบคุณที่ช่วยกัน", "Sent! An admin will review it before it's changed or added. Thanks for helping.", "送信しました。管理者が確認してから修正・追加します。ご協力ありがとうございます。"],
+["ส่งไม่สำเร็จ ตรวจกฎ Firestore ของคำร้อง", "Couldn't send. Check the Firestore rules for requests.", "送信できませんでした。requests の Firestore ルールを確認してください。"],
+["คำร้องที่รอตรวจ", "Pending requests", "確認待ちのリクエスト"],
+["ไม่มีคำร้องที่รอตรวจ", "No pending requests", "確認待ちはありません"],
+["โหลดคำร้องไม่ได้", "Couldn't load requests", "リクエストを読み込めません"],
+["อนุมัติ", "Approve", "承認"],
+["ปฏิเสธ", "Reject", "却下"],
+["อนุมัติแล้ว", "Approved", "承認しました"],
+["ปฏิเสธแล้ว", "Rejected", "却下しました"],
+["กดนำเข้าเพลงที่มีอยู่ก่อน แล้วค่อยอนุมัติ", "Import the existing songs first, then approve.", "先に既存の曲をインポートしてから承認してください。"],
+["ไม่พบเพลงนี้ในคลังกลาง", "This song isn't in the central library", "この曲は中央ライブラリにありません"]
 ];
 const EX={en:{},ja:{}};
 E.forEach(a=>{ EX.en[a[0]]=a[1]; EX.ja[a[0]]=a[2]; });
