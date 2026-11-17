@@ -385,15 +385,31 @@ body.rail #rail{display:flex}
 #rail button:hover{color:var(--teal-d)}
 #rail button:hover .d{border-color:var(--teal-d)}
 #rail button.on{color:var(--ink);font-weight:600}
-#rail button.on .d{background:var(--teal-d);border-color:var(--teal-d);transform:scale(1.25);box-shadow:0 0 0 5px var(--mint2)}
+#rail button.on .d{background:transparent;border-color:transparent}
+.rmark{position:absolute;left:26px;top:calc(50% - 136px);width:20px;height:20px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 5px rgba(10,30,28,.14);transform:translateY(calc(var(--rp,0)*84px));transition:transform .45s cubic-bezier(.22,.61,.36,1);pointer-events:none}
 body.rail .screen{padding-left:170px}
-@keyframes pgdn{from{opacity:.0;transform:translateY(28px)}to{opacity:1;transform:none}}@keyframes pgup{from{opacity:0;transform:translateY(-28px)}to{opacity:1;transform:none}}
+@keyframes pgin-dn{from{opacity:0;transform:translateY(56px)}to{opacity:1;transform:none}}
+@keyframes pgin-up{from{opacity:0;transform:translateY(-56px)}to{opacity:1;transform:none}}
+@keyframes pgout-dn{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-56px)}}
+@keyframes pgout-up{from{opacity:1;transform:none}to{opacity:0;transform:translateY(56px)}}
 body:not(.ingame) .wrap{visibility:hidden}
-.screen.pgdn{animation:pgdn .3s ease-out}.screen.pgup{animation:pgup .3s ease-out}
-@media(max-width:1099px){#rail{width:64px;padding-left:16px}#rail::before{left:25px}#rail .l{position:absolute;left:-9999px}body.rail .screen{padding-left:84px}}
+.screen.pgin-fw{animation:pgin-fw .42s cubic-bezier(.22,.61,.36,1) both}.screen.pgin-bk{animation:pgin-bk .42s cubic-bezier(.22,.61,.36,1) both}.screen.pgin-fd{animation:pgin-fd .4s ease-out both}
+.screen.pgout-fw{animation:pgout-fw .42s cubic-bezier(.22,.61,.36,1) both;pointer-events:none;z-index:0}.screen.pgout-bk{animation:pgout-bk .42s cubic-bezier(.22,.61,.36,1) both;pointer-events:none;z-index:0}.screen.pgout-fd{animation:pgout-fd .35s ease-out both;pointer-events:none;z-index:0}
+@keyframes pgin-fw{from{opacity:0;transform:translateX(44px)}to{opacity:1;transform:none}}
+@keyframes pgin-bk{from{opacity:0;transform:translateX(-44px)}to{opacity:1;transform:none}}
+@keyframes pgin-fd{from{opacity:0}to{opacity:1}}
+@keyframes pgout-fw{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-44px)}}
+@keyframes pgout-bk{from{opacity:1;transform:none}to{opacity:0;transform:translateX(44px)}}
+@keyframes pgout-fd{from{opacity:1}to{opacity:0}}
+@keyframes wrapin{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
+.screen.pgin-dn{animation:pgin-dn .5s cubic-bezier(.22,.61,.36,1) both}.screen.pgin-up{animation:pgin-up .5s cubic-bezier(.22,.61,.36,1) both}
+.screen.pgout-dn{animation:pgout-dn .5s cubic-bezier(.22,.61,.36,1) both;pointer-events:none;z-index:0}.screen.pgout-up{animation:pgout-up .5s cubic-bezier(.22,.61,.36,1) both;pointer-events:none;z-index:0}
+@media(max-width:1099px){#rail{width:64px;padding-left:16px}#rail::before{left:25px}.rmark{left:16px}#rail .l{position:absolute;left:-9999px}body.rail .screen{padding-left:84px}}
 @media(max-width:699px){
   #rail{top:auto;width:100%;height:64px;flex-direction:row;justify-content:space-around;padding:0;background:#fff;border-top:2px solid var(--mint2)}
   #rail::before{display:none}
+  .rmark{left:calc(var(--rp,0)*25% + 12.5% - 10px);top:13px;transform:none;transition:left .45s cubic-bezier(.22,.61,.36,1)}
   #rail button{flex:1;height:64px;flex-direction:column;justify-content:center;gap:5px;font-size:.72rem}
   #rail .l{position:static}
   body.rail .screen{padding-left:16px;padding-bottom:84px}
@@ -476,16 +492,26 @@ body:not(.ingame) .wrap{visibility:hidden}
 .hseg button+button{border-left:2px solid var(--teal-d)}
 .hseg button.on{background:var(--teal-d);color:#fff}
 .hbox{display:grid;grid-template-columns:minmax(240px,320px) minmax(0,1fr);height:clamp(340px,calc(100svh - 360px),720px);border:2px solid var(--teal-d);border-radius:22px;background:#fff;overflow:hidden}
-.hside{overflow-y:auto;padding:22px;border-right:2px solid var(--teal-d);background:var(--paper);text-align:left}
-.hside h3{margin:14px 0 0;font:700 1.5rem var(--disp)}
-.hside .hsub{margin:2px 0 12px;font:600 .85rem var(--disp);color:var(--mute)}
-.hside p{margin:0 0 12px;line-height:1.65;font-size:.95rem}
-.bigav{display:grid;place-items:center;width:112px;height:112px;border-radius:50%;background:var(--mint2);border:3px solid var(--teal-d);color:var(--teal-d);font:700 3rem var(--disp)}
+.hside{position:relative;overflow:hidden;padding:0;border-right:2px solid var(--teal-d);background:var(--mint2)}
+.hfill{position:absolute;inset:0;display:grid;place-items:center}
+.hfill img{width:100%;height:100%;object-fit:cover}
+.hcap{position:absolute;left:0;right:0;bottom:0;padding:48px 20px 18px;background:linear-gradient(to top,rgba(5,45,42,.88),rgba(5,45,42,0));color:#fff;text-align:left}
+.hcap b{display:block;font:700 1.5rem var(--disp)}
+.hcap i{display:block;font:600 .85rem var(--disp);font-style:normal;opacity:.85}
+.hcap small{display:block;margin-top:4px;font-size:.7rem;opacity:.75}
+.hadm{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.hadm button{min-height:40px;padding:6px 16px;border:2px solid var(--teal-d);border-radius:10px;background:#fff;color:var(--teal-d);font:600 .88rem var(--disp);cursor:pointer}
+.hadm button.dng{border-color:#b3261e;color:#b3261e}
+#hxForm textarea{display:block;width:100%;min-height:72px;margin-bottom:8px;padding:10px 14px;border:2px solid var(--line);border-radius:12px;font:inherit}
+#hxForm .chk{display:flex;gap:8px;align-items:center;margin:8px 0 12px}
+#hxForm .chk input{width:auto;min-height:0;margin:0}
+.hh{margin:18px 0 8px;font:600 .9rem var(--disp);color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.bigav{display:grid;place-items:center;width:42%;max-width:180px;aspect-ratio:1;border-radius:50%;background:#fff;border:3px solid var(--teal-d);color:var(--teal-d);font:700 4rem var(--disp);margin-bottom:60px}
 .hdetail{overflow-y:auto;padding:22px 26px;text-align:left}
 .hdetail h3{margin:0 0 12px;font:700 1.6rem var(--disp)}
 .hdetail .hsub{margin:2px 0 14px;font:600 .85rem var(--disp);color:var(--mute)}
 .hdetail p{margin:0 0 14px;line-height:1.7}
-@media(max-width:700px){.hbox{grid-template-columns:1fr;grid-template-rows:minmax(0,38%) minmax(0,1fr);height:clamp(420px,calc(100svh - 300px),760px)}.hside{border-right:0;border-bottom:2px solid var(--teal-d);padding:16px}.hdetail{padding:16px}}
+@media(max-width:700px){.hbox{grid-template-columns:1fr;grid-template-rows:minmax(0,38%) minmax(0,1fr);height:clamp(420px,calc(100svh - 300px),760px)}.hside{border-right:0;border-bottom:2px solid var(--teal-d)}.bigav{margin-bottom:50px;font-size:2.6rem}.hcap{padding:36px 16px 12px}.hcap b{font-size:1.2rem}.hdetail{padding:16px}}
 @media(max-width:520px){.tl li{grid-template-columns:1fr;gap:0}.kv{grid-template-columns:1fr;gap:2px}}
 
 
@@ -540,6 +566,7 @@ body.ingame #inviteToast{display:none}
 </div>
 
 <nav id="rail" aria-label="เมนูหลัก">
+  <i class="rmark" id="rmark" aria-hidden="true"></i>
   <button type="button" data-p="startScreen"><span class="d"></span><span class="l">เล่นเกม</span></button>
   <button type="button" data-p="rankScreen"><span class="d"></span><span class="l">อันดับ</span></button>
   <button type="button" data-p="libScreen"><span class="d"></span><span class="l">คลังเพลง</span></button>
@@ -590,7 +617,28 @@ body.ingame #inviteToast{display:none}
   <div class="libhead"><h2>ประวัติ</h2></div>
   <div class="hseg" id="hMode"><button type="button" data-mode="soft">ประวัติโปรแกรมเสียงสังเคราะห์</button><button type="button" data-mode="voice">ประวัติเสียงร้อง</button></div>
   <div class="hchips" id="hEras"></div>
+  <div class="hadm" id="hAdm" hidden></div>
   <div class="hbox"><div class="hside" id="hSide"></div><div class="hdetail" id="hDetail"></div></div>
+</div></div>
+<div class="screen hide" id="histEditScreen"><div class="page wide">
+  <aside class="side"><button class="back" id="hxBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxHead">แก้ประวัติ</h2><p>ข้อมูลที่บันทึกจะแสดงให้ทุกคนเห็นทันที</p></aside>
+  <div class="panel"><div class="addbox" id="hxForm">
+    <label class="fl" for="hxKey">รหัส (ตัวพิมพ์เล็ก a-z 0-9 - _ ใช้ภายใน)</label><input id="hxKey" type="text" autocomplete="off" maxlength="30">
+    <div id="hxEraRow"><label class="fl" for="hxEra">โปรแกรมหลัก</label><select id="hxEra" class="tin"></select>
+      <label class="fl" for="hxAlso">โปรแกรมอื่นที่ใช้ด้วย (รหัส คั่นด้วยจุลภาค ไม่บังคับ)</label><input id="hxAlso" type="text" autocomplete="off"></div>
+    <div id="hxNameChar"><label class="fl" for="hxName">ชื่อ</label><input id="hxName" type="text" autocomplete="off"></div>
+    <div id="hxNameEra"><label class="fl">ชื่อ (ไทย / อังกฤษ / ญี่ปุ่น)</label><div class="two"><input id="hxNTh" type="text" placeholder="ไทย"><input id="hxNEn" type="text" placeholder="English"><input id="hxNJa" type="text" placeholder="日本語"></div></div>
+    <label class="fl">คำอธิบาย / ประวัติ (ไทย / อังกฤษ / ญี่ปุ่น)</label>
+    <textarea id="hxTTh" placeholder="ไทย"></textarea><textarea id="hxTEn" placeholder="English"></textarea><textarea id="hxTJa" placeholder="日本語"></textarea>
+    <div id="hxEvRow"><label class="fl" for="hxEv">ไทม์ไลน์ (บรรทัดละ 1 เหตุการณ์: วันที่ | ไทย | อังกฤษ | ญี่ปุ่น)</label><textarea id="hxEv" rows="6"></textarea>
+      <label class="fl">หมายเหตุท้ายหน้า (ไม่บังคับ)</label><textarea id="hxNoteTh" placeholder="ไทย"></textarea><textarea id="hxNoteEn" placeholder="English"></textarea><textarea id="hxNoteJa" placeholder="日本語"></textarea></div>
+    <label class="fl" for="hxSrc">แหล่งข้อมูล (บรรทัดละ 1 แหล่ง: ชื่อ | ลิงก์ https://...)</label><textarea id="hxSrc" rows="3"></textarea>
+    <label class="fl" for="hxImg">รูปฝั่งซ้าย (ลิงก์หรือ path เช่น img/miku.png ใส่เฉพาะรูปที่มีสิทธิ์ใช้)</label><input id="hxImg" type="text" autocomplete="off">
+    <label class="fl" for="hxImgC">เครดิตรูป (ไม่บังคับ)</label><input id="hxImgC" type="text" autocomplete="off">
+    <label class="chk" id="hxUnvRow"><input id="hxUnv" type="checkbox"> ข้อมูลยังไม่ผ่านการตรวจสอบ (แสดงป้ายเตือน)</label>
+    <div class="row"><button class="go" id="hxSave" type="button" style="max-width:260px">บันทึก</button></div>
+    <div class="note" id="hxMsg" role="status"></div>
+  </div></div>
 </div></div>
 <div class="screen hide" id="setupScreen"><div class="page">
   <aside class="side"><button class="back" id="setupBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตั้งค่าเกม</h2><p>เลือกจำนวนเพลงและเวลา แล้วเริ่มเล่นได้เลย</p></aside>
@@ -1030,12 +1078,12 @@ $('clrBtn').onclick=()=>{
   for(let i=SONGS.length-1;i>=0;i--) if(urls.has(SONGS[i].url)) SONGS.splice(i,1);
   saveCustom([]); $('addMsg').textContent="ล้างแล้ว "+n+" เพลง"; updateCount(+$('range').value); libInfo();
 };
-$('goBtn').onclick=()=>{ $('startScreen').classList.add('hide'); $('setupScreen').classList.remove('hide'); updateCount(10); };
-$('playBtn').onclick=()=>{ CLIP_SECONDS=selListen; GRACE_SECONDS=selGrace; lastN=+$('range').value; $('setupScreen').classList.add('hide'); start(lastN); };
+$('goBtn').onclick=()=>{ showScreen('setupScreen'); updateCount(10); };
+$('playBtn').onclick=()=>{ CLIP_SECONDS=selListen; GRACE_SECONDS=selGrace; lastN=+$('range').value; showScreen(null); start(lastN); };
 $('cover').onclick=()=>startListen(false);
 $('skipBtn').onclick=next;
 $('restartBtn').onclick=()=>{ if(online) returnLobby(); else start(lastN); };   // เริ่มใหม่ด้วยการตั้งค่าเดิม
-$('homeBtn').onclick=()=>{ if(online){ leaveRoom(); return; } $('modal').style.display="none"; clearTimers(); pause(); $('startScreen').classList.remove('hide'); };
+$('homeBtn').onclick=()=>{ if(online){ leaveRoom(); return; } $('modal').style.display="none"; clearTimers(); pause(); showScreen('startScreen'); };
 
 /* ================= ห้องออนไลน์ (PeerJS: โฮสต์เป็นผู้คุมเกม ผู้เล่นต่อตรงถึงโฮสต์) ================= */
 const PEER_SRC="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js";
@@ -1043,7 +1091,7 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -1628,16 +1676,32 @@ $('loginGoogle').onclick=async()=>{ await signIn(); if(auth&&auth.currentUser) s
 /* ===== เมนูซ้าย 4 หน้า: เล่นเกม / อันดับ / คลังเพลง / ประวัติ ===== */
 const LNG=()=>document.documentElement.lang||'en';
 const pk=o=>o[LNG()]||o.en;
-const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen'};
+const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen'};
 const _ssR=showScreen;
+const PGO=['startScreen','rankScreen','libScreen','histScreen'];
+const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen'];
+const PGC=['pgin-dn','pgin-up','pgout-dn','pgout-up','pgin-fw','pgin-bk','pgin-fd','pgout-fw','pgout-bk','pgout-fd'];
+let pgTimer=0, pgOld=null;
+const pgClean=()=>{ clearTimeout(pgTimer); document.querySelectorAll('.screen').forEach(e=>e.classList.remove(...PGC)); if(pgOld){ pgOld.classList.add('hide'); pgOld=null; } };
 showScreen=function(id){
+  const from=ALLS.find(x=>!$(x).classList.contains('hide')&&![...$(x).classList].some(c=>c.startsWith('pgout')));
+  pgClean();
   _ssR(id);
+  if(from&&from!==id&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+    let k; const o=$(from), n=id?$(id):null;
+    if(id&&PGO.includes(id)&&PGO.includes(from)) k=PGO.indexOf(id)>PGO.indexOf(from)?['dn','dn']:['up','up'];
+    else if(!id) k=['fd','fd'];
+    else{ const dp=x=>PGO.includes(x)?0:1; k=dp(id)>=dp(from)&&!(PGO.includes(from)&&PGO.includes(id))?['fw','fw']:['bk','bk']; }
+    o.classList.remove('hide'); o.classList.add('pgout-'+k[0]); if(n) n.classList.add('pgin-'+k[1]); pgOld=o;
+    pgTimer=setTimeout(pgClean,520);
+  }else if(!from&&id&&!matchMedia('(prefers-reduced-motion:reduce)').matches){ $(id).classList.add('pgin-fd'); pgTimer=setTimeout(pgClean,520); }
   const g=RAIL[id]; document.body.classList.toggle('rail',!!g);
+  if(g) $('rail').style.setProperty('--rp',['startScreen','rankScreen','libScreen','histScreen'].indexOf(g));
   document.querySelectorAll('#rail button').forEach(b=>{ const on=b.dataset.p===g; b.classList.toggle('on',on); if(on) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
   if(id==='startScreen') $('startScreen').scrollTop=0;
   if(id==='rankScreen') loadRank();
   if(id==='libScreen') renderLib();
-  if(id==='histScreen') renderHist();
+  if(id==='histScreen'){ loadHist(); renderHist(); }
 };
 document.querySelectorAll('#rail button').forEach(b=>{ b.onclick=()=>showScreen(b.dataset.p); });
 $('lbBtn').onclick=()=>showScreen('rankScreen');
@@ -1646,7 +1710,7 @@ showScreen('startScreen');   // ให้เมนูซ้ายขึ้นต
 /* ----- เลื่อนขึ้น/ลงที่ขอบหน้า = ไปหน้าก่อนหน้า/ถัดไป (เมาส์ล้อ ทัชแพด และปัดนิ้ว) ----- */
 const PAGES=['startScreen','rankScreen','libScreen','histScreen'];
 let pgCool=0, pgAcc=0, pgAccT=0, pgTouchY=null;
-function pgCur(){ return PAGES.find(id=>!$(id).classList.contains('hide')); }
+function pgCur(){ return PAGES.find(id=>{ const c=$(id).classList; return !c.contains('hide')&&![...c].some(x=>x.startsWith('pgout')); }); }
 function atEdge(t,scr,dir){
   if(t&&t.closest&&t.closest('.libgrid,.rklist,.hside,.hdetail')) return false;   // เลื่อนในกล่องเพลง/อันดับ ไม่ย้ายหน้า
   for(let el=t;el&&el!==document.body;el=el.parentElement){
@@ -1664,7 +1728,6 @@ function pgGo(cur,dir){
   pgCool=Date.now()+800; pgAcc=0;
   showScreen(PAGES[i]);
   const el=$(PAGES[i]); el.scrollTop=dir>0?0:el.scrollHeight;
-  el.classList.remove('pgup','pgdn'); void el.offsetWidth; el.classList.add(dir>0?'pgdn':'pgup');
 }
 addEventListener('wheel',e=>{
   const cur=pgCur(); if(!cur||e.ctrlKey||Math.abs(e.deltaY)<Math.abs(e.deltaX)) return;
@@ -1856,33 +1919,151 @@ $('admReq').onclick=async e=>{
 
 /* ----- ประวัติ ----- */
 const HD={"ERAS": {"vocaloid": {"n": {"th": "Vocaloid", "en": "Vocaloid", "ja": "Vocaloid"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Yamaha พัฒนาร่วมกับมหาวิทยาลัยปอมเปว ฟาบรา (บาร์เซโลนา) ผู้ใช้ใส่เนื้อร้องกับทำนอง โปรแกรมจะร้องออกมาด้วยคลังเสียง (voicebank) ที่สร้างจากเสียงของนักร้องจริง", "en": "Yamaha's singing-voice synthesizer, developed with Pompeu Fabra University in Barcelona. You enter lyrics and a melody and the software sings them using a voicebank built from a real singer's voice.", "ja": "ヤマハが開発した歌声合成ソフト。バルセロナのポンペウ・ファブラ大学と共同開発。歌詞とメロディを入力すると、実在の歌手の声から作ったボイスバンクで歌ってくれる。"}, "ev": [["2000-03", {"th": "Yamaha เริ่มพัฒนา โดยทำงานด้านประมวลผลสัญญาณร่วมกับกลุ่ม Music Technology Group ของมหาวิทยาลัยปอมเปว ฟาบรา", "en": "Yamaha begins development, with signal processing done jointly with the Music Technology Group at Pompeu Fabra University.", "ja": "ヤマハが開発を開始。信号処理はポンペウ・ファブラ大学の音楽技術グループと共同で行った。"}], ["2004-01-15", {"th": "วางขายครั้งแรก พร้อมคลังเสียงภาษาอังกฤษชุดแรก Leon, Lola และ Miriam (ผลิตโดย Zero-G)", "en": "First commercial release, with the first English voicebanks Leon, Lola and Miriam (by Zero-G).", "ja": "初の商用リリース。最初の英語ボイスバンク Leon、Lola、Miriam（Zero-G製）が登場。"}], ["2004", {"th": "MEIKO คลังเสียงภาษาญี่ปุ่นชุดแรก (Yamaha ผลิต Crypton จำหน่าย)", "en": "MEIKO, one of the first Japanese voicebanks (made by Yamaha, sold by Crypton).", "ja": "最初の日本語ボイスバンクのひとつ MEIKO（ヤマハ製、クリプトン販売）。"}], ["2006-02-17", {"th": "KAITO วางจำหน่ายโดย Crypton", "en": "KAITO is distributed by Crypton.", "ja": "KAITO がクリプトンから発売。"}], ["2007-08-31", {"th": "Hatsune Miku (Vocaloid 2)", "en": "Hatsune Miku (Vocaloid 2).", "ja": "初音ミク（Vocaloid 2）発売。"}], ["2007-12-27", {"th": "Kagamine Rin/Len", "en": "Kagamine Rin/Len.", "ja": "鏡音リン・レン発売。"}], ["2011-10-21", {"th": "Vocaloid 3", "en": "Vocaloid 3 launches.", "ja": "Vocaloid 3 発売。"}], ["2018-07-12", {"th": "Vocaloid 5", "en": "Vocaloid 5 is released.", "ja": "Vocaloid 5 発売。"}], ["2022-10-13", {"th": "Vocaloid 6", "en": "Vocaloid 6 is released.", "ja": "Vocaloid 6 発売。"}]], "src": [["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"], ["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"]]}, "utau": {"n": {"th": "UTAU", "en": "UTAU", "ja": "UTAU"}, "s": {"th": "โปรแกรมสังเคราะห์เสียงร้องแบบแชร์แวร์ (รับบริจาค) สร้างโดยโปรแกรมเมอร์ชื่อ Ameya/Ayame ใช้ไฟล์เสียง WAV ที่ผู้ใช้อัดเองมาต่อกันเป็นเสียงร้อง (concatenative) คลังเสียงส่วนใหญ่ผู้สร้างแจกฟรี จึงมีตัวร้องจากแฟนๆ จำนวนมาก", "en": "A shareware (donation-supported) singing synthesizer by a programmer known as Ameya/Ayame. It strings together WAV recordings supplied by the user (concatenative synthesis). Most voicebanks are given away free by their creators, so there are a huge number of fan-made voices.", "ja": "Ameya/Ayame 氏が作った、寄付で支えられるシェアウェアの歌声合成ソフト。ユーザーが用意したWAV音源をつなげて歌わせる方式。音源の多くは作者が無料配布しており、ファン制作の歌声が数多くある。"}, "ev": [["2008-01-11", {"th": "ประกาศเครื่องมือบน Nico Nico Douga", "en": "The tool is announced on Nico Nico Douga.", "ja": "ニコニコ動画でツールが発表される。"}], ["2008-03-15", {"th": "เปลี่ยนชื่อเป็น UTAU", "en": "Renamed UTAU.", "ja": "「UTAU」に改名。"}], ["2011-05-27", {"th": "ออกเวอร์ชัน Mac (UTAU-Synth)", "en": "Mac version (UTAU-Synth) released.", "ja": "Mac版（UTAU-Synth）公開。"}]], "src": [["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "synthv": {"n": {"th": "Synthesizer V", "en": "Synthesizer V", "ja": "Synthesizer V"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Dreamtonics มีเวอร์ชันฟรี (Basic) และคลังเสียงแบบ AI ที่ให้เสียงเป็นธรรมชาติ", "en": "A singing synthesizer from Dreamtonics, with a free Basic edition and AI voicebanks that sound natural.", "ja": "Dreamtonics の歌声合成ソフト。無料のBasic版と、自然な歌声のAIボイスがある。"}, "ev": [["2020-06", {"th": "เปิดตัว Synthesizer V Studio", "en": "Synthesizer V Studio is unveiled.", "ja": "Synthesizer V Studio 発表。"}], ["2020-07-31", {"th": "เวอร์ชัน Basic ฟรีเปิดให้ใช้", "en": "The free Basic edition is released.", "ja": "無料のBasic版を公開。"}], ["2023-04-27", {"th": "Kasane Teto ออกเสียงแบบ Synthesizer V AI", "en": "Kasane Teto's Synthesizer V AI voice is released.", "ja": "重音テトの Synthesizer V AI ボイスが発売。"}]], "src": [["Synthesizer V (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Synthesizer_V_Studio"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "cevio": {"n": {"th": "CeVIO / VoiSona", "en": "CeVIO / VoiSona", "ja": "CeVIO / VoiSona"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงของ Techno-Speech ปัจจุบัน VoiSona (ชื่อเดิม CeVIO Pro) คือเทคโนโลยีรุ่นถัดไปของ CeVIO", "en": "Voice-synthesis software by Techno-Speech. VoiSona (formerly CeVIO Pro) is the next generation of CeVIO technology.", "ja": "Techno-Speech の音声合成ソフト。VoiSona（旧 CeVIO Pro）は CeVIO の次世代技術。"}, "ev": [["2022-02-19", {"th": "เปิดตัว Chis-A ซึ่งเป็นตัวร้องของ CeVIO Pro/VoiSona", "en": "Chis-A, the voice of CeVIO Pro/VoiSona, is revealed.", "ja": "CeVIO Pro/VoiSona の歌声 Chis-A が公開。"}], ["2022-02-24", {"th": "เปิดให้ใช้ CeVIO Pro เวอร์ชันอัลฟาฟรี", "en": "The CeVIO Pro alpha is released for free.", "ja": "CeVIO Pro のアルファ版を無料公開。"}]], "note": {"th": "ประวัติช่วงก่อนหน้านี้ของ CeVIO ยังไม่ได้ตรวจสอบกับแหล่งข้อมูล จึงยังไม่ใส่", "en": "Earlier CeVIO history hasn't been checked against sources yet, so it is not included.", "ja": "CeVIO のそれ以前の歴史は出典未確認のため、まだ載せていません。"}, "src": [["VoiSona (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/VoiSona"], ["Chis-A (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Chis-A"]]}, "others": {"n": {"th": "อื่นๆ", "en": "Others", "ja": "その他"}, "s": {"th": "เรื่องราวอื่นๆ ในวงการเสียงสังเคราะห์ เช่น ตัวละครที่แฟนๆ สร้างขึ้นและโปรแกรมอื่นๆ", "en": "Other stories from the synthesized-voice scene, such as fan-made characters and other software.", "ja": "合成音声の世界のその他の話題。ファンが生んだキャラクターや他のソフトなど。"}, "ev": [["2007-11-01", {"th": "ภาพวาดแรกของ Akita Neru ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ", "en": "The first illustration of Akita Neru, a fan-made character derived from Miku.", "ja": "ミクから生まれたファン制作キャラ・亜北ネルの最初のイラスト。"}], ["2008-04-15", {"th": "Crypton อนุญาตให้ Neru เป็นตัวละครที่ดัดแปลงจากมิกุอย่างเป็นทางการ", "en": "Crypton licenses Neru as a Miku derivative.", "ja": "クリプトンがネルをミクの派生キャラとして許諾。"}]], "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}}, "CH": {"miku": {"n": "Hatsune Miku", "era": "vocaloid", "unv": false, "t": {"th": "ตัวละครหลักของ Crypton Future Media ใช้เสียงของ Saki Fujita วางขายครั้งแรกบน Vocaloid 2 เมื่อ 31 สิงหาคม 2007 ชื่อแปลว่า \"เสียงแรกของอนาคต\" ตั้งค่าเป็นสาวอายุ 16 ปี ผมทวินเทลสีเขียวน้ำเงิน รหัส CV01 ต่อมามีเวอร์ชัน Append (2010) และ Piapro Studio NT (27 พฤศจิกายน 2020)", "en": "Crypton Future Media's flagship character, voiced by Saki Fujita and first released on Vocaloid 2 on 31 August 2007. Her name means \"first sound of the future\". She is officially a 16-year-old with turquoise twintails, code CV01. Later versions include Append (2010) and Piapro Studio NT (27 November 2020).", "ja": "クリプトンの看板キャラ。声は藤田咲、2007年8月31日に Vocaloid 2 で発売。名前は「初めての未来の音」の意。16歳、ターコイズのツインテール、コード名CV01。のちにAppend（2010年）やPiapro Studio NT（2020年11月27日）が登場。"}, "src": [["Wikipedia: Hatsune Miku", "https://en.wikipedia.org/wiki/Hatsune_Miku"]]}, "neru": {"n": "Akita Neru", "era": "others", "unv": false, "t": {"th": "ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ ภาพวาดแรกปรากฏ 1 พฤศจิกายน 2007 จากชุมชน 2channel ภาพลักษณ์คือสาวอารมณ์ไม่ดีที่ติดมือถือ ผมหางม้าข้างสีเหลือง ต่อมา Crypton อนุญาตให้เป็นตัวละครดัดแปลงของมิกุอย่างเป็นทางการเมื่อ 15 เมษายน 2008", "en": "A fan-made character derived from Miku. The first illustration appeared on 1 November 2007 on 2channel. She is known as a moody girl glued to her phone, with a yellow side ponytail. Crypton licensed her as a Miku derivative on 15 April 2008.", "ja": "ミクから生まれたファン制作キャラ。最初のイラストは2007年11月1日に2ちゃんねるで登場。携帯電話を手放さない不機嫌な少女で、黄色のサイドテール。2008年4月15日にクリプトンが派生キャラとして許諾。"}, "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"]]}, "teto": {"n": "Kasane Teto", "era": "utau", "unv": false, "t": {"th": "ตัวละคร UTAU ที่เริ่มถูกโปรโมตในปี 2008 ในรูปแบบมุกวันเอพริลฟูล ต่อมามีเสียงแบบ Synthesizer V AI วางขายเมื่อ 27 เมษายน 2023", "en": "A UTAU character first promoted in 2008 as an April Fools' joke. A Synthesizer V AI voice was released on 27 April 2023.", "ja": "2008年にエイプリルフールのネタとして登場したUTAUキャラ。2023年4月27日に Synthesizer V AI 版が発売。"}, "src": [["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "kaito": {"n": "KAITO", "era": "vocaloid", "unv": false, "t": {"th": "Yamaha ผลิตและ Crypton จำหน่าย วางขาย 17 กุมภาพันธ์ 2006 ใช้เสียงของ Naoto Fuga จุดเด่นคือผมสั้นสีน้ำเงินกับผ้าพันคอ ภาพลักษณ์ตัวละครแบบปัจจุบันมาจากการออกแบบใหม่ของ iXima สำหรับ Vocaloid 3 (15 กุมภาพันธ์ 2013)", "en": "Made by Yamaha and distributed by Crypton, released 17 February 2006, voiced by Naoto Fuga. Known for short blue hair and a scarf. His current look is iXima's redesign for Vocaloid 3 (15 February 2013).", "ja": "ヤマハ製、クリプトン販売。2006年2月17日発売、声は風雅なおと。青い短髪とマフラーが特徴。現在の姿はVocaloid 3版（2013年2月15日）でのiXima氏による再デザイン。"}, "src": [["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"]]}, "meiko": {"n": "MEIKO", "era": "vocaloid", "unv": false, "t": {"th": "หนึ่งในคลังเสียงภาษาญี่ปุ่นชุดแรกของ Vocaloid ปี 2004 (Yamaha ผลิต Crypton จำหน่าย) เสียงร้องโดย Meiko Haigo", "en": "One of the first Japanese Vocaloid voicebanks, from 2004 (made by Yamaha, sold by Crypton). Voice provider: Meiko Haigo.", "ja": "2004年発売の、最初期の日本語Vocaloid音源のひとつ（ヤマハ製、クリプトン販売）。声は拝郷メイコ。"}, "src": [["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"]]}, "luka": {"n": "Megurine Luka", "era": "vocaloid", "unv": false, "t": {"th": "Crypton Future Media วางขาย 30 มกราคม 2009 เสียงร้องโดย Yu Asakawa เป็น Vocaloid ตัวแรกที่รองรับทั้งภาษาญี่ปุ่นและอังกฤษเต็มรูปแบบ รหัส CV03 และเป็นตัวละครแรกของซีรีส์ที่ตั้งค่าเป็นผู้ใหญ่ (อายุ 20 ปี)", "en": "Crypton Future Media, released 30 January 2009, voiced by Yu Asakawa. The first Vocaloid to fully support both Japanese and English. Code CV03, and the first adult character in the series (officially 20).", "ja": "クリプトン、2009年1月30日発売。声は浅川悠。日本語と英語を完全にサポートした初のVocaloid。コード名CV03で、シリーズ初の大人キャラ（公式20歳）。"}, "src": [["Wikipedia: Megurine Luka", "https://en.wikipedia.org/wiki/Megurine_Luka"]]}, "rin": {"n": "Kagamine Rin", "era": "vocaloid", "unv": false, "t": {"th": "Crypton Future Media วางขายพร้อม Len เมื่อ 27 ธันวาคม 2007 เสียงร้องโดย Asami Shimoda ชุด Append (ธันวาคม 2010) ของ Rin มีแบบ Power, Warm และ Sweet", "en": "Released together with Len by Crypton Future Media on 27 December 2007, voiced by Asami Shimoda. Rin's Append (December 2010) adds Power, Warm and Sweet.", "ja": "2007年12月27日、レンと同時にクリプトンから発売。声は下田麻美。Append（2010年12月）にはPower・Warm・Sweetがある。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "len": {"n": "Kagamine Len", "era": "vocaloid", "unv": false, "t": {"th": "วางขายพร้อม Rin เมื่อ 27 ธันวาคม 2007 เสียงร้องโดย Asami Shimoda เช่นกัน ชุด Append (ธันวาคม 2010) ของ Len มีแบบ Power, Cold และ Serious", "en": "Released together with Rin on 27 December 2007, also voiced by Asami Shimoda. Len's Append (December 2010) adds Power, Cold and Serious.", "ja": "2007年12月27日にリンと同時発売。声は同じく下田麻美。Append（2010年12月）にはPower・Cold・Seriousがある。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "gumi": {"n": "GUMI (Megpoid)", "era": "vocaloid", "unv": true, "t": {"th": "Megpoid (GUMI) ผลิตโดย Internet Co. วางขายปี 2009 เสียงร้องโดย Megumi Nakajima", "en": "Megpoid (GUMI) by Internet Co., released in 2009, voiced by Megumi Nakajima.", "ja": "Internet社のMegpoid（GUMI）。2009年発売、声は中島愛。"}, "src": []}, "yixi": {"n": "Yi Xi", "era": "synthv", "unv": true, "t": {"th": "ตัวร้องของ Synthesizer V (Dreamtonics) รายละเอียดเช่นวันวางขายและผู้ให้เสียงยังไม่ได้ตรวจสอบ", "en": "A Synthesizer V voice (Dreamtonics). Details such as release date and voice provider haven't been verified yet.", "ja": "Synthesizer V（Dreamtonics）のボイス。発売日や声の提供者などの詳細は未確認。"}, "src": []}, "ui": {"n": "Ui", "era": "cevio", "unv": true, "t": {"th": "เข้าใจว่าเป็นตัวร้องในสาย VoiSona/CeVIO แต่ยังตรวจสอบข้อมูลไม่ได้ จึงยังไม่ใส่รายละเอียด", "en": "Believed to be a voice in the VoiSona/CeVIO family, but it couldn't be verified, so no details are given yet.", "ja": "VoiSona/CeVIO系のボイスと思われるが確認できていないため、詳細はまだ載せていません。"}, "src": []}, "chisa": {"n": "Chis-A", "era": "cevio", "unv": false, "t": {"th": "ตัวร้องภาษาญี่ปุ่นของ VoiSona (CeVIO Pro) จาก Techno-Speech เปิดตัว 19 กุมภาพันธ์ 2022 เป็นคลังเสียงเริ่มต้นของ CeVIO Pro ซึ่งประกาศว่าฟรี ไม่ใช่ Vocaloid", "en": "A Japanese VoiSona (CeVIO Pro) voice from Techno-Speech, revealed 19 February 2022. It is CeVIO Pro's default library, announced as free. Not a Vocaloid.", "ja": "Techno-Speech の日本語VoiSona（CeVIO Pro）ボイス。2022年2月19日公開。CeVIO Pro の標準ライブラリで無料と発表。Vocaloidではない。"}, "src": [["Chis-A (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Chis-A"]]}, "kaai": {"n": "Kaai Yuki", "era": "vocaloid", "unv": true, "t": {"th": "คลังเสียงที่รู้จักในวงการ Vocaloid แต่ยังไม่ได้ตรวจสอบรายละเอียด จึงยังไม่ใส่ข้อมูล", "en": "A voicebank known in the Vocaloid scene, but details haven't been verified yet, so none are given.", "ja": "Vocaloidシーンで知られるボイスだが、詳細は未確認のためまだ載せていません。"}, "src": []}}};
+HD.CH.teto.also=['synthv'];   // Teto มีทั้งคลังเสียง UTAU และ Synthesizer V AI
+let hOver={}, hLoaded=false, HX={E:HD.ERAS,C:HD.CH};
+const hEraName=k=>HX.E[k]?pk(HX.E[k].n):k;
+const hEras=c=>[c.era].concat(c.also||[]).map(hEraName).join(' · ');
+const hTri=o=>({th:(o&&o.th)||'',en:(o&&o.en)||'',ja:(o&&o.ja)||''});
+function hBuild(){
+  const E={},C={};
+  Object.keys(HD.ERAS).forEach(k=>E[k]=HD.ERAS[k]); Object.keys(HD.CH).forEach(k=>C[k]=HD.CH[k]);
+  Object.keys(hOver).forEach(k=>{
+    const o=hOver[k], src=(o.src||[]).filter(x=>x&&x.u).map(x=>[x.l||x.u,x.u]);
+    if(o.kind==='era'){
+      if(o.deleted) delete E[k];
+      else E[k]={n:hTri(o.n),s:hTri(o.s),ev:(o.ev||[]).map(x=>[x.d||'',hTri(x)]),note:(o.note&&(o.note.th||o.note.en||o.note.ja))?hTri(o.note):null,src};
+    }else if(o.kind==='char'){
+      if(o.deleted) delete C[k];
+      else C[k]={n:o.n||k,era:o.era||'others',also:o.also||[],unv:!!o.unv,t:hTri(o.t),src};
+    }
+  });
+  HX={E,C};
+}
+async function loadHist(force){
+  if(hLoaded&&!force) return;
+  try{ if(!await dbReady()) return; const q=await db.collection('history').get(); hOver={}; q.docs.forEach(d=>{ hOver[d.id]=d.data(); }); hLoaded=true; hBuild(); if(!$('histScreen').classList.contains('hide')) renderHist(); }catch(e){}
+}
 let hEra='vocaloid', hChar=null;
 const HL={era:{th:'โปรแกรมสังเคราะห์เสียง',en:'Software',ja:'ソフト'},ch:{th:'ตัวละคร / ตัวร้อง',en:'Characters & voices',ja:'キャラクター／ボイス'},src:{th:'แหล่งข้อมูล',en:'Sources',ja:'出典'},unv:{th:'⚠ ข้อมูลส่วนนี้ยังไม่ผ่านการตรวจสอบ',en:'⚠ This part hasn\'t been verified yet',ja:'⚠ この部分は未確認です'},pick:{th:'เลือกตัวละครเพื่อดูประวัติ',en:'Pick a character to read about',ja:'キャラクターを選んで読む'}};
 const srcHtml=a=>a&&a.length?'<div class="hsrc">'+pk(HL.src)+': '+a.map(s=>'<a href="'+esc(s[1])+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>').join(' · ')+'</div>':'';
 let hMode='soft', hSel='vocaloid';
-Object.assign(HL,{soft:{th:'ประวัติโปรแกรมเสียงสังเคราะห์',en:'Software history',ja:'ソフトの歴史'},voice:{th:'ประวัติเสียงร้อง',en:'Voice history',ja:'ボイスの歴史'},ov:{th:'ภาพรวม',en:'Overview',ja:'概要'},hist:{th:'ประวัติ',en:'History',ja:'歴史'}});
+Object.assign(HL,{empty:{th:'ยังไม่มีรายการ',en:'No entries yet',ja:'項目がありません'},soft:{th:'ประวัติโปรแกรมเสียงสังเคราะห์',en:'Software history',ja:'ソフトの歴史'},voice:{th:'ประวัติเสียงร้อง',en:'Voice history',ja:'ボイスの歴史'},ov:{th:'ภาพรวม',en:'Overview',ja:'概要'},hist:{th:'ประวัติ',en:'History',ja:'歴史'}});
 const hAv=n=>esc(String(n).trim().charAt(0).toUpperCase());
+/* รูปโลโก้/ตัวละครของหน้าประวัติ: ใส่ได้เฉพาะรูปที่คุณมีสิทธิ์ใช้งานเท่านั้น
+   วิธีใช้: อัปโหลดรูปไว้ในโฟลเดอร์ img/ ของ GitHub แล้วใส่ path ตามคีย์ด้านล่าง
+   รูปแบบ  คีย์: 'img/miku.png'  หรือ  คีย์: ['img/miku.png','ที่มา/เครดิต']
+   คีย์โปรแกรม: vocaloid utau synthv cevio others
+   คีย์ตัวละคร: miku neru teto kaito meiko luka rin len gumi yixi ui chisa kaai
+   ถ้าเว้นว่าง/ไม่มีรูป หรือโหลดรูปไม่ได้ จะแสดงวงกลมตัวอักษรแทน */
+const HIST_IMG={vocaloid:'',utau:'',synthv:'',cevio:'',others:'',miku:'',neru:'',teto:'',kaito:'',meiko:'',luka:'',rin:'',len:'',gumi:'',yixi:'',ui:'',chisa:'',kaai:''};
+function hPic(key,name,fallback,sub){
+  const ov=hOver[key]&&hOver[key].img?[hOver[key].img,hOver[key].imgc||'']:null; const v=ov||HIST_IMG[key]; const u=Array.isArray(v)?v[0]:v, cr=Array.isArray(v)?v[1]:'';
+  const ph='<div class="bigav">'+fallback+'</div>';
+  const cap='<div class="hcap"><b>'+esc(name)+'</b><i>'+esc(sub)+'</i>'+(cr?'<small>'+esc(cr)+'</small>':'')+'</div>';
+  const inner=u?'<img src="'+esc(u)+'" alt="'+esc(name)+'" onerror="this.outerHTML=this.dataset.f" data-f="'+esc(ph)+'">':ph;
+  return '<div class="hfill">'+inner+'</div>'+cap;
+}
 function renderHist(){
-  const E=HD.ERAS, C=HD.CH;
-  if(hMode==='soft'&&!E[hSel]) hSel='vocaloid';
-  if(hMode==='voice'&&!C[hSel]) hSel='miku';
+  const E=HX.E, C=HX.C;
+  { const pool=hMode==='soft'?E:C; if(!pool[hSel]) hSel=Object.keys(pool)[0]||''; }
   document.querySelectorAll('#hMode button').forEach(b=>{ b.classList.toggle('on',b.dataset.mode===hMode); b.textContent=pk(b.dataset.mode==='soft'?HL.soft:HL.voice); });
   $('hEras').innerHTML=(hMode==='soft'?Object.keys(E).map(k=>[k,pk(E[k].n)]):Object.keys(C).map(k=>[k,C[k].n])).map(a=>'<button type="button" class="chip'+(a[0]===hSel?' on':'')+'" data-sel="'+a[0]+'">'+esc(a[1])+'</button>').join('');
   let side, det;
-  if(hMode==='soft'){
+  if(!hSel){ side=''; det='<p>'+esc(pk(HL.empty))+'</p>'; }
+  else if(hMode==='soft'){
     const e=E[hSel];
-    side='<div class="bigav">★</div><h3>'+esc(pk(e.n))+'</h3><div class="hsub">'+esc(pk(HL.ov))+'</div><p>'+esc(pk(e.s))+'</p>'+(e.note?'<div class="warn">'+esc(pk(e.note))+'</div>':'');
-    det='<h3>'+esc(pk(HL.hist))+'</h3><ol class="tl">'+e.ev.map(v=>'<li><time>'+esc(v[0])+'</time><span>'+esc(pk(v[1]))+'</span></li>').join('')+'</ol>'+srcHtml(e.src);
+    side=hPic(hSel,pk(e.n),'★',pk(HL.ov));
+    det='<h3>'+esc(pk(e.n))+'</h3><div class="hsub">'+esc(pk(HL.ov))+'</div><p>'+esc(pk(e.s))+'</p>'+(e.note?'<div class="warn">'+esc(pk(e.note))+'</div>':'')+'<h4 class="hh">'+esc(pk(HL.hist))+'</h4><ol class="tl">'+e.ev.map(v=>'<li><time>'+esc(v[0])+'</time><span>'+esc(pk(v[1]))+'</span></li>').join('')+'</ol>'+srcHtml(e.src);
   }else{
     const c=C[hSel];
-    side='<div class="bigav">'+hAv(c.n)+'</div><h3>'+esc(c.n)+'</h3><div class="hsub">'+esc(pk(E[c.era].n))+'</div>'+(c.unv?'<div class="warn">'+esc(pk(HL.unv))+'</div>':'');
-    det='<h3>'+esc(pk(HL.hist))+'</h3><p>'+esc(pk(c.t))+'</p>'+srcHtml(c.src);
+    side=hPic(hSel,c.n,hAv(c.n),hEras(c));
+    det='<h3>'+esc(c.n)+'</h3><div class="hsub">'+esc(hEras(c))+'</div>'+(c.unv?'<div class="warn">'+esc(pk(HL.unv))+'</div>':'')+'<h4 class="hh">'+esc(pk(HL.hist))+'</h4><p>'+esc(pk(c.t))+'</p>'+srcHtml(c.src);
   }
-  $('hSide').innerHTML=side; $('hDetail').innerHTML=det; $('hDetail').scrollTop=0; $('hSide').scrollTop=0;
+    $('hSide').innerHTML=side; $('hDetail').innerHTML=det; $('hDetail').scrollTop=0; $('hSide').scrollTop=0;
+  renderHAdm();
 }
+/* ----- แอดมิน: เพิ่ม/แก้/ลบ หน้าประวัติ ----- */
+const hBuiltin=(k,kind)=>!!(kind==='era'?HD.ERAS[k]:HD.CH[k]);
+function renderHAdm(){
+  const el=$('hAdm'); el.hidden=!isAdmin; if(!isAdmin){ el.innerHTML=''; return; }
+  const kind=hMode==='soft'?'era':'char', ov=hSel&&hOver[hSel]&&hOver[hSel].kind===kind&&!hOver[hSel].deleted;
+  el.innerHTML='<button type="button" data-ha="add">+ '+(kind==='era'?'เพิ่มโปรแกรม':'เพิ่มเสียงร้อง')+'</button>'
+    +(hSel?'<button type="button" data-ha="edit">แก้ไขรายการนี้</button><button type="button" class="dng" data-ha="del">ลบรายการนี้</button>':'')
+    +(hSel&&ov&&hBuiltin(hSel,kind)?'<button type="button" data-ha="reset">คืนค่าเดิม</button>':'');
+}
+const hxv=id=>$(id).value.trim();
+let hxMode='add';
+function openHx(mode){
+  if(!isAdmin) return; hxMode=mode;
+  const kind=hMode==='soft'?'era':'char', item=mode==='edit'?(kind==='era'?HX.E[hSel]:HX.C[hSel]):null;
+  $('hxMsg').textContent='';
+  $('hxHead').textContent=(mode==='add'?'เพิ่ม':'แก้ไข')+(kind==='era'?'โปรแกรม':'เสียงร้อง');
+  $('hxKey').value=mode==='edit'?hSel:''; $('hxKey').readOnly=mode==='edit';
+  $('hxEraRow').style.display=$('hxNameChar').style.display=$('hxUnvRow').style.display=kind==='char'?'':'none';
+  $('hxNameEra').style.display=$('hxEvRow').style.display=kind==='era'?'':'none';
+  $('hxEra').innerHTML=Object.keys(HX.E).map(k=>'<option value="'+esc(k)+'">'+esc(pk(HX.E[k].n))+' ('+esc(k)+')</option>').join('');
+  const tx=kind==='era'?(item&&item.s):(item&&item.t), tri=o=>o||{th:'',en:'',ja:''};
+  $('hxTTh').value=tri(tx).th; $('hxTEn').value=tri(tx).en; $('hxTJa').value=tri(tx).ja;
+  if(kind==='era'){
+    const n=tri(item&&item.n); $('hxNTh').value=n.th; $('hxNEn').value=n.en; $('hxNJa').value=n.ja;
+    $('hxEv').value=(item?item.ev:[]).map(v=>[v[0],v[1].th,v[1].en,v[1].ja].join(' | ')).join('\n');
+    const nt=tri(item&&item.note); $('hxNoteTh').value=nt.th; $('hxNoteEn').value=nt.en; $('hxNoteJa').value=nt.ja;
+  }else{
+    $('hxName').value=item?item.n:''; if(item) $('hxEra').value=item.era; $('hxAlso').value=item?(item.also||[]).join(', '):''; $('hxUnv').checked=!!(item&&item.unv);
+  }
+  $('hxSrc').value=(item?item.src:[]).map(x=>x[0]+' | '+x[1]).join('\n');
+  const o=hOver[hSel]||{}; $('hxImg').value=mode==='edit'?(o.img||''):''; $('hxImgC').value=mode==='edit'?(o.imgc||''):'';
+  showScreen('histEditScreen');
+}
+async function saveHx(){
+  const kind=hMode==='soft'?'era':'char', key=hxv('hxKey').toLowerCase(), msg=t=>{ $('hxMsg').textContent=t; };
+  if(!isAdmin||!db){ msg('⚠ ต้องเป็นแอดมินและล็อกอินก่อน'); return; }
+  if(!/^[a-z0-9_-]{2,30}$/.test(key)){ msg('⚠ รหัสต้องเป็น a-z 0-9 - _ ยาว 2-30 ตัว'); return; }
+  const exists=kind==='era'?HX.E[key]:HX.C[key];
+  if(hxMode==='add'&&(exists||HX.E[key]||HX.C[key])){ msg('⚠ รหัสนี้มีอยู่แล้ว'); return; }
+  const tri=ids=>({th:hxv(ids[0]),en:hxv(ids[1]),ja:hxv(ids[2])});
+  const src=hxv('hxSrc').split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(a=>a[0]||a[1]).map(a=>({l:a[1]?a[0]:a[1]||a[0],u:a[1]||a[0]})).filter(x=>/^https?:\/\//i.test(x.u));
+  const d={kind,t_:0,img:hxv('hxImg'),imgc:hxv('hxImgC'),src,ts:Date.now()}; delete d.t_;
+  if(kind==='era'){
+    const n=tri(['hxNTh','hxNEn','hxNJa']); if(!(n.th||n.en||n.ja)){ msg('⚠ กรอกชื่อก่อน'); return; }
+    d.n=n; d.s=tri(['hxTTh','hxTEn','hxTJa']); d.note=tri(['hxNoteTh','hxNoteEn','hxNoteJa']);
+    d.ev=hxv('hxEv').split('\n').map(l=>l.split('|').map(x=>x.trim())).filter(a=>a[0]).map(a=>({d:a[0],th:a[1]||'',en:a[2]||a[1]||'',ja:a[3]||a[2]||a[1]||''}));
+  }else{
+    const n=hxv('hxName'); if(!n){ msg('⚠ กรอกชื่อก่อน'); return; }
+    d.n=n; d.era=$('hxEra').value; d.also=hxv('hxAlso').split(',').map(x=>x.trim()).filter(x=>HX.E[x]&&x!==d.era);
+    d.t=tri(['hxTTh','hxTEn','hxTJa']); d.unv=$('hxUnv').checked;
+  }
+  msg('กำลังบันทึก...'); $('hxSave').disabled=true;
+  try{
+    await db.collection('history').doc(key).set(d);
+    await loadHist(true); hSel=key; showScreen('histScreen');
+  }catch(e){ msg('⚠ บันทึกไม่สำเร็จ ('+(e.code||e.message)+') ตรวจกฎ Firestore ของ history'); }
+  $('hxSave').disabled=false;
+}
+$('hxSave').onclick=saveHx;
+$('hxBack').onclick=()=>showScreen('histScreen');
+async function hAct(a){
+  if(!isAdmin||!db) return;
+  const kind=hMode==='soft'?'era':'char';
+  if(a==='add') return openHx('add');
+  if(a==='edit') return openHx('edit');
+  try{
+    if(a==='del'){
+      if(!confirm('ลบรายการนี้ใช่ไหม?')) return;
+      if(hBuiltin(hSel,kind)) await db.collection('history').doc(hSel).set({kind,deleted:true,ts:Date.now()});
+      else await db.collection('history').doc(hSel).delete();
+    }else if(a==='reset'){
+      if(!confirm('คืนค่าเดิมของรายการนี้ใช่ไหม?')) return;
+      await db.collection('history').doc(hSel).delete();
+    }
+    await loadHist(true); renderHist();
+  }catch(e){ alert('ทำไม่สำเร็จ ('+(e.code||e.message)+')'); }
+}
+{ const _ca=checkAdmin; checkAdmin=async function(){ await _ca(); if(!$('histScreen').classList.contains('hide')) renderHist(); }; }
 document.getElementById('histScreen').onclick=e=>{
-  const m=e.target.closest('[data-mode]'), c=e.target.closest('[data-sel]');
-  if(m){ hMode=m.dataset.mode; hSel=hMode==='soft'?'vocaloid':'miku'; renderHist(); }
+  const m=e.target.closest('[data-mode]'), c=e.target.closest('[data-sel]'), ha=e.target.closest('[data-ha]');
+  if(ha){ hAct(ha.dataset.ha); }
+  else if(m){ hMode=m.dataset.mode; hSel=hMode==='soft'?'vocaloid':'miku'; renderHist(); }
   else if(c){ hSel=c.dataset.sel; renderHist(); }
 };
 new MutationObserver(()=>{
