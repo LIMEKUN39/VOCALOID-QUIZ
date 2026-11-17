@@ -475,7 +475,8 @@ body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
 .rq .df .k{color:var(--mute)}
 .rq .df s{color:var(--mute)}
 .rq .note{min-height:0;margin:6px 0}
-.hchips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.hchips{display:flex;flex-wrap:nowrap;align-items:flex-start;gap:8px;height:64px;margin-bottom:0;padding:5px 3px 0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.hchips .chip{flex:none;white-space:nowrap}
 .hcard{padding:16px;border:2px solid var(--line);border-radius:14px;background:#fff;margin-bottom:18px;text-align:left}
 .hcard h3{margin:0 0 8px;font:600 1.25rem var(--disp)}
 .hcard p{margin:0 0 12px}
@@ -538,7 +539,14 @@ body.rail #pf{display:block}
 #pfLang button{flex:1;min-height:34px;border:2px solid var(--line);border-radius:999px;background:#fff;color:var(--teal-d);font:600 .8rem var(--body);cursor:pointer}
 #pfLang button.on{background:var(--teal);border-color:var(--teal);color:#fff}
 @media(max-width:1099px){#pfBtn .l{display:none}#pf{left:12px}}
-@media(max-width:699px){#pf{top:8px;left:8px}}
+@media(max-width:699px){#pf{top:8px;left:8px}#rail.pfon .rmark{opacity:0}#pfBtn.on .av{background:var(--ink);border-color:var(--ink)}}
+#pfBtn:focus-visible{outline:none}#pfBtn:focus-visible .av{outline:2px solid var(--deep);outline-offset:2px}
+.panel.prof{max-width:560px;margin:0}
+.prof section{padding:4px 0 18px;border-bottom:2px solid var(--mint2);margin-bottom:16px}.prof section:last-child{border:0;margin:0;padding-bottom:0}
+.prrow{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.prt{display:flex;flex-direction:column;gap:3px;min-width:0}.prt small{color:var(--mute);word-break:break-all}
+#prFr{display:inline-flex;align-items:center;gap:8px}#prFr.dim{color:var(--mute);border-color:var(--line)}
+#prFr .dot{width:9px;height:9px;border-radius:50%;background:#d33}#prFr .dot[hidden]{display:none}
 @media(min-width:700px){
 #rail::before{top:calc(50% - 210px);height:336px}
 #pf{left:26px;top:calc(50% - 252px)}
@@ -548,6 +556,7 @@ body.rail #pf{display:block}
 #pfBtn .av svg{display:none}
 #pfBtn:hover .av{transform:none;border-color:var(--teal-d)}
 #pfBtn.in .av{background:var(--teal);border-color:var(--teal-d)}
+#pfBtn.on .av{background:transparent;border-color:transparent}
 #pfMenu{top:76px}
 }
 @media(min-width:700px) and (max-width:1099px){#pf{left:16px}}
@@ -606,13 +615,14 @@ body.ingame #inviteToast{display:none}
   <button type="button" data-p="libScreen"><span class="d"></span><span class="l">คลังเพลง</span></button>
   <button type="button" data-p="histScreen"><span class="d"></span><span class="l">ประวัติ</span></button>
 </nav>
-<div id="pf"><button type="button" id="pfBtn" aria-haspopup="true" aria-expanded="false"><span class="av" id="pfAv"></span><span class="l" id="pfName">ล็อกอิน</span></button>
-<div id="pfMenu" hidden role="menu">
-<button type="button" id="pfAcct" role="menuitem"><span id="pfAcctT">ล็อกอิน</span></button>
-<button type="button" id="pfFr" role="menuitem"><span>เพื่อน</span><i class="dot" id="pfDot" hidden></i></button>
-<button type="button" id="pfSet" role="menuitem"><span>ตั้งค่า</span></button>
-<div id="pfLang" hidden><button type="button" data-l="th">ไทย</button><button type="button" data-l="en">EN</button><button type="button" data-l="ja">日本語</button></div>
-</div></div>
+<div id="pf"><button type="button" id="pfBtn"><span class="av" id="pfAv"></span><span class="l" id="pfName">ล็อกอิน</span></button></div>
+<div class="screen hide" id="profScreen"><div class="page wide">
+  <aside class="side"><h2>โปรไฟล์</h2><p>จัดการบัญชี เพื่อน และตั้งค่า</p></aside>
+  <div class="panel prof">
+    <section><h3 class="rkh">บัญชี</h3><div class="prrow"><div class="prt"><b id="prName">-</b><small id="prSub"></small></div><button type="button" class="chip" id="prAcct">ล็อกอิน</button></div></section>
+    <section><h3 class="rkh">เพื่อน</h3><div class="prrow"><div class="prt"><small id="prFrT"></small></div><button type="button" class="chip" id="prFr"><span>เพื่อน</span><i class="dot" id="prDot" hidden></i></button></div></section>
+    <section><h3 class="rkh">ตั้งค่า</h3><div class="prrow"><div class="prt"><b>ภาษา</b></div><div class="chips" id="prLang" style="margin:0"><button type="button" class="chip" data-l="th">ไทย</button><button type="button" class="chip" data-l="en">EN</button><button type="button" class="chip" data-l="ja">日本語</button></div></div></section>
+  </div></div></div>
 <div class="screen hide" id="rankScreen"><div class="page wide">
   <aside class="side"><h2>อันดับ</h2><p>เรียงจากคะแนนรวมทุกเกม เลื่อนดูอันดับอื่นได้ แถวล่างสุดคืออันดับของคุณ</p></aside>
   <div class="panel"><div class="rkgrid">
@@ -1132,7 +1142,7 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','profScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -1675,7 +1685,7 @@ function setLoginMode(m){
   document.querySelectorAll('#loginTabs .chip').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
   $('loginSubmit').textContent=m==='in'?'เข้าสู่ระบบ':'สมัครสมาชิก';
   $('loginPass').autocomplete=m==='in'?'current-password':'new-password';
-  $('loginForgot').hidden=m!=='in'; lmsg('');
+  $('loginForgot').style.visibility=m==='in'?'':'hidden'; lmsg('');
 }
 function openLogin(){ setLoginMode('in'); $('loginPass').value=''; showScreen('loginScreen'); }
 function authMsg(e){
@@ -1717,10 +1727,10 @@ $('loginGoogle').onclick=async()=>{ await signIn(); if(auth&&auth.currentUser) s
 /* ===== เมนูซ้าย 4 หน้า: เล่นเกม / อันดับ / คลังเพลง / ประวัติ ===== */
 const LNG=()=>document.documentElement.lang||'en';
 const pk=o=>o[LNG()]||o.en;
-const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen'};
+const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',profScreen:'profScreen'};
 const _ssR=showScreen;
 const PGO=['startScreen','rankScreen','libScreen','histScreen'];
-const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen'];
+const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','profScreen'];
 const PGC=['pgin-dn','pgin-up','pgout-dn','pgout-up','pgin-fw','pgin-bk','pgin-fd','pgout-fw','pgout-bk','pgout-fd'];
 let pgTimer=0, pgOld=null;
 const pgClean=()=>{ clearTimeout(pgTimer); document.querySelectorAll('.screen').forEach(e=>e.classList.remove(...PGC)); if(pgOld){ pgOld.classList.add('hide'); pgOld=null; } };
@@ -1737,11 +1747,13 @@ showScreen=function(id){
     pgTimer=setTimeout(pgClean,520);
   }else if(!from&&id&&!matchMedia('(prefers-reduced-motion:reduce)').matches){ $(id).classList.add('pgin-fd'); pgTimer=setTimeout(pgClean,520); }
   const g=RAIL[id]; document.body.classList.toggle('rail',!!g);
-  if(g) $('rail').style.setProperty('--rp',['startScreen','rankScreen','libScreen','histScreen'].indexOf(g));
+  if(g) $('rail').style.setProperty('--rp',['profScreen','startScreen','rankScreen','libScreen','histScreen'].indexOf(g)-1);
+  $('rail').classList.toggle('pfon',g==='profScreen'); $('pfBtn').classList.toggle('on',g==='profScreen');
   document.querySelectorAll('#rail button').forEach(b=>{ const on=b.dataset.p===g; b.classList.toggle('on',on); if(on) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
   if(id==='startScreen') $('startScreen').scrollTop=0;
   if(id==='rankScreen') loadRank();
   if(id==='libScreen') renderLib();
+  if(id==='profScreen') prRefresh();
   if(id==='histScreen'){ loadHist(); renderHist(); }
 };
 document.querySelectorAll('#rail button').forEach(b=>{ b.onclick=()=>showScreen(b.dataset.p); });
@@ -1752,21 +1764,25 @@ const pfIn=()=>typeof acct!=='undefined'&&!!acct;
 const PF_SVG='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
 function pfRefresh(){
   const i=pfIn(), nm=i?((profile&&profile.name)||'บัญชี'):'ล็อกอิน';
-  $('pfName').textContent=nm; $('pfAcctT').textContent=i?'บัญชีของฉัน':'ล็อกอิน';
+  $('pfName').textContent=nm; $('pfBtn').classList.toggle('in',i);
   if(i){ $('pfAv').textContent=(nm.trim()[0]||'?').toUpperCase(); } else $('pfAv').innerHTML=PF_SVG;
-  $('pfBtn').classList.toggle('in',i); $('pfFr').classList.toggle('dim',!i); $('pfDot').hidden=!i||$('friendsDot').hidden;
-  document.querySelectorAll('#pfLang button').forEach(b=>b.classList.toggle('on',b.dataset.l===document.documentElement.lang));
+  prRefresh();
 }
-function pfClose(){ $('pfMenu').hidden=true; $('pfBtn').setAttribute('aria-expanded','false'); }
-$('pfBtn').onclick=e=>{ e.stopPropagation(); const o=$('pfMenu').hidden; if(o){ pfRefresh(); $('pfLang').hidden=true; } $('pfMenu').hidden=!o; $('pfBtn').setAttribute('aria-expanded',String(o)); };
-$('pfAcct').onclick=()=>{ pfClose(); $('acctBtn').onclick(); };
-$('pfFr').onclick=()=>{ pfClose(); if(pfIn()) $('friendsBtn').onclick(); else openLogin(); };
-$('pfSet').onclick=e=>{ e.stopPropagation(); pfRefresh(); $('pfLang').hidden=!$('pfLang').hidden; };
-document.querySelectorAll('#pfLang button').forEach(b=>{ b.onclick=e=>{ e.stopPropagation(); setLang(b.dataset.l); pfRefresh(); }; });
-document.addEventListener('click',e=>{ if(!$('pf').contains(e.target)) pfClose(); });
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') pfClose(); });
+function prRefresh(){
+  const i=pfIn();
+  $('prName').textContent=i?((profile&&profile.name)||'บัญชี'):'ยังไม่ได้ล็อกอิน';
+  $('prSub').textContent=i?acct.email:'ล็อกอินเพื่อบันทึกคะแนนและเล่นกับเพื่อน';
+  $('prAcct').textContent=i?'บัญชีของฉัน':'ล็อกอิน';
+  $('prFrT').textContent=i?'ดูรายชื่อเพื่อน เพิ่มเพื่อน และตอบรับคำขอ':'ล็อกอินเพื่อเพิ่มและดูรายชื่อเพื่อน';
+  $('prFr').classList.toggle('dim',!i); $('prDot').hidden=!i||$('friendsDot').hidden;
+  document.querySelectorAll('#prLang .chip').forEach(b=>b.classList.toggle('on',b.dataset.l===document.documentElement.lang));
+}
+$('pfBtn').onclick=()=>showScreen('profScreen');
+$('prAcct').onclick=()=>$('acctBtn').onclick();
+$('prFr').onclick=()=>{ if(pfIn()) $('friendsBtn').onclick(); else openLogin(); };
+document.querySelectorAll('#prLang .chip').forEach(b=>{ b.onclick=()=>{ document.querySelector('#langSw [data-l="'+b.dataset.l+'"]').click(); prRefresh(); }; });
 new MutationObserver(pfRefresh).observe($('acctBtn'),{childList:true,characterData:true,subtree:true});
-new MutationObserver(pfRefresh).observe($('friendsDot'),{attributes:true,attributeFilter:['hidden']});
+new MutationObserver(prRefresh).observe($('friendsDot'),{attributes:true,attributeFilter:['hidden']});
 pfRefresh();
 showScreen('startScreen');   // ให้เมนูซ้ายขึ้นตั้งแต่เปิดเว็บ
 
@@ -2474,6 +2490,13 @@ const E=[
 ['มีเพลงนี้ในคลังแล้ว','This song is already in the library','この曲はすでにライブラリにあります'],
 ['แก้ไขเพลง','Edit song','曲を編集'],
 ['บันทึกการแก้ไข','Save changes','変更を保存'],
+["โปรไฟล์", "Profile", "プロフィール"],
+["จัดการบัญชี เพื่อน และตั้งค่า", "Manage your account, friends and settings", "アカウント・フレンド・設定の管理"],
+["ภาษา", "Language", "言語"],
+["ยังไม่ได้ล็อกอิน", "Not signed in", "未ログイン"],
+["ล็อกอินเพื่อบันทึกคะแนนและเล่นกับเพื่อน", "Sign in to save scores and play with friends", "ログインしてスコアを保存し、友達と遊ぼう"],
+["ดูรายชื่อเพื่อน เพิ่มเพื่อน และตอบรับคำขอ", "View friends, add friends and accept requests", "フレンドの確認・追加・申請の承認"],
+["ล็อกอินเพื่อเพิ่มและดูรายชื่อเพื่อน", "Sign in to add and view friends", "ログインしてフレンドを追加・確認"],
 ["ตั้งค่า", "Settings", "設定"],
 ["เมนูหลัก", "Main menu", "メインメニュー"],
 ["เล่นเกม", "Play", "プレイ"],
