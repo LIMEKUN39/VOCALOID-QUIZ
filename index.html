@@ -379,14 +379,14 @@ html[lang="ja"] body,html[lang="ja"] button,html[lang="ja"] input,html[lang="ja"
 /* ===== เมนูซ้าย + หน้าอันดับ/คลังเพลง/ประวัติ ===== */
 #rail{position:fixed;z-index:30;left:0;top:0;bottom:0;width:150px;display:none;flex-direction:column;justify-content:center;padding-left:26px}
 body.rail #rail{display:flex}
-#rail::before{content:"";position:absolute;left:35px;top:calc(50% - 126px);height:252px;width:3px;background:var(--line);border-radius:2px}
+#rail::before{content:"";position:absolute;left:35px;top:calc(50% - 168px);height:336px;width:3px;background:var(--line);border-radius:2px}
 #rail button{position:relative;display:flex;align-items:center;gap:14px;height:84px;padding:0;border:0;background:transparent;color:var(--mute);font:500 .92rem var(--disp);text-align:left;cursor:pointer}
 #rail .d{flex:none;width:20px;height:20px;border-radius:50%;border:3px solid var(--line);background:var(--paper);transition:transform .15s,background .15s,border-color .15s}
 #rail button:hover{color:var(--teal-d)}
 #rail button:hover .d{border-color:var(--teal-d)}
 #rail button.on{color:var(--ink);font-weight:600}
 #rail button.on .d{background:transparent;border-color:transparent}
-.rmark{position:absolute;left:26px;top:calc(50% - 136px);width:20px;height:20px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 5px rgba(10,30,28,.14);transform:translateY(calc(var(--rp,0)*84px));transition:transform .45s cubic-bezier(.22,.61,.36,1);pointer-events:none}
+.rmark{position:absolute;left:26px;top:calc(50% - 178px);width:20px;height:20px;border-radius:50%;background:var(--ink);box-shadow:0 0 0 5px rgba(10,30,28,.14);transform:translateY(calc(var(--rp,0)*84px));transition:transform .45s cubic-bezier(.22,.61,.36,1);pointer-events:none}
 body.rail .screen{padding-left:170px}
 @keyframes pgin-dn{from{opacity:0;transform:translateY(56px)}to{opacity:1;transform:none}}
 @keyframes pgin-up{from{opacity:0;transform:translateY(-56px)}to{opacity:1;transform:none}}
@@ -409,7 +409,7 @@ body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
 @media(max-width:699px){
   #rail{top:auto;width:100%;height:64px;flex-direction:row;justify-content:space-around;padding:0;background:#fff;border-top:2px solid var(--mint2)}
   #rail::before{display:none}
-  .rmark{left:calc(var(--rp,0)*25% + 12.5% - 10px);top:13px;transform:none;transition:left .45s cubic-bezier(.22,.61,.36,1)}
+  .rmark{left:calc(var(--rp,0)*20% + 10% - 10px);top:13px;transform:none;transition:left .45s cubic-bezier(.22,.61,.36,1)}
   #rail button{flex:1;height:64px;flex-direction:column;justify-content:center;gap:5px;font-size:.72rem}
   #rail .l{position:static}
   body.rail .screen{padding-left:16px;padding-bottom:84px}
@@ -438,6 +438,7 @@ body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
 .rkme .rr .n,.rkme .rr .nm,.rkme .rr .sc,.rkme .rr.ph .n,.rkme .rr.ph .nm,.rkme .rr.ph .sc{color:#fff}
 .rkbox.dim{background:#e9eeed;border-color:#b9c7c4}
 .rkbox.dim .rkcols{opacity:.35}
+html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rkcols>span:first-child::after{content:"#";font-size:.72rem}
 .rkbox.dim .rklist{position:relative;opacity:1}
 .rkbox.dim .rklist .rr.ph{opacity:.5}
 .rkgate{position:absolute;inset:215px 0 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#46605c;padding:10px}
@@ -500,7 +501,8 @@ body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
 .hcap b{display:block;font:700 1.5rem var(--disp)}
 .hcap i{display:block;font:600 .85rem var(--disp);font-style:normal;opacity:.85}
 .hcap small{display:block;margin-top:4px;font-size:.7rem;opacity:.75}
-.hadm{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.hadm{display:none!important}
+.hadmx{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
 .hadm button{min-height:40px;padding:6px 16px;border:2px solid var(--teal-d);border-radius:10px;background:#fff;color:var(--teal-d);font:600 .88rem var(--disp);cursor:pointer}
 .hadm button.dng{border-color:#b3261e;color:#b3261e}
 #hxForm textarea{display:block;width:100%;min-height:72px;margin-bottom:8px;padding:10px 14px;border:2px solid var(--line);border-radius:12px;font:inherit}
@@ -511,7 +513,7 @@ body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
 .hdetail{overflow-y:auto;padding:22px 26px;text-align:left}
 .hdetail h3{margin:0 0 12px;font:700 1.6rem var(--disp)}
 .hdetail .hsub{margin:2px 0 14px;font:600 .85rem var(--disp);color:var(--mute)}
-.hdetail p{margin:0 0 14px;line-height:1.7}
+.hdetail p{margin:0 0 14px;line-height:1.7;white-space:pre-line}
 @media(max-width:700px){.hbox{grid-template-columns:1fr;grid-template-rows:minmax(0,38%) minmax(0,1fr);height:clamp(420px,calc(100svh - 300px),760px)}.hside{border-right:0;border-bottom:2px solid var(--teal-d)}.bigav{margin-bottom:50px;font-size:2.6rem}.hcap{padding:36px 16px 12px}.hcap b{font-size:1.2rem}.hdetail{padding:16px}}
 @media(max-width:520px){.tl li{grid-template-columns:1fr;gap:0}.kv{grid-template-columns:1fr;gap:2px}}
 
@@ -519,6 +521,51 @@ body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
 .mtrack .blk{display:block;flex:none;width:var(--tw);aspect-ratio:16/9;margin-right:var(--g);border:2px solid var(--teal-d);border-radius:10px;background:var(--mint2);box-shadow:3px 3px 0 var(--mint2);opacity:.55}
 #visFallback{display:none!important}
 
+#startScreen .hlinks{display:none!important}
+#playModal{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:16px;background:rgba(10,30,28,.5)}
+#playModal[hidden]{display:none}
+#roomModal,#joinModal,#gsModal{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:16px;background:rgba(10,30,28,.5)}
+#roomModal[hidden],#joinModal[hidden],#gsModal[hidden],#gsBox[hidden]{display:none}
+#roomModal .pmc,#joinModal .pmc,#gsModal .pmc{position:relative;width:min(440px,100%);padding:26px 22px 22px;background:#fff;border:2px solid var(--teal-d);border-radius:18px;box-shadow:6px 6px 0 var(--mint2);animation:pmin .22s cubic-bezier(.22,.61,.36,1)}
+#roomModal h2,#joinModal h2,#gsModal h2{margin:0 0 16px;font:700 1.35rem var(--disp);color:var(--ink)}
+#rmVis{display:grid;grid-template-columns:1fr 1fr;gap:8px;border:0;border-radius:0;overflow:visible;background:transparent}
+#rmVis button{display:flex;flex-direction:column;gap:2px;align-items:flex-start;padding:10px 12px;border:2px solid var(--mint2);border-radius:12px;background:#fff;color:var(--teal-d);text-align:left;cursor:pointer;font:inherit}
+#rmVis button b{font:700 .95rem var(--disp)}#rmVis button small{font-size:.74rem;color:var(--mute);line-height:1.3}
+#rmVis button.on{border-color:var(--teal-d);background:var(--teal);color:#fff;box-shadow:0 3px 0 var(--ink)}#rmVis button.on small{color:#e4f4f1}
+#rmVis button:disabled{opacity:.45;cursor:not-allowed}
+.gsp{margin:0 0 18px;color:var(--mute);line-height:1.5}.gsbtns{display:flex;gap:10px}.gsbtns .go{flex:1;margin:0}
+#gsBox .gsmail{margin:0 0 16px;color:var(--mute);font-weight:500;overflow-wrap:anywhere}
+#loginForm{display:flex;flex-direction:column}#loginForm #loginSubmit{margin-top:auto!important}#loginForm #loginPass{margin-bottom:10px}#loginForm #loginForgot{align-self:flex-start}
+.olname{display:flex;align-items:center;gap:8px;margin:14px 0 0;margin-left:auto}.olname label{font:600 .85rem var(--body);color:var(--mute);white-space:nowrap}.olname .tin{margin:0;width:170px;min-height:40px;padding:6px 12px}
+.olback{margin-top:6px}
+.libbar .go{margin:0!important;align-self:center}.libbar .go.alt{background:#fff}
+.rgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-rows:min-content}
+.rc{display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:104px;padding:12px 14px;border:2px solid var(--teal-d);border-radius:14px;background:#fff;color:var(--ink);text-align:left;cursor:pointer;font:inherit;box-shadow:0 3px 0 var(--mint2);transition:transform .12s,box-shadow .12s}
+.rc:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 5px 0 var(--teal-d)}
+.rc:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+.rc b{display:block;font:700 1rem var(--disp);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc small{display:block;margin-top:3px;color:var(--mute);font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rc .rf{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.rc .rn{margin-left:auto;font:700 1.15rem var(--disp);color:var(--teal-d)}
+.rgrid>.empty{grid-column:1/-1;padding:28px 14px;color:var(--mute);text-align:center}
+@media(max-width:820px){.rgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:620px){.libbar{flex-wrap:wrap}.libbar .tin{flex:1 1 100%}.libbar .go{flex:1 1 0}.olname{margin-left:0;width:100%}.olname .tin{flex:1;width:auto}}
+.olh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:20px 0 8px}.olh .rkh{margin:0}
+.rooms{display:flex;flex-direction:column;border:2px solid var(--mint2);border-radius:12px;overflow:hidden;max-height:300px;overflow-y:auto}
+.rooms .empty{padding:18px 14px;color:var(--mute);font-size:.9rem;text-align:center}
+.rm{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:2px solid var(--mint2)}.rm:last-child{border-bottom:0}
+.rmi{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.rmi b{font:600 .95rem var(--body);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rmi small{color:var(--mute);font-size:.78rem}
+.rst{flex:none;font:600 .74rem var(--body);color:var(--teal-d);background:var(--mint);border-radius:999px;padding:3px 10px}.rst.go2{background:#fdecea;color:#b3261e}
+.rm .chip:disabled{opacity:.45;cursor:not-allowed}
+#lobbyTitle{overflow-wrap:anywhere;line-height:1.1}
+.rbadge{display:inline-block;margin:4px 0 8px;padding:2px 12px;border:2px solid var(--teal-d);border-radius:999px;font:700 .75rem var(--disp);color:var(--teal-d);background:#fff}
+#playModal .pmc{position:relative;width:min(440px,100%);padding:26px 22px 22px;background:#fff;border:2px solid var(--teal-d);border-radius:18px;box-shadow:6px 6px 0 var(--mint2);animation:pmin .22s cubic-bezier(.22,.61,.36,1)}
+#playModal h2{margin:0 0 16px;font:700 1.35rem var(--disp);color:var(--ink)}
+#playModal .menu{display:flex;flex-direction:column;gap:12px}
+#playModal .go{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;padding:12px 18px 12px 22px;text-align:left}
+#playModal .go .ar{flex:none;width:26px;height:26px}
+.pmx{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:var(--mute);font-size:1.05rem;cursor:pointer}.pmx:hover{background:var(--mint)}
+@keyframes pmin{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
 #pf{position:fixed;z-index:31;left:16px;top:max(12px,calc(50% - 236px));display:none}
 body.rail #pf{display:block}
 #pfBtn{display:flex;align-items:center;gap:12px;height:44px;padding:0;border:0;background:transparent;color:var(--ink);font:600 .92rem var(--disp);cursor:pointer;max-width:130px}
@@ -539,17 +586,41 @@ body.rail #pf{display:block}
 #pfLang button{flex:1;min-height:34px;border:2px solid var(--line);border-radius:999px;background:#fff;color:var(--teal-d);font:600 .8rem var(--body);cursor:pointer}
 #pfLang button.on{background:var(--teal);border-color:var(--teal);color:#fff}
 @media(max-width:1099px){#pfBtn .l{display:none}#pf{left:12px}}
-@media(max-width:699px){#pf{top:8px;left:8px}#rail.pfon .rmark{opacity:0}#pfBtn.on .av{background:var(--ink);border-color:var(--ink)}}
+@media(max-width:699px){#pf{top:8px;left:auto;right:168px}#rail.pfon .rmark{opacity:0}#pfBtn.on .av{background:var(--ink);border-color:var(--ink)}}
 #pfBtn:focus-visible{outline:none}#pfBtn:focus-visible .av{outline:2px solid var(--deep);outline-offset:2px}
-.panel.prof{max-width:560px;margin:0}
-.prof section{padding:4px 0 18px;border-bottom:2px solid var(--mint2);margin-bottom:16px}.prof section:last-child{border:0;margin:0;padding-bottom:0}
-.prrow{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.prt{display:flex;flex-direction:column;gap:3px;min-width:0}.prt small{color:var(--mute);word-break:break-all}
-#prFr{display:inline-flex;align-items:center;gap:8px}#prFr.dim{color:var(--mute);border-color:var(--line)}
-#prFr .dot{width:9px;height:9px;border-radius:50%;background:#d33}#prFr .dot[hidden]{display:none}
+.panel.prof{max-width:620px;margin:0;display:flex;flex-direction:column;gap:18px}
+.prhero{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.prav{flex:none;width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:#fff;font:700 1.7rem var(--disp);border:3px solid var(--teal-d);box-shadow:0 4px 0 var(--mint2)}
+.prav.guest{background:var(--mint);color:var(--teal-d)}.prav svg{width:34px;height:34px}
+.prt{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}.prt b{font:700 1.25rem var(--disp);overflow-wrap:anywhere}.prt small{color:var(--mute);overflow-wrap:anywhere}
+#prSignin{flex:none;min-height:44px;padding:0 22px;border:0;border-radius:999px;background:var(--teal);color:#fff;font:700 .95rem var(--disp);box-shadow:0 3px 0 var(--ink);cursor:pointer}
+#prSignin:hover{transform:translateY(-1px)}#prSignin[hidden]{display:none}
+.prstats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.prstats[hidden]{display:none}
+.prstat{padding:10px 8px;border:2px solid var(--mint2);border-radius:12px;background:var(--mint);text-align:center;font-size:.74rem;color:var(--mute);line-height:1.3}
+.prstat b{display:block;font:700 1.15rem var(--disp);color:var(--ink);margin-top:2px}
+.prmenu{display:flex;flex-direction:column;border:2px solid var(--mint2);border-radius:14px;overflow:hidden}
+.prmenu .mi{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;padding:10px 16px;border:0;border-bottom:2px solid var(--mint2);background:#fff;color:var(--ink);text-align:left;cursor:pointer;font:inherit}
+.prmenu .mi:last-child{border-bottom:0}.prmenu .mi:hover{background:var(--mint)}
+.prmenu .mi[hidden]{display:none}
+.prmenu .ic{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--mint);color:var(--teal-d)}.prmenu .ic svg{width:20px;height:20px}
+.prmenu .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.prmenu .tx b{font:600 .98rem var(--body)}.prmenu .tx small{color:var(--mute);font-size:.8rem}
+.prmenu .ch{flex:none;width:18px;height:18px;color:var(--mute)}
+.prmenu .mi.dim .tx b,.prmenu .mi.dim .ic{color:var(--mute)}
+.prmenu .dot{width:10px;height:10px;border-radius:50%;background:#d33;flex:none}.prmenu .dot[hidden]{display:none}
+.prset{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:4px 2px}
+.prset b{font:600 .98rem var(--body)}
+.prout{align-self:flex-start;min-height:40px;padding:0 4px;border:0;background:transparent;color:#b3261e;font:600 .92rem var(--body);text-decoration:underline;cursor:pointer}.prout[hidden]{display:none}
+.panel.hm{max-width:620px;margin:56px 0 24px}
+.hmh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 8px}.hmh .rkh{margin:0}
+.hml{display:flex;flex-direction:column;border:2px solid var(--mint2);border-radius:12px;overflow:hidden;margin-bottom:20px}
+.hml .r{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 12px;border-bottom:2px solid var(--mint2)}.hml .r:last-child{border-bottom:0}
+.hml .r b{flex:1;min-width:120px;font:600 .95rem var(--body);overflow-wrap:anywhere}.hml .r.del b{color:var(--mute);text-decoration:line-through}
+.hml .r button{min-height:34px;padding:2px 12px;border:2px solid var(--teal-d);border-radius:999px;background:#fff;color:var(--teal-d);font:600 .8rem var(--body);cursor:pointer}
+.hml .r button.dng{border-color:#b3261e;color:#b3261e}.hml .empty{padding:12px;color:var(--mute);font-size:.9rem}
+@media(max-width:560px){.prstats{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:700px){
-#rail::before{top:calc(50% - 210px);height:336px}
-#pf{left:26px;top:calc(50% - 252px)}
+#rail::before{top:calc(50% - 252px);height:420px}
+#pf{left:26px;top:calc(50% - 294px)}
 #pfBtn{height:84px;gap:14px;max-width:none;color:var(--mute);font:500 .92rem var(--disp)}
 #pfBtn:hover{color:var(--teal-d)}
 #pfBtn .av{width:20px;height:20px;border:3px solid var(--line);background:var(--paper);box-shadow:none;font-size:0;transition:border-color .15s,background .15s}
@@ -560,6 +631,21 @@ body.rail #pf{display:block}
 #pfMenu{top:76px}
 }
 @media(min-width:700px) and (max-width:1099px){#pf{left:16px}}
+
+.ablead{margin:0;max-width:760px;font-size:1.12rem;line-height:1.65;color:var(--ink)}
+.abh{margin:18px 0 0;font:700 1.35rem var(--disp);letter-spacing:-.01em}
+.abgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.abgrid.ab4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.abc{padding:18px;border:2px solid var(--teal-d);border-radius:16px;background:#fff;box-shadow:0 4px 0 var(--mint2)}
+.abc h4{margin:0 0 8px;font:700 1.05rem var(--disp);color:var(--teal-d)}
+.abc p{margin:0;line-height:1.65;color:var(--ink);font-size:.95rem}
+.abc ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;line-height:1.55;font-size:.95rem}
+.abc.sw h4{font-size:1.15rem}
+.abcall{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:8px 0 28px;padding:18px 20px;border:2px solid var(--teal-d);border-radius:16px;background:var(--mint)}
+.abcall p{margin:0;flex:1 1 300px;line-height:1.6;font-weight:500}
+.abbtns{display:flex;gap:10px;flex-wrap:wrap}.abbtns .go{width:auto;margin:0;padding:10px 22px;min-height:48px}
+@media(max-width:1000px){.abgrid,.abgrid.ab4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:699px){#aboutScreen .libhead{padding-top:44px}}
+@media(max-width:620px){.abgrid,.abgrid.ab4{grid-template-columns:1fr}.ablead{font-size:1.02rem}}
 /* ===== เพื่อน/คำเชิญ ===== */
 .dot{display:inline-block;width:8px;height:8px;margin-left:6px;border-radius:50%;background:var(--red);vertical-align:2px;text-decoration:none}
 .dot[hidden]{display:none}
@@ -581,14 +667,25 @@ body.ingame #inviteToast{display:none}
 <body>
 <div id="inviteToast" role="alert" hidden><div class="t" id="invText"></div><button class="go" id="invJoin" type="button" style="width:auto;min-height:40px;padding:6px 18px">เข้าร่วม</button><button class="chip mini" id="invNo" type="button" aria-label="ปิด">✕</button><div class="note" id="invNote" style="flex:1 1 100%;min-height:0;margin:0"></div></div>
 <div id="langSw" role="group" aria-label="Language"><button data-l="th" type="button">ไทย</button><button data-l="en" type="button">EN</button><button data-l="ja" type="button">日本語</button></div>
+<div id="playModal" role="dialog" aria-modal="true" aria-labelledby="pmT" hidden><div class="pmc"><button type="button" class="pmx" id="pmX" aria-label="ปิด">✕</button><h2 id="pmT">เลือกโหมดการเล่น</h2><div class="menu">
+      <button class="go" id="goBtn"><span>เล่นคนเดียว<small>ตั้งจำนวนข้อและเวลาเองได้</small></span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="go alt" id="onlineBtn"><span>เล่นหลายคน<small>สร้างห้องได้สูงสุด 8 คน</small></span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div></div></div>
+<div id="joinModal" role="dialog" aria-modal="true" aria-labelledby="jmT" hidden><div class="pmc"><button type="button" class="pmx" id="jmX" aria-label="ปิด">✕</button><h2 id="jmT">เข้าห้องด้วยรหัส</h2>
+<label class="fl" for="codeIn">รหัสห้อง</label>
+<div class="joinrow"><input class="tin codein" id="codeIn" maxlength="4" placeholder="A1B2" autocomplete="off"><button class="go alt" id="joinBtn" type="button">เข้าร่วม</button></div></div></div>
+<div id="roomModal" role="dialog" aria-modal="true" aria-labelledby="rmT" hidden><div class="pmc"><button type="button" class="pmx" id="rmX" aria-label="ปิด">✕</button><h2 id="rmT">สร้างห้องใหม่</h2>
+<label class="fl" for="rmName">ชื่อห้อง</label><input class="tin" id="rmName" maxlength="24" placeholder="เช่น ห้องฟังเพลงยามค่ำ" autocomplete="off">
+<div class="fl" style="margin-top:14px">การมองเห็น</div>
+<div class="seg" id="rmVis"><button type="button" data-v="pub" class="on"><b>สาธารณะ</b><small>ทุกคนเห็นห้องในล็อบบี้</small></button><button type="button" data-v="priv"><b>ส่วนตัว</b><small>เข้าได้ด้วยรหัสห้องเท่านั้น</small></button></div>
+<div class="note" id="rmNote" style="margin:10px 0 0;min-height:1.3em"></div>
+<button class="go" id="rmGo" type="button" style="margin-top:8px">สร้างห้อง</button></div></div>
+<div id="gsModal" role="dialog" aria-modal="true" aria-labelledby="gsT" hidden><div class="pmc"><h2 id="gsT">คุณยังไม่มีบัญชีในเกมนี้</h2><p class="gsp">บัญชี Google นี้ยังไม่ได้สมัครเล่นเกมนี้ ต้องการสมัครตอนนี้ไหม?</p><div class="gsbtns"><button class="go alt" id="gsNo" type="button">ยกเลิก</button><button class="go" id="gsYes" type="button">สมัครสมาชิก</button></div></div></div>
 <div class="screen" id="startScreen"><main class="hero">
   <div class="copy">
     <h1>Vocaloid<br>Quiz</h1>
     <p>ฟังท่อนสั้นๆ แล้วทายชื่อเพลงให้ทัน</p>
-    <div class="menu">
-      <button class="go" id="goBtn"><span>เล่นคนเดียว<small>ตั้งจำนวนข้อและเวลาเองได้</small></span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      <button class="go alt" id="onlineBtn"><span>เล่นกับเพื่อนออนไลน์<small>สร้างห้องได้สูงสุด 8 คน</small></span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    </div>
+    <div class="menu"><button class="go" id="playMain" type="button"><span>เล่นเกม<small>เลือกโหมดการเล่น</small></span><svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
     <div class="hlinks">
       <button class="chip" id="addOpenBtn">เพิ่มเพลงเอง</button>
       <button class="chip" id="lbBtn" style="display:none">อันดับ</button>
@@ -613,15 +710,31 @@ body.ingame #inviteToast{display:none}
   <button type="button" data-p="startScreen"><span class="d"></span><span class="l">เล่นเกม</span></button>
   <button type="button" data-p="rankScreen"><span class="d"></span><span class="l">อันดับ</span></button>
   <button type="button" data-p="libScreen"><span class="d"></span><span class="l">คลังเพลง</span></button>
+  <button type="button" data-p="aboutScreen"><span class="d"></span><span class="l">ความรู้</span></button>
   <button type="button" data-p="histScreen"><span class="d"></span><span class="l">ประวัติ</span></button>
 </nav>
 <div id="pf"><button type="button" id="pfBtn"><span class="av" id="pfAv"></span><span class="l" id="pfName">ล็อกอิน</span></button></div>
 <div class="screen hide" id="profScreen"><div class="page wide">
   <aside class="side"><h2>โปรไฟล์</h2><p>จัดการบัญชี เพื่อน และตั้งค่า</p></aside>
   <div class="panel prof">
-    <section><h3 class="rkh">บัญชี</h3><div class="prrow"><div class="prt"><b id="prName">-</b><small id="prSub"></small></div><button type="button" class="chip" id="prAcct">ล็อกอิน</button></div></section>
-    <section><h3 class="rkh">เพื่อน</h3><div class="prrow"><div class="prt"><small id="prFrT"></small></div><button type="button" class="chip" id="prFr"><span>เพื่อน</span><i class="dot" id="prDot" hidden></i></button></div></section>
-    <section><h3 class="rkh">ตั้งค่า</h3><div class="prrow"><div class="prt"><b>ภาษา</b></div><div class="chips" id="prLang" style="margin:0"><button type="button" class="chip" data-l="th">ไทย</button><button type="button" class="chip" data-l="en">EN</button><button type="button" class="chip" data-l="ja">日本語</button></div></div></section>
+    <div class="prhero"><div class="prav guest" id="prAv"></div><div class="prt"><b id="prName">-</b><small id="prSub"></small></div><button type="button" id="prSignin">ล็อกอิน</button></div>
+    <div class="prstats" id="prStats" hidden></div>
+    <div class="prmenu">
+      <button type="button" class="mi" id="prAcct"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg></span><span class="tx"><b>บัญชีของฉัน</b><small>แก้ชื่อ ดูสถิติและประวัติเกม</small></span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="mi" id="prFr"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.7-3.7 3.4-5.5 6.5-5.5s5.8 1.8 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 010 6.8M18.5 14.8c1.7.8 2.7 2.4 3 5.2"/></svg></span><span class="tx"><b>เพื่อน</b><small id="prFrT"></small></span><i class="dot" id="prDot" hidden></i><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="mi" id="prAdmin" hidden><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="tx"><b>ผู้ดูแลระบบ</b><small>จัดการเพลง คำขอ และประวัติ</small></span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="mi" id="prHist" hidden><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h13v16H7a2 2 0 01-2-2z"/><path d="M9 8h6M9 12h6"/></svg></span><span class="tx"><b>จัดการประวัติ</b><small>เพิ่ม แก้ไข หรือลบรายการในหน้าประวัติ</small></span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="prset"><b>ภาษา</b><div class="chips" id="prLang" style="margin:0"><button type="button" class="chip" data-l="th">ไทย</button><button type="button" class="chip" data-l="en">EN</button><button type="button" class="chip" data-l="ja">日本語</button></div></div>
+    <button type="button" class="prout" id="prOut" hidden>ออกจากระบบ</button>
+  </div></div></div>
+<div class="screen hide" id="hmScreen"><div class="page wide">
+  <aside class="side"><button class="back" id="hmBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>จัดการประวัติ</h2><p>เพิ่ม แก้ไข หรือลบรายการในหน้าประวัติ ข้อมูลที่บันทึกจะแสดงให้ทุกคนเห็นทันที</p></aside>
+  <div class="panel hm">
+    <div class="hmh"><h3 class="rkh">ประวัติโปรแกรมเสียงสังเคราะห์</h3><button type="button" class="chip" data-hm="add:era">+ เพิ่มโปรแกรม</button></div>
+    <div class="hml" id="hmEras"></div>
+    <div class="hmh"><h3 class="rkh">ประวัติเสียงร้อง</h3><button type="button" class="chip" data-hm="add:char">+ เพิ่มเสียงร้อง</button></div>
+    <div class="hml" id="hmChars"></div>
   </div></div></div>
 <div class="screen hide" id="rankScreen"><div class="page wide">
   <aside class="side"><h2>อันดับ</h2><p>เรียงจากคะแนนรวมทุกเกม เลื่อนดูอันดับอื่นได้ แถวล่างสุดคืออันดับของคุณ</p></aside>
@@ -670,6 +783,15 @@ body.ingame #inviteToast{display:none}
   <div class="hchips" id="hEras"></div>
   <div class="hadm" id="hAdm" hidden></div>
   <div class="hbox"><div class="hside" id="hSide"></div><div class="hdetail" id="hDetail"></div></div>
+</div></div>
+<div class="screen hide" id="aboutScreen"><div class="page libpage">
+  <div class="libhead"><h2>เสียงสังเคราะห์คืออะไร</h2></div>
+  <p class="ablead">ซอฟต์แวร์ที่ทำให้คอมพิวเตอร์ ‘ร้องเพลง’ ได้ คุณพิมพ์เนื้อร้อง กำหนดโน้ต แล้วโปรแกรมจะร้องตามให้ นี่คือเทคโนโลยีเบื้องหลังเพลงส่วนใหญ่ในเกมนี้</p>
+  <h3 class="abh">พื้นฐาน</h3>
+  <div class="abgrid"><section class="abc"><h4>เสียงมาจากไหน</h4><p>ทีมพัฒนาบันทึกเสียงนักร้องหรือนักพากย์จริงขณะออกเสียงพยางค์จำนวนมาก แล้วนำไปสร้างเป็นคลังเสียง (voicebank) โปรแกรมจะนำเสียงเหล่านี้มาต่อและปรับให้ตรงกับโน้ตและเนื้อร้อง เช่น เสียงของ Hatsune Miku มาจากการบันทึกเสียงของ Saki Fujita</p></section><section class="abc"><h4>สร้างเพลงอย่างไร</h4><ol><li>เขียนทำนองเป็นโน้ตลงในโปรแกรม</li><li>ใส่เนื้อร้องลงในแต่ละโน้ต</li><li>ปรับแต่งการร้อง เช่น ความยาว ความดัง การสั่นเสียง และอารมณ์ (เรียกว่าการจูน)</li><li>ส่งออกเป็นไฟล์เสียงแล้วมิกซ์กับดนตรี</li></ol></section><section class="abc"><h4>ใครเป็นคนแต่งเพลง</h4><p>ใครก็เริ่มได้ ผู้แต่งที่ใช้เสียงสังเคราะห์มักเรียกว่าโปรดิวเซอร์ (P) เพลงมักถูกอัปโหลดลงเว็บ แล้วนักวาด นักทำวิดีโอ และแฟนๆ ก็มาร่วมสร้างผลงานต่อกัน</p></section></div>
+  <h3 class="abh">โปรแกรมที่ควรรู้</h3>
+  <div class="abgrid ab4"><section class="abc sw"><h4>VOCALOID</h4><p>โปรแกรมของ Yamaha เปิดตัวปี 2004 เป็นจุดเริ่มต้นของวงการ มีตัวละครอย่าง Hatsune Miku</p></section><section class="abc sw"><h4>UTAU</h4><p>โปรแกรมฟรีที่เปิดตัวปี 2008 ใครก็สร้างคลังเสียงของตัวเองได้ เช่น Kasane Teto</p></section><section class="abc sw"><h4>Synthesizer V</h4><p>โปรแกรมของ Dreamtonics ใช้ AI ช่วยสร้างเสียง ให้เสียงร้องที่เป็นธรรมชาติ</p></section><section class="abc sw"><h4>CeVIO</h4><p>ซอฟต์แวร์จากญี่ปุ่นที่ทั้งร้องเพลงและพูดได้ มีเสียงอย่าง Satou Sasara และ Suzuki Tsudumi</p></section></div>
+  <div class="abcall"><p>ในเกมนี้ คุณจะฟังท่อนสั้นๆ แล้วทายชื่อเพลง ลองเล่นดูหรืออ่านประวัติของแต่ละโปรแกรมได้เลย</p><div class="abbtns"><button class="go" id="abPlay" type="button">เล่นเกม</button><button class="go alt" id="abHist" type="button">ดูประวัติโปรแกรม</button></div></div>
 </div></div>
 <div class="screen hide" id="histEditScreen"><div class="page wide">
   <aside class="side"><button class="back" id="hxBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxHead">แก้ประวัติ</h2><p>ข้อมูลที่บันทึกจะแสดงให้ทุกคนเห็นทันที</p></aside>
@@ -740,20 +862,17 @@ body.ingame #inviteToast{display:none}
     <button class="chip danger" id="clrBtn">ล้างเพลงที่เพิ่มเอง</button>
   </div>
 </div></div>
-<div class="screen hide" id="onlineScreen"><div class="page">
-  <aside class="side"><button class="back" id="onBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เล่นกับเพื่อน</h2><p>สร้างห้องแล้วส่งรหัส 4 ตัวให้เพื่อน เล่นพร้อมกันได้สูงสุด 8 คน</p></aside>
-  <div class="panel">
-    <label class="fl" for="nameIn">ชื่อของคุณ</label>
-    <input class="tin" id="nameIn" maxlength="12" placeholder="ไม่เกิน 12 ตัวอักษร" autocomplete="nickname">
-    <button class="go" id="createBtn">สร้างห้องใหม่</button>
-    <div class="or">หรือเข้าห้องของเพื่อน</div>
-    <label class="fl" for="codeIn">รหัสห้อง</label>
-    <div class="joinrow"><input class="tin codein" id="codeIn" maxlength="4" placeholder="A1B2" autocomplete="off"><button class="go alt" id="joinBtn">เข้าร่วม</button></div>
-    <div class="note" id="onMsg" style="margin:12px 0 0;min-height:1.4em;font-weight:500"></div>
+<div class="screen hide" id="onlineScreen"><div class="page libpage">
+  <button class="back olback" id="onBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button>
+  <div class="libhead"><h2>ล็อบบี้ออนไลน์</h2><div class="olname"><label for="nameIn">ชื่อของคุณ</label><input class="tin" id="nameIn" maxlength="12" placeholder="ไม่เกิน 12 ตัวอักษร" autocomplete="nickname"></div></div>
+  <div class="note" id="onMsg" style="margin:0;min-height:1.4em;font-weight:500"></div>
+  <div class="libbox">
+    <div class="libbar"><input class="tin" id="roomQ" type="search" placeholder="ค้นหาชื่อห้อง" autocomplete="off"><button class="go alt" id="joinOpen" type="button">เข้าด้วยรหัส</button><button class="go" id="createBtn" type="button">สร้างห้อง</button></div>
+    <div class="libgrid rgrid" id="roomList"></div>
   </div>
 </div></div>
 <div class="screen hide" id="lobbyScreen"><div class="page">
-  <aside class="side"><button class="back" id="leaveBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>ออกจากห้อง</button><h2>ห้องออนไลน์</h2><div class="fl" style="margin-top:6px">รหัสห้อง</div><span class="code" id="roomCode" role="button" tabindex="0" title="แตะเพื่อคัดลอกรหัส"></span><p id="codeNote">แตะรหัสเพื่อคัดลอก แล้วส่งให้เพื่อน</p></aside>
+  <aside class="side"><button class="back" id="leaveBtn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>ออกจากห้อง</button><h2 id="lobbyTitle">ห้องออนไลน์</h2><div class="rbadge" id="lobbyVis"></div><div class="fl" style="margin-top:6px">รหัสห้อง</div><span class="code" id="roomCode" role="button" tabindex="0" title="แตะเพื่อคัดลอกรหัส"></span><p id="codeNote">แตะรหัสเพื่อคัดลอก แล้วส่งให้เพื่อน</p></aside>
   <div class="panel">
     <div class="lobbylist" id="lobbyList"></div>
     <div class="lobbylist" id="inviteBox" hidden><div class="plt">เชิญเพื่อน</div><div id="inviteList"></div><div class="note" id="inviteMsg" style="min-height:0;margin:6px 0 0"></div></div>
@@ -769,12 +888,14 @@ body.ingame #inviteToast{display:none}
   </div>
 </div></div>
 <div class="screen hide" id="loginScreen"><div class="page">
-  <aside class="side"><button class="back" id="loginBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เข้าสู่ระบบ</h2><p>ล็อกอินเพื่อบันทึกคะแนน ขึ้นตารางอันดับ และซิงก์เพลงข้ามเครื่อง</p></aside>
+  <aside class="side"><button class="back" id="loginBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="loginTitle">เข้าสู่ระบบ</h2><p>ล็อกอินเพื่อบันทึกคะแนน ขึ้นตารางอันดับ และซิงก์เพลงข้ามเครื่อง</p></aside>
   <div class="panel">
+    <div id="gsBox" hidden><h3 class="rkh" style="margin:0 0 6px">สมัครด้วย Google</h3><div class="gsmail" id="gsMail"></div><label class="fl" for="gsName">ชื่อที่แสดงในเกม</label><input class="tin" id="gsName" maxlength="20" autocomplete="nickname"><div class="note" style="margin:6px 0 0">ดึงมาจากบัญชี Google แก้ไขได้ก่อนกดยืนยัน</div><label class="fl" for="gsPass" style="margin-top:16px">รหัสผ่าน</label><input class="tin" id="gsPass" type="password" autocomplete="new-password" placeholder="อย่างน้อย 6 ตัวอักษร"><div class="note" style="margin:6px 0 0">ตั้งไว้เพื่อให้เข้าสู่ระบบด้วยอีเมลและรหัสผ่านได้อีกทางหนึ่ง</div><button class="go" id="gsOk" type="button" style="margin-top:16px">ยืนยันการสมัคร</button><button class="chip quiet" id="gsCancel" type="button" style="padding-left:0;margin-top:8px">ยกเลิก</button><div class="note" id="gsMsg" style="margin:10px 0 0;min-height:1.4em;font-weight:500"></div></div>
     <div class="chips seg" id="loginTabs"><button type="button" class="chip on" data-m="in">เข้าสู่ระบบ</button><button type="button" class="chip" data-m="up">สมัครสมาชิก</button></div>
     <form id="loginForm" style="margin-top:20px" novalidate>
       <label class="fl" for="loginEmail">อีเมล</label>
       <input class="tin" id="loginEmail" type="email" autocomplete="email" inputmode="email">
+      <div id="loginNameBox" style="display:none"><label class="fl" for="loginName">ชื่อที่แสดงในเกม</label><input class="tin" id="loginName" maxlength="20" autocomplete="nickname" placeholder="ไม่เกิน 20 ตัวอักษร" disabled></div>
       <label class="fl" for="loginPass">รหัสผ่าน</label>
       <input class="tin" id="loginPass" type="password" autocomplete="current-password" placeholder="อย่างน้อย 6 ตัวอักษร">
       <button class="go" id="loginSubmit" type="submit" style="margin-top:6px">เข้าสู่ระบบ</button>
@@ -783,6 +904,15 @@ body.ingame #inviteToast{display:none}
     </form>
     <div class="or">หรือ</div>
     <button class="go alt" id="loginGoogle" type="button">ดำเนินการต่อด้วย Google</button>
+  </div>
+</div></div>
+<div class="screen hide" id="forgotScreen"><div class="page">
+  <aside class="side"><button class="back" id="fpBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ลืมรหัสผ่าน</h2><p>กรอกอีเมลที่สมัครไว้ เราจะส่งลิงก์สำหรับตั้งรหัสผ่านใหม่ให้</p></aside>
+  <div class="panel">
+    <label class="fl" for="fpEmail">อีเมล</label>
+    <input class="tin" id="fpEmail" type="email" autocomplete="email" inputmode="email">
+    <button class="go" id="fpSend" type="button" style="margin-top:6px">ส่งลิงก์ตั้งรหัสผ่านใหม่</button>
+    <div class="note" id="fpMsg" style="margin:12px 0 0;min-height:1.4em;font-weight:500"></div>
   </div>
 </div></div>
 <div class="screen hide" id="friendsScreen"><div class="page">
@@ -1142,7 +1272,7 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','profScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','aboutScreen','profScreen','hmScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -1151,7 +1281,7 @@ function resetModal(){ $('soloSum').style.display='none'; $('finalLbl').textCont
 const onMsg=t=>{ $('onMsg').textContent=t; };
 
 /* ----- สร้างห้อง (โฮสต์) ----- */
-async function createRoom(name){
+async function createRoom(name,opts){
   await loadPeer();
   online=null;
   for(let t=0;t<5&&!online;t++){
@@ -1166,6 +1296,7 @@ async function createRoom(name){
   }
   if(!online) throw new Error('สร้างห้องไม่ได้ ลองใหม่อีกครั้ง');
   online.roster.H={name,score:0,ans:false,ready:false};
+  online.rname=(opts&&opts.room)||''; online.pub=!!(opts&&opts.pub);
   online.peer.on('connection',hostAccept);
   broadcastState(); enterLobby();
 }
@@ -1183,7 +1314,7 @@ function hostMsg(conn,m){
     if(online.started){ send({t:'reject',msg:'เกมเริ่มไปแล้ว'}); setTimeout(()=>conn.close(),300); return; }
     if(Object.keys(online.roster).length>=MAXP){ send({t:'reject',msg:'ห้องเต็ม (สูงสุด 8 คน)'}); setTimeout(()=>conn.close(),300); return; }
     online.conns[id]=conn; online.roster[id]={name:uniqueName(m.name),score:0,ans:false,ready:false};
-    send({t:'welcome',id}); broadcastState();
+    send({t:'welcome',id,rname:online.rname,pub:online.pub}); broadcastState();
   } else if(m.t==='ans' && r){ hostAns(id,!!m.ok,m.i); }
   else if(m.t==='skip' && r){ if(r.ans && !online.rev){ r.skip=true; broadcastState(); checkSkip(); } }
   else if(m.t==='ready' && r){ if(online.rev){ r.ready=true; broadcastState(); checkAdvance(); } }
@@ -1196,7 +1327,7 @@ function dropPlayer(id){
 const rosterList=()=>Object.entries(online.roster).map(([id,r])=>({id,name:r.name,score:r.score,ans:r.ans,skip:!!r.skip,ready:r.ready,host:id==='H'}));
 const sendAll=o=>Object.values(online.conns).forEach(c=>{ try{ if(c.open) c.send(o); }catch(e){} });
 function broadcastState(){ const l=rosterList(); sendAll({t:'state',list:l}); applyState(l); }
-function applyState(l){ online.players=l; renderPlayers(); renderLobby(); const me=l.find(p=>p.id===online.myId); if(me&&online.started) $('score').textContent=me.score; }
+function applyState(l){ online.players=l; renderPlayers(); renderLobby(); if(online.host) pubRoom(); const me=l.find(p=>p.id===online.myId); if(me&&online.started) $('score').textContent=me.score; }
 
 /* ----- เข้าร่วมห้อง (ผู้เล่น) ----- */
 async function joinRoom(code,name){
@@ -1212,7 +1343,7 @@ async function joinRoom(code,name){
       const to=setTimeout(()=>fail('เชื่อมต่อห้องไม่สำเร็จ (หมดเวลา)'),12000);
       conn.on('open',()=>conn.send({t:'join',name}));
       conn.on('data',m=>{
-        if(m.t==='welcome'){ clearTimeout(to); done=true; online.myId=m.id; res(); }
+        if(m.t==='welcome'){ clearTimeout(to); done=true; online.myId=m.id; online.rname=m.rname||''; online.pub=!!m.pub; res(); }
         else if(m.t==='reject'){ clearTimeout(to); fail(m.msg); }
         else guestMsg(m);
       });
@@ -1234,6 +1365,7 @@ function guestMsg(m){
 /* ----- ล็อบบี้ ----- */
 function enterLobby(){
   showScreen('lobbyScreen'); $('roomCode').textContent=online.code;
+  $('lobbyTitle').textContent=online.rname||'ห้องออนไลน์'; $('lobbyVis').textContent=online.pub?'สาธารณะ':'ส่วนตัว';
   $('hostCfg').style.display=online.host?'':'none'; $('waitMsg').style.display=online.host?'none':'';
   renderLobby();
 }
@@ -1357,6 +1489,7 @@ function backToLobby(){
   online.started=false; clearTimers(); pause(); $('modal').style.display="none"; resetModal(); enterLobby(); renderPlayers();
 }
 function leaveRoom(){
+  unpubRoom();
   if(online){ online.leaving=true; try{online.peer.destroy();}catch(e){} }
   online=null; clearTimers(); pause(); resetModal();
   $('modal').style.display="none"; document.querySelector('.wrap').classList.remove('online'); renderPlayers();
@@ -1375,13 +1508,69 @@ function renderPlayers(){
 $('players').onclick=e=>{ if(e.target.id==='forceBtn') forceNext(); };
 
 /* ----- ปุ่มต่างๆ ----- */
+/* ----- ทะเบียนห้องสาธารณะ (Firestore: rooms) ----- */
+var roomUnsub=null, roomsCache=[], roomsErr=false;
+function pubRoom(){
+  if(!online||!online.host||!online.pub||!db||!acct) return;
+  const h=online.roster.H;
+  db.collection('rooms').doc(online.code).set({code:online.code,name:online.rname||'',host:h?h.name:'',hostUid:acct.uid,count:Object.keys(online.roster).length,max:MAXP,started:!!online.started,public:true,ts:Date.now()}).catch(()=>{});
+}
+function unpubRoom(){ if(online&&online.host&&online.pub&&db){ try{ db.collection('rooms').doc(online.code).delete().catch(()=>{}); }catch(e){} } }
+setInterval(()=>{ if(online&&online.host&&online.pub) pubRoom(); },20000);
+window.addEventListener('beforeunload',unpubRoom);
+function watchRooms(on){
+  if(roomUnsub){ try{roomUnsub();}catch(e){} roomUnsub=null; }
+  if(!on) return;
+  if(!db){ roomsErr=true; renderRooms(); return; }
+  roomsErr=false;
+  try{ roomUnsub=db.collection('rooms').where('public','==',true).onSnapshot(s=>{ roomsCache=s.docs.map(d=>d.data()); roomsErr=false; renderRooms(); },()=>{ roomsErr=true; renderRooms(); }); }catch(e){ roomsErr=true; renderRooms(); }
+}
+function renderRooms(){
+  const el=$('roomList'); if(!el) return;
+  if(roomsErr){ el.innerHTML='<div class="empty">โหลดห้องไม่ได้</div>'; return; }
+  const q=(($('roomQ')||{}).value||'').trim().toLowerCase();
+  const now=Date.now(), A=roomsCache.filter(r=>now-(r.ts||0)<120000).sort((a,b)=>(b.ts||0)-(a.ts||0));
+  const L=q?A.filter(r=>((r.name||'')+' '+(r.host||'')+' '+(r.code||'')).toLowerCase().includes(q)):A;
+  if(!L.length){ el.innerHTML='<div class="empty">'+(A.length?'ไม่พบห้องที่ค้นหา':'ยังไม่มีห้องสาธารณะ สร้างห้องแรกได้เลย')+'</div>'; return; }
+  el.innerHTML=L.map(r=>{ const mx=r.max||MAXP, full=r.count>=mx, can=!r.started&&!full;
+    return '<button type="button" class="rc" data-code="'+esc(r.code)+'"'+(can?'':' disabled')+'><span><b>'+esc(r.name||r.code)+'</b><small>'+esc(r.host||'')+' · <span>'+(r.started?'กำลังเล่น':full?'ห้องเต็ม':'รอเริ่ม')+'</span></small></span><span class="rf"><span class="rn">'+(+r.count||0)+'/'+mx+'</span></span></button>'; }).join('');
+}
+setInterval(()=>{ if(!$('onlineScreen').classList.contains('hide')) renderRooms(); },15000);
+$('roomQ').oninput=renderRooms;
+const jmOpen=()=>{ if(!getName()) return; $('joinModal').hidden=false; $('codeIn').focus(); }, jmClose=()=>{ $('joinModal').hidden=true; };
+$('joinOpen').onclick=jmOpen; $('jmX').onclick=jmClose; $('joinModal').onclick=e=>{ if(e.target===$('joinModal')) jmClose(); };
+$('joinBtn').addEventListener('click',jmClose);
+$('codeIn').addEventListener('keydown',e=>{ if(e.key==='Enter') $('joinBtn').click(); });
+$('roomList').onclick=e=>{ const b=e.target.closest('[data-code]'); if(!b||b.disabled) return; $('codeIn').value=b.dataset.code; $('joinBtn').click(); };
+/* ----- สร้างห้อง: ชื่อห้อง + สาธารณะ/ส่วนตัว ----- */
+let rmPub=true;
+function rmSetVis(pub){ rmPub=pub; document.querySelectorAll('#rmVis button').forEach(b=>b.classList.toggle('on',(b.dataset.v==='pub')===pub)); }
+function rmOpen(){
+  const n=getName(); if(!n) return;
+  const canPub=!!(db&&acct);
+  document.querySelector('#rmVis [data-v="pub"]').disabled=!canPub;
+  rmSetVis(canPub); $('rmNote').textContent=canPub?'':'ล็อกอินเพื่อสร้างห้องสาธารณะ (ห้องส่วนตัวสร้างได้เลย)';
+  $('rmName').value=''; $('roomModal').hidden=false; $('rmName').focus();
+}
+const rmClose=()=>{ $('roomModal').hidden=true; };
+$('rmX').onclick=rmClose;
+$('roomModal').onclick=e=>{ if(e.target===$('roomModal')) rmClose(); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(!$('roomModal').hidden) rmClose(); if(!$('joinModal').hidden) jmClose(); } });
+document.querySelectorAll('#rmVis button').forEach(b=>{ b.onclick=()=>{ if(!b.disabled) rmSetVis(b.dataset.v==='pub'); }; });
+$('rmName').onkeydown=e=>{ if(e.key==='Enter') $('rmGo').click(); };
+$('rmGo').onclick=async()=>{
+  const n=getName(); if(!n) return; const L=document.documentElement.lang;
+  const room=($('rmName').value.trim()||(L==='ja'?n+'のルーム':L==='en'?n+"'s room":'ห้องของ '+n)).slice(0,24);
+  rmClose(); onMsg('กำลังสร้างห้อง...');
+  try{ await createRoom(n,{room,pub:rmPub}); onMsg(''); }catch(e){ onMsg('⚠ '+e.message); }
+};
 $('onlineBtn').onclick=()=>{ try{ $('nameIn').value=(profile&&profile.name)||localStorage.getItem('vq_name')||''; }catch(e){} onMsg(''); showScreen('onlineScreen'); };
 $('onBack').onclick=()=>showScreen('startScreen');
 const libInfo=()=>{ $('libCount').textContent="ตอนนี้ในคลังมี "+SONGS.length+" เพลง"; };
 $('addOpenBtn').onclick=()=>{ $('addMsg').textContent=''; libInfo(); showScreen('addScreen'); };
 $('addBack').onclick=()=>showScreen('startScreen');
 const getName=()=>{ const n=$('nameIn').value.trim(); if(!n){ onMsg('⚠ กรอกชื่อก่อน'); return null; } try{localStorage.setItem('vq_name',n);}catch(e){} return n; };
-$('createBtn').onclick=async()=>{ const n=getName(); if(!n) return; onMsg('กำลังสร้างห้อง...'); try{ await createRoom(n); onMsg(''); }catch(e){ onMsg('⚠ '+e.message); } };
+$('createBtn').onclick=rmOpen;
 $('joinBtn').onclick=async()=>{ const n=getName(); if(!n) return; const c=$('codeIn').value.trim().toUpperCase(); if(c.length!==4){ onMsg('⚠ รหัสห้องต้องมี 4 ตัว'); return; } onMsg('กำลังเข้าร่วม...'); try{ await joinRoom(c,n); onMsg(''); }catch(e){ onMsg('⚠ '+e.message); } };
 $('startRoomBtn').onclick=startRoom;
 $('leaveBtn').onclick=leaveRoom;
@@ -1413,14 +1602,22 @@ async function initFirebase(){
 }
 const cleanSong=x=>JSON.parse(JSON.stringify(x));
 const sameSong=(a,b)=>ytId(a.url)===ytId(b.url);
+let pendingG=null, signupName='', authBusy=false;
+const VERIFY_FROM=Date.parse('2026-11-19T08:00:00Z');
+const needVerify=u=>(u.providerData||[]).some(p=>p.providerId==='password')&&!u.emailVerified&&Date.parse((u.metadata&&u.metadata.creationTime)||'')>=VERIFY_FROM;
+function lgLock(){ const f=$('loginForm'), nb=$('loginNameBox'); if(!f) return; const d=nb.style.display; f.style.minHeight=''; nb.style.display='block'; const h=f.offsetHeight; nb.style.display=d; if(h) f.style.minHeight=h+'px'; }
+const isG=u=>(u.providerData||[]).some(p=>p.providerId==='google.com');
+function gsOpen(u){ pendingG=u; acct=null; profile=null; renderAcct(); $('gsModal').hidden=false; }
 async function onAuth(user){
   if(!user){ acct=null; profile=null; stopSocial(); renderAcct(); return; }
+  if(needVerify(user)){ acct=null; profile=null; if(!authBusy){ try{ await auth.signOut(); }catch(e){} } renderAcct(); return; }
   acct={uid:user.uid,email:user.email||'',gname:user.displayName||''};
   try{
     const ref=db.collection('profiles').doc(user.uid); let snap=await ref.get();
+    if(!snap.exists&&isG(user)){ gsOpen(user); return; }
     if(!snap.exists){
-      await ref.set({name:(acct.gname.split(' ')[0]||String(acct.email).split('@')[0]||'ผู้เล่น').slice(0,20),totalScore:0,games:0,correct:0,rounds:0,best:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-      snap=await ref.get();
+      await ref.set({name:(signupName||acct.gname.split(' ')[0]||String(acct.email).split('@')[0]||'ผู้เล่น').slice(0,20),totalScore:0,games:0,correct:0,rounds:0,best:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+      signupName=''; snap=await ref.get();
     }
     profile=snap.data(); renderAcct();
     await syncSongs(); await checkAdmin(); startSocial();
@@ -1685,9 +1882,9 @@ function setLoginMode(m){
   document.querySelectorAll('#loginTabs .chip').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
   $('loginSubmit').textContent=m==='in'?'เข้าสู่ระบบ':'สมัครสมาชิก';
   $('loginPass').autocomplete=m==='in'?'current-password':'new-password';
-  $('loginForgot').style.visibility=m==='in'?'':'hidden'; lmsg('');
+  $('loginForgot').style.visibility=m==='in'?'':'hidden'; $('loginTitle').textContent=m==='in'?'เข้าสู่ระบบ':'สมัครสมาชิก'; $('loginNameBox').style.display=m==='up'?'block':'none'; $('loginName').disabled=m!=='up'; lmsg('');
 }
-function openLogin(){ setLoginMode('in'); $('loginPass').value=''; showScreen('loginScreen'); }
+function openLogin(){ if(pendingG) gsCancel(); gsMode(false); setLoginMode('in'); $('loginPass').value=''; showScreen('loginScreen'); }
 function authMsg(e){
   const c=e&&e.code;
   if(c==='auth/invalid-email') return 'อีเมลไม่ถูกต้อง';
@@ -1699,20 +1896,32 @@ function authMsg(e){
   if(c==='auth/operation-not-allowed') return 'ยังไม่ได้เปิดล็อกอินด้วยอีเมลใน Firebase';
   return 'ไม่สำเร็จ ('+(c||(e&&e.message)||'?')+')';
 }
-$('loginBack').onclick=()=>showScreen('startScreen');
+$('loginBack').onclick=()=>{ if(pendingG) gsCancel(); showScreen('startScreen'); };
 document.querySelectorAll('#loginTabs .chip').forEach(b=>{ b.onclick=()=>setLoginMode(b.dataset.m); });
 $('loginForm').onsubmit=async ev=>{
   ev.preventDefault();
   if(!auth){ lmsg('⚠ ระบบบัญชียังโหลดไม่เสร็จ ลองอีกครั้ง'); return; }
   const em=$('loginEmail').value.trim(), pw=$('loginPass').value;
   if(!em||!pw){ lmsg('⚠ กรอกอีเมลและรหัสผ่านก่อน'); return; }
+  if(loginMode==='up'&&!$('loginName').value.trim()){ lmsg('⚠ กรอกชื่อก่อน'); return; }
   if(loginMode==='up'&&pw.length<6){ lmsg('⚠ รหัสผ่านต้องยาวอย่างน้อย 6 ตัว'); return; }
+  if(loginMode==='up') signupName=$('loginName').value.trim().slice(0,20);
   $('loginSubmit').disabled=true; lmsg('กำลังดำเนินการ...');
+  authBusy=true;
   try{
-    if(loginMode==='in') await auth.signInWithEmailAndPassword(em,pw);
-    else await auth.createUserWithEmailAndPassword(em,pw);
-    $('loginPass').value=''; lmsg(''); showScreen('startScreen');
+    if(loginMode==='in'){
+      const c=await auth.signInWithEmailAndPassword(em,pw);
+      if(needVerify(c.user)){ try{ await c.user.sendEmailVerification(); }catch(_){} await auth.signOut(); lmsg('⚠ ยังไม่ได้ยืนยันอีเมล เราส่งลิงก์ยืนยันให้อีกครั้งแล้ว'); }
+      else{ $('loginPass').value=''; lmsg(''); showScreen('startScreen'); }
+    }else{
+      const c=await auth.createUserWithEmailAndPassword(em,pw);
+      try{ await db.collection('profiles').doc(c.user.uid).set({name:signupName,totalScore:0,games:0,correct:0,rounds:0,best:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()}); }catch(_){}
+      try{ await c.user.sendEmailVerification(); }catch(_){}
+      await auth.signOut(); $('loginPass').value=''; $('loginName').value=''; setLoginMode('in');
+      lmsg('ส่งลิงก์ยืนยันไปที่อีเมลแล้ว กดลิงก์ในอีเมล (ตรวจกล่องสแปมด้วย) แล้วกลับมาเข้าสู่ระบบ');
+    }
   }catch(e){ lmsg('⚠ '+authMsg(e)); }
+  signupName=''; authBusy=false;
   $('loginSubmit').disabled=false;
 };
 $('loginForgot').onclick=async()=>{
@@ -1722,15 +1931,52 @@ $('loginForgot').onclick=async()=>{
   try{ await auth.sendPasswordResetEmail(em); lmsg('ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว (ตรวจกล่องสแปมด้วย)'); }
   catch(e){ lmsg('⚠ '+authMsg(e)); }
 };
-$('loginGoogle').onclick=async()=>{ await signIn(); if(auth&&auth.currentUser) showScreen('startScreen'); };
+$('loginGoogle').onclick=async()=>{
+  await signIn(); const u=auth&&auth.currentUser; if(!u) return;
+  let ex=true; try{ ex=(await db.collection('profiles').doc(u.uid).get()).exists; }catch(e){}
+  if(ex||!isG(u)) showScreen('startScreen'); else if(!pendingG) gsOpen(u);
+};
+/* ----- ลืมรหัสผ่าน: หน้าแยก ----- */
+$('abPlay').onclick=()=>showScreen('startScreen'); $('abHist').onclick=()=>showScreen('histScreen');
+$('loginForgot').onclick=()=>{ $('fpEmail').value=$('loginEmail').value.trim(); $('fpMsg').textContent=''; showScreen('forgotScreen'); };
+$('fpBack').onclick=()=>showScreen('loginScreen');
+$('fpEmail').onkeydown=e=>{ if(e.key==='Enter') $('fpSend').click(); };
+$('fpSend').onclick=async()=>{
+  const em=$('fpEmail').value.trim(), m=$('fpMsg');
+  if(!auth){ m.textContent='⚠ ระบบบัญชียังโหลดไม่เสร็จ ลองอีกครั้ง'; return; }
+  if(!em){ m.textContent='⚠ กรอกอีเมลก่อน'; return; }
+  $('fpSend').disabled=true; m.textContent='กำลังส่ง...';
+  try{ await auth.sendPasswordResetEmail(em); m.textContent='ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว (ตรวจกล่องสแปมด้วย)'; }
+  catch(e){ m.textContent='⚠ '+authMsg(e); }
+  $('fpSend').disabled=false;
+};
+/* ----- Google ครั้งแรก: ถามก่อนว่าจะสมัครไหม ----- */
+function gsMode(on){ $('loginTitle').textContent=(on||loginMode==='up')?'สมัครสมาชิก':'เข้าสู่ระบบ'; ['loginTabs','loginForm','loginGoogle'].forEach(i=>{ $(i).style.display=on?'none':''; }); document.querySelector('#loginScreen .or').style.display=on?'none':''; $('gsBox').hidden=!on; }
+async function gsCancel(){ pendingG=null; $('gsModal').hidden=true; gsMode(false); try{ await auth.signOut(); }catch(e){} }
+$('gsNo').onclick=gsCancel; $('gsCancel').onclick=async()=>{ await gsCancel(); showScreen('startScreen'); };
+$('gsYes').onclick=()=>{ if(!pendingG) return; $('gsPass').value=''; $('gsModal').hidden=true; $('gsName').value=(pendingG.displayName||String(pendingG.email||'').split('@')[0]||'').slice(0,20); $('gsMail').textContent=pendingG.email||''; $('gsMsg').textContent=''; gsMode(true); showScreen('loginScreen'); $('gsName').focus(); };
+$('gsName').onkeydown=e=>{ if(e.key==='Enter') $('gsOk').click(); };
+$('gsOk').onclick=async()=>{
+  const u=pendingG; if(!u) return; const n=$('gsName').value.trim().slice(0,20);
+  if(!n){ $('gsMsg').textContent='⚠ กรอกชื่อก่อน'; return; }
+  const pw=$('gsPass').value; if(!pw){ $('gsMsg').textContent='⚠ กรอกรหัสผ่านก่อน'; return; }
+  if(pw.length<6){ $('gsMsg').textContent='⚠ รหัสผ่านต้องยาวอย่างน้อย 6 ตัว'; return; }
+  $('gsOk').disabled=true; $('gsMsg').textContent='กำลังสมัคร...';
+  try{
+    { if(!u.email) throw {message:'no email'}; await u.linkWithCredential(firebase.auth.EmailAuthProvider.credential(u.email,pw)); }
+    await db.collection('profiles').doc(u.uid).set({name:n,totalScore:0,games:0,correct:0,rounds:0,best:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+    pendingG=null; gsMode(false); $('gsMsg').textContent=''; await onAuth(u); showScreen('startScreen');
+  }catch(e){ $('gsMsg').textContent='⚠ '+(e.code==='auth/weak-password'?'รหัสผ่านง่ายเกินไป (อย่างน้อย 6 ตัว)':e.code==='auth/provider-already-linked'||e.code==='auth/email-already-in-use'?'อีเมลนี้มีรหัสผ่านอยู่แล้ว':(e.code||e.message)); }
+  $('gsOk').disabled=false;
+};
 
 /* ===== เมนูซ้าย 4 หน้า: เล่นเกม / อันดับ / คลังเพลง / ประวัติ ===== */
 const LNG=()=>document.documentElement.lang||'en';
 const pk=o=>o[LNG()]||o.en;
-const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',profScreen:'profScreen'};
+const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',aboutScreen:'aboutScreen',profScreen:'profScreen',hmScreen:'profScreen'};
 const _ssR=showScreen;
-const PGO=['startScreen','rankScreen','libScreen','histScreen'];
-const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','profScreen'];
+const PGO=['profScreen','startScreen','rankScreen','libScreen','aboutScreen','histScreen'];
+const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','forgotScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','profScreen','hmScreen','aboutScreen'];
 const PGC=['pgin-dn','pgin-up','pgout-dn','pgout-up','pgin-fw','pgin-bk','pgin-fd','pgout-fw','pgout-bk','pgout-fd'];
 let pgTimer=0, pgOld=null;
 const pgClean=()=>{ clearTimeout(pgTimer); document.querySelectorAll('.screen').forEach(e=>e.classList.remove(...PGC)); if(pgOld){ pgOld.classList.add('hide'); pgOld=null; } };
@@ -1747,13 +1993,18 @@ showScreen=function(id){
     pgTimer=setTimeout(pgClean,520);
   }else if(!from&&id&&!matchMedia('(prefers-reduced-motion:reduce)').matches){ $(id).classList.add('pgin-fd'); pgTimer=setTimeout(pgClean,520); }
   const g=RAIL[id]; document.body.classList.toggle('rail',!!g);
-  if(g) $('rail').style.setProperty('--rp',['profScreen','startScreen','rankScreen','libScreen','histScreen'].indexOf(g)-1);
+  if(g) $('rail').style.setProperty('--rp',['profScreen','startScreen','rankScreen','libScreen','aboutScreen','histScreen'].indexOf(g)-1);
   $('rail').classList.toggle('pfon',g==='profScreen'); $('pfBtn').classList.toggle('on',g==='profScreen');
   document.querySelectorAll('#rail button').forEach(b=>{ const on=b.dataset.p===g; b.classList.toggle('on',on); if(on) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
   if(id==='startScreen') $('startScreen').scrollTop=0;
   if(id==='rankScreen') loadRank();
   if(id==='libScreen') renderLib();
+  { const _m=document.getElementById('playModal'); if(_m) _m.hidden=true; }
+  { const _r=document.getElementById('roomModal'); if(_r) _r.hidden=true; const _j=document.getElementById('joinModal'); if(_j) _j.hidden=true; }
+  if(id==='onlineScreen'||(id!=='lobbyScreen'&&typeof watchRooms==='function')) watchRooms(id==='onlineScreen');
+  if(id==='loginScreen') lgLock();
   if(id==='profScreen') prRefresh();
+  if(id==='hmScreen') loadHist().then(renderHM);
   if(id==='histScreen'){ loadHist(); renderHist(); }
 };
 document.querySelectorAll('#rail button').forEach(b=>{ b.onclick=()=>showScreen(b.dataset.p); });
@@ -1769,16 +2020,30 @@ function pfRefresh(){
   prRefresh();
 }
 function prRefresh(){
-  const i=pfIn();
-  $('prName').textContent=i?((profile&&profile.name)||'บัญชี'):'ยังไม่ได้ล็อกอิน';
+  const i=pfIn(), p=(typeof profile!=='undefined'&&profile)||{}, nm=i?(p.name||'บัญชี'):'ยังไม่ได้ล็อกอิน';
+  $('prName').textContent=nm;
   $('prSub').textContent=i?acct.email:'ล็อกอินเพื่อบันทึกคะแนนและเล่นกับเพื่อน';
-  $('prAcct').textContent=i?'บัญชีของฉัน':'ล็อกอิน';
+  const av=$('prAv'); av.classList.toggle('guest',!i); if(i) av.textContent=(nm.trim()[0]||'?').toUpperCase(); else av.innerHTML=PF_SVG;
+  $('prSignin').hidden=i; $('prAcct').hidden=!i; $('prOut').hidden=!i; $('prStats').hidden=!i;
+  if(i){ const acc=p.rounds?Math.round(p.correct/p.rounds*100)+'%':'—';
+    $('prStats').innerHTML=[['เกมที่เล่น',p.games||0],['คะแนนรวม',p.totalScore||0],['คะแนนสูงสุด/เกม',p.best||0],['ความแม่นยำ',acc]].map(([l,v])=>'<div class="prstat">'+l+'<b>'+v+'</b></div>').join(''); }
   $('prFrT').textContent=i?'ดูรายชื่อเพื่อน เพิ่มเพื่อน และตอบรับคำขอ':'ล็อกอินเพื่อเพิ่มและดูรายชื่อเพื่อน';
+  $('prAdmin').hidden=$('adminBtn').style.display==='none'; $('prHist').hidden=!(typeof isAdmin!=='undefined'&&isAdmin);
   $('prFr').classList.toggle('dim',!i); $('prDot').hidden=!i||$('friendsDot').hidden;
   document.querySelectorAll('#prLang .chip').forEach(b=>b.classList.toggle('on',b.dataset.l===document.documentElement.lang));
 }
 $('pfBtn').onclick=()=>showScreen('profScreen');
+$('playMain').onclick=()=>{ $('playModal').hidden=false; $('goBtn').focus(); };
+$('pmX').onclick=()=>{ $('playModal').hidden=true; $('playMain').focus(); };
+$('playModal').onclick=e=>{ if(e.target===$('playModal')) $('pmX').click(); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!$('playModal').hidden) $('pmX').click(); });
+['goBtn','onlineBtn'].forEach(id=>$(id).addEventListener('click',()=>{ $('playModal').hidden=true; }));
 $('prAcct').onclick=()=>$('acctBtn').onclick();
+$('prSignin').onclick=()=>$('acctBtn').onclick();
+$('prOut').onclick=()=>$('logoutBtn').onclick();
+$('prAdmin').onclick=()=>$('adminBtn').onclick();
+$('prHist').onclick=()=>showScreen('hmScreen');
+new MutationObserver(prRefresh).observe($('adminBtn'),{attributes:true,attributeFilter:['style']});
 $('prFr').onclick=()=>{ if(pfIn()) $('friendsBtn').onclick(); else openLogin(); };
 document.querySelectorAll('#prLang .chip').forEach(b=>{ b.onclick=()=>{ document.querySelector('#langSw [data-l="'+b.dataset.l+'"]').click(); prRefresh(); }; });
 new MutationObserver(pfRefresh).observe($('acctBtn'),{childList:true,characterData:true,subtree:true});
@@ -1787,7 +2052,7 @@ pfRefresh();
 showScreen('startScreen');   // ให้เมนูซ้ายขึ้นตั้งแต่เปิดเว็บ
 
 /* ----- เลื่อนขึ้น/ลงที่ขอบหน้า = ไปหน้าก่อนหน้า/ถัดไป (เมาส์ล้อ ทัชแพด และปัดนิ้ว) ----- */
-const PAGES=['startScreen','rankScreen','libScreen','histScreen'];
+const PAGES=['profScreen','startScreen','rankScreen','libScreen','aboutScreen','histScreen'];
 let pgCool=0, pgAcc=0, pgAccT=0, pgTouchY=null;
 function pgCur(){ return PAGES.find(id=>{ const c=$(id).classList; return !c.contains('hide')&&![...c].some(x=>x.startsWith('pgout')); }); }
 function atEdge(t,scr,dir){
@@ -1997,11 +2262,11 @@ $('admReq').onclick=async e=>{
 };
 
 /* ----- ประวัติ ----- */
-const HD={"ERAS": {"vocaloid": {"n": {"th": "Vocaloid", "en": "Vocaloid", "ja": "Vocaloid"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Yamaha พัฒนาร่วมกับมหาวิทยาลัยปอมเปว ฟาบรา (บาร์เซโลนา) ผู้ใช้ใส่เนื้อร้องกับทำนอง โปรแกรมจะร้องออกมาด้วยคลังเสียง (voicebank) ที่สร้างจากเสียงของนักร้องจริง", "en": "Yamaha's singing-voice synthesizer, developed with Pompeu Fabra University in Barcelona. You enter lyrics and a melody and the software sings them using a voicebank built from a real singer's voice.", "ja": "ヤマハが開発した歌声合成ソフト。バルセロナのポンペウ・ファブラ大学と共同開発。歌詞とメロディを入力すると、実在の歌手の声から作ったボイスバンクで歌ってくれる。"}, "ev": [["2000-03", {"th": "Yamaha เริ่มพัฒนา โดยทำงานด้านประมวลผลสัญญาณร่วมกับกลุ่ม Music Technology Group ของมหาวิทยาลัยปอมเปว ฟาบรา", "en": "Yamaha begins development, with signal processing done jointly with the Music Technology Group at Pompeu Fabra University.", "ja": "ヤマハが開発を開始。信号処理はポンペウ・ファブラ大学の音楽技術グループと共同で行った。"}], ["2004-01-15", {"th": "วางขายครั้งแรก พร้อมคลังเสียงภาษาอังกฤษชุดแรก Leon, Lola และ Miriam (ผลิตโดย Zero-G)", "en": "First commercial release, with the first English voicebanks Leon, Lola and Miriam (by Zero-G).", "ja": "初の商用リリース。最初の英語ボイスバンク Leon、Lola、Miriam（Zero-G製）が登場。"}], ["2004", {"th": "MEIKO คลังเสียงภาษาญี่ปุ่นชุดแรก (Yamaha ผลิต Crypton จำหน่าย)", "en": "MEIKO, one of the first Japanese voicebanks (made by Yamaha, sold by Crypton).", "ja": "最初の日本語ボイスバンクのひとつ MEIKO（ヤマハ製、クリプトン販売）。"}], ["2006-02-17", {"th": "KAITO วางจำหน่ายโดย Crypton", "en": "KAITO is distributed by Crypton.", "ja": "KAITO がクリプトンから発売。"}], ["2007-08-31", {"th": "Hatsune Miku (Vocaloid 2)", "en": "Hatsune Miku (Vocaloid 2).", "ja": "初音ミク（Vocaloid 2）発売。"}], ["2007-12-27", {"th": "Kagamine Rin/Len", "en": "Kagamine Rin/Len.", "ja": "鏡音リン・レン発売。"}], ["2011-10-21", {"th": "Vocaloid 3", "en": "Vocaloid 3 launches.", "ja": "Vocaloid 3 発売。"}], ["2018-07-12", {"th": "Vocaloid 5", "en": "Vocaloid 5 is released.", "ja": "Vocaloid 5 発売。"}], ["2022-10-13", {"th": "Vocaloid 6", "en": "Vocaloid 6 is released.", "ja": "Vocaloid 6 発売。"}]], "src": [["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"], ["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"]]}, "utau": {"n": {"th": "UTAU", "en": "UTAU", "ja": "UTAU"}, "s": {"th": "โปรแกรมสังเคราะห์เสียงร้องแบบแชร์แวร์ (รับบริจาค) สร้างโดยโปรแกรมเมอร์ชื่อ Ameya/Ayame ใช้ไฟล์เสียง WAV ที่ผู้ใช้อัดเองมาต่อกันเป็นเสียงร้อง (concatenative) คลังเสียงส่วนใหญ่ผู้สร้างแจกฟรี จึงมีตัวร้องจากแฟนๆ จำนวนมาก", "en": "A shareware (donation-supported) singing synthesizer by a programmer known as Ameya/Ayame. It strings together WAV recordings supplied by the user (concatenative synthesis). Most voicebanks are given away free by their creators, so there are a huge number of fan-made voices.", "ja": "Ameya/Ayame 氏が作った、寄付で支えられるシェアウェアの歌声合成ソフト。ユーザーが用意したWAV音源をつなげて歌わせる方式。音源の多くは作者が無料配布しており、ファン制作の歌声が数多くある。"}, "ev": [["2008-01-11", {"th": "ประกาศเครื่องมือบน Nico Nico Douga", "en": "The tool is announced on Nico Nico Douga.", "ja": "ニコニコ動画でツールが発表される。"}], ["2008-03-15", {"th": "เปลี่ยนชื่อเป็น UTAU", "en": "Renamed UTAU.", "ja": "「UTAU」に改名。"}], ["2011-05-27", {"th": "ออกเวอร์ชัน Mac (UTAU-Synth)", "en": "Mac version (UTAU-Synth) released.", "ja": "Mac版（UTAU-Synth）公開。"}]], "src": [["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "synthv": {"n": {"th": "Synthesizer V", "en": "Synthesizer V", "ja": "Synthesizer V"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Dreamtonics มีเวอร์ชันฟรี (Basic) และคลังเสียงแบบ AI ที่ให้เสียงเป็นธรรมชาติ", "en": "A singing synthesizer from Dreamtonics, with a free Basic edition and AI voicebanks that sound natural.", "ja": "Dreamtonics の歌声合成ソフト。無料のBasic版と、自然な歌声のAIボイスがある。"}, "ev": [["2020-06", {"th": "เปิดตัว Synthesizer V Studio", "en": "Synthesizer V Studio is unveiled.", "ja": "Synthesizer V Studio 発表。"}], ["2020-07-31", {"th": "เวอร์ชัน Basic ฟรีเปิดให้ใช้", "en": "The free Basic edition is released.", "ja": "無料のBasic版を公開。"}], ["2023-04-27", {"th": "Kasane Teto ออกเสียงแบบ Synthesizer V AI", "en": "Kasane Teto's Synthesizer V AI voice is released.", "ja": "重音テトの Synthesizer V AI ボイスが発売。"}]], "src": [["Synthesizer V (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Synthesizer_V_Studio"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "cevio": {"n": {"th": "CeVIO / VoiSona", "en": "CeVIO / VoiSona", "ja": "CeVIO / VoiSona"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงของ Techno-Speech ปัจจุบัน VoiSona (ชื่อเดิม CeVIO Pro) คือเทคโนโลยีรุ่นถัดไปของ CeVIO", "en": "Voice-synthesis software by Techno-Speech. VoiSona (formerly CeVIO Pro) is the next generation of CeVIO technology.", "ja": "Techno-Speech の音声合成ソフト。VoiSona（旧 CeVIO Pro）は CeVIO の次世代技術。"}, "ev": [["2022-02-19", {"th": "เปิดตัว Chis-A ซึ่งเป็นตัวร้องของ CeVIO Pro/VoiSona", "en": "Chis-A, the voice of CeVIO Pro/VoiSona, is revealed.", "ja": "CeVIO Pro/VoiSona の歌声 Chis-A が公開。"}], ["2022-02-24", {"th": "เปิดให้ใช้ CeVIO Pro เวอร์ชันอัลฟาฟรี", "en": "The CeVIO Pro alpha is released for free.", "ja": "CeVIO Pro のアルファ版を無料公開。"}]], "note": {"th": "ประวัติช่วงก่อนหน้านี้ของ CeVIO ยังไม่ได้ตรวจสอบกับแหล่งข้อมูล จึงยังไม่ใส่", "en": "Earlier CeVIO history hasn't been checked against sources yet, so it is not included.", "ja": "CeVIO のそれ以前の歴史は出典未確認のため、まだ載せていません。"}, "src": [["VoiSona (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/VoiSona"], ["Chis-A (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Chis-A"]]}, "others": {"n": {"th": "อื่นๆ", "en": "Others", "ja": "その他"}, "s": {"th": "เรื่องราวอื่นๆ ในวงการเสียงสังเคราะห์ เช่น ตัวละครที่แฟนๆ สร้างขึ้นและโปรแกรมอื่นๆ", "en": "Other stories from the synthesized-voice scene, such as fan-made characters and other software.", "ja": "合成音声の世界のその他の話題。ファンが生んだキャラクターや他のソフトなど。"}, "ev": [["2007-11-01", {"th": "ภาพวาดแรกของ Akita Neru ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ", "en": "The first illustration of Akita Neru, a fan-made character derived from Miku.", "ja": "ミクから生まれたファン制作キャラ・亜北ネルの最初のイラスト。"}], ["2008-04-15", {"th": "Crypton อนุญาตให้ Neru เป็นตัวละครที่ดัดแปลงจากมิกุอย่างเป็นทางการ", "en": "Crypton licenses Neru as a Miku derivative.", "ja": "クリプトンがネルをミクの派生キャラとして許諾。"}]], "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}}, "CH": {"miku": {"n": "Hatsune Miku", "era": "vocaloid", "unv": false, "t": {"th": "ตัวละครหลักของ Crypton Future Media ใช้เสียงของ Saki Fujita วางขายครั้งแรกบน Vocaloid 2 เมื่อ 31 สิงหาคม 2007 ชื่อแปลว่า \"เสียงแรกของอนาคต\" ตั้งค่าเป็นสาวอายุ 16 ปี ผมทวินเทลสีเขียวน้ำเงิน รหัส CV01 ต่อมามีเวอร์ชัน Append (2010) และ Piapro Studio NT (27 พฤศจิกายน 2020)", "en": "Crypton Future Media's flagship character, voiced by Saki Fujita and first released on Vocaloid 2 on 31 August 2007. Her name means \"first sound of the future\". She is officially a 16-year-old with turquoise twintails, code CV01. Later versions include Append (2010) and Piapro Studio NT (27 November 2020).", "ja": "クリプトンの看板キャラ。声は藤田咲、2007年8月31日に Vocaloid 2 で発売。名前は「初めての未来の音」の意。16歳、ターコイズのツインテール、コード名CV01。のちにAppend（2010年）やPiapro Studio NT（2020年11月27日）が登場。"}, "src": [["Wikipedia: Hatsune Miku", "https://en.wikipedia.org/wiki/Hatsune_Miku"]]}, "neru": {"n": "Akita Neru", "era": "others", "unv": false, "t": {"th": "ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ ภาพวาดแรกปรากฏ 1 พฤศจิกายน 2007 จากชุมชน 2channel ภาพลักษณ์คือสาวอารมณ์ไม่ดีที่ติดมือถือ ผมหางม้าข้างสีเหลือง ต่อมา Crypton อนุญาตให้เป็นตัวละครดัดแปลงของมิกุอย่างเป็นทางการเมื่อ 15 เมษายน 2008", "en": "A fan-made character derived from Miku. The first illustration appeared on 1 November 2007 on 2channel. She is known as a moody girl glued to her phone, with a yellow side ponytail. Crypton licensed her as a Miku derivative on 15 April 2008.", "ja": "ミクから生まれたファン制作キャラ。最初のイラストは2007年11月1日に2ちゃんねるで登場。携帯電話を手放さない不機嫌な少女で、黄色のサイドテール。2008年4月15日にクリプトンが派生キャラとして許諾。"}, "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"]]}, "teto": {"n": "Kasane Teto", "era": "utau", "unv": false, "t": {"th": "ตัวละคร UTAU ที่เริ่มถูกโปรโมตในปี 2008 ในรูปแบบมุกวันเอพริลฟูล ต่อมามีเสียงแบบ Synthesizer V AI วางขายเมื่อ 27 เมษายน 2023", "en": "A UTAU character first promoted in 2008 as an April Fools' joke. A Synthesizer V AI voice was released on 27 April 2023.", "ja": "2008年にエイプリルフールのネタとして登場したUTAUキャラ。2023年4月27日に Synthesizer V AI 版が発売。"}, "src": [["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "kaito": {"n": "KAITO", "era": "vocaloid", "unv": false, "t": {"th": "Yamaha ผลิตและ Crypton จำหน่าย วางขาย 17 กุมภาพันธ์ 2006 ใช้เสียงของ Naoto Fuga จุดเด่นคือผมสั้นสีน้ำเงินกับผ้าพันคอ ภาพลักษณ์ตัวละครแบบปัจจุบันมาจากการออกแบบใหม่ของ iXima สำหรับ Vocaloid 3 (15 กุมภาพันธ์ 2013)", "en": "Made by Yamaha and distributed by Crypton, released 17 February 2006, voiced by Naoto Fuga. Known for short blue hair and a scarf. His current look is iXima's redesign for Vocaloid 3 (15 February 2013).", "ja": "ヤマハ製、クリプトン販売。2006年2月17日発売、声は風雅なおと。青い短髪とマフラーが特徴。現在の姿はVocaloid 3版（2013年2月15日）でのiXima氏による再デザイン。"}, "src": [["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"]]}, "meiko": {"n": "MEIKO", "era": "vocaloid", "unv": false, "t": {"th": "หนึ่งในคลังเสียงภาษาญี่ปุ่นชุดแรกของ Vocaloid ปี 2004 (Yamaha ผลิต Crypton จำหน่าย) เสียงร้องโดย Meiko Haigo", "en": "One of the first Japanese Vocaloid voicebanks, from 2004 (made by Yamaha, sold by Crypton). Voice provider: Meiko Haigo.", "ja": "2004年発売の、最初期の日本語Vocaloid音源のひとつ（ヤマハ製、クリプトン販売）。声は拝郷メイコ。"}, "src": [["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"]]}, "luka": {"n": "Megurine Luka", "era": "vocaloid", "unv": false, "t": {"th": "Crypton Future Media วางขาย 30 มกราคม 2009 เสียงร้องโดย Yu Asakawa เป็น Vocaloid ตัวแรกที่รองรับทั้งภาษาญี่ปุ่นและอังกฤษเต็มรูปแบบ รหัส CV03 และเป็นตัวละครแรกของซีรีส์ที่ตั้งค่าเป็นผู้ใหญ่ (อายุ 20 ปี)", "en": "Crypton Future Media, released 30 January 2009, voiced by Yu Asakawa. The first Vocaloid to fully support both Japanese and English. Code CV03, and the first adult character in the series (officially 20).", "ja": "クリプトン、2009年1月30日発売。声は浅川悠。日本語と英語を完全にサポートした初のVocaloid。コード名CV03で、シリーズ初の大人キャラ（公式20歳）。"}, "src": [["Wikipedia: Megurine Luka", "https://en.wikipedia.org/wiki/Megurine_Luka"]]}, "rin": {"n": "Kagamine Rin", "era": "vocaloid", "unv": false, "t": {"th": "Crypton Future Media วางขายพร้อม Len เมื่อ 27 ธันวาคม 2007 เสียงร้องโดย Asami Shimoda ชุด Append (ธันวาคม 2010) ของ Rin มีแบบ Power, Warm และ Sweet", "en": "Released together with Len by Crypton Future Media on 27 December 2007, voiced by Asami Shimoda. Rin's Append (December 2010) adds Power, Warm and Sweet.", "ja": "2007年12月27日、レンと同時にクリプトンから発売。声は下田麻美。Append（2010年12月）にはPower・Warm・Sweetがある。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "len": {"n": "Kagamine Len", "era": "vocaloid", "unv": false, "t": {"th": "วางขายพร้อม Rin เมื่อ 27 ธันวาคม 2007 เสียงร้องโดย Asami Shimoda เช่นกัน ชุด Append (ธันวาคม 2010) ของ Len มีแบบ Power, Cold และ Serious", "en": "Released together with Rin on 27 December 2007, also voiced by Asami Shimoda. Len's Append (December 2010) adds Power, Cold and Serious.", "ja": "2007年12月27日にリンと同時発売。声は同じく下田麻美。Append（2010年12月）にはPower・Cold・Seriousがある。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "gumi": {"n": "GUMI (Megpoid)", "era": "vocaloid", "unv": true, "t": {"th": "Megpoid (GUMI) ผลิตโดย Internet Co. วางขายปี 2009 เสียงร้องโดย Megumi Nakajima", "en": "Megpoid (GUMI) by Internet Co., released in 2009, voiced by Megumi Nakajima.", "ja": "Internet社のMegpoid（GUMI）。2009年発売、声は中島愛。"}, "src": []}, "yixi": {"n": "Yi Xi", "era": "synthv", "unv": true, "t": {"th": "ตัวร้องของ Synthesizer V (Dreamtonics) รายละเอียดเช่นวันวางขายและผู้ให้เสียงยังไม่ได้ตรวจสอบ", "en": "A Synthesizer V voice (Dreamtonics). Details such as release date and voice provider haven't been verified yet.", "ja": "Synthesizer V（Dreamtonics）のボイス。発売日や声の提供者などの詳細は未確認。"}, "src": []}, "ui": {"n": "Ui", "era": "cevio", "unv": true, "t": {"th": "เข้าใจว่าเป็นตัวร้องในสาย VoiSona/CeVIO แต่ยังตรวจสอบข้อมูลไม่ได้ จึงยังไม่ใส่รายละเอียด", "en": "Believed to be a voice in the VoiSona/CeVIO family, but it couldn't be verified, so no details are given yet.", "ja": "VoiSona/CeVIO系のボイスと思われるが確認できていないため、詳細はまだ載せていません。"}, "src": []}, "chisa": {"n": "Chis-A", "era": "cevio", "unv": false, "t": {"th": "ตัวร้องภาษาญี่ปุ่นของ VoiSona (CeVIO Pro) จาก Techno-Speech เปิดตัว 19 กุมภาพันธ์ 2022 เป็นคลังเสียงเริ่มต้นของ CeVIO Pro ซึ่งประกาศว่าฟรี ไม่ใช่ Vocaloid", "en": "A Japanese VoiSona (CeVIO Pro) voice from Techno-Speech, revealed 19 February 2022. It is CeVIO Pro's default library, announced as free. Not a Vocaloid.", "ja": "Techno-Speech の日本語VoiSona（CeVIO Pro）ボイス。2022年2月19日公開。CeVIO Pro の標準ライブラリで無料と発表。Vocaloidではない。"}, "src": [["Chis-A (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Chis-A"]]}, "kaai": {"n": "Kaai Yuki", "era": "vocaloid", "unv": true, "t": {"th": "คลังเสียงที่รู้จักในวงการ Vocaloid แต่ยังไม่ได้ตรวจสอบรายละเอียด จึงยังไม่ใส่ข้อมูล", "en": "A voicebank known in the Vocaloid scene, but details haven't been verified yet, so none are given.", "ja": "Vocaloidシーンで知られるボイスだが、詳細は未確認のためまだ載せていません。"}, "src": []}}};
+const HD={"ERAS": {"vocaloid": {"n": {"th": "Vocaloid", "en": "Vocaloid", "ja": "Vocaloid"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Yamaha พัฒนาร่วมกับมหาวิทยาลัยปอมเปว ฟาบรา (บาร์เซโลนา) ผู้ใช้ใส่เนื้อร้องกับทำนอง โปรแกรมจะร้องออกมาด้วยคลังเสียง (voicebank) ที่สร้างจากเสียงของนักร้องจริง ชื่อแรกของโครงการคือ \"Daisy\" ตามเพลง \"Daisy Bell\" แต่ถูกเปลี่ยนเป็น Vocaloid เพราะเรื่องลิขสิทธิ์", "en": "Yamaha's singing-voice synthesizer, developed with Pompeu Fabra University in Barcelona. You enter lyrics and a melody and the software sings them using a voicebank built from a real singer's voice. It was first called \"Daisy\", after the song \"Daisy Bell\", but the name was changed to Vocaloid for copyright reasons.", "ja": "ヤマハが開発した歌声合成ソフト。バルセロナのポンペウ・ファブラ大学と共同開発。歌詞とメロディを入力すると、実在の歌手の声から作ったボイスバンクで歌ってくれる。開発時の名前は「Daisy」（「デイジー・ベル」から）だったが、著作権の都合で Vocaloid に変更された。"}, "ev": [["2000-03", {"th": "Yamaha เริ่มพัฒนา โดยทำงานด้านประมวลผลสัญญาณร่วมกับกลุ่ม Music Technology Group ของมหาวิทยาลัยปอมเปว ฟาบรา", "en": "Yamaha begins development, with signal processing done jointly with the Music Technology Group at Pompeu Fabra University.", "ja": "ヤマハが開発を開始。信号処理はポンペウ・ファブラ大学の音楽技術グループと共同で行った。"}], ["2003-03", {"th": "ประกาศ Vocaloid ครั้งแรกที่งานแสดงสินค้า Musikmesse ในเยอรมนี (5–9 มีนาคม)", "en": "Vocaloid is first announced at the Musikmesse fair in Germany (5–9 March).", "ja": "ドイツの楽器見本市 Musikmesse（3月5〜9日）で Vocaloid が初めて発表される。"}], ["2003-07-24", {"th": "อัลบั้ม History of Logic System ของ Hideki Matsutake ใช้เสียงต้นแบบของ MEIKO และ KAITO", "en": "Hideki Matsutake's album History of Logic System features prototype Meiko and Kaito voices.", "ja": "松武秀樹のアルバム『History of Logic System』で MEIKO と KAITO の試作音声が使われる。"}], ["2004-01-15", {"th": "วางขายครั้งแรก พร้อมคลังเสียงภาษาอังกฤษชุดแรก Leon, Lola และ Miriam (ผลิตโดย Zero-G)", "en": "First commercial release, with the first English voicebanks Leon, Lola and Miriam (by Zero-G).", "ja": "初の商用リリース。最初の英語ボイスバンク Leon、Lola、Miriam（Zero-G製）が登場。"}], ["2004-11-05", {"th": "MEIKO คลังเสียงภาษาญี่ปุ่นชุดแรก (Yamaha ผลิต Crypton จำหน่าย)", "en": "MEIKO, the first Japanese voicebank (made by Yamaha, sold by Crypton).", "ja": "最初の日本語ボイスバンク MEIKO（ヤマハ製、クリプトン販売）が発売。"}], ["2006-02-17", {"th": "KAITO วางจำหน่ายโดย Crypton", "en": "KAITO is distributed by Crypton.", "ja": "KAITO がクリプトンから発売。"}], ["2007-08-31", {"th": "Hatsune Miku (Vocaloid 2)", "en": "Hatsune Miku (Vocaloid 2).", "ja": "初音ミク（Vocaloid 2）発売。"}], ["2007-12-27", {"th": "Kagamine Rin/Len", "en": "Kagamine Rin/Len.", "ja": "鏡音リン・レン発売。"}], ["2009-06-26", {"th": "Megpoid (GUMI) ของ Internet Co., Ltd. วางขายบน Vocaloid 2", "en": "Megpoid (GUMI) by Internet Co., Ltd. is released on Vocaloid 2.", "ja": "Internet社の Megpoid（GUMI）が Vocaloid 2 で発売。"}], ["2009-08-22", {"th": "Hatsune Miku แสดงสดในรูปภาพโปรเจกชันที่งาน Animelo Summer Live", "en": "Hatsune Miku performs live as a projection at Animelo Summer Live.", "ja": "Animelo Summer Live で初音ミクがプロジェクション映像でライブ出演。"}], ["2009-12-04", {"th": "Kaai Yuki ของ AH-Software วางขายบน Vocaloid 2", "en": "Kaai Yuki by AH-Software is released on Vocaloid 2.", "ja": "AH-Software の歌愛ユキが Vocaloid 2 で発売。"}], ["2011-10-21", {"th": "Vocaloid 3 เปิดตัว พร้อมผลิตภัณฑ์ภาษาญี่ปุ่นหลายตัว (Megpoid V3 วางขายวันเดียวกัน)", "en": "Vocaloid 3 launches with several Japanese products (V3 Megpoid is released the same day).", "ja": "Vocaloid 3 が複数の日本語製品と共に登場（V3 Megpoid も同日発売）。"}], ["2014-02-04", {"th": "MEIKO V3 วางขาย (เสียง Straight, Power, Dark, Whisper และ English)", "en": "MEIKO V3 is released (Straight, Power, Dark, Whisper and English).", "ja": "MEIKO V3 発売（Straight・Power・Dark・Whisper・English）。"}], ["2015-10-29", {"th": "ยุค Vocaloid 4: Kaai Yuki V4 (29 ต.ค.) และ Megpoid V4 (5 พ.ย.) วางขาย", "en": "The Vocaloid 4 era: Kaai Yuki V4 (29 Oct) and Megpoid V4 (5 Nov) are released.", "ja": "Vocaloid 4 の時代：歌愛ユキ V4（10月29日）と Megpoid V4（11月5日）が発売。"}], ["2018-07-12", {"th": "Vocaloid 5 วางขาย พร้อมหน้าตาโปรแกรมใหม่", "en": "Vocaloid 5 is released with an updated interface.", "ja": "Vocaloid 5 発売。インターフェースを刷新。"}], ["2022-10-13", {"th": "Vocaloid 6 วางขาย รองรับคลังเสียง Vocaloid 3 ขึ้นไป และเปิดตัว Vocaloid:AI (AI Megpoid วางขายวันเดียวกัน)", "en": "Vocaloid 6 is released, supporting Vocaloid 3 and later voices and introducing Vocaloid:AI (AI Megpoid arrives the same day).", "ja": "Vocaloid 6 発売。Vocaloid 3 以降の音源に対応し、Vocaloid:AI を導入（AI Megpoid も同日発売）。"}], ["2026-10-09", {"th": "Yamaha ประกาศ Vocaloid 7 กำหนดวางขาย 11 พฤศจิกายน 2026 และรองรับคลังเสียง Vocaloid 3–6", "en": "Yamaha announces Vocaloid 7, planned for release on 11 November 2026 and compatible with Vocaloid 3–6 voicebanks.", "ja": "ヤマハが Vocaloid 7 を発表。2026年11月11日発売予定で、Vocaloid 3〜6 の音源に対応。"}]], "src": [["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"], ["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"], ["Wikipedia: Megpoid", "https://en.wikipedia.org/wiki/Megpoid"], ["Wikipedia: Kaai Yuki", "https://en.wikipedia.org/wiki/Kaai_Yuki"], ["Vocaloid Wiki: MEIKO", "https://vocalsynth.fandom.com/wiki/MEIKO"]]}, "utau": {"n": {"th": "UTAU", "en": "UTAU", "ja": "UTAU"}, "s": {"th": "โปรแกรมสังเคราะห์เสียงร้องแบบแชร์แวร์ (รับบริจาค) สร้างโดยโปรแกรมเมอร์ชื่อ Ameya/Ayame ใช้ไฟล์เสียง WAV ที่ผู้ใช้อัดเองมาต่อกันเป็นเสียงร้อง (concatenative) คลังเสียงส่วนใหญ่ผู้สร้างแจกฟรี จึงมีตัวร้องจากแฟนๆ จำนวนมาก", "en": "A shareware (donation-supported) singing synthesizer by a programmer known as Ameya/Ayame. It strings together WAV recordings supplied by the user (concatenative synthesis). Most voicebanks are given away free by their creators, so there are a huge number of fan-made voices.", "ja": "Ameya/Ayame 氏が作った、寄付で支えられるシェアウェアの歌声合成ソフト。ユーザーが用意したWAV音源をつなげて歌わせる方式。音源の多くは作者が無料配布しており、ファン制作の歌声が数多くある。"}, "ev": [["2008-01-11", {"th": "Ameya ประกาศเครื่องมือบน Nico Nico Douga", "en": "Ameya announces the tool on Nico Nico Douga.", "ja": "Ameya 氏がニコニコ動画でツールを発表。"}], ["2008-02-05", {"th": "เผยวิดีโอแสดงหน้าจอ เพิ่มการยืด/หดเวลา การสร้าง oto.ini และการแก้ pitch bend", "en": "A video of the GUI is released, adding time stretching, oto.ini creation and pitch-bend editing.", "ja": "GUIを紹介する動画を公開。タイムストレッチ、oto.ini作成、ピッチベンド編集などが追加。"}], ["2008-03-15", {"th": "เปลี่ยนชื่อเป็น UTAU และวางจำหน่ายเป็นแชร์แวร์ในเดือนมีนาคม", "en": "Renamed UTAU; released as shareware in March.", "ja": "「UTAU」に改名。3月にシェアウェアとして公開。"}], ["2008-04-13", {"th": "คลังเสียง UTAU ชุดแรกของ Kasane Teto ออก หลังมุกวันเอพริลฟูล", "en": "Kasane Teto's first UTAU voicebank appears after the April Fools' joke.", "ja": "エイプリルフールのネタを経て、重音テトの最初のUTAU音源が公開。"}], ["2008-05-10", {"th": "\"Kenka Wakare\" ของ nwp8861 ร้องโดย Utane Uta ออกเป็นเพลงต้นฉบับ UTAU เพลงแรก", "en": "\"Kenka Wakare\" by nwp8861, sung by Utane Uta, is released as the first original UTAU song.", "ja": "nwp8861「喧嘩別れ」（歌：唄音ウタ）が最初のUTAUオリジナル曲として公開。"}], ["2008-06", {"th": "Ameya ปฏิเสธคำเรียก \"Jinriki Vocaloid\" และอธิบายว่า UTAU เป็นซอฟต์แวร์สังเคราะห์เสียงร้อง", "en": "Ameya rejects the \"Jinriki Vocaloid\" label and describes UTAU as singing voice synthesis software.", "ja": "Ameya 氏が「人力ボーカロイド」という呼称を否定し、UTAUを歌声合成ソフトと説明。"}], ["2011-05-27", {"th": "ออกเวอร์ชัน Mac (UTAU-Synth)", "en": "Mac version (UTAU-Synth) released.", "ja": "Mac版（UTAU-Synth）公開。"}], ["2012-07-19", {"th": "งานรวมตัว UTAU M@STER เริ่มจัดเป็นประจำ", "en": "The UTAU M@STER event begins regular gatherings.", "ja": "UTAU M@STER の定期開催が始まる。"}], ["2021-11", {"th": "OpenUtau เวอร์ชันเบต้า (โปรแกรมโอเพนซอร์สที่ใช้คลังเสียง UTAU ได้) ออกให้ใช้", "en": "The OpenUtau beta is released.", "ja": "OpenUtau のベータ版が公開。"}], ["2023-04-27", {"th": "Kasane Teto ออกเสียงแบบ Synthesizer V AI", "en": "Kasane Teto is released as a Synthesizer V AI voice database.", "ja": "重音テトの Synthesizer V AI ボイスが発売。"}]], "src": [["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "synthv": {"n": {"th": "Synthesizer V", "en": "Synthesizer V", "ja": "Synthesizer V"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Dreamtonics มีเวอร์ชันฟรี (Basic) และคลังเสียงแบบ AI ที่ให้เสียงเป็นธรรมชาติ ผู้พัฒนาหลักคือ Kanru Hua", "en": "A singing synthesizer from Dreamtonics, with a free Basic edition and AI voicebanks that sound natural. Its main developer is Kanru Hua.", "ja": "Dreamtonics の歌声合成ソフト。無料のBasic版と、自然な歌声のAIボイスがある。開発者は Kanru Hua 氏。"}, "ev": [["2019-08", {"th": "Kanru Hua ประกาศพัฒนาเจเนอเรชันที่สอง (ชื่อชั่วคราว Synthesizer V Release 2)", "en": "Kanru Hua announces development of the second generation, tentatively called Synthesizer V Release 2.", "ja": "Kanru Hua 氏が第2世代（仮称 Synthesizer V Release 2）の開発を発表。"}], ["2020-06-25", {"th": "เปิดตัว Synthesizer V Studio ด้วยข่าวประชาสัมพันธ์", "en": "Synthesizer V Studio is unveiled in a press release.", "ja": "プレスリリースで Synthesizer V Studio を発表。"}], ["2020-07-10", {"th": "Studio Pro วางขายให้ลูกค้าจีนผ่าน Taobao", "en": "Studio Pro goes on sale to Chinese customers on Taobao.", "ja": "Studio Pro が中国向けにTaobaoで発売。"}], ["2020-07-30", {"th": "AH-Software วาง Studio Pro ขายในญี่ปุ่น", "en": "AH-Software releases Studio Pro in Japan.", "ja": "AH-Software が日本でStudio Proを発売。"}], ["2020-07-31", {"th": "เวอร์ชัน Basic ฟรีเปิดให้ดาวน์โหลด", "en": "The free Basic edition is released.", "ja": "無料のBasic版を公開。"}], ["2020-10-30", {"th": "ประกาศ Synthesizer V AI และ Saki AI", "en": "Synthesizer V AI and Saki AI are announced.", "ja": "Synthesizer V AI と Saki AI を発表。"}], ["2020-12-24", {"th": "เวอร์ชัน 1.1.0 รองรับเสียง AI โดย Saki AI เป็นอัปเดตฟรี", "en": "Version 1.1.0 adds AI voice support, with Saki AI as a free update.", "ja": "バージョン1.1.0でAIボイスに対応。Saki AIは無料アップデート。"}], ["2021-12-23", {"th": "เวอร์ชัน 1.5.0 เพิ่มการร้องข้ามภาษาสำหรับเสียง AI (Pro)", "en": "Version 1.5.0 adds cross-lingual singing for AI voices (Pro).", "ja": "バージョン1.5.0でAIボイスのクロスリンガル歌唱に対応（Pro）。"}], ["2023-04-27", {"th": "Kasane Teto ออกเสียงแบบ Synthesizer V AI", "en": "Kasane Teto's Synthesizer V AI voice is released.", "ja": "重音テトの Synthesizer V AI ボイスが発売。"}], ["2023-06-21", {"th": "เวอร์ชัน 1.9.0 เพิ่มโหมดแร็ป (อังกฤษและจีนกลาง) และการร้องข้ามภาษากวางตุ้ง", "en": "Version 1.9.0 adds rap mode (English and Mandarin) and Cantonese cross-lingual synthesis.", "ja": "バージョン1.9.0でラップモード（英語・中国語）と広東語クロスリンガルに対応。"}], ["2023-12-20", {"th": "GUMI ออกเสียงแบบ Synthesizer V", "en": "GUMI is released for Synthesizer V.", "ja": "GUMI の Synthesizer V 版が発売。"}], ["2024-03-15", {"th": "Yi Xi ตัวร้องแร็ปภาษาจีนกลาง วางขายในจีนแผ่นดินใหญ่", "en": "Yi Xi, a Mandarin rap voice, goes on sale in mainland China.", "ja": "中国語ラップ向けの Yi Xi が中国本土で発売。"}], ["2025-03-21", {"th": "Synthesizer V Studio 2 วางขาย พร้อม Yi Xi 2", "en": "Synthesizer V Studio 2 is released together with Yi Xi 2.", "ja": "Synthesizer V Studio 2 が Yi Xi 2 と共に発売。"}]], "src": [["Synthesizer V Studio (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Synthesizer_V_Studio"], ["Yi Xi (SynthV Wiki)", "https://synthv.fandom.com/wiki/Yi_Xi_(Synthesizer_V_Studio)"], ["Megpoid (Wikipedia)", "https://en.wikipedia.org/wiki/Megpoid"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "cevio": {"n": {"th": "CeVIO / VoiSona", "en": "CeVIO / VoiSona", "ja": "CeVIO / VoiSona"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงของ Techno-Speech ปัจจุบัน VoiSona (ชื่อเดิม CeVIO Pro) คือเทคโนโลยีรุ่นถัดไปของ CeVIO", "en": "Voice-synthesis software by Techno-Speech. VoiSona (formerly CeVIO Pro) is the next generation of CeVIO technology.", "ja": "Techno-Speech の音声合成ソフト。VoiSona（旧 CeVIO Pro）は CeVIO の次世代技術。"}, "ev": [["2013-04-26", {"th": "CeVIO Creative Studio FREE วางขายสำหรับเสียงพูด โดยมี Sato Sasara เป็นเสียงเดียว", "en": "CeVIO Creative Studio FREE is released for speech, with Sato Sasara as its only voice.", "ja": "CeVIO Creative Studio FREE が音声読み上げ向けに公開。声は さとうささら のみ。"}], ["2013-09-26", {"th": "เวอร์ชันเต็มของ CeVIO Creative Studio วางขาย (ฟังก์ชันร้องเพลงเวอร์ชันฟรีเปิดให้ใช้เมื่อเดือนมิถุนายน)", "en": "The full version of CeVIO Creative Studio is released (the FREE version gained singing in June).", "ja": "CeVIO Creative Studio の製品版が発売（無料版の歌唱機能は6月に公開）。"}], ["2014-11-14", {"th": "CeVIO Creative Studio S วางขาย และเวอร์ชันฟรีถูกแทนที่ด้วยตัวทดลองใช้ 1 เดือน", "en": "CeVIO Creative Studio S is released, and the FREE version is replaced by a one-month trial.", "ja": "CeVIO Creative Studio S 発売。無料版は1か月体験版に置き換えられる。"}], ["2015-05-22", {"th": "คลังเสียงร้องเพลงของ ONE วางขาย (เสียงพูดออกเมื่อ 27 มกราคม 2015)", "en": "ONE's singing voicebank is released (her speech voicebank came out on 27 January 2015).", "ja": "ONE の歌声音源が発売（読み上げ音源は2015年1月27日）。"}], ["2020-02-27", {"th": "ประกาศ CeVIO Pro ครั้งแรกพร้อมเดโมของ Sato Sasara", "en": "CeVIO Pro is first announced with a demo featuring Sato Sasara.", "ja": "さとうささら のデモと共に CeVIO Pro を初めて発表。"}], ["2020-10-29", {"th": "ประกาศ CeVIO AI อย่างเป็นทางการ (ประกาศครั้งแรกทางทวิตเตอร์เมื่อ 11 มิถุนายน 2020)", "en": "CeVIO AI is formally announced on Twitter (first teased on 11 June 2020).", "ja": "CeVIO AI を正式発表（初出は2020年6月11日のTwitter）。"}], ["2021-01-29", {"th": "CeVIO AI วางขายจริง พร้อมเสียง Yuzuki Yukari Rei (ตัวแก้ไขออกเมื่อ 27 มกราคม)", "en": "CeVIO AI is formally released with Yuzuki Yukari Rei (the editor came out on 27 January).", "ja": "CeVIO AI が結月ゆかり 麗 と共に正式発売（エディタは1月27日公開）。"}], ["2021-07-07", {"th": "Kafu วางขาย เป็นเสียง CeVIO AI ตัวแรกในรายการที่มีวันวางขาย", "en": "Kafu is released, the earliest CeVIO AI vocal on the list with a release date.", "ja": "可不（KAFU）が発売。リスト上で発売日が確認できる最初のCeVIO AI音源。"}], ["2022-02-19", {"th": "เปิดตัว Chis-A ซึ่งเป็นตัวร้องของ CeVIO Pro/VoiSona", "en": "Chis-A, the voice of CeVIO Pro/VoiSona, is revealed.", "ja": "CeVIO Pro/VoiSona の歌声 Chis-A が公開。"}], ["2022-02-24", {"th": "เปิดให้ใช้ CeVIO Pro เวอร์ชันอัลฟาฟรี", "en": "The CeVIO Pro alpha is released for free.", "ja": "CeVIO Pro のアルファ版を無料公開。"}], ["2022-05-26", {"th": "ประกาศเปลี่ยนชื่อ CeVIO Pro เป็น VoiSona", "en": "The rebrand from CeVIO Pro to VoiSona is announced.", "ja": "CeVIO Pro から VoiSona への名称変更を発表。"}], ["2022-09-01", {"th": "VoiSona เวอร์ชัน 1.0.0 วางขายอย่างเป็นทางการสำหรับ Windows และ Mac", "en": "VoiSona 1.0.0 is officially released for Windows and Mac.", "ja": "VoiSona 1.0.0 が Windows／Mac 向けに正式リリース。"}], ["2024-12-26", {"th": "VoiSona เวอร์ชัน iOS/iPadOS อย่างเป็นทางการออก", "en": "The official iOS/iPadOS version of VoiSona is released.", "ja": "VoiSona の iOS／iPadOS 正式版が公開。"}], ["2025-04-30", {"th": "Ying Can วางขาย เพิ่มภาษาจีนกลางให้เอนจิน VoiSona", "en": "Ying Can is released, adding Mandarin Chinese to the VoiSona engine.", "ja": "Ying Can が発売され、VoiSona が中国語（北京語）に対応。"}], ["2025-05-30", {"th": "Ui (CV: Shigure Ui) วางขายสำหรับ VoiSona", "en": "Ui (CV: Shigure Ui) is released for VoiSona.", "ja": "Ui（CV：しぐれうい）が VoiSona 向けに発売。"}]], "src": [["Wikipedia: CeVIO", "https://en.wikipedia.org/wiki/CeVIO"], ["CeVIO AI (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/CeVIO_AI"], ["VoiSona (CeVIO & VoiSona Wiki)", "https://cevio.fandom.com/wiki/VoiSona"], ["VoiSona: Ui", "https://voisona.com/song/news_detail/127/"]]}, "others": {"n": {"th": "อื่นๆ", "en": "Others", "ja": "その他"}, "s": {"th": "เรื่องราวอื่นๆ ในวงการเสียงสังเคราะห์ เช่น ตัวละครที่แฟนๆ สร้างขึ้นและโปรแกรมอื่นๆ", "en": "Other stories from the synthesized-voice scene, such as fan-made characters and other software.", "ja": "合成音声の世界のその他の話題。ファンが生んだキャラクターや他のソフトなど。"}, "ev": [["2007-11-01", {"th": "ภาพวาดแรกของ Akita Neru ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ", "en": "The first illustration of Akita Neru, a fan-made character derived from Miku.", "ja": "ミクから生まれたファン制作キャラ・亜北ネルの最初のイラスト。"}], ["2008-04-15", {"th": "Crypton อนุญาตให้ Neru เป็นตัวละครที่ดัดแปลงจากมิกุอย่างเป็นทางการ", "en": "Crypton licenses Neru as a Miku derivative.", "ja": "クリプトンがネルをミクの派生キャラとして許諾。"}]], "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}}, "CH": {"miku": {"n": "Hatsune Miku", "era": "vocaloid", "unv": false, "t": {"th": "ตัวละครเรือธงของ Crypton Future Media สร้างบนเอนจิน Vocaloid 2 ของ Yamaha ใช้เสียงจากตัวอย่างเสียงของ Saki Fujita วางขายเมื่อ 31 สิงหาคม 2007 เป็นคลังเสียง Vocaloid ที่ขายเชิงพาณิชย์ตัวที่สาม ชื่อ Miku มาจากคำญี่ปุ่นที่แปลว่า \"แรก\" \"เสียง\" และ \"อนาคต\" รหัส CV01 หมายถึงตัวแรกของซีรีส์ Character Vocal ออกแบบโดย Kei Garō โดยได้แรงบันดาลใจจากซินธ์ของ Yamaha รวมถึงสีเขียวมิ้นต์ฟ้าอันเป็นเอกลักษณ์ ตัวละครอายุ 16 ปี ผมทวินเทลสีเทอร์ควอยซ์\n\nเหตุการณ์สำคัญ: 22 สิงหาคม 2009 คอนเสิร์ตเสมือนจริงแบบฉายภาพครั้งแรกที่ Animelo Summer Live, 21 พฤศจิกายน 2009 ขึ้นแสดงต่างประเทศครั้งแรกที่ Anime Festival Asia (สิงคโปร์), 30 เมษายน 2010 Hatsune Miku Append (6 โทนเสียง), 31 พฤษภาคม 2010 อัลบั้มรวมเพลง Vocalogenesis ขึ้นอันดับ 1 ชาร์ต Oricon เป็นอัลบั้ม Vocaloid ชุดแรกที่ทำได้, 2 กรกฎาคม 2011 คอนเสิร์ตในสหรัฐฯ ครั้งแรกที่ Anime Expo (ลอสแอนเจลิส), 26 กันยายน 2013 เวอร์ชัน Vocaloid 3 ภาษาญี่ปุ่น (เสียงอังกฤษออก 31 สิงหาคม 2013), 6 พฤษภาคม–3 มิถุนายน 2014 เป็นศิลปินเปิดให้ทัวร์ ArtRave ของ Lady Gaga, 8 ตุลาคม 2014 ขึ้นรายการ Late Show with David Letterman, 30 สิงหาคม 2016 V4X English และปี 2017 มีเสียงภาษาจีนกลาง ทำให้เป็น Vocaloid ที่ร้องได้สามภาษาอย่างเป็นทางการตัวแรก\n\nปี 2019 Crypton ประกาศว่าจะออกจากเอนจิน Vocaloid และเปิดตัว Piapro Studio โดย Hatsune Miku NT วางขายเต็มรูปแบบเมื่อ 27 พฤศจิกายน 2020 ตามด้วย NT V2 (18 มีนาคม 2025) และ Hatsune Miku V6 ที่มีเสียง Original กับ Soft (14 เมษายน 2026) ด้านวัฒนธรรมแฟนเมด เครื่องมือแอนิเมชัน MikuMikuDance ช่วยให้แฟนๆ ทำแอนิเมชัน 3 มิติเอง ซีรีส์เกมจังหวะ Hatsune Miku: Project DIVA ของ Sega ขายได้เกิน 6 ล้านชุด และ Crypton เป็นผู้สนับสนุนเทศกาลหิมะซัปโปโร ซึ่งมีดีไซน์ Snow Miku", "en": "Crypton Future Media's flagship character, built on Yamaha's Vocaloid 2 engine with a voice based on samples from Saki Fujita. She was released on 31 August 2007 as the third commercially sold Vocaloid library. Her name combines Japanese words for \"first\", \"sound\" and \"future\", and her code CV01 marks her as the first of the Character Vocal Series. Kei Garō designed her, taking inspiration from Yamaha's synthesizers, including their signature turquoise. She is a 16-year-old with turquoise twintails.\n\nMilestones: 22 August 2009, her first projected virtual concert at Animelo Summer Live; 21 November 2009, first overseas appearance at Anime Festival Asia in Singapore; 30 April 2010, Hatsune Miku Append (six timbres); 31 May 2010, the compilation Vocalogenesis debuts at number one on the Oricon album chart, the first Vocaloid album to do so; 2 July 2011, U.S. concert debut at Anime Expo in Los Angeles; 26 September 2013, the Vocaloid 3 Japanese library (English followed on 31 August 2013); 6 May–3 June 2014, opening act for Lady Gaga's ArtRave tour; 8 October 2014, performance on the Late Show with David Letterman; 30 August 2016, V4X English, and in 2017 a Mandarin voicebank made her the first officially trilingual Vocaloid.\n\nIn 2019 Crypton announced she would leave the Vocaloid engine for Piapro Studio, and Hatsune Miku NT was fully released on 27 November 2020, followed by NT V2 (18 March 2025) and Hatsune Miku V6 with Original and Soft voicebanks (14 April 2026). In fan culture, the animation tool MikuMikuDance boosted fan-made 3D animation, Sega's Hatsune Miku: Project DIVA rhythm series has sold over six million copies, and Crypton sponsors the Sapporo Snow Festival, which features the \"Snow Miku\" design.", "ja": "クリプトン・フューチャー・メディアの看板キャラクター。ヤマハの Vocaloid 2 エンジンで動き、声は藤田咲の音声サンプルを元にしている。2007年8月31日に、商用発売された3番目のVocaloid音源として登場。名前は「初」「音」「未来」を合わせたもので、CV01はキャラクター・ボーカル・シリーズの第1弾を意味する。デザインはKEI（Kei Garō）。ヤマハのシンセサイザー、特にそのシグネチャーカラーのターコイズから着想を得た。16歳でターコイズのツインテールが特徴。\n\n主な出来事：2009年8月22日 Animelo Summer Live で初のプロジェクション・ライブ／2009年11月21日 シンガポールの Anime Festival Asia で初の海外出演／2010年4月30日 初音ミク Append（6種類の声色）／2010年5月31日 コンピ『Vocalogenesis』がオリコンアルバムチャートで初のVocaloid作品1位／2011年7月2日 ロサンゼルスの Anime Expo で米国初ライブ／2013年9月26日 Vocaloid 3 日本語版（英語版は8月31日）／2014年5月6日〜6月3日 レディー・ガガの「ArtRave」ツアーのオープニングアクト／2014年10月8日『レイト・ショー・ウィズ・デイヴィッド・レターマン』出演／2016年8月30日 V4X English、2017年には中国語音源も加わり、公式に3言語対応した初のVocaloidに。\n\n2019年にクリプトンはVocaloidエンジンから離れ Piapro Studio へ移行すると発表し、2020年11月27日に初音ミク NT を本発売。続いて NT V2（2025年3月18日）、Original と Soft を収録した初音ミク V6（2026年4月14日）が登場。ファン文化では、MikuMikuDance が3Dアニメ制作を後押しし、セガのリズムゲーム『初音ミク -Project DIVA-』シリーズは600万本超、クリプトンはさっぽろ雪まつりを支援し、「雪ミク」のデザインも生まれた。"}, "src": [["Wikipedia: Hatsune Miku", "https://en.wikipedia.org/wiki/Hatsune_Miku"]]}, "neru": {"n": "Akita Neru", "era": "others", "unv": false, "t": {"th": "ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ ภาพวาดแรกปรากฏ 1 พฤศจิกายน 2007 จากชุมชน 2channel ภาพลักษณ์คือสาวอารมณ์ไม่ดีที่ติดมือถือ ผมหางม้าข้างสีเหลือง ต่อมา Crypton อนุญาตให้เป็นตัวละครดัดแปลงของมิกุอย่างเป็นทางการเมื่อ 15 เมษายน 2008", "en": "A fan-made character derived from Miku. The first illustration appeared on 1 November 2007 on 2channel. She is known as a moody girl glued to her phone, with a yellow side ponytail. Crypton licensed her as a Miku derivative on 15 April 2008.", "ja": "ミクから生まれたファン制作キャラ。最初のイラストは2007年11月1日に2ちゃんねるで登場。携帯電話を手放さない不機嫌な少女で、黄色のサイドテール。2008年4月15日にクリプトンが派生キャラとして許諾。"}, "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"]]}, "teto": {"n": "Kasane Teto", "era": "utau", "unv": false, "t": {"th": "ตัวละครที่เกิดจากมุกวันเอพริลฟูลปี 2008 บนกระดานข้อความ 2channel ผู้ใช้สุ่มนำคุณลักษณะที่เสนอกันมารวมเป็นตัวละครเสียงสังเคราะห์ปลอม ปรากฏในวิดีโอครั้งแรกเมื่อ 6 เมษายน 2008 และคลังเสียง UTAU ชุดแรกออกเมื่อ 13 เมษายน 2008 ผู้ให้เสียงคือ Oyamano Mayo ส่วน Sen เป็นผู้ออกแบบตัวละคร กลุ่ม TwinDrill ก่อตั้งปี 2009 เพื่อดูแลเธอ เวอร์ชัน Synthesizer V AI ประกาศ 3 เมษายน 2023 และวางขาย 27 เมษายน 2023 เป็นเวอร์ชันเชิงพาณิชย์เต็มรูปแบบชุดแรกพร้อมดีไซน์ใหม่ ต่อมามี VOICEPEAK (24 เมษายน 2025) และ Synthesizer V 2 AI (27 พฤศจิกายน 2025) เพลง \"Tetoris\" ของ Hiiragi Magnetite มียอดชมเกิน 100 ล้านครั้ง", "en": "Born as an April Fools' joke on the 2channel textboard in 2008, when users randomly combined suggested traits into a fake synthesized-voice character. She first appeared in a video on 6 April 2008 and her first UTAU voicebank came out on 13 April 2008. Her voice provider is Oyamano Mayo and Sen designed the character; the circle TwinDrill formed in 2009 to manage her. A Synthesizer V AI version was announced on 3 April 2023 and released on 27 April 2023, her first full commercial release, with a redesign. VOICEPEAK followed on 24 April 2025 and Synthesizer V 2 AI on 27 November 2025. \"Tetoris\" by Hiiragi Magnetite has passed 100 million views.", "ja": "2008年のエイプリルフールに匿名掲示板2ちゃんねるで、ユーザーが提案された特徴をランダムに組み合わせて作った偽の合成音声キャラクターが始まり。2008年4月6日に動画で初登場し、4月13日に最初のUTAU音源が公開された。声は小山乃舞世、キャラクターデザインは線。2009年にサークル「ツインドリル」が発足して管理。2023年4月3日に Synthesizer V AI 版を発表、4月27日に発売（初の本格的な商用版で、デザインも刷新）。その後 VOICEPEAK（2025年4月24日）、Synthesizer V 2 AI（2025年11月27日）が登場。柊マグネタイト「テトリス」は再生数1億回を超えている。"}, "src": [["Wikipedia: Kasane Teto", "https://en.wikipedia.org/wiki/Kasane_Teto"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "kaito": {"n": "KAITO", "era": "vocaloid", "unv": false, "t": {"th": "พัฒนาโดย Yamaha และจำหน่ายโดย Crypton Future Media วางขายเมื่อ 14 กุมภาพันธ์ 2006 (Yamaha) และ 17 กุมภาพันธ์ 2006 (Crypton) ผู้ให้เสียงคือนักร้อง Naoto Fuga เขาเป็นคลังเสียงต้นฉบับตัวที่ห้าและตัวสุดท้ายของ Vocaloid รุ่นแรก และเป็นตัวที่สองที่เป็นภาษาญี่ปุ่น ช่วงพัฒนาในโครงการ \"Project Daisy\" มีรหัสเรียกว่า \"TARO\" เวอร์ชันแรกขายได้น้อยกว่าเป้า ราว 500 ชุดในปีแรกจากเป้า 1,000 ชุดขึ้นไป ยอดขายเริ่มดีขึ้นหลังเดือนมกราคม 2008 KAITO V3 วางขาย 15 กุมภาพันธ์ 2013 มีเสียง Straight, Soft, Whisper และ English โดยดีไซน์ปัจจุบันเป็นฉบับออกแบบใหม่ของ iXima ผมสั้นสีน้ำเงิน ผ้าพันคอสีน้ำเงิน และเล็บสีน้ำเงิน ในเดือนมีนาคม 2013 KAITO V3 เป็นสินค้าขายดีอันดับหนึ่งในหน้าซอฟต์แวร์เพลงของ Crypton เพลงที่มียอดชมสูงสุดของเขาคือ \"SHANTI\" ของ wotaku (13 ล้านครั้งบน YouTube)", "en": "Made by Yamaha and distributed by Crypton Future Media, released on 14 February 2006 (Yamaha) and 17 February 2006 (Crypton). His voice provider is the singer Naoto Fuga. He was the fifth and last of the original Vocaloid vocals and the second released in Japanese; during \"Project Daisy\" his codename was \"TARO\". The first release sold below target, about 500 units in its first year against a goal of over 1,000, and sales picked up only after January 2008. KAITO V3 (15 February 2013) has four voicebanks: Straight, Soft, Whisper and English. His current look is iXima's redesign: short blue hair, a blue muffler (scarf) and blue nails. In March 2013 KAITO V3 was the best-selling product on Crypton's music software page. His most-viewed song is \"SHANTI\" by wotaku, with 13 million YouTube views.", "ja": "ヤマハが開発しクリプトン・フューチャー・メディアが販売。2006年2月14日（ヤマハ）、2月17日（クリプトン）に発売。声の提供者は歌手の風雅なおと。初期Vocaloidの5つの音源の最後を飾り、日本語としては2番目。「Project Daisy」の開発中は「TARO」というコードネームだった。初代は売れ行きが目標を下回り、1年目は約500本（目標は1,000本以上）。2008年1月以降に売上が伸びた。2013年2月15日発売の KAITO V3 は Straight・Soft・Whisper・English の4種類。現在のデザインは iXima 氏によるリデザインで、青い短髪、青いマフラー、青い爪が特徴。2013年3月には KAITO V3 がクリプトンの音楽ソフト販売ページで売上1位となった。最も再生された曲は wotaku「SHANTI」（YouTubeで1,300万回）。"}, "src": [["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"]]}, "meiko": {"n": "MEIKO", "era": "vocaloid", "unv": false, "t": {"th": "คลังเสียงภาษาญี่ปุ่นชุดแรกของ Vocaloid ที่ Yamaha พัฒนาและ Crypton จำหน่าย วางขายเมื่อ 5 พฤศจิกายน 2004 ถือเป็น Vocaloid หญิงภาษาญี่ปุ่นคนแรกและเป็น Vocaloid ตัวแรกของ Crypton ชื่อ MEIKO มาจากผู้ให้เสียง Meiko Haigo นักร้องและนักแต่งเพลงชาวญี่ปุ่น ตัวละครวาดโดย Shogo Washizu (Wasshi) กล่องของเวอร์ชันแรกไม่ได้โชว์เสื้อแจ็กเก็ตสีแดงที่เป็นภาพจำของเธอ ต่อมา Crypton ออก MEIKO V3 เมื่อ 4 กุมภาพันธ์ 2014 (เสียง Straight, Power, Dark, Whisper และ English) เธอเป็น Vocaloid ที่ขายดีที่สุดของ Crypton อยู่นานจนกระทั่งมิกุวางขาย", "en": "The first Japanese Vocaloid voicebank, developed by Yamaha and sold by Crypton on 5 November 2004. She was the first Japanese female Vocaloid and Crypton's first. The name comes from her voice provider, the singer-songwriter Meiko Haigo. The character was drawn by Shogo Washizu (Wasshi); the original box art did not show her now-familiar red jacket. Crypton released MEIKO V3 on 4 February 2014 (Straight, Power, Dark, Whisper and English). She was Crypton's best-selling Vocaloid for a long time, until Hatsune Miku's release.", "ja": "ヤマハが開発しクリプトンが販売した、最初の日本語Vocaloid音源。2004年11月5日発売で、日本初の女性Vocaloidであり、クリプトン初のVocaloidでもある。名前は声の提供者であるシンガーソングライター・拝郷メイコに由来。キャラクターデザインは鷲津省吾（わっしぃ）。初代のパッケージには、今でおなじみの赤いジャケットは描かれていなかった。2014年2月4日に MEIKO V3（Straight・Power・Dark・Whisper・English）を発売。初音ミクの登場まで、長くクリプトンで最も売れたVocaloidだった。"}, "src": [["Vocaloid Wiki: MEIKO", "https://vocalsynth.fandom.com/wiki/MEIKO"], ["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"]]}, "luka": {"n": "Megurine Luka", "era": "vocaloid", "unv": false, "t": {"th": "Crypton Future Media วางขาย 30 มกราคม 2009 เสียงร้องโดย Yu Asakawa เป็น Vocaloid ตัวแรกที่รองรับทั้งภาษาญี่ปุ่นและอังกฤษเต็มรูปแบบ รหัส CV03 และเป็นตัวละครแรกของซีรีส์ที่ตั้งค่าเป็นผู้ใหญ่ (อายุ 20 ปี)", "en": "Crypton Future Media, released 30 January 2009, voiced by Yu Asakawa. The first Vocaloid to fully support both Japanese and English. Code CV03, and the first adult character in the series (officially 20).", "ja": "クリプトン、2009年1月30日発売。声は浅川悠。日本語と英語を完全にサポートした初のVocaloid。コード名CV03で、シリーズ初の大人キャラ（公式20歳）。"}, "src": [["Wikipedia: Megurine Luka", "https://en.wikipedia.org/wiki/Megurine_Luka"]]}, "rin": {"n": "Kagamine Rin", "era": "vocaloid", "unv": false, "t": {"th": "Kagamine Rin และ Len เป็นซีรีส์ Character Vocal ลำดับที่สองของ Crypton (รหัส CV02) ต่อจาก Hatsune Miku (CV01) และก่อน Megurine Luka (CV03) วางขายพร้อมกันเมื่อ 27 ธันวาคม 2007 บน Vocaloid 2 ผู้ให้เสียงคือ Asami Shimoda และ 27 ธันวาคมคือวันเกิดของตัวละครด้วย ชุดแรก \"ACT1\" ถูกเปลี่ยนเป็น \"ACT2\" ในปี 2008 หลังมีเสียงบ่นเรื่องคุณภาพเสียง ผู้ซื้อชุดเดิมขอรับแผ่นอัปเดตได้ถึง 20 กันยายน 2008 ต่อมา Append ออกเมื่อธันวาคม 2010 (ของ Rin เพิ่มเสียง Power, Warm และ Sweet) และอัปเดตเป็น V4X เมื่อ 24 ธันวาคม 2015 พร้อมเสียงญี่ปุ่นสามแบบต่อตัวและเสียงอังกฤษ ตัวละครอายุ 14 ปี สูง 152 ซม. หนัก 43 กก.", "en": "Rin and Len are Crypton's second Character Vocal Series release (codename CV02), after Hatsune Miku (CV01) and before Megurine Luka (CV03). They were released together on 27 December 2007 for Vocaloid 2, voiced by Asami Shimoda, and 27 December is also the characters' birthday. The original \"ACT1\" package was replaced by \"ACT2\" in 2008 after complaints about the vocals, and original buyers could claim the updated disc until 20 September 2008. Append followed in December 2010 (Rin's adds Power, Warm and Sweet), and the Vocaloid 4 update, V4X, came on 24 December 2015 with three Japanese vocals per character plus English. Rin is profiled as 14 years old, 152 cm and 43 kg.", "ja": "クリプトンのキャラクター・ボーカル・シリーズ第2弾（コードネームCV02）。初音ミク（CV01）の次、巡音ルカ（CV03）の前にあたる。2007年12月27日に Vocaloid 2 で2人同時に発売。声は下田麻美で、12月27日はキャラクターの誕生日でもある。初版「ACT1」は音質への指摘を受け、2008年に「ACT2」へ差し替えられ、初期購入者は2008年9月20日まで更新ディスクを請求できた。2010年12月に Append（リンはPower・Warm・Sweetを追加）、2015年12月24日に Vocaloid 4 版の V4X（キャラごとに日本語3種と英語）が登場。リンは14歳、152cm、43kg。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "len": {"n": "Kagamine Len", "era": "vocaloid", "unv": false, "t": {"th": "วางขายพร้อม Rin เมื่อ 27 ธันวาคม 2007 บน Vocaloid 2 พัฒนาโดย Crypton Future Media (เมืองซัปโปโร) และผู้ให้เสียงคือ Asami Shimoda เช่นเดียวกับ Rin ชุดแรก \"ACT1\" ถูกเปลี่ยนเป็น \"ACT2\" ในปี 2008 Append ของ Len ออกเมื่อธันวาคม 2010 (เพิ่มเสียง Power, Cold และ Serious) และ V4X ออกเมื่อ 24 ธันวาคม 2015 บน Vocaloid 4 ตัวละครอายุ 14 ปี สูง 156 ซม. หนัก 47 กก. วันเกิดตรงกับ Rin คือ 27 ธันวาคม ซีรีส์เรื่อง Evillious Chronicles ซึ่งใช้เสียงของคู่นี้เป็นหลัก เคยถูกนำเสนอในงาน Mikupa 2011 ที่ซัปโปโร", "en": "Released together with Rin on 27 December 2007 for Vocaloid 2, developed by Crypton Future Media (based in Sapporo) and voiced by Asami Shimoda, like Rin. The original \"ACT1\" package was replaced by \"ACT2\" in 2008. Len's Append came in December 2010 (adding Power, Cold and Serious) and V4X on 24 December 2015 for Vocaloid 4. He is profiled as 14 years old, 156 cm and 47 kg, with the same 27 December birthday as Rin. The Evillious Chronicles, which draws heavily on the pair's voices, was featured at Mikupa 2011 in Sapporo.", "ja": "2007年12月27日にリンと同時に Vocaloid 2 で発売。開発は札幌のクリプトン・フューチャー・メディア、声はリンと同じく下田麻美。初版「ACT1」は2008年に「ACT2」へ差し替えられた。2010年12月に Append（レンはPower・Cold・Seriousを追加）、2015年12月24日に Vocaloid 4 版の V4X が登場。14歳、156cm、47kg で、誕生日はリンと同じ12月27日。2人の声を多用した「悪ノ大罪（Evillious Chronicles）」は、2011年に札幌で開かれた「ミクパ」で取り上げられた。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "gumi": {"n": "GUMI (Megpoid)", "era": "vocaloid", "unv": false, "t": {"th": "Megpoid (ชื่อเล่น GUMI) พัฒนาโดย Internet Co., Ltd. ชื่อมาจาก \"Megumi\" รวมกับ \"-poid\" (คล้าย Vocaloid) ผู้ให้เสียงคือ Megumi Nakajima ซึ่ง \"Gumi\" เป็นชื่อเล่นสมัยเด็กของเธอ วางขายครั้งแรกบน Vocaloid 2 เมื่อ 26 มิถุนายน 2009 ต่อมามี V3 Megpoid (Adult, Power, Sweet, Whisper) วันที่ 21 ตุลาคม 2011, Megpoid English วันที่ 28 กุมภาพันธ์ 2013, V4 วันที่ 5 พฤศจิกายน 2015 และ AI Megpoid (Vocaloid 6) วันที่ 13 ตุลาคม 2022 รวมถึงเวอร์ชัน Synthesizer V วันที่ 20 ธันวาคม 2023 ภายในปี 2010 ความนิยมของเธอเทียบเท่าคลังเสียงของ Crypton และมีเพลงที่ใช้เสียงเธอมากกว่า 20,000 เพลง เช่น \"Matryoshka\" ของ Hachi และ \"Mozaik Role\" ของ Deco*27", "en": "Megpoid, nicknamed GUMI, was developed by Internet Co., Ltd. The name blends \"Megumi\" and \"-poid\" (like Vocaloid). Her voice provider is Megumi Nakajima, whose childhood nickname was \"Gumi\". She debuted on Vocaloid 2 on 26 June 2009. V3 Megpoid (Adult, Power, Sweet, Whisper) followed on 21 October 2011, Megpoid English on 28 February 2013, V4 on 5 November 2015 and AI Megpoid (Vocaloid 6) on 13 October 2022, plus a Synthesizer V version on 20 December 2023. By 2010 her popularity rivalled Crypton's voicebanks, and over 20,000 songs have used her voice, including \"Matryoshka\" by Hachi and \"Mozaik Role\" by Deco*27.", "ja": "Internet社が開発したMegpoid（愛称GUMI）。名前は「Megumi」と「-poid（Vocaloidのような）」を合わせたもの。声の提供者は中島愛で、「グミ」は彼女の幼少期のあだ名。2009年6月26日に Vocaloid 2 で発売。その後 V3 Megpoid（Adult・Power・Sweet・Whisper）が2011年10月21日、Megpoid English が2013年2月28日、V4 が2015年11月5日、AI Megpoid（Vocaloid 6）が2022年10月13日、Synthesizer V 版が2023年12月20日に登場。2010年にはクリプトン系の音源に並ぶ人気となり、2万曲以上で使われている。代表曲にHachi「マトリョシカ」、Deco*27「モザイクロール」など。"}, "src": [["Wikipedia: Megpoid", "https://en.wikipedia.org/wiki/Megpoid"]]}, "yixi": {"n": "Yi Xi", "era": "synthv", "unv": false, "t": {"th": "ตัวร้องผู้หญิงภาษาจีนกลางของ Synthesizer V พัฒนาโดย Dreamtonics เน้นด้านแร็ป เปิดเผยชื่อ Yi Xi เมื่อ 2 กุมภาพันธ์ 2024 วางขายให้ลูกค้าในจีนแผ่นดินใหญ่ผ่านร้าน Taobao ของ Dreamtonics เมื่อ 15 มีนาคม 2024 และเข้าร้าน AHS Store สำหรับลูกค้าต่างประเทศเมื่อ 14 พฤศจิกายน 2024 อัปเดต v101 (4 เมษายน 2024) เพิ่มภาษาสเปนสำหรับการร้องข้ามภาษา เธอสามารถร้องภาษาอังกฤษ ญี่ปุ่น และกวางตุ้งได้ด้วยฟังก์ชันนี้ ต่อมาถูกแทนที่ด้วย Yi Xi 2 พร้อม Synthesizer V Studio 2 เมื่อ 21 มีนาคม 2025 แหล่งข้อมูลที่ตรวจสอบไม่ได้ระบุชื่อผู้ให้เสียง", "en": "A Mandarin female voice for Synthesizer V by Dreamtonics, specialised for rap. Her name, Yi Xi, was revealed on 2 February 2024. She went on sale to mainland China via Dreamtonics' Taobao store on 15 March 2024 and reached international customers on the AHS Store on 14 November 2024. The v101 update (4 April 2024) added Spanish to cross-lingual singing; she can also sing in English, Japanese and Cantonese that way. She was succeeded by Yi Xi 2 with Synthesizer V Studio 2 on 21 March 2025. The source checked does not name her voice provider.", "ja": "Dreamtonicsが開発したSynthesizer Vの中国語（北京語）女性ボイスで、ラップに特化している。2024年2月2日に名前が公開され、同年3月15日にDreamtonicsのTaobaoストアで中国本土向けに発売、11月14日にAHS Storeで海外向けにも販売開始。v101アップデート（2024年4月4日）でクロスリンガル歌唱にスペイン語が追加され、英語・日本語・広東語でも歌える。2025年3月21日にSynthesizer V Studio 2と共にYi Xi 2へ移行。確認した情報源には声の提供者の記載なし。"}, "src": [["SynthV Wiki: Yi Xi (Synthesizer V Studio)", "https://synthv.fandom.com/wiki/Yi_Xi_(Synthesizer_V_Studio)"]]}, "ui": {"n": "Ui", "era": "cevio", "unv": false, "t": {"th": "Ui (雨衣) เป็นคลังเสียงร้องภาษาญี่ปุ่นของ VoiSona พัฒนาโดย INCOLORE ร่วมกับ Techno-Speech วางขายเมื่อ 30 พฤษภาคม 2025 ผู้ให้เสียงและผู้วาดตัวละครคือ Shigure Ui ศิลปินภาพประกอบและ VTuber ชื่อ Ui มาจากชื่อของเธอโดยตัดนามสกุล \"Shigure\" ออก คันจิ 雨衣 อ่านว่า \"Amekoromo\" แปลว่าเสื้อกันฝน ตัวละครเป็นเด็กหญิงอายุ 14 ปี สูง 149 ซม. วันเกิด 30 พฤษภาคม ผมบ็อบสั้นสีขาว ถือร่มสีน้ำเงิน เสียงใส น่ารัก ไม่มีลักษณะแปลกเด่น จึงเหมาะกับเพลงหลากหลาย", "en": "Ui (雨衣) is a Japanese song voice for VoiSona, developed by INCOLORE with Techno-Speech and released on 30 May 2025. Her voice provider and illustrator is Shigure Ui, an illustrator and VTuber; the name is hers without the surname \"Shigure\". The kanji 雨衣 can be read \"Amekoromo\", meaning raincoat. The character is a 14-year-old, 149 cm tall, with a 30 May birthday, short white bob hair and a blue umbrella. The voice is clear and cute with few unusual traits, so it suits a wide range of songs.", "ja": "INCOLOREがTechno-Speechと共同で開発した、VoiSona向けの日本語ソングボイス。2025年5月30日発売。声とキャラクターデザインは、イラストレーター兼VTuberのしぐれうい。名前は彼女の名前から姓「しぐれ」を除いたもの。雨衣は「あめころも」とも読め、レインコートの意味。14歳、身長149cm、誕生日は5月30日、白いショートボブと青い傘が特徴。クリアでかわいらしく癖が少ない歌声で、幅広い曲に合う。"}, "src": [["VoiSona: Ui 発売のお知らせ", "https://voisona.com/song/news_detail/127/"], ["CeVIO & VoiSona Wiki: Ui", "https://cevio.fandom.com/wiki/Ui"]]}, "chisa": {"n": "Chis-A", "era": "cevio", "unv": false, "t": {"th": "Chis-A (知声) เป็นเสียงร้องของ Techno-Speech, Inc. ไม่ใช่ Vocaloid มีการยื่นจดเครื่องหมายการค้าในญี่ปุ่นเมื่อ 1 ธันวาคม 2021 และ 31 มกราคม 2022 มีตัวอย่างเสียงที่ยังไม่เปิดชื่อของ CeVIO Pro ออกทางทวิตเตอร์ ที่ทางการอธิบายว่า \"เป็นกลางและเท่\" จากนั้นเปิดตัวชื่อ Chis-A พร้อมภาพและโปรไฟล์ตัวละครเมื่อ 19 กุมภาพันธ์ 2022 (ผู้วาดคือ cherico) และเปิดให้ใช้ CeVIO Pro เวอร์ชันอัลฟาฟรีเมื่อ 24 กุมภาพันธ์ 2022 โดยมี Chis-A เป็นคลังเสียงเริ่มต้น หลังประกาศเปลี่ยนชื่อเป็น VoiSona (26 พฤษภาคม 2022) VoiSona 1.0.0 วางขายเมื่อ 1 กันยายน 2022 พร้อมคลังเสียงภาษาญี่ปุ่นของ Chis-A ที่ใช้ได้ฟรี และคลังเสียงภาษาอังกฤษออกเมื่อ 24 กุมภาพันธ์ 2023 ด้วยโทนเสียงกลางๆ ที่สร้างด้วย deep learning ตัวละครเป็น AI นักร้องอายุ 19 ปี อาศัยอยู่ในเครือข่ายภายในห้องแล็บและเรียนรู้จากข้อมูลเพลงใหม่ทุกวัน ผมหน้าม้าสีเทาปลายส้ม ถักเปียยาวและตาสีเขียวมรกต ไม่ได้เปิดเผยตัวผู้ให้เสียง", "en": "Chis-A (知声) is a singing voice from Techno-Speech, Inc., and not a Vocaloid. Its trademark was filed in Japan on 1 December 2021, and on 31 January 2022 an unnamed CeVIO Pro vocal, described by the official account as \"neutral and cool\", was previewed on Twitter. Chis-A was revealed with artwork and a profile on 19 February 2022 (illustrated by cherico), and the CeVIO Pro alpha, with Chis-A as the default library, was released free on 24 February 2022. After the rebrand to VoiSona was announced (26 May 2022), VoiSona 1.0.0 launched on 1 September 2022 with the Japanese Chis-A library included free. An English library followed on 24 February 2023, built with deep learning and an androgynous tone. The character is a 19-year-old singing AI living in a lab's internal network and learning from new song data every day, with grey bangs tipped in orange, a long thin braid and emerald-green eyes. Her voice provider has not been revealed.", "ja": "Techno-Speech社の歌声で、Vocaloidではない。2021年12月1日に日本で商標出願。2022年1月31日、公式がTwitterで「ニュートラルでクール」と評した名前未公開のCeVIO Proの歌声を先行公開。2022年2月19日にイラストとプロフィール付きで Chis-A として公開された（イラストはcherico）。2月24日にはChis-Aを標準音源としたCeVIO Proアルファ版を無料公開。VoiSonaへの名称変更発表（2022年5月26日）を経て、2022年9月1日に VoiSona 1.0.0 を発売。日本語版 Chis-A は無料で付属する。英語版は2023年2月24日に登場し、ディープラーニングによる中性的な声質が特徴。キャラクターは研究所の内部ネットワークに住み、毎日新しい歌のデータを学習する19歳の歌うAI。オレンジの毛先のグレーの前髪、長く細い三つ編み、エメラルドグリーンの瞳が特徴。声の提供者は非公開。"}, "src": [["Chis-A (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Chis-A"], ["Techno-Speech: Chis-A English library", "https://www.techno-speech.com/news-20230224a-en"], ["VoiSona (CeVIO & VoiSona Wiki)", "https://cevio.fandom.com/wiki/VoiSona"]]}, "kaai": {"n": "Kaai Yuki", "era": "vocaloid", "unv": false, "t": {"th": "คลังเสียงของ AH-Software วางขายเป็นปลั๊กอินสำหรับ Vocaloid 2 เมื่อ 4 ธันวาคม 2009 เสียงมาจากการบันทึกเสียงของเด็กประถมคนหนึ่งที่ไม่เปิดเผยชื่อ ต่อมามีเวอร์ชัน Vocaloid 4 (เสียง Natural) ซึ่งวางขายเมื่อ 29 ตุลาคม 2015 ตัวละครถูกตั้งเป็นเด็กประถมอายุ 9 ปี สะพายกระเป๋าเรียนสีแดง (randoseru) ที่เป็นลวดลายอ้างอิงถึงคอนโทรลเลอร์เป่า WX5 ของ Yamaha ความนิยมของเธอพุ่งขึ้นในช่วงต้นทศวรรษ 2020 จากเพลง \"Lagtrain\" และ \"Kyoufuu All Back\" ซึ่งเอ็มวีแอนิเมชันของเพลงหลังขึ้นอันดับ 1 บน Billboard Japan Niconico Vocaloid Songs Top 20 ติดต่อกัน 13 สัปดาห์", "en": "A voicebank by AH-Software, released as a Vocaloid 2 plugin on 4 December 2009. Her voice comes from recordings of an unidentified elementary-school student. A Vocaloid 4 version (Natural voicebank) followed on 29 October 2015. The character is a 9-year-old schoolgirl whose red randoseru backpack is a motif of Yamaha's WX5 wind controller. Her popularity surged in the early 2020s through \"Lagtrain\" and \"Kyoufuu All Back\"; the animated video for the latter topped the Billboard Japan Niconico Vocaloid Songs Top 20 for 13 weeks.", "ja": "AH-Softwareのボイスで、2009年12月4日に Vocaloid 2 のプラグインとして発売。声は身元非公開の小学生の録音による。2015年10月29日に Vocaloid 4 版（Natural音源）が登場。キャラクターは9歳の小学生で、赤いランドセルはヤマハのウィンドコントローラーWX5をモチーフにしている。2020年代初頭に「ラグトレイン」や「強風オールバック」で人気が急上昇し、後者のアニメMVはBillboard JAPANニコニコVOCALOID SONGS TOP20で13週連続1位を獲得。"}, "src": [["Wikipedia: Kaai Yuki", "https://en.wikipedia.org/wiki/Kaai_Yuki"]]}}};
 HD.CH.teto.also=['synthv'];   // Teto มีทั้งคลังเสียง UTAU และ Synthesizer V AI
 let hOver={}, hLoaded=false, HX={E:HD.ERAS,C:HD.CH};
 const hEraName=k=>HX.E[k]?pk(HX.E[k].n):k;
-const hEras=c=>[c.era].concat(c.also||[]).map(hEraName).join(' · ');
+const hEras=c=>[c.era].concat(c.also||[]).filter(k=>k!=='others').map(hEraName).join(' · ');
 const hTri=o=>({th:(o&&o.th)||'',en:(o&&o.en)||'',ja:(o&&o.ja)||''});
 function hBuild(){
   const E={},C={};
@@ -2046,7 +2311,7 @@ function renderHist(){
   const E=HX.E, C=HX.C;
   { const pool=hMode==='soft'?E:C; if(!pool[hSel]) hSel=Object.keys(pool)[0]||''; }
   document.querySelectorAll('#hMode button').forEach(b=>{ b.classList.toggle('on',b.dataset.mode===hMode); b.textContent=pk(b.dataset.mode==='soft'?HL.soft:HL.voice); });
-  $('hEras').innerHTML=(hMode==='soft'?Object.keys(E).map(k=>[k,pk(E[k].n)]):Object.keys(C).map(k=>[k,C[k].n])).map(a=>'<button type="button" class="chip'+(a[0]===hSel?' on':'')+'" data-sel="'+a[0]+'">'+esc(a[1])+'</button>').join('');
+  $('hEras').innerHTML=(hMode==='soft'?Object.keys(E).filter(k=>k!=='others').map(k=>[k,pk(E[k].n)]):Object.keys(C).map(k=>[k,C[k].n])).map(a=>'<button type="button" class="chip'+(a[0]===hSel?' on':'')+'" data-sel="'+a[0]+'">'+esc(a[1])+'</button>').join('');
   let side, det;
   if(!hSel){ side=''; det='<p>'+esc(pk(HL.empty))+'</p>'; }
   else if(hMode==='soft'){
@@ -2115,12 +2380,28 @@ async function saveHx(){
   msg('กำลังบันทึก...'); $('hxSave').disabled=true;
   try{
     await db.collection('history').doc(key).set(d);
-    await loadHist(true); hSel=key; showScreen('histScreen');
+    await loadHist(true); hSel=key; showScreen('hmScreen');
   }catch(e){ msg('⚠ บันทึกไม่สำเร็จ ('+(e.code||e.message)+') ตรวจกฎ Firestore ของ history'); }
   $('hxSave').disabled=false;
 }
 $('hxSave').onclick=saveHx;
-$('hxBack').onclick=()=>showScreen('histScreen');
+function renderHM(){
+  const row=(k,kind,name)=>{ const ov=hOver[k]&&!hOver[k].deleted, bi=hBuiltin(k,kind);
+    return '<div class="r"><b>'+esc(name)+'</b><button type="button" data-hm="edit:'+kind+':'+k+'">แก้ไข</button>'+(ov&&bi?'<button type="button" data-hm="reset:'+kind+':'+k+'">คืนค่าเดิม</button>':'')+'<button type="button" class="dng" data-hm="del:'+kind+':'+k+'">ลบ</button></div>'; };
+  const gone=kind=>Object.keys(hOver).filter(k=>hOver[k].deleted&&hOver[k].kind===kind&&hBuiltin(k,kind)).map(k=>'<div class="r del"><b>'+esc(kind==='era'?pk(HD.ERAS[k].n):HD.CH[k].n)+'</b><button type="button" data-hm="reset:'+kind+':'+k+'">คืนค่าเดิม</button></div>').join('');
+  $('hmEras').innerHTML=(Object.keys(HX.E).filter(k=>k!=='others').map(k=>row(k,'era',pk(HX.E[k].n))).join('')+gone('era'))||'<div class="empty">'+esc(pk(HL.empty))+'</div>';
+  $('hmChars').innerHTML=(Object.keys(HX.C).map(k=>row(k,'char',HX.C[k].n)).join('')+gone('char'))||'<div class="empty">'+esc(pk(HL.empty))+'</div>';
+}
+$('hmBack').onclick=()=>showScreen('profScreen');
+$('hmScreen').onclick=async e=>{
+  const b=e.target.closest('[data-hm]'); if(!b||!isAdmin) return;
+  const [a,kind,key]=b.dataset.hm.split(':'); hMode=kind==='era'?'soft':'voice';
+  if(a==='add') return openHx('add');
+  hSel=key;
+  if(a==='edit') return openHx('edit');
+  await hAct(a); renderHM();
+};
+$('hxBack').onclick=()=>showScreen('hmScreen');
 async function hAct(a){
   if(!isAdmin||!db) return;
   const kind=hMode==='soft'?'era':'char';
@@ -2490,6 +2771,92 @@ const E=[
 ['มีเพลงนี้ในคลังแล้ว','This song is already in the library','この曲はすでにライブラリにあります'],
 ['แก้ไขเพลง','Edit song','曲を編集'],
 ['บันทึกการแก้ไข','Save changes','変更を保存'],
+["เสียงสังเคราะห์คืออะไร", "What is a singing synthesizer?", "歌声合成とは?"],
+["ซอฟต์แวร์ที่ทำให้คอมพิวเตอร์ ‘ร้องเพลง’ ได้ คุณพิมพ์เนื้อร้อง กำหนดโน้ต แล้วโปรแกรมจะร้องตามให้ นี่คือเทคโนโลยีเบื้องหลังเพลงส่วนใหญ่ในเกมนี้", "Software that lets a computer sing. You type the lyrics and set the notes, and the program sings them for you. It's the technology behind most of the songs in this game.", "コンピューターに歌わせるソフトウェアです。歌詞と音符を入力すると、ソフトがその通りに歌ってくれます。このゲームの曲の多くを支える技術です。"],
+["พื้นฐาน", "The basics", "基本"],
+["เสียงมาจากไหน", "Where does the voice come from?", "声はどこから来る?"],
+["ทีมพัฒนาบันทึกเสียงนักร้องหรือนักพากย์จริงขณะออกเสียงพยางค์จำนวนมาก แล้วนำไปสร้างเป็นคลังเสียง (voicebank) โปรแกรมจะนำเสียงเหล่านี้มาต่อและปรับให้ตรงกับโน้ตและเนื้อร้อง เช่น เสียงของ Hatsune Miku มาจากการบันทึกเสียงของ Saki Fujita", "The developers record a real singer or voice actor pronouncing a large set of syllables and build them into a voicebank. The program joins and adjusts these sounds to match the notes and lyrics. For example, Hatsune Miku's voice comes from recordings of Saki Fujita.", "開発チームが実在の歌手や声優にたくさんの音節を発声してもらい、録音して音声ライブラリ(ボイスバンク)を作ります。ソフトはその音をつなぎ合わせ、音符と歌詞に合うよう調整します。たとえば初音ミクの声は藤田咲さんの録音から作られています。"],
+["สร้างเพลงอย่างไร", "How is a song made?", "曲はどう作る?"],
+["เขียนทำนองเป็นโน้ตลงในโปรแกรม", "Write the melody as notes in the program", "メロディを音符としてソフトに入力する"],
+["ใส่เนื้อร้องลงในแต่ละโน้ต", "Put a lyric syllable on each note", "音符ごとに歌詞を入れる"],
+["ปรับแต่งการร้อง เช่น ความยาว ความดัง การสั่นเสียง และอารมณ์ (เรียกว่าการจูน)", "Tune the performance: length, volume, vibrato and emotion", "歌い方を調整する(長さ、強弱、ビブラート、感情など。「調声」と呼ばれます)"],
+["ส่งออกเป็นไฟล์เสียงแล้วมิกซ์กับดนตรี", "Export the audio and mix it with the music", "音声を書き出し、伴奏とミックスする"],
+["ใครเป็นคนแต่งเพลง", "Who writes the songs?", "誰が曲を作る?"],
+["ใครก็เริ่มได้ ผู้แต่งที่ใช้เสียงสังเคราะห์มักเรียกว่าโปรดิวเซอร์ (P) เพลงมักถูกอัปโหลดลงเว็บ แล้วนักวาด นักทำวิดีโอ และแฟนๆ ก็มาร่วมสร้างผลงานต่อกัน", "Anyone can start. Composers who use these voices are often called producers (P). Songs are usually posted online, and illustrators, video makers and fans build on them.", "誰でも始められます。合成音声を使う作曲者は「P(プロデューサー)」と呼ばれることが多く、曲はネットに投稿され、絵師や動画制作者、ファンが広げていきます。"],
+["โปรแกรมที่ควรรู้", "Software to know", "知っておきたいソフト"],
+["โปรแกรมของ Yamaha เปิดตัวปี 2004 เป็นจุดเริ่มต้นของวงการ มีตัวละครอย่าง Hatsune Miku", "Yamaha's software, launched in 2004, which started the scene. Home of characters like Hatsune Miku.", "ヤマハのソフトで2004年に登場し、シーンの始まりとなりました。初音ミクなどのキャラクターがいます。"],
+["โปรแกรมฟรีที่เปิดตัวปี 2008 ใครก็สร้างคลังเสียงของตัวเองได้ เช่น Kasane Teto", "A free program released in 2008 where anyone can make their own voicebank, such as Kasane Teto.", "2008年公開の無料ソフトで、誰でも自分のボイスバンクを作れます。重音テトなどが有名です。"],
+["โปรแกรมของ Dreamtonics ใช้ AI ช่วยสร้างเสียง ให้เสียงร้องที่เป็นธรรมชาติ", "Dreamtonics' software, which uses AI to produce natural-sounding singing.", "Dreamtonics社のソフトで、AIを使って自然な歌声を生成します。"],
+["ซอฟต์แวร์จากญี่ปุ่นที่ทั้งร้องเพลงและพูดได้ มีเสียงอย่าง Satou Sasara และ Suzuki Tsudumi", "Japanese software that can both sing and speak, with voices like Sato Sasara and Suzuki Tsudumi.", "歌も喋りもできる日本のソフトで、さとうささら、すずきつづみなどがいます。"],
+["ในเกมนี้ คุณจะฟังท่อนสั้นๆ แล้วทายชื่อเพลง ลองเล่นดูหรืออ่านประวัติของแต่ละโปรแกรมได้เลย", "In this game you listen to a short clip and guess the song. Try a round, or read the history of each program.", "このゲームでは短い音源を聴いて曲名を当てます。遊んでみたり、各ソフトの歴史を読んだりしてみてください。"],
+["เล่นเกม", "Play", "プレイ"],
+["ดูประวัติโปรแกรม", "See software history", "ソフトの歴史を見る"],
+["ความรู้", "Learn", "知る"],
+["ลืมรหัสผ่าน", "Forgot password", "パスワードを忘れた"],
+["กรอกอีเมลที่สมัครไว้ เราจะส่งลิงก์สำหรับตั้งรหัสผ่านใหม่ให้", "Enter the email you signed up with and we'll send a link to set a new password.", "登録したメールアドレスを入力してください。新しいパスワードを設定するリンクを送ります。"],
+["ส่งลิงก์ตั้งรหัสผ่านใหม่", "Send reset link", "リセットリンクを送信"],
+["⚠ กรอกอีเมลก่อน", "⚠ Enter your email first", "⚠ メールアドレスを入力してください"],
+["กำลังส่ง...", "Sending...", "送信中..."],
+["⚠ กรอกรหัสผ่านก่อน", "⚠ Enter a password first", "⚠ パスワードを入力してください"],
+["รหัสผ่าน", "Password", "パスワード"],
+["รหัสผ่าน (ไม่บังคับ)", "Password (optional)", "パスワード(任意)"],
+["ตั้งไว้เพื่อให้เข้าสู่ระบบด้วยอีเมลและรหัสผ่านได้อีกทางหนึ่ง", "Lets you also sign in with your email and password.", "メールとパスワードでもログインできるようになります。"],
+["⚠ รหัสผ่านต้องยาวอย่างน้อย 6 ตัว", "⚠ Password must be at least 6 characters", "⚠ パスワードは6文字以上にしてください"],
+["รหัสผ่านง่ายเกินไป (อย่างน้อย 6 ตัว)", "Password too weak (at least 6 characters)", "パスワードが簡単すぎます(6文字以上)"],
+["อีเมลนี้มีรหัสผ่านอยู่แล้ว", "This email already has a password", "このメールにはすでにパスワードがあります"],
+["ส่งลิงก์ยืนยันไปที่อีเมลแล้ว กดลิงก์ในอีเมล (ตรวจกล่องสแปมด้วย) แล้วกลับมาเข้าสู่ระบบ", "Verification link sent. Click it in your email (check spam too), then come back and sign in.", "確認リンクをメールに送信しました。リンクを開いてからログインしてください(迷惑メールもご確認ください)。"],
+["⚠ ยังไม่ได้ยืนยันอีเมล เราส่งลิงก์ยืนยันให้อีกครั้งแล้ว", "⚠ Email not verified yet. We've sent the verification link again.", "⚠ メールが未確認です。確認リンクを再送しました。"],
+["ไม่เกิน 20 ตัวอักษร", "Up to 20 characters", "20文字まで"],
+["คุณยังไม่มีบัญชีในเกมนี้", "You don't have an account yet", "まだアカウントがありません"],
+["บัญชี Google นี้ยังไม่ได้สมัครเล่นเกมนี้ ต้องการสมัครตอนนี้ไหม?", "This Google account hasn't signed up for the game yet. Sign up now?", "このGoogleアカウントはまだ登録されていません。今すぐ登録しますか?"],
+["สมัครด้วย Google", "Sign up with Google", "Googleで登録"],
+["ชื่อที่แสดงในเกม", "Display name", "ゲーム内の表示名"],
+["ดึงมาจากบัญชี Google แก้ไขได้ก่อนกดยืนยัน", "Taken from your Google account. You can edit it before confirming.", "Googleアカウントから取得しました。確認前に編集できます。"],
+["ยืนยันการสมัคร", "Confirm sign-up", "登録を確定"],
+["กำลังสมัคร...", "Signing up...", "登録中..."],
+["ยกเลิก", "Cancel", "キャンセル"],
+["ค้นหาชื่อห้อง", "Search rooms", "ルームを検索"],
+["เข้าด้วยรหัส", "Join with code", "コードで入室"],
+["เข้าห้องด้วยรหัส", "Join with a code", "コードで入室"],
+["สร้างห้อง", "Create room", "ルームを作成"],
+["ไม่พบห้องที่ค้นหา", "No rooms match your search", "該当するルームがありません"],
+["เล่นหลายคน", "Multiplayer", "マルチプレイ"],
+["ล็อบบี้ออนไลน์", "Online lobby", "オンラインロビー"],
+["เลือกห้องสาธารณะ ใส่รหัสห้อง หรือสร้างห้องของคุณเอง เล่นพร้อมกันได้สูงสุด 8 คน", "Pick a public room, enter a room code, or create your own. Up to 8 players.", "公開ルームを選ぶ、ルームコードを入力する、または自分で作成。最大8人で遊べます。"],
+["หรือเข้าด้วยรหัสห้อง", "Or join with a room code", "またはルームコードで参加"],
+["ห้องสาธารณะ", "Public rooms", "公開ルーム"],
+["รีเฟรช", "Refresh", "更新"],
+["ยังไม่มีห้องสาธารณะ สร้างห้องแรกได้เลย", "No public rooms yet. Create the first one!", "公開ルームはまだありません。最初のルームを作ろう！"],
+["โหลดห้องไม่ได้", "Couldn't load rooms", "ルームを読み込めません"],
+["รอเริ่ม", "Waiting", "待機中"],
+["กำลังเล่น", "Playing", "プレイ中"],
+["เข้าห้อง", "Join", "入室"],
+["ห้องเต็ม", "Full", "満員"],
+["สร้างห้องใหม่", "Create a new room", "新しいルームを作成"],
+["ชื่อห้อง", "Room name", "ルーム名"],
+["เช่น ห้องฟังเพลงยามค่ำ", "e.g. Late-night listening", "例：夜のリスニング部屋"],
+["การมองเห็น", "Visibility", "公開設定"],
+["สาธารณะ", "Public", "公開"],
+["ส่วนตัว", "Private", "非公開"],
+["ทุกคนเห็นห้องในล็อบบี้", "Everyone can see it in the lobby", "ロビーで誰でも見られる"],
+["เข้าได้ด้วยรหัสห้องเท่านั้น", "Join with the room code only", "ルームコードのみで参加"],
+["ล็อกอินเพื่อสร้างห้องสาธารณะ (ห้องส่วนตัวสร้างได้เลย)", "Sign in to create a public room (private rooms work without signing in)", "公開ルームの作成にはログインが必要です（非公開ルームはログイン不要）"],
+["สร้างห้อง", "Create room", "ルームを作成"],
+["ห้องออนไลน์", "Online room", "オンラインルーム"],
+["เลือกโหมดการเล่น", "Choose how to play", "プレイ方法を選ぶ"],
+["ล็อกอินเพื่อดูอันดับเพื่อน", "Sign in to see your friends' leaderboard", "ログインするとフレンドのランキングを見られます"],
+["อันดับเพื่อน", "Friends", "フレンドランキング"],
+["อันดับผู้เล่น", "Player leaderboard", "プレイヤーランキング"],
+["ประวัติโปรแกรมเสียงสังเคราะห์", "Software history", "ソフトの歴史"],
+["ประวัติเสียงร้อง", "Voice history", "声の歴史"],
+["จัดการประวัติ", "Manage history", "歴史の管理"],
+["เพิ่ม แก้ไข หรือลบรายการในหน้าประวัติ", "Add, edit or delete entries on the History page", "歴史ページの項目を追加・編集・削除"],
+["เพิ่ม แก้ไข หรือลบรายการในหน้าประวัติ ข้อมูลที่บันทึกจะแสดงให้ทุกคนเห็นทันที", "Add, edit or delete entries on the History page. Saved changes show to everyone immediately", "歴史ページの項目を追加・編集・削除できます。保存した内容はすぐ全員に表示されます"],
+["+ เพิ่มโปรแกรม", "+ Add software", "+ ソフトを追加"],
+["+ เพิ่มเสียงร้อง", "+ Add voice", "+ 声を追加"],
+["แก้ชื่อ ดูสถิติและประวัติเกม", "Edit your name, view stats and game history", "名前の変更、成績とプレイ履歴"],
+["ผู้ดูแลระบบ", "Admin", "管理者"],
+["จัดการเพลง คำขอ และประวัติ", "Manage songs, requests and history", "曲・リクエスト・歴史の管理"],
 ["โปรไฟล์", "Profile", "プロフィール"],
 ["จัดการบัญชี เพื่อน และตั้งค่า", "Manage your account, friends and settings", "アカウント・フレンド・設定の管理"],
 ["ภาษา", "Language", "言語"],
@@ -2500,23 +2867,23 @@ const E=[
 ["ตั้งค่า", "Settings", "設定"],
 ["เมนูหลัก", "Main menu", "メインメニュー"],
 ["เล่นเกม", "Play", "プレイ"],
-["อันดับ", "Ranking", "ランキング"],
+["อันดับ", "Leaderboard", "ランキング"],
 ["คลังเพลง", "Song library", "曲ライブラリ"],
 ["ประวัติ", "History", "歴史"],
-["เรียงจากคะแนนรวมทุกเกม เลื่อนดูอันดับอื่นได้ แถวล่างสุดคืออันดับของคุณ", "Ranked by total score across all games. Scroll to see other ranks; the bottom row is your own rank.", "全ゲームの合計スコア順。スクロールで他の順位も見られ、一番下があなたの順位です。"],
+["เรียงจากคะแนนรวมทุกเกม เลื่อนดูอันดับอื่นได้ แถวล่างสุดคืออันดับของคุณ", "Shows total score across all games. Scroll to see other players; the bottom row is you.", "全ゲームの合計スコア順。スクロールで他の順位も見られ、一番下の行があなたの順位です。"],
 ["ประวัติของโปรแกรมและตัวละครในวงการเสียงสังเคราะห์", "History of the software and characters in the voice-synth scene", "音声合成ソフトとキャラクターの歴史"],
 ["ยังไม่ได้ล็อกอิน", "You're not signed in", "ログインしていません"],
-["โปรดล็อกอินเพื่อเช็คอันดับเพื่อน", "Please sign in to see your friends' ranking", "フレンドの順位を見るにはログインしてください"],
+["โปรดล็อกอินเพื่อเช็คอันดับเพื่อน", "Please sign in to see your friends' leaderboard", "フレンドの順位を見るにはログインしてください"],
 ["ล็อกอิน", "Sign in", "ログイン"],
 ["ชื่อ", "Name", "名前"],
 ["คะแนน", "Score", "スコア"],
 ["อันดับรวม", "All players", "全体ランキング"],
 ["อันดับเพื่อน", "Friends", "フレンドランキング"],
-["อันดับของคุณ", "Your rank", "あなたの順位"],
-["ล็อกอินเพื่อดูอันดับของคุณ", "Sign in to see your rank", "ログインしてあなたの順位を見る"],
+["อันดับของคุณ", "You", "あなたの順位"],
+["ล็อกอินเพื่อดูอันดับของคุณ", "Sign in to see your score", "ログインしてあなたの順位を見る"],
 ["ระบบยังไม่พร้อม ลองอีกครั้ง", "Not ready yet. Please try again.", "準備ができていません。もう一度お試しください。"],
-["โหลดอันดับไม่ได้ ลองอีกครั้ง", "Couldn't load the ranking. Please try again.", "ランキングを読み込めません。もう一度お試しください。"],
-["ยังไม่มีเพื่อน เพิ่มเพื่อนที่หน้า \"เพื่อน\" เพื่อดูอันดับ", "No friends yet. Add friends on the Friends page to see a ranking.", "まだフレンドがいません。「フレンド」ページで追加するとランキングが見られます。"],
+["โหลดอันดับไม่ได้ ลองอีกครั้ง", "Couldn't load the leaderboard. Please try again.", "ランキングを読み込めません。もう一度お試しください。"],
+["ยังไม่มีเพื่อน เพิ่มเพื่อนที่หน้า \"เพื่อน\" เพื่อดูอันดับ", "No friends yet. Add friends on the Friends page to see the leaderboard.", "まだフレンドがいません。「フレンド」ページで追加するとランキングを見られます。"],
 ["เพลงทั้งหมดในเว็บ ค้นหาได้จากชื่อเพลง ผู้แต่ง arrangement หรือเสียงร้อง", "Every song on the site. Search by title, composer, arrangement or vocal.", "サイト内の全曲。曲名・作曲者・アレンジ・ボーカルで検索できます。"],
 ["ค้นหาเพลง ผู้แต่ง arrangement หรือเสียงร้อง", "Search title, composer, arrangement or vocal", "曲名・作曲者・アレンジ・ボーカルで検索"],
 ["เพลงทั้งหมด", "Total songs", "全曲数"],
