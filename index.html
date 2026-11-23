@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>try{if(localStorage.getItem('vq_theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
@@ -17,7 +18,7 @@
   --ink:#0a2f2d; --mute:#45716d;
   --teal:#0d9488; --teal-d:#0f766e; --deep:#082826;
   --mint:#e8f6f4; --mint2:#cfeae6; --line:#b5dcd7; --paper:#f6fbfa;
-  --red:#d93a40; --red-d:#a82a2f;
+  --red:#d93a40; --red-d:#a82a2f; --surf:#fff; --paper-rgb:246,251,250;
   --r:14px; --hard:5px 5px 0 var(--mint2);
   --disp:"Kanit","Prompt","Noto Sans Thai",Tahoma,sans-serif;
   --body:"IBM Plex Sans Thai","Noto Sans Thai",Tahoma,sans-serif;
@@ -43,7 +44,7 @@ button{-webkit-tap-highlight-color:transparent}
 .top h1{display:flex;align-items:center;gap:10px;margin:0;font:700 1.15rem/1 var(--disp);letter-spacing:-.01em}
 .top h1 svg{width:26px;height:26px;flex:none}
 .hud{display:flex;gap:8px}
-.pill{padding:6px 14px;border:2px solid var(--teal-d);border-radius:999px;background:#fff;font-weight:500;font-size:.9rem;white-space:nowrap}
+.pill{padding:6px 14px;border:2px solid var(--teal-d);border-radius:999px;background:var(--surf);font-weight:500;font-size:.9rem;white-space:nowrap}
 .pill b{font:600 1rem var(--disp);color:var(--teal-d);font-variant-numeric:tabular-nums}
 .pill.fill{background:var(--teal-d);color:#fff}
 .pill.fill b{color:#fff}
@@ -59,8 +60,8 @@ button{-webkit-tap-highlight-color:transparent}
   color:#fff;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .cover.off{display:none}
 #big{font:600 clamp(4rem,20vw,7.5rem)/1 var(--disp);font-variant-numeric:tabular-nums}
-#big.icon{display:grid;place-items:center;width:clamp(72px,18vw,104px);height:clamp(72px,18vw,104px);border:3px solid #fff;border-radius:50%;font-size:clamp(1.5rem,6vw,2.3rem);padding-left:.14em;transition:background-color .15s,color .15s}
-.cover:hover #big.icon{background:#fff;color:var(--deep)}
+#big.icon{display:grid;place-items:center;width:clamp(72px,18vw,104px);height:clamp(72px,18vw,104px);border:3px solid var(--surf);border-radius:50%;font-size:clamp(1.5rem,6vw,2.3rem);padding-left:.14em;transition:background-color .15s,color .15s}
+.cover:hover #big.icon{background:var(--surf);color:var(--deep)}
 #small{padding:0 16px;text-align:center;font-size:.95rem;color:#a6e3db}
 .progress{position:absolute;left:0;bottom:0;height:6px;width:0;background:#2dd4bf;z-index:3}
 .progress.warn{background:#f87171}
@@ -76,7 +77,7 @@ button{-webkit-tap-highlight-color:transparent}
 
 /* ตัวเลือกคำตอบ 2x2 ปุ่มเอียง */
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 10px;counter-reset:o}
-.opt{counter-increment:o;min-height:68px;padding:12px 16px;border:2px solid var(--teal-d);border-radius:6px;background:#fff;color:var(--ink);
+.opt{counter-increment:o;min-height:68px;padding:12px 16px;border:2px solid var(--teal-d);border-radius:6px;background:var(--surf);color:var(--ink);
   font-weight:600;font-size:1rem;line-height:1.35;cursor:pointer;transform:skewX(-8deg);box-shadow:3px 3px 0 var(--mint2);
   transition:transform .12s,background-color .12s,box-shadow .12s}
 .opt span{display:inline-flex;align-items:center;justify-content:center;gap:10px;transform:skewX(8deg)}
@@ -94,7 +95,7 @@ button{-webkit-tap-highlight-color:transparent}
 .opt.correct span::before,.opt.wrong span::before{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.55);color:#fff}
 
 /* การ์ดข้อมูลเพลง */
-.info{background:#fff;border:2px solid var(--teal-d);border-radius:var(--r);padding:18px;text-align:left;box-shadow:var(--hard)}
+.info{background:var(--surf);border:2px solid var(--teal-d);border-radius:var(--r);padding:18px;text-align:left;box-shadow:var(--hard)}
 .info.empty{border:2px dashed var(--line);box-shadow:none;background:rgba(255,255,255,.65);color:var(--mute);display:flex;align-items:center;justify-content:center;text-align:center;font-size:.92rem;min-height:120px}
 .info h3{margin:0 0 12px;font:600 1.25rem/1.3 var(--disp);color:var(--ink)}
 .info dl{margin:0}
@@ -127,12 +128,12 @@ button{-webkit-tap-highlight-color:transparent}
 .vstage svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .vbar{position:absolute;left:0;bottom:0;height:6px;width:56%;background:#2dd4bf}
 .vopts{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:-14px 20px 0}
-.mo{padding:11px 12px;border:2px solid var(--teal-d);border-radius:6px;background:#fff;font-weight:600;font-size:.88rem;line-height:1.3;text-align:center;transform:skewX(-8deg);box-shadow:3px 3px 0 var(--mint2)}
+.mo{padding:11px 12px;border:2px solid var(--teal-d);border-radius:6px;background:var(--surf);font-weight:600;font-size:.88rem;line-height:1.3;text-align:center;transform:skewX(-8deg);box-shadow:3px 3px 0 var(--mint2)}
 .mo span{display:block;transform:skewX(8deg)}
 .mo.ok{background:var(--teal-d);border-color:var(--deep);color:#fff;box-shadow:3px 3px 0 var(--deep)}
 .nn{transform-box:fill-box;transform-origin:left center;animation:nin .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*70ms + 120ms)}
 @keyframes nin{from{transform:scaleX(0);opacity:0}}
-.panel{margin:auto;width:100%;max-width:440px;background:#fff;border:2px solid var(--teal-d);border-radius:18px;padding:28px 24px;text-align:left;box-shadow:var(--hard)}
+.panel{margin:auto;width:100%;max-width:440px;background:var(--surf);border:2px solid var(--teal-d);border-radius:18px;padding:28px 24px;text-align:left;box-shadow:var(--hard)}
 .panel h1{margin:0 0 8px;font:700 clamp(2rem,9vw,2.6rem)/1.1 var(--disp);letter-spacing:-.02em}
 .panel h2{margin:0 0 16px;font:600 1.35rem/1.35 var(--disp)}
 .panel p{margin:0 0 24px;color:var(--mute)}
@@ -144,13 +145,13 @@ button{-webkit-tap-highlight-color:transparent}
 .go:hover{background:var(--teal)}
 .go:active{transform:translateY(3px);box-shadow:0 1px 0 var(--deep)}
 .go small{display:block;font-weight:400;font-size:.8rem;opacity:.85}
-.go.alt{background:#fff;color:var(--teal-d);box-shadow:0 4px 0 var(--mint2)}
+.go.alt{background:var(--surf);color:var(--teal-d);box-shadow:0 4px 0 var(--mint2)}
 .go.alt:hover{background:var(--mint)}
 .go.alt:active{box-shadow:0 1px 0 var(--mint2)}
 .go+.go{margin-top:14px}
 
 .chips{display:flex;gap:8px;justify-content:flex-start;flex-wrap:wrap;margin-bottom:6px}
-.chip{min-height:40px;padding:7px 16px;border:2px solid var(--teal-d);border-radius:999px;background:#fff;color:var(--teal-d);font-weight:600;cursor:pointer;transition:background-color .12s,color .12s}
+.chip{min-height:40px;padding:7px 16px;border:2px solid var(--teal-d);border-radius:999px;background:var(--surf);color:var(--teal-d);font-weight:600;cursor:pointer;transition:background-color .12s,color .12s}
 .chip:hover{background:var(--mint)}
 .chip.on{background:var(--teal-d);color:#fff}
 .chip.quiet{border-color:transparent;background:transparent;color:var(--mute)}
@@ -165,11 +166,11 @@ button{-webkit-tap-highlight-color:transparent}
 
 #range{-webkit-appearance:none;appearance:none;width:100%;height:28px;margin:12px 0 10px;background:transparent}
 #range::-webkit-slider-runnable-track{height:8px;border-radius:99px;background:var(--mint2)}
-#range::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-9px;border-radius:50%;background:var(--teal-d);border:3px solid #fff;box-shadow:0 0 0 2px var(--teal-d)}
+#range::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-9px;border-radius:50%;background:var(--teal-d);border:3px solid var(--surf);box-shadow:0 0 0 2px var(--teal-d)}
 #range::-moz-range-track{height:8px;border-radius:99px;background:var(--mint2)}
-#range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--teal-d);border:3px solid #fff;box-shadow:0 0 0 2px var(--teal-d)}
+#range::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--teal-d);border:3px solid var(--surf);box-shadow:0 0 0 2px var(--teal-d)}
 
-.tin,.addbox input,.lobbycfg select{display:block;width:100%;min-height:48px;padding:11px 14px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-size:.95rem}
+.tin,.addbox input,.lobbycfg select{display:block;width:100%;min-height:48px;padding:11px 14px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:var(--surf);color:var(--ink);font-size:.95rem}
 .tin:focus,.addbox input:focus,.lobbycfg select:focus{outline:none;border-color:var(--teal-d)}
 .tin:focus-visible,.addbox input:focus-visible,.lobbycfg select:focus-visible{outline:3px solid var(--mint2);outline-offset:0}
 
@@ -182,7 +183,7 @@ button{-webkit-tap-highlight-color:transparent}
 
 .players{display:none;text-align:left}
 .plt{margin-bottom:8px;font:600 .9rem var(--disp);color:var(--mute)}
-.pl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;margin-bottom:8px;border:2px solid var(--line);border-radius:12px;background:#fff;font-size:.92rem}
+.pl{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;margin-bottom:8px;border:2px solid var(--line);border-radius:12px;background:var(--surf);font-size:.92rem}
 .pl.me{border-color:var(--teal-d);background:var(--mint)}
 .pl .nm{font-weight:600;word-break:break-word;text-align:left}
 .pl .st{font-size:.78rem;color:var(--mute)}
@@ -210,14 +211,14 @@ button{-webkit-tap-highlight-color:transparent}
 
 /* กล่องสรุปผลจบเกม */
 #modal{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;padding:16px;overflow-y:auto;background:rgba(8,40,38,.6)}
-.box{margin:auto;width:100%;max-width:380px;padding:28px 24px;border:2px solid var(--teal-d);border-radius:18px;background:#fff;text-align:left;box-shadow:var(--hard)}
+.box{margin:auto;width:100%;max-width:380px;padding:28px 24px;border:2px solid var(--teal-d);border-radius:18px;background:var(--surf);text-align:left;box-shadow:var(--hard)}
 .box h2{margin:0 0 6px;font:600 1.4rem var(--disp)}
 #finalLbl{color:var(--mute)}
 #final{margin:4px 0 20px;font:700 3rem/1.1 var(--disp);color:var(--teal-d);font-variant-numeric:tabular-nums}
 .box button{display:block;width:100%;min-height:52px;padding:11px 16px;border:2px solid var(--teal-d);border-radius:12px;background:var(--teal-d);color:#fff;font-weight:600;font-size:1.05rem;cursor:pointer;box-shadow:0 4px 0 var(--deep);transition:transform .1s,box-shadow .1s,background-color .15s}
 .box button:hover{background:var(--teal)}
 .box button:active{transform:translateY(3px);box-shadow:0 1px 0 var(--deep)}
-.box .ghost{margin-top:14px;background:#fff;color:var(--teal-d);box-shadow:0 4px 0 var(--mint2)}
+.box .ghost{margin-top:14px;background:var(--surf);color:var(--teal-d);box-shadow:0 4px 0 var(--mint2)}
 .box .ghost:hover{background:var(--mint)}
 .box .ghost:active{box-shadow:0 1px 0 var(--mint2)}
 
@@ -236,7 +237,7 @@ button{-webkit-tap-highlight-color:transparent}
 .hintx{margin:-4px 0 12px;font-size:.8rem;color:var(--mute)}
 
 /* ตัวเลือกแบบแถบต่อเนื่อง */
-.seg{gap:0;margin:0;border:2px solid var(--teal-d);border-radius:12px;overflow:hidden;background:#fff}
+.seg{gap:0;margin:0;border:2px solid var(--teal-d);border-radius:12px;overflow:hidden;background:var(--surf)}
 .seg .chip{flex:1;min-width:0;min-height:46px;padding:6px 4px;border:0;border-radius:0;border-left:2px solid var(--mint2)}
 .seg .chip:first-child{border-left:0}
 
@@ -250,7 +251,7 @@ button{-webkit-tap-highlight-color:transparent}
 .lobbycfg select{-webkit-appearance:none;appearance:none;padding-right:38px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 9l6 6 6-6' fill='none' stroke='%230f766e' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:18px}
 
 /* ล็อบบี้ */
-.code{display:block;width:fit-content;margin:4px 0 14px;padding:4px 14px 4px calc(14px + .3em);border:2px dashed var(--teal-d);border-radius:14px;background:#fff;color:var(--teal-d);font:700 clamp(2.8rem,12vw,4.2rem)/1.15 var(--disp);letter-spacing:.3em;cursor:pointer}
+.code{display:block;width:fit-content;margin:4px 0 14px;padding:4px 14px 4px calc(14px + .3em);border:2px dashed var(--teal-d);border-radius:14px;background:var(--surf);color:var(--teal-d);font:700 clamp(2.8rem,12vw,4.2rem)/1.15 var(--disp);letter-spacing:.3em;cursor:pointer}
 .code:hover{background:var(--mint)}
 .lobbylist{margin:0 0 18px;text-align:left}
 .slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -326,7 +327,7 @@ button[hidden],a[hidden]{display:none!important}
 .side p b{color:var(--teal-d)}
 .addbox .two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
 @media(max-width:520px){.addbox .two{grid-template-columns:1fr}}
-.srow{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:14px;align-items:center;padding:10px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:#fff}
+.srow{display:grid;grid-template-columns:104px minmax(0,1fr) auto;gap:14px;align-items:center;padding:10px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:var(--surf)}
 .srow img{display:block;width:104px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:var(--mint2)}
 .srow .t{font-weight:600;line-height:1.35;word-break:break-word}
 .srow .m{margin-top:2px;font-size:.8rem;color:var(--mute)}
@@ -349,7 +350,7 @@ button[hidden],a[hidden]{display:none!important}
 @media(prefers-reduced-motion:reduce){*:not(.mtrack){transition:none!important;animation:none!important}.mtrack{animation-duration:calc(var(--d,40s)*2.5)}}
 
 /* ===== ปุ่มเลือกภาษา ===== */
-#langSw{position:fixed;top:12px;right:12px;z-index:60;display:flex;gap:2px;padding:3px;background:#fff;border:1.5px solid var(--line);border-radius:999px;box-shadow:0 2px 0 var(--mint2)}
+#langSw{position:fixed;top:12px;right:12px;z-index:60;display:flex;gap:2px;padding:3px;background:var(--surf);border:1.5px solid var(--line);border-radius:999px;box-shadow:0 2px 0 var(--mint2)}
 #langSw button{font:600 .78rem/1 var(--body);min-width:40px;height:30px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--teal-d);cursor:pointer}
 #langSw button:hover{background:var(--mint)}
 #langSw button.on{background:var(--teal);color:#fff}
@@ -407,7 +408,7 @@ body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
 .screen.pgout-dn{animation:pgout-dn .5s cubic-bezier(.22,.61,.36,1) both;pointer-events:none;z-index:0}.screen.pgout-up{animation:pgout-up .5s cubic-bezier(.22,.61,.36,1) both;pointer-events:none;z-index:0}
 @media(max-width:1099px){#rail{width:64px;padding-left:16px}#rail::before{left:25px}.rmark{left:16px}#rail .l{position:absolute;left:-9999px}body.rail .screen{padding-left:84px}}
 @media(max-width:699px){
-  #rail{top:auto;width:100%;height:64px;flex-direction:row;justify-content:space-around;padding:0;background:#fff;border-top:2px solid var(--mint2)}
+  #rail{top:auto;width:100%;height:64px;flex-direction:row;justify-content:space-around;padding:0;background:var(--surf);border-top:2px solid var(--mint2)}
   #rail::before{display:none}
   .rmark{left:calc(var(--rp,0)*20% + 10% - 10px);top:13px;transform:none;transition:left .45s cubic-bezier(.22,.61,.36,1)}
   #rail button{flex:1;height:64px;flex-direction:column;justify-content:center;gap:5px;font-size:.72rem}
@@ -416,7 +417,7 @@ body.ingame .wrap{animation:wrapin .5s cubic-bezier(.22,.61,.36,1) both}
 }
 .rkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:28px;width:100%}
 .rkh{margin:0 0 10px;font:600 1.1rem var(--disp)}
-.rkbox{display:flex;flex-direction:column;height:clamp(380px,calc(100svh - 190px),720px);border:2px solid var(--teal-d);border-radius:22px;background:#fff;overflow:hidden}
+.rkbox{display:flex;flex-direction:column;height:clamp(380px,calc(100svh - 190px),720px);border:2px solid var(--teal-d);border-radius:22px;background:var(--surf);overflow:hidden}
 .rklist{flex:1;min-height:0;overflow-y:auto;padding:6px 6px 4px}
 .rkme{flex:none;padding:8px 10px 10px;border-top:2px dashed var(--line);background:var(--paper)}
 .rr{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:6px;padding:10px 14px;border-radius:12px;font-size:.98rem}
@@ -449,12 +450,12 @@ html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rk
 .libhead{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
 .libhead h2{margin:14px 0 0;font:700 clamp(2rem,7vw,2.8rem)/1.05 var(--disp);letter-spacing:-.025em}
 .libhead .note{margin:0;min-height:0}
-.libbox{display:flex;flex-direction:column;height:clamp(380px,calc(100svh - 196px),760px);border:2px solid var(--teal-d);border-radius:22px;background:#fff;overflow:hidden}
+.libbox{display:flex;flex-direction:column;height:clamp(380px,calc(100svh - 196px),760px);border:2px solid var(--teal-d);border-radius:22px;background:var(--surf);overflow:hidden}
 .libbar{flex:none;display:flex;gap:12px;align-items:center;padding:14px 16px;border-bottom:2px solid var(--teal-d)}
 .libbar .tin{flex:1;margin:0;min-width:0}
 .libbar .go{flex:none;width:auto;min-height:48px;padding:8px 20px;white-space:nowrap}
 .libgrid{flex:1;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px;padding:16px;align-content:start}
-.lcard{display:flex;flex-direction:column;gap:8px;padding:8px 8px 10px;border:2px solid var(--line);border-radius:14px;background:#fff;color:inherit;text-align:left;cursor:pointer;font:inherit}
+.lcard{display:flex;flex-direction:column;gap:8px;padding:8px 8px 10px;border:2px solid var(--line);border-radius:14px;background:var(--surf);color:inherit;text-align:left;cursor:pointer;font:inherit}
 .lcard:hover,.lcard:focus-visible{border-color:var(--teal-d);outline:none}
 .lcard img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:var(--mint2)}
 .lcard .t{font-weight:600;line-height:1.3;font-size:.92rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
@@ -468,9 +469,9 @@ html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rk
 .kv .v{word-break:break-word}
 .sgact{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .sgact .chip{text-decoration:none}
-.addbox textarea{display:block;width:100%;min-height:84px;padding:11px 14px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);resize:vertical}
+.addbox textarea{display:block;width:100%;min-height:84px;padding:11px 14px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:var(--surf);color:var(--ink);resize:vertical}
 .addbox textarea:focus{outline:none;border-color:var(--teal-d)}
-.rq{padding:12px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:#fff;text-align:left}
+.rq{padding:12px;margin-bottom:10px;border:2px solid var(--line);border-radius:12px;background:var(--surf);text-align:left}
 .rq .rqt{margin:6px 0;font-weight:600;word-break:break-word}
 .rq .df{font-size:.84rem;margin-bottom:3px;word-break:break-word}
 .rq .df .k{color:var(--mute)}
@@ -478,7 +479,7 @@ html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rk
 .rq .note{min-height:0;margin:6px 0}
 .hchips{display:flex;flex-wrap:nowrap;align-items:flex-start;gap:8px;height:64px;margin-bottom:0;padding:5px 3px 0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
 .hchips .chip{flex:none;white-space:nowrap}
-.hcard{padding:16px;border:2px solid var(--line);border-radius:14px;background:#fff;margin-bottom:18px;text-align:left}
+.hcard{padding:16px;border:2px solid var(--line);border-radius:14px;background:var(--surf);margin-bottom:18px;text-align:left}
 .hcard h3{margin:0 0 8px;font:600 1.25rem var(--disp)}
 .hcard p{margin:0 0 12px}
 .hcard .warn{padding:8px 12px;border-radius:10px;background:#fef3c7;font-size:.85rem}
@@ -489,11 +490,11 @@ html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rk
 .hsrc{font-size:.8rem;color:var(--mute)}
 .hsrc a{color:var(--teal-d)}
 .hsec{margin:6px 0 8px;font:600 .9rem var(--disp);color:var(--mute)}
-.hseg{display:inline-flex;align-self:start;justify-self:start;border:2px solid var(--teal-d);border-radius:12px;overflow:hidden;background:#fff}
+.hseg{display:inline-flex;align-self:start;justify-self:start;border:2px solid var(--teal-d);border-radius:12px;overflow:hidden;background:var(--surf)}
 .hseg button{min-height:42px;padding:6px 20px;border:0;background:transparent;color:var(--teal-d);font:600 .92rem var(--disp);cursor:pointer}
 .hseg button+button{border-left:2px solid var(--teal-d)}
 .hseg button.on{background:var(--teal-d);color:#fff}
-.hbox{display:grid;grid-template-columns:minmax(240px,320px) minmax(0,1fr);height:clamp(340px,calc(100svh - 360px),720px);border:2px solid var(--teal-d);border-radius:22px;background:#fff;overflow:hidden}
+.hbox{display:grid;grid-template-columns:minmax(240px,320px) minmax(0,1fr);height:clamp(340px,calc(100svh - 360px),720px);border:2px solid var(--teal-d);border-radius:22px;background:var(--surf);overflow:hidden}
 .hside{position:relative;overflow:hidden;padding:0;border-right:2px solid var(--teal-d);background:var(--mint2)}
 .hfill{position:absolute;inset:0;display:grid;place-items:center}
 .hfill img{width:100%;height:100%;object-fit:cover}
@@ -503,13 +504,13 @@ html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rk
 .hcap small{display:block;margin-top:4px;font-size:.7rem;opacity:.75}
 .hadm{display:none!important}
 .hadmx{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
-.hadm button{min-height:40px;padding:6px 16px;border:2px solid var(--teal-d);border-radius:10px;background:#fff;color:var(--teal-d);font:600 .88rem var(--disp);cursor:pointer}
+.hadm button{min-height:40px;padding:6px 16px;border:2px solid var(--teal-d);border-radius:10px;background:var(--surf);color:var(--teal-d);font:600 .88rem var(--disp);cursor:pointer}
 .hadm button.dng{border-color:#b3261e;color:#b3261e}
 #hxForm textarea{display:block;width:100%;min-height:72px;margin-bottom:8px;padding:10px 14px;border:2px solid var(--line);border-radius:12px;font:inherit}
 #hxForm .chk{display:flex;gap:8px;align-items:center;margin:8px 0 12px}
 #hxForm .chk input{width:auto;min-height:0;margin:0}
 .hh{margin:18px 0 8px;font:600 .9rem var(--disp);color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
-.bigav{display:grid;place-items:center;width:42%;max-width:180px;aspect-ratio:1;border-radius:50%;background:#fff;border:3px solid var(--teal-d);color:var(--teal-d);font:700 4rem var(--disp);margin-bottom:60px}
+.bigav{display:grid;place-items:center;width:42%;max-width:180px;aspect-ratio:1;border-radius:50%;background:var(--surf);border:3px solid var(--teal-d);color:var(--teal-d);font:700 4rem var(--disp);margin-bottom:60px}
 .hdetail{overflow-y:auto;padding:22px 26px;text-align:left}
 .hdetail h3{margin:0 0 12px;font:700 1.6rem var(--disp)}
 .hdetail .hsub{margin:2px 0 14px;font:600 .85rem var(--disp);color:var(--mute)}
@@ -526,10 +527,10 @@ html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rk
 #playModal[hidden]{display:none}
 #roomModal,#joinModal,#gsModal{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:16px;background:rgba(10,30,28,.5)}
 #roomModal[hidden],#joinModal[hidden],#gsModal[hidden],#gsBox[hidden]{display:none}
-#roomModal .pmc,#joinModal .pmc,#gsModal .pmc{position:relative;width:min(440px,100%);padding:26px 22px 22px;background:#fff;border:2px solid var(--teal-d);border-radius:18px;box-shadow:6px 6px 0 var(--mint2);animation:pmin .22s cubic-bezier(.22,.61,.36,1)}
+#roomModal .pmc,#joinModal .pmc,#gsModal .pmc{position:relative;width:min(440px,100%);padding:26px 22px 22px;background:var(--surf);border:2px solid var(--teal-d);border-radius:18px;box-shadow:6px 6px 0 var(--mint2);animation:pmin .22s cubic-bezier(.22,.61,.36,1)}
 #roomModal h2,#joinModal h2,#gsModal h2{margin:0 0 16px;font:700 1.35rem var(--disp);color:var(--ink)}
 #rmVis{display:grid;grid-template-columns:1fr 1fr;gap:8px;border:0;border-radius:0;overflow:visible;background:transparent}
-#rmVis button{display:flex;flex-direction:column;gap:2px;align-items:flex-start;padding:10px 12px;border:2px solid var(--mint2);border-radius:12px;background:#fff;color:var(--teal-d);text-align:left;cursor:pointer;font:inherit}
+#rmVis button{display:flex;flex-direction:column;gap:2px;align-items:flex-start;padding:10px 12px;border:2px solid var(--mint2);border-radius:12px;background:var(--surf);color:var(--teal-d);text-align:left;cursor:pointer;font:inherit}
 #rmVis button b{font:700 .95rem var(--disp)}#rmVis button small{font-size:.74rem;color:var(--mute);line-height:1.3}
 #rmVis button.on{border-color:var(--teal-d);background:var(--teal);color:#fff;box-shadow:0 3px 0 var(--ink)}#rmVis button.on small{color:#e4f4f1}
 #rmVis button:disabled{opacity:.45;cursor:not-allowed}
@@ -538,9 +539,9 @@ html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rk
 #loginForm{display:flex;flex-direction:column}#loginForm #loginSubmit{margin-top:auto!important}#loginForm #loginPass{margin-bottom:10px}#loginForm #loginForgot{align-self:flex-start}
 .olname{display:flex;align-items:center;gap:8px;margin:14px 0 0;margin-left:auto}.olname label{font:600 .85rem var(--body);color:var(--mute);white-space:nowrap}.olname .tin{margin:0;width:170px;min-height:40px;padding:6px 12px}
 .olback{margin-top:6px}
-.libbar .go{margin:0!important;align-self:center}.libbar .go.alt{background:#fff}
+.libbar .go{margin:0!important;align-self:center}.libbar .go.alt{background:var(--surf)}
 .rgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-rows:min-content}
-.rc{display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:104px;padding:12px 14px;border:2px solid var(--teal-d);border-radius:14px;background:#fff;color:var(--ink);text-align:left;cursor:pointer;font:inherit;box-shadow:0 3px 0 var(--mint2);transition:transform .12s,box-shadow .12s}
+.rc{display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:104px;padding:12px 14px;border:2px solid var(--teal-d);border-radius:14px;background:var(--surf);color:var(--ink);text-align:left;cursor:pointer;font:inherit;box-shadow:0 3px 0 var(--mint2);transition:transform .12s,box-shadow .12s}
 .rc:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 5px 0 var(--teal-d)}
 .rc:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
 .rc b{display:block;font:700 1rem var(--disp);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -558,8 +559,8 @@ html:not([lang=th]) .rkcols>span:first-child{font-size:0}html:not([lang=th]) .rk
 .rst{flex:none;font:600 .74rem var(--body);color:var(--teal-d);background:var(--mint);border-radius:999px;padding:3px 10px}.rst.go2{background:#fdecea;color:#b3261e}
 .rm .chip:disabled{opacity:.45;cursor:not-allowed}
 #lobbyTitle{overflow-wrap:anywhere;line-height:1.1}
-.rbadge{display:inline-block;margin:4px 0 8px;padding:2px 12px;border:2px solid var(--teal-d);border-radius:999px;font:700 .75rem var(--disp);color:var(--teal-d);background:#fff}
-#playModal .pmc{position:relative;width:min(440px,100%);padding:26px 22px 22px;background:#fff;border:2px solid var(--teal-d);border-radius:18px;box-shadow:6px 6px 0 var(--mint2);animation:pmin .22s cubic-bezier(.22,.61,.36,1)}
+.rbadge{display:inline-block;margin:4px 0 8px;padding:2px 12px;border:2px solid var(--teal-d);border-radius:999px;font:700 .75rem var(--disp);color:var(--teal-d);background:var(--surf)}
+#playModal .pmc{position:relative;width:min(440px,100%);padding:26px 22px 22px;background:var(--surf);border:2px solid var(--teal-d);border-radius:18px;box-shadow:6px 6px 0 var(--mint2);animation:pmin .22s cubic-bezier(.22,.61,.36,1)}
 #playModal h2{margin:0 0 16px;font:700 1.35rem var(--disp);color:var(--ink)}
 #playModal .menu{display:flex;flex-direction:column;gap:12px}
 #playModal .go{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px;padding:12px 18px 12px 22px;text-align:left}
@@ -574,7 +575,7 @@ body.rail #pf{display:block}
 #pfBtn .av svg{width:22px;height:22px}
 #pfBtn .l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #pfBtn:focus-visible{outline:2px solid var(--deep);outline-offset:3px;border-radius:999px}
-#pfMenu{position:absolute;left:0;top:52px;width:230px;padding:8px;background:#fff;border:2px solid var(--teal-d);border-radius:14px;box-shadow:4px 4px 0 var(--mint2)}
+#pfMenu{position:absolute;left:0;top:52px;width:230px;padding:8px;background:var(--surf);border:2px solid var(--teal-d);border-radius:14px;box-shadow:4px 4px 0 var(--mint2)}
 #pfMenu[hidden]{display:none}
 #pfMenu>button{position:relative;display:flex;align-items:center;justify-content:space-between;width:100%;min-height:42px;padding:6px 12px;border:0;border-radius:9px;background:transparent;color:var(--ink);font:600 .92rem var(--body);text-align:left;cursor:pointer}
 #pfMenu>button:hover{background:var(--mint)}
@@ -583,7 +584,7 @@ body.rail #pf{display:block}
 #pfMenu .dot[hidden]{display:none}
 #pfLang{display:flex;gap:4px;padding:4px 6px 6px}
 #pfLang[hidden]{display:none}
-#pfLang button{flex:1;min-height:34px;border:2px solid var(--line);border-radius:999px;background:#fff;color:var(--teal-d);font:600 .8rem var(--body);cursor:pointer}
+#pfLang button{flex:1;min-height:34px;border:2px solid var(--line);border-radius:999px;background:var(--surf);color:var(--teal-d);font:600 .8rem var(--body);cursor:pointer}
 #pfLang button.on{background:var(--teal);border-color:var(--teal);color:#fff}
 @media(max-width:1099px){#pfBtn .l{display:none}#pf{left:12px}}
 @media(max-width:699px){#pf{top:8px;left:auto;right:168px}#rail.pfon .rmark{opacity:0}#pfBtn.on .av{background:var(--ink);border-color:var(--ink)}}
@@ -599,7 +600,7 @@ body.rail #pf{display:block}
 .prstat{padding:10px 8px;border:2px solid var(--mint2);border-radius:12px;background:var(--mint);text-align:center;font-size:.74rem;color:var(--mute);line-height:1.3}
 .prstat b{display:block;font:700 1.15rem var(--disp);color:var(--ink);margin-top:2px}
 .prmenu{display:flex;flex-direction:column;border:2px solid var(--mint2);border-radius:14px;overflow:hidden}
-.prmenu .mi{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;padding:10px 16px;border:0;border-bottom:2px solid var(--mint2);background:#fff;color:var(--ink);text-align:left;cursor:pointer;font:inherit}
+.prmenu .mi{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;padding:10px 16px;border:0;border-bottom:2px solid var(--mint2);background:var(--surf);color:var(--ink);text-align:left;cursor:pointer;font:inherit}
 .prmenu .mi:last-child{border-bottom:0}.prmenu .mi:hover{background:var(--mint)}
 .prmenu .mi[hidden]{display:none}
 .prmenu .ic{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--mint);color:var(--teal-d)}.prmenu .ic svg{width:20px;height:20px}
@@ -615,7 +616,7 @@ body.rail #pf{display:block}
 .hml{display:flex;flex-direction:column;border:2px solid var(--mint2);border-radius:12px;overflow:hidden;margin-bottom:20px}
 .hml .r{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 12px;border-bottom:2px solid var(--mint2)}.hml .r:last-child{border-bottom:0}
 .hml .r b{flex:1;min-width:120px;font:600 .95rem var(--body);overflow-wrap:anywhere}.hml .r.del b{color:var(--mute);text-decoration:line-through}
-.hml .r button{min-height:34px;padding:2px 12px;border:2px solid var(--teal-d);border-radius:999px;background:#fff;color:var(--teal-d);font:600 .8rem var(--body);cursor:pointer}
+.hml .r button{min-height:34px;padding:2px 12px;border:2px solid var(--teal-d);border-radius:999px;background:var(--surf);color:var(--teal-d);font:600 .8rem var(--body);cursor:pointer}
 .hml .r button.dng{border-color:#b3261e;color:#b3261e}.hml .empty{padding:12px;color:var(--mute);font-size:.9rem}
 @media(max-width:560px){.prstats{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:700px){
@@ -635,7 +636,7 @@ body.rail #pf{display:block}
 .ablead{margin:0;max-width:760px;font-size:1.12rem;line-height:1.65;color:var(--ink)}
 .abh{margin:18px 0 0;font:700 1.35rem var(--disp);letter-spacing:-.01em}
 .abgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.abgrid.ab4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.abc{padding:18px;border:2px solid var(--teal-d);border-radius:16px;background:#fff;box-shadow:0 4px 0 var(--mint2)}
+.abc{padding:18px;border:2px solid var(--teal-d);border-radius:16px;background:var(--surf);box-shadow:0 4px 0 var(--mint2)}
 .abc h4{margin:0 0 8px;font:700 1.05rem var(--disp);color:var(--teal-d)}
 .abc p{margin:0;line-height:1.65;color:var(--ink);font-size:.95rem}
 .abc ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;line-height:1.55;font-size:.95rem}
@@ -644,13 +645,237 @@ body.rail #pf{display:block}
 .abcall p{margin:0;flex:1 1 300px;line-height:1.6;font-weight:500}
 .abbtns{display:flex;gap:10px;flex-wrap:wrap}.abbtns .go{width:auto;margin:0;padding:10px 22px;min-height:48px}
 @media(max-width:1000px){.abgrid,.abgrid.ab4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.abm{margin:-4px 0 8px;font:600 .78rem var(--body);color:var(--mute)}
+.abgrid.ab1{grid-template-columns:minmax(0,760px)}.abgrid.ab2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.abc.tm h4,.abc.fq h4{font-size:1rem}
+.abc.tm,.abc.fq{box-shadow:none}
+@media(max-width:620px){.abgrid.ab2{grid-template-columns:1fr}}
+.art{max-width:700px;padding-bottom:40px}
+.art .ablead{font-size:1.2rem;line-height:1.75;margin:0 0 6px}
+.art{counter-reset:sec}
+.art h3{display:flex;align-items:baseline;gap:12px;margin:30px 0 10px;padding-top:24px;border-top:1px solid var(--line);font:700 1.25rem var(--disp);color:var(--teal-d)}
+.art h3::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);font:600 .8rem var(--body);color:var(--mute);letter-spacing:.06em}
+.art p{margin:0;font-size:1.02rem;line-height:1.85;color:var(--ink)}
+.stp{list-style:none;margin:0;padding:0;counter-reset:n;display:flex;flex-direction:column;gap:10px}
+.stp li{counter-increment:n;display:flex;gap:14px;align-items:flex-start;line-height:1.7;font-size:1.02rem}
+.stp li::before{content:counter(n);flex:none;width:28px;height:28px;margin-top:1px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font:700 .85rem var(--body)}
+/* ===== หน้าประวัติแบบบทความ ไม่มีกรอบ ===== */
+#histScreen .libhead{margin-bottom:0}
+#histScreen .hseg{display:flex;gap:26px;border:0;border-radius:0;background:none;overflow:visible;border-bottom:1px solid var(--line);width:100%;max-width:100%}
+#histScreen .hseg button{min-height:44px;padding:6px 0;margin-bottom:-1px;border:0;border-bottom:3px solid transparent;border-radius:0;background:none;color:var(--mute);font:600 1rem var(--disp)}
+#histScreen .hseg button+button{border-left:0}
+#histScreen .hseg button.on{background:none;color:var(--teal-d);border-bottom-color:var(--teal-d)}
+#histScreen .hchips{height:56px;padding:8px 0 0;gap:6px}
+#histScreen .hchips .chip{border-color:transparent;background:transparent;box-shadow:none;color:var(--mute)}
+#histScreen .hchips .chip.on{background:var(--teal-d);color:#fff}
+#histScreen .hbox{display:grid;grid-template-columns:280px minmax(0,1fr);gap:48px;align-items:start;height:auto;border:0;border-radius:0;background:none;overflow:visible;max-width:1080px}
+#histScreen .hside{display:block;overflow:hidden;border:0;background:none;margin:8px 0 0;border-radius:14px;position:sticky;top:128px}
+#histScreen .hfill .bigav{width:100%;max-width:none;aspect-ratio:3/4;margin:0;border:0;border-radius:14px;background:var(--mint);color:var(--teal);font-size:5rem}
+#histScreen .hside:empty{display:none}
+#histScreen .hfill{position:static;display:block}
+#histScreen .hfill img{width:100%;height:auto;max-height:460px;object-fit:cover;display:block;border-radius:14px}
+#histScreen .hcap{position:static;padding:8px 0 0;background:none;color:var(--ink)}
+#histScreen .hcap b{display:none}
+#histScreen .hcap i{display:none}
+#histScreen .hcap small{opacity:.6;color:var(--mute)}
+#histScreen .hdetail{overflow:visible;padding:8px 0 48px;max-width:720px}
+#histScreen .hdetail h3{margin:0 0 4px;font:700 2.1rem/1.2 var(--disp);letter-spacing:-.01em}
+#histScreen .hdetail .hsub{margin:0 0 18px;font:600 .8rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--teal-d)}
+#histScreen .hdetail p{font-size:1.08rem;line-height:1.9;margin:0 0 14px}
+#histScreen .hdetail .warn{margin:0 0 16px;padding:10px 14px;border-radius:10px;background:#fef3c7;font-size:.88rem;line-height:1.6}
+#histScreen .hh{display:block;margin:30px 0 14px;padding-top:24px;border-top:1px solid var(--line);font:700 1.25rem var(--disp);letter-spacing:0;text-transform:none;color:var(--teal-d)}
+#histScreen .tl{margin:0 0 8px;padding:0 0 0 22px;border-left:2px solid var(--mint2)}
+#histScreen .tl li{grid-template-columns:110px minmax(0,1fr);gap:16px;padding:9px 0;line-height:1.75;font-size:1.02rem}
+#histScreen .tl li::before{left:-29px;top:17px;width:12px;height:12px;background:var(--surf);border:3px solid var(--teal)}
+#histScreen .tl time{font:700 .95rem var(--disp);color:var(--teal-d)}
+#histScreen .hsrc{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:.82rem;line-height:1.7}
+@media(max-width:700px){#histScreen .hbox{display:block;height:auto}#histScreen .hside{position:static;max-width:240px;margin:6px 0 4px}#histScreen .hfill:has(.bigav){display:none}#histScreen .hdetail{padding-top:10px}#histScreen .hdetail{padding:6px 0 40px}#histScreen .hdetail h3{font-size:1.7rem}#histScreen .hdetail p{font-size:1.02rem}#histScreen .hseg{gap:18px}#histScreen .hseg button{font-size:.92rem}}
+@media(max-width:520px){#histScreen .tl li{grid-template-columns:1fr;gap:0}}
+.hbar{position:sticky;top:0;z-index:5;margin:0 -16px;padding:4px 16px 0;background:linear-gradient(to bottom,rgba(var(--paper-rgb),.97) 82%,rgba(var(--paper-rgb),0));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#histScreen .hbar .hseg{border-bottom:0;box-shadow:inset 0 -1px 0 var(--line);width:auto;max-width:720px}
+#histScreen .hchips{position:relative;height:auto;padding:12px 0 14px;gap:8px;scrollbar-width:none;-ms-overflow-style:none;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 14px,#000 calc(100% - 28px),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 14px,#000 calc(100% - 28px),transparent 100%);padding-left:14px;margin-left:-14px;padding-right:28px}
+#histScreen .hchips::-webkit-scrollbar{display:none}
+#histScreen .hchips .chip{min-height:38px;padding:5px 16px;border:0;border-radius:999px;background:var(--mint);color:var(--teal-d);font:600 .92rem var(--disp);transition:background .15s,color .15s}
+#histScreen .hchips .chip:hover{background:var(--mint2)}
+#histScreen .hchips .chip.on{background:var(--teal-d);color:#fff}
+@media(max-width:699px){.hbar{top:56px;margin:0 -12px;padding:2px 12px 0}}
+/* ===== หน้าสรุปผลจบเกม ===== */
+#modal{z-index:60;align-items:flex-start;justify-content:center;padding:0;background:var(--paper)}
+#modal .box.rs{max-width:720px;margin:0 auto;padding:56px 20px 64px;border:0;border-radius:0;background:none;box-shadow:none;text-align:left}
+.rsk{font:700 .85rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--teal-d);margin-bottom:6px}
+#modal .rs #finalLbl{color:var(--mute);font-size:1rem}
+#modal .rs #final{margin:2px 0 14px;font-size:4rem}
+#modal .rs .meter{height:12px}
+#modal .rs #finalSub{margin:0 0 22px;color:var(--ink);font-size:1.02rem;font-weight:500}
+.rsbtns{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 8px}
+.rsbtns button{width:auto;flex:1 1 180px;margin:0!important}
+.rsh{display:block;margin:34px 0 14px;padding-top:24px;border-top:1px solid var(--line);font:700 1.25rem var(--disp);color:var(--teal-d)}
+#modal .rs .rank{margin:0}
+#modal .rs .rk{min-width:32px;height:32px;margin-right:10px;border-radius:50%;background:var(--mint2);color:var(--teal-d);font-size:1.15rem}
+#modal .rs .pl{border:0;border-radius:12px;background:transparent;padding:12px 14px;margin:0;border-bottom:1px solid var(--line);border-radius:0}
+#modal .rs .pl.me{background:var(--mint);border-radius:12px;border-bottom-color:transparent}
+.rsl{list-style:none;margin:0;padding:0}
+.rsi{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:14px;align-items:start;padding:14px 4px;border-bottom:1px solid var(--line)}
+.rsn{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;font:700 .85rem var(--disp);color:#fff}
+.rsi.ok .rsn{background:var(--teal)}.rsi.ng .rsn{background:#c2410c}
+.rtx b{display:block;font:600 1.02rem/1.45 var(--disp);overflow-wrap:anywhere}
+.rtx small{display:block;margin-top:2px;color:var(--mute);font-size:.84rem;line-height:1.5;overflow-wrap:anywhere}
+.rtx small.rsw{color:#c2410c;font-weight:600}
+.rsm{font:700 .9rem var(--disp);white-space:nowrap;padding-top:4px}
+.rsi.ok .rsm{color:var(--teal-d)}.rsi.ng .rsm{color:#c2410c}
+@media(max-width:520px){#modal .box.rs{padding:60px 16px 56px}#modal .rs #final{font-size:3.2rem}.rsi{grid-template-columns:30px minmax(0,1fr);gap:10px}.rsm{grid-column:2;padding-top:0}}
+.prwrap{position:relative;flex:none;width:68px;height:68px}
+.prav.hasph{background:var(--mint);overflow:hidden;padding:0}.prav img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.prwrap .prav{cursor:default}.prwrap:has(#prCam:not([hidden])) .prav{cursor:pointer}
+#prCam{position:absolute;right:-6px;bottom:-4px;width:30px;height:30px;padding:0;display:grid;place-items:center;border:2px solid var(--teal-d);border-radius:50%;background:var(--surf);color:var(--teal-d);cursor:pointer;box-shadow:0 2px 0 var(--mint2)}
+#prCam[hidden]{display:none}#prCam svg{width:16px;height:16px}#prCam:hover{background:var(--mint)}
+.prlink{align-self:flex-start;padding:0;border:0;background:none;color:var(--mute);font:500 .85rem var(--body);text-decoration:underline;cursor:pointer}.prlink[hidden]{display:none}
+.prphm{min-height:1.2em;color:var(--teal-d);font-weight:600}
+.lav{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;margin-right:10px;border-radius:50%;overflow:hidden;vertical-align:middle;background:var(--mint2);color:var(--teal-d);font:700 .8rem var(--disp);font-style:normal}
+.lav img{width:100%;height:100%;object-fit:cover;display:block}
+/* ===== ธีมมืด ===== */
+html[data-theme=dark]{color-scheme:dark;--ink:#e3f1ef;--mute:#8fb6b1;--teal:#0d9488;--teal-d:#12a093;--deep:#04100f;--mint:#12302d;--mint2:#1d4540;--line:#2a5650;--paper:#0a1514;--surf:#102321;--paper-rgb:10,21,20;--red:#e04b51;--red-d:#f08a8e}
+html[data-theme=dark] body,html[data-theme=dark] .screen{background-image:linear-gradient(rgba(45,212,191,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,.045) 1px,transparent 1px)}
+html[data-theme=dark] .rkbox.dim{background:#0d1c1b;border-color:#2a4642}
+html[data-theme=dark] .rkgate{color:#9dbab6}
+html[data-theme=dark] .hcard .warn,html[data-theme=dark] #histScreen .hdetail .warn{background:#3a2f0e;color:#f5e6b3}
+html[data-theme=dark] .chip.mini.del:hover,html[data-theme=dark] .rst.go2{background:#3a1618;color:#ffb4b4}
+html[data-theme=dark] #modal .rs .pl.me,html[data-theme=dark] .rr.me{background:var(--mint)}
+html[data-theme=dark] img{opacity:.95}
+/* ===== โปรไฟล์ไม่มีกรอบ ===== */
+#profScreen .prof{max-width:680px;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none;display:flex;flex-direction:column;gap:0}
+#profScreen .prhero{padding:28px 0;border-bottom:1px solid var(--line)}
+#profScreen .prav{box-shadow:none}
+#profScreen .prstats{gap:0;padding:6px 0;border-bottom:1px solid var(--line)}
+#profScreen .prstat{padding:14px 8px 14px 0;border:0;border-radius:0;background:none;text-align:left}
+#profScreen .prstat b{font-size:1.4rem}
+#profScreen .prmenu{border:0;border-radius:0;overflow:visible}
+#profScreen .prmenu .mi{padding:14px 0;border:0;border-bottom:1px solid var(--line);background:none;min-height:72px}
+#profScreen .prmenu .mi:hover{background:none}
+#profScreen .prmenu .mi:hover .tx b{color:var(--teal-d)}
+#profScreen .prmenu .ic{background:none;border-radius:0;width:28px;height:28px;justify-content:start}
+#profScreen .prset{padding:16px 0;border-bottom:1px solid var(--line)}
+#profScreen .prout{margin-top:14px;padding:0}
+@media(max-width:560px){#profScreen .prstat{padding-right:4px}}
+@media(max-width:699px){#profScreen .libhead{padding-top:44px}}
+/* ===== คลังเพลง: กรอบเลื่อนแบบเดิม ปรับให้สวยขึ้น ===== */
+#libScreen .libbox{border:2px solid var(--teal-d);border-radius:20px;background:var(--surf);box-shadow:0 5px 0 var(--mint2)}
+#libScreen .libbar{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--mint)}
+#libScreen .libbar .tin{background:var(--surf)}
+#libScreen .libbar .go.alt{background:var(--surf)}
+#libScreen .libgrid{padding:20px 20px 28px;gap:26px 18px}
+#libScreen .lcard{padding:0;border:0;border-radius:0;background:none;gap:8px;transition:transform .15s}
+#libScreen .lcard img{border-radius:10px;box-shadow:0 2px 0 var(--mint2)}
+#libScreen .lcard:hover{transform:translateY(-2px)}
+#libScreen .lcard:hover .t,#libScreen .lcard:focus-visible .t{color:var(--teal-d)}
+#libScreen .lcard:focus-visible{outline:2px solid var(--teal-d);outline-offset:4px;border-radius:8px}
+@media(max-width:620px){#libScreen .libgrid{padding:14px 12px 20px;gap:20px 12px}#libScreen .libbar{padding:10px 12px}}
+/* ===== เลือกประวัติด้วย popup ===== */
+#histScreen .hpick{display:inline-flex;align-items:center;gap:10px;margin:14px 0 14px;min-height:46px;padding:6px 16px 6px 18px;border:2px solid var(--teal-d);border-radius:999px;background:var(--mint);color:var(--teal-d);font:600 .95rem var(--disp);cursor:pointer;max-width:100%;transition:background .15s}
+#histScreen .hpick:hover{background:var(--mint2)}
+#histScreen .hpick .hpk{color:var(--mute);font-weight:500;font-size:.85rem;white-space:nowrap}
+#histScreen .hpick b{font-weight:700;font-size:1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#histScreen .hpick svg{flex:none;width:18px;height:18px}
+#hPickModal{position:fixed;inset:0;z-index:500;display:grid;place-items:center;padding:16px;background:rgba(10,30,28,.5)}
+#hPickModal[hidden]{display:none}
+#hPickModal .pmc{position:relative;width:min(560px,100%);max-height:min(80vh,640px);display:flex;flex-direction:column;padding:26px 22px 22px;background:var(--surf);border:2px solid var(--teal-d);border-radius:18px;box-shadow:6px 6px 0 var(--mint2);animation:pmin .22s cubic-bezier(.22,.61,.36,1)}
+#hPickModal h2{margin:0 0 16px;font:700 1.35rem var(--disp);color:var(--ink)}
+#hPickModal .hpl{display:flex;flex-wrap:wrap;gap:10px;overflow-y:auto;padding:2px}
+#hPickModal .chip{min-height:42px;padding:6px 18px;border:2px solid var(--line);border-radius:999px;background:var(--surf);color:var(--teal-d);font:600 .95rem var(--disp);cursor:pointer}
+#hPickModal .chip:hover{border-color:var(--teal-d);background:var(--mint)}
+#hPickModal .chip.on{background:var(--teal-d);border-color:var(--teal-d);color:#fff}
+/* ซ่อนเคอร์เซอร์กระพริบนอกช่องพิมพ์ (ยังลากคลุมข้อความ/คัดลอกได้) */
+*{caret-color:transparent}
+input,textarea,select,[contenteditable="true"]{caret-color:auto}
+button,a,[role=button],label,summary{cursor:pointer}
+/* ===== แจ้งข้อมูลผิดหลังจบเกม ===== */
+.rpmark{display:block;width:100%;margin-top:14px;min-height:38px;padding:8px 14px;border:2px solid var(--line);border-radius:14px;line-height:1.4;background:transparent;color:var(--mute);font:600 .82rem var(--body);cursor:pointer;text-align:left}
+.rpmark:hover{border-color:var(--teal-d);color:var(--teal-d)}
+.rpmark.on{border-color:var(--teal-d);background:var(--mint);color:var(--teal-d)}
+#rsList .rsrp{display:inline-block;width:auto;min-height:0;margin:8px 0 0;padding:2px 0;border:0;border-radius:0;box-shadow:none;background:none;color:var(--mute);font:600 .8rem var(--body);text-decoration:underline;cursor:pointer}
+#rsList .rsrp:hover{background:none;color:var(--teal-d);transform:none}#rsList .rsrp.fl{color:#c2410c}
+#rpModal{position:fixed;inset:0;z-index:700;display:grid;place-items:center;padding:16px;background:rgba(10,30,28,.5)}
+#rpModal[hidden]{display:none}
+#rpModal .pmc{position:relative;width:min(520px,100%);max-height:92vh;overflow-y:auto;padding:26px 22px 22px;background:var(--surf);border:2px solid var(--teal-d);border-radius:18px;box-shadow:6px 6px 0 var(--mint2)}
+#rpModal h2{margin:0 0 4px;font:700 1.35rem var(--disp);color:var(--ink)}
+#rpModal .rpsong{margin:0 0 6px;color:var(--mute);font-weight:600}
+#rpModal .tin{margin:0}
+#rpModal .fl{display:block;margin:12px 0 4px}
+#rpModal .rpsong+.fl{margin-top:8px}
+#rpModal textarea.tin{min-height:70px;resize:vertical}
+.rptwo{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+#rpModal .row{margin-top:14px}#rpModal .go{max-width:240px}
+@media(max-width:520px){.rptwo{grid-template-columns:1fr}}
+/* ===== คำร้องของฉัน ===== */
+#myReqScreen .page{align-self:flex-start;margin-top:0}
+#myReqScreen .libhead{margin-bottom:6px}
+#myReqScreen .libhead .back{flex-basis:100%;justify-self:start;width:max-content}
+.mrlist{max-width:720px;display:flex;flex-direction:column;margin-top:10px}
+.mri{padding:20px 0;border-bottom:1px solid var(--line)}
+.mrh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.mrt{font:600 .8rem var(--disp);color:var(--mute);letter-spacing:.02em}
+.mrs{padding:3px 12px;border-radius:999px;font:700 .78rem var(--disp);background:var(--mint);color:var(--teal-d)}
+.mri.pending .mrs{background:#fdf0d5;color:#8a5a00}
+.mri.approved .mrs{background:var(--mint2);color:var(--teal-d)}
+.mri.rejected .mrs{background:#fbe3df;color:#b3261e}
+.mri h3{margin:0;font:700 1.15rem var(--disp);overflow-wrap:anywhere}
+.mrmeta{margin-top:2px;color:var(--mute);font-size:.82rem}
+.mrch{margin-top:10px;padding-left:12px;border-left:3px solid var(--line);display:flex;flex-direction:column;gap:4px;font-size:.92rem}
+.mrdf .k,.mrnote .k{display:inline-block;min-width:96px;color:var(--mute);font-size:.8rem;font-weight:600}
+.mrdf s{color:var(--mute)}
+.mrnote{margin-top:8px;font-size:.9rem}
+@media(max-width:699px){#myReqScreen .libhead{padding-top:44px}}
+html[data-theme=dark] .mri.pending .mrs{background:#3a2f12;color:#f0c46a}
+html[data-theme=dark] .mri.rejected .mrs{background:#3c1c19;color:#ff9a8f}
+/* ===== หน้าจบเกม 3 คอลัมน์ ===== */
+#modal .box.rs{max-width:1200px;padding:52px 28px 64px}
+.rshead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px 40px;flex-wrap:wrap;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.rshead .hl{flex:1 1 340px;max-width:560px}
+.rshead .rsbtns{margin:0}
+#modal .rs #final{font-size:3.6rem;margin:0 0 12px}
+#modal .rs #finalSub{margin:0}
+.rsgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,.9fr);gap:40px;align-items:start}
+.rsgrid.solo{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.rsgrid .rsh{margin:0 0 14px;padding:0 0 10px;border-top:0;border-bottom:1px solid var(--line);font-size:1.15rem}
+.rsgrid .rsl{display:flex;flex-direction:column;gap:8px}
+.rsgrid .rsi{display:grid;grid-template-columns:72px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:8px 10px 8px 8px;border:0;border-radius:12px;background:var(--mint)}
+.rsgrid .rsi.ng{background:#fdecea}
+.rsgrid .rsi.sk{background:rgba(120,130,130,.14)}
+.rsgrid .rsi.fg{grid-template-columns:72px minmax(0,1fr) auto auto;background:var(--mint)}
+.rsc{display:block;width:72px;aspect-ratio:16/9;object-fit:cover;border-radius:7px;background:var(--mint2)}
+.rsgrid .rtx{min-width:0;display:flex;flex-direction:column;gap:1px}
+.rsgrid .rtx b{font:700 .95rem var(--disp);overflow-wrap:anywhere}
+.rsgrid .rtx small{font-size:.78rem;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rsgrid .rsi.ng .rtx small.rsa{color:#b3261e;font-weight:600}
+.rsgrid .rsi.ok .rtx small.rsa{color:var(--teal-d)}
+.rsgrid .rsm{padding:0;font:700 .85rem var(--disp)}
+.rsgrid .rsi.ok .rsm{color:var(--teal-d)}.rsgrid .rsi.ng .rsm{color:#b3261e}.rsgrid .rsi.sk .rsm{color:var(--mute)}
+#modal .rsmk{flex:none;width:34px;height:34px;min-height:0;padding:0;border:2px solid transparent;border-radius:50%;background:transparent;color:var(--mute);font:700 1rem var(--body);box-shadow:none;cursor:pointer;display:grid;place-items:center}
+#modal .rsmk:hover{background:rgba(255,255,255,.6);color:var(--teal-d);transform:none}
+#modal .rsmk.on{color:#c2410c;border-color:#c2410c}
+.rsgrid .rsrp{margin:0!important;white-space:nowrap}
+.rshint{margin:0;color:var(--mute);font-size:.9rem;line-height:1.6}
+.pod{display:flex;align-items:flex-end;justify-content:center;gap:10px;margin:6px 0 18px}
+.pp{flex:1 1 0;max-width:150px;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px}
+.pp .pav{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:var(--mint2);color:var(--teal-d);font:700 1.3rem var(--disp)}
+.pp.p0 .pav{width:66px;height:66px;background:var(--teal);color:#fff;font-size:1.6rem}
+.pp b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:700 .95rem var(--disp);margin-top:4px}
+.pp .psc{font:700 1rem var(--disp);color:var(--teal-d);font-variant-numeric:tabular-nums}
+.pp .ped{width:100%;margin-top:6px;padding-top:8px;border-radius:10px 10px 0 0;display:grid;place-items:start center;font:800 1.6rem var(--disp);background:var(--mint2);color:var(--teal-d)}
+.pp.p0 .ped{height:124px;background:var(--teal);color:#fff}.pp.p1 .ped{height:90px}.pp.p2 .ped{height:66px}
+.pp.me .pav{outline:3px solid var(--teal-d);outline-offset:2px}
+@media(max-width:1000px){.rsgrid,.rsgrid.solo{grid-template-columns:minmax(0,1fr);gap:34px}#rsRankBox{order:-1}}
+@media(max-width:520px){#modal .box.rs{padding:60px 16px 56px}#modal .rs #final{font-size:3rem}.rsgrid .rsi,.rsgrid .rsi.fg{grid-template-columns:60px minmax(0,1fr) auto;row-gap:2px}.rsc{width:60px}.rsgrid .rsm{grid-column:2;grid-row:2}.rsgrid .rsi .rsmk{grid-column:3;grid-row:1/3}.rsgrid .rsi.fg .rsrp{grid-column:2}.rsgrid .rsi.fg .rsmk{grid-column:3}}
+html[data-theme=dark] .rsgrid .rsi.ng{background:#3a1d1a}
+html[data-theme=dark] .rsgrid .rsi.sk{background:rgba(255,255,255,.07)}
+html[data-theme=dark] #modal .rsmk:hover{background:rgba(255,255,255,.1)}
 @media(max-width:699px){#aboutScreen .libhead{padding-top:44px}}
 @media(max-width:620px){.abgrid,.abgrid.ab4{grid-template-columns:1fr}.ablead{font-size:1.02rem}}
 /* ===== เพื่อน/คำเชิญ ===== */
 .dot{display:inline-block;width:8px;height:8px;margin-left:6px;border-radius:50%;background:var(--red);vertical-align:2px;text-decoration:none}
 .dot[hidden]{display:none}
 .pl .acts{display:flex;gap:6px;flex:none}
-#inviteToast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;width:min(460px,calc(100vw - 24px));display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 16px;border:2px solid var(--teal-d);border-radius:14px;background:#fff;box-shadow:5px 5px 0 var(--mint2)}
+#inviteToast{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:70;width:min(460px,calc(100vw - 24px));display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:14px 16px;border:2px solid var(--teal-d);border-radius:14px;background:var(--surf);box-shadow:5px 5px 0 var(--mint2)}
 #inviteToast[hidden]{display:none}
 #inviteToast .t{flex:1 1 180px;font-weight:600;word-break:break-word}
 body.ingame #inviteToast{display:none}
@@ -674,6 +899,7 @@ body.ingame #inviteToast{display:none}
 <div id="joinModal" role="dialog" aria-modal="true" aria-labelledby="jmT" hidden><div class="pmc"><button type="button" class="pmx" id="jmX" aria-label="ปิด">✕</button><h2 id="jmT">เข้าห้องด้วยรหัส</h2>
 <label class="fl" for="codeIn">รหัสห้อง</label>
 <div class="joinrow"><input class="tin codein" id="codeIn" maxlength="4" placeholder="A1B2" autocomplete="off"><button class="go alt" id="joinBtn" type="button">เข้าร่วม</button></div></div></div>
+<div id="hPickModal" role="dialog" aria-modal="true" aria-labelledby="hpT" hidden><div class="pmc"><button type="button" class="pmx" id="hpX" aria-label="ปิด">✕</button><h2 id="hpT">เลือกประวัติที่ต้องการดู</h2><div class="hpl" id="hEras"></div></div></div>
 <div id="roomModal" role="dialog" aria-modal="true" aria-labelledby="rmT" hidden><div class="pmc"><button type="button" class="pmx" id="rmX" aria-label="ปิด">✕</button><h2 id="rmT">สร้างห้องใหม่</h2>
 <label class="fl" for="rmName">ชื่อห้อง</label><input class="tin" id="rmName" maxlength="24" placeholder="เช่น ห้องฟังเพลงยามค่ำ" autocomplete="off">
 <div class="fl" style="margin-top:14px">การมองเห็น</div>
@@ -681,6 +907,18 @@ body.ingame #inviteToast{display:none}
 <div class="note" id="rmNote" style="margin:10px 0 0;min-height:1.3em"></div>
 <button class="go" id="rmGo" type="button" style="margin-top:8px">สร้างห้อง</button></div></div>
 <div id="gsModal" role="dialog" aria-modal="true" aria-labelledby="gsT" hidden><div class="pmc"><h2 id="gsT">คุณยังไม่มีบัญชีในเกมนี้</h2><p class="gsp">บัญชี Google นี้ยังไม่ได้สมัครเล่นเกมนี้ ต้องการสมัครตอนนี้ไหม?</p><div class="gsbtns"><button class="go alt" id="gsNo" type="button">ยกเลิก</button><button class="go" id="gsYes" type="button">สมัครสมาชิก</button></div></div></div>
+<div id="rpModal" role="dialog" aria-modal="true" aria-labelledby="rpT" hidden><div class="pmc"><button type="button" class="pmx" id="rpX" aria-label="ปิด">✕</button><h2 id="rpT">แจ้งข้อมูลผิด</h2><div class="rpsong" id="rpSong"></div>
+<label class="fl" for="rpTitle">ชื่อเพลง</label><input class="tin" id="rpTitle" type="text" autocomplete="off">
+<label class="fl" for="rpUrl">ลิงก์ YouTube</label><input class="tin" id="rpUrl" type="url" autocomplete="off">
+<div class="rptwo">
+<div><label class="fl" for="rpVocal">เสียงร้อง</label><input class="tin" id="rpVocal" type="text" autocomplete="off"></div>
+<div><label class="fl" for="rpComposer">ผู้แต่ง</label><input class="tin" id="rpComposer" type="text" autocomplete="off"></div>
+<div><label class="fl" for="rpArr">Arrangement</label><input class="tin" id="rpArr" type="text" autocomplete="off"></div>
+<div><label class="fl" for="rpDate">วันที่ปล่อย</label><input class="tin" id="rpDate" type="text" autocomplete="off"></div>
+<div><label class="fl" for="rpStart">เวลาเริ่มเล่น</label><input class="tin" id="rpStart" type="text" placeholder="เช่น 0:45" autocomplete="off"></div>
+</div>
+<label class="fl" for="rpNote">หมายเหตุถึงแอดมิน (ไม่บังคับ)</label><textarea class="tin" id="rpNote" maxlength="500"></textarea>
+<div class="row"><button class="go" id="rpSend" type="button">ส่งเรื่อง</button></div><div class="note" id="rpMsg" role="status"></div></div></div>
 <div class="screen" id="startScreen"><main class="hero">
   <div class="copy">
     <h1>Vocaloid<br>Quiz</h1>
@@ -714,17 +952,19 @@ body.ingame #inviteToast{display:none}
   <button type="button" data-p="histScreen"><span class="d"></span><span class="l">ประวัติ</span></button>
 </nav>
 <div id="pf"><button type="button" id="pfBtn"><span class="av" id="pfAv"></span><span class="l" id="pfName">ล็อกอิน</span></button></div>
-<div class="screen hide" id="profScreen"><div class="page wide">
-  <aside class="side"><h2>โปรไฟล์</h2><p>จัดการบัญชี เพื่อน และตั้งค่า</p></aside>
-  <div class="panel prof">
-    <div class="prhero"><div class="prav guest" id="prAv"></div><div class="prt"><b id="prName">-</b><small id="prSub"></small></div><button type="button" id="prSignin">ล็อกอิน</button></div>
+<div class="screen hide" id="profScreen"><div class="page libpage">
+  <div class="libhead"><h2>โปรไฟล์</h2></div>
+  <div class="prof">
+    <div class="prhero"><div class="prwrap"><div class="prav guest" id="prAv"></div><button type="button" id="prCam" hidden aria-label="เปลี่ยนรูปโปรไฟล์"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button><input type="file" id="prFile" accept="image/*" hidden></div><div class="prt"><b id="prName">-</b><small id="prSub"></small><button type="button" id="prDelPh" class="prlink" hidden>ลบรูปโปรไฟล์</button><small id="prPhMsg" class="prphm"></small></div><button type="button" id="prSignin">ล็อกอิน</button></div>
     <div class="prstats" id="prStats" hidden></div>
     <div class="prmenu">
       <button type="button" class="mi" id="prAcct"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4.5 4-6.5 8-6.5s7 2 8 6.5"/></svg></span><span class="tx"><b>บัญชีของฉัน</b><small>แก้ชื่อ ดูสถิติและประวัติเกม</small></span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
       <button type="button" class="mi" id="prFr"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.7-3.7 3.4-5.5 6.5-5.5s5.8 1.8 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 010 6.8M18.5 14.8c1.7.8 2.7 2.4 3 5.2"/></svg></span><span class="tx"><b>เพื่อน</b><small id="prFrT"></small></span><i class="dot" id="prDot" hidden></i><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="mi" id="prMyReq" hidden><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg></span><span class="tx"><b>คำร้องของฉัน</b><small>ดูเรื่องที่แจ้งไปและสถานะการแก้ไข</small></span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
       <button type="button" class="mi" id="prAdmin" hidden><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span><span class="tx"><b>ผู้ดูแลระบบ</b><small>จัดการเพลง คำขอ และประวัติ</small></span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
       <button type="button" class="mi" id="prHist" hidden><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h13v16H7a2 2 0 01-2-2z"/><path d="M9 8h6M9 12h6"/></svg></span><span class="tx"><b>จัดการประวัติ</b><small>เพิ่ม แก้ไข หรือลบรายการในหน้าประวัติ</small></span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
+    <div class="prset"><b>ธีม</b><div class="chips" id="prTheme" style="margin:0"><button type="button" class="chip" data-t="light">สว่าง</button><button type="button" class="chip" data-t="dark">มืด</button></div></div>
     <div class="prset"><b>ภาษา</b><div class="chips" id="prLang" style="margin:0"><button type="button" class="chip" data-l="th">ไทย</button><button type="button" class="chip" data-l="en">EN</button><button type="button" class="chip" data-l="ja">日本語</button></div></div>
     <button type="button" class="prout" id="prOut" hidden>ออกจากระบบ</button>
   </div></div></div>
@@ -736,8 +976,12 @@ body.ingame #inviteToast{display:none}
     <div class="hmh"><h3 class="rkh">ประวัติเสียงร้อง</h3><button type="button" class="chip" data-hm="add:char">+ เพิ่มเสียงร้อง</button></div>
     <div class="hml" id="hmChars"></div>
   </div></div></div>
+<div class="screen hide" id="myReqScreen"><div class="page libpage">
+  <div class="libhead"><button class="back" id="mrBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>คำร้องของฉัน</h2><span class="note" id="mrCount"></span></div>
+  <div class="mrlist" id="mrList"></div>
+</div></div>
 <div class="screen hide" id="rankScreen"><div class="page wide">
-  <aside class="side"><h2>อันดับ</h2><p>เรียงจากคะแนนรวมทุกเกม เลื่อนดูอันดับอื่นได้ แถวล่างสุดคืออันดับของคุณ</p></aside>
+  <aside class="side"><h2>อันดับ</h2></aside>
   <div class="panel"><div class="rkgrid">
     <section><h3 class="rkh">อันดับรวม</h3><div class="rkbox"><div class="rkcols"><span>อันดับ</span><span>ชื่อ</span><span>คะแนน</span></div><div class="rklist" id="rkAll">กำลังโหลด...</div><div class="rkme" id="rkAllMe"></div></div></section>
     <section><h3 class="rkh">อันดับเพื่อน</h3><div class="rkbox"><div class="rkcols"><span>อันดับ</span><span>ชื่อ</span><span>คะแนน</span></div><div class="rklist" id="rkFr">กำลังโหลด...</div><div class="rkme" id="rkFrMe"></div></div></section>
@@ -779,19 +1023,21 @@ body.ingame #inviteToast{display:none}
 </div></div>
 <div class="screen hide" id="histScreen"><div class="page libpage">
   <div class="libhead"><h2>ประวัติ</h2></div>
-  <div class="hseg" id="hMode"><button type="button" data-mode="soft">ประวัติโปรแกรมเสียงสังเคราะห์</button><button type="button" data-mode="voice">ประวัติเสียงร้อง</button></div>
-  <div class="hchips" id="hEras"></div>
+  <div class="hbar"><div class="hseg" id="hMode"><button type="button" data-mode="soft">ประวัติโปรแกรมเสียงสังเคราะห์</button><button type="button" data-mode="voice">ประวัติเสียงร้อง</button></div>
+  <button type="button" class="hpick" id="hPick" aria-haspopup="dialog"><span class="hpk">เลือกประวัติ</span><b id="hPickN"></b><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button></div>
   <div class="hadm" id="hAdm" hidden></div>
   <div class="hbox"><div class="hside" id="hSide"></div><div class="hdetail" id="hDetail"></div></div>
 </div></div>
 <div class="screen hide" id="aboutScreen"><div class="page libpage">
   <div class="libhead"><h2>เสียงสังเคราะห์คืออะไร</h2></div>
+  <article class="art">
   <p class="ablead">ซอฟต์แวร์ที่ทำให้คอมพิวเตอร์ ‘ร้องเพลง’ ได้ คุณพิมพ์เนื้อร้อง กำหนดโน้ต แล้วโปรแกรมจะร้องตามให้ นี่คือเทคโนโลยีเบื้องหลังเพลงส่วนใหญ่ในเกมนี้</p>
-  <h3 class="abh">พื้นฐาน</h3>
-  <div class="abgrid"><section class="abc"><h4>เสียงมาจากไหน</h4><p>ทีมพัฒนาบันทึกเสียงนักร้องหรือนักพากย์จริงขณะออกเสียงพยางค์จำนวนมาก แล้วนำไปสร้างเป็นคลังเสียง (voicebank) โปรแกรมจะนำเสียงเหล่านี้มาต่อและปรับให้ตรงกับโน้ตและเนื้อร้อง เช่น เสียงของ Hatsune Miku มาจากการบันทึกเสียงของ Saki Fujita</p></section><section class="abc"><h4>สร้างเพลงอย่างไร</h4><ol><li>เขียนทำนองเป็นโน้ตลงในโปรแกรม</li><li>ใส่เนื้อร้องลงในแต่ละโน้ต</li><li>ปรับแต่งการร้อง เช่น ความยาว ความดัง การสั่นเสียง และอารมณ์ (เรียกว่าการจูน)</li><li>ส่งออกเป็นไฟล์เสียงแล้วมิกซ์กับดนตรี</li></ol></section><section class="abc"><h4>ใครเป็นคนแต่งเพลง</h4><p>ใครก็เริ่มได้ ผู้แต่งที่ใช้เสียงสังเคราะห์มักเรียกว่าโปรดิวเซอร์ (P) เพลงมักถูกอัปโหลดลงเว็บ แล้วนักวาด นักทำวิดีโอ และแฟนๆ ก็มาร่วมสร้างผลงานต่อกัน</p></section></div>
-  <h3 class="abh">โปรแกรมที่ควรรู้</h3>
-  <div class="abgrid ab4"><section class="abc sw"><h4>VOCALOID</h4><p>โปรแกรมของ Yamaha เปิดตัวปี 2004 เป็นจุดเริ่มต้นของวงการ มีตัวละครอย่าง Hatsune Miku</p></section><section class="abc sw"><h4>UTAU</h4><p>โปรแกรมฟรีที่เปิดตัวปี 2008 ใครก็สร้างคลังเสียงของตัวเองได้ เช่น Kasane Teto</p></section><section class="abc sw"><h4>Synthesizer V</h4><p>โปรแกรมของ Dreamtonics ใช้ AI ช่วยสร้างเสียง ให้เสียงร้องที่เป็นธรรมชาติ</p></section><section class="abc sw"><h4>CeVIO</h4><p>ซอฟต์แวร์จากญี่ปุ่นที่ทั้งร้องเพลงและพูดได้ มีเสียงอย่าง Satou Sasara และ Suzuki Tsudumi</p></section></div>
-  <div class="abcall"><p>ในเกมนี้ คุณจะฟังท่อนสั้นๆ แล้วทายชื่อเพลง ลองเล่นดูหรืออ่านประวัติของแต่ละโปรแกรมได้เลย</p><div class="abbtns"><button class="go" id="abPlay" type="button">เล่นเกม</button><button class="go alt" id="abHist" type="button">ดูประวัติโปรแกรม</button></div></div>
+<h3>หลักการทำงาน</h3><p>ทีมพัฒนาบันทึกเสียงนักร้องหรือนักพากย์จริงขณะออกเสียงพยางค์จำนวนมาก แล้วนำไปสร้างเป็นคลังเสียง (voicebank) โปรแกรมจะนำเสียงเหล่านี้มาต่อและปรับให้ตรงกับโน้ตและเนื้อร้อง เช่น เสียงของ Hatsune Miku มาจากการบันทึกเสียงของ Saki Fujita</p>
+<h3>ใช้งานอย่างไร</h3><ol class="stp"><li><span>เขียนทำนองเป็นโน้ตลงในโปรแกรม</span></li><li><span>ใส่เนื้อร้องลงในแต่ละโน้ต</span></li><li><span>ปรับแต่งการร้อง เช่น ความยาว ความดัง การสั่นเสียง และอารมณ์ (เรียกว่าการจูน)</span></li><li><span>ส่งออกเป็นไฟล์เสียงแล้วมิกซ์กับดนตรี</span></li></ol>
+<h3>ต่างจากเสียงอ่านข้อความอย่างไร</h3><p>เสียงอ่านข้อความ (TTS) ทำหน้าที่อ่านประโยคให้ฟังเหมือนการพูด ส่วนเสียงสังเคราะห์สำหรับร้องเพลงต้องทำได้มากกว่านั้น คือร้องให้ตรงระดับเสียงและความยาวของแต่ละโน้ต ลากเสียง สั่นเสียง และใส่อารมณ์ได้</p>
+<h3>เทคโนโลยีรุ่นใหม่</h3><p>โปรแกรมรุ่นแรกใช้วิธีนำเสียงที่บันทึกไว้มาต่อกัน ส่วนรุ่นใหม่บางตัวใช้ AI เรียนรู้จากเสียงร้องจริง ทำให้เสียงต่อเนื่องและเป็นธรรมชาติขึ้น</p>
+<h3>ทำไมถึงมีตัวละคร</h3><p>แต่ละเสียงมักมาพร้อมตัวละครที่มีชื่อ หน้าตา และบุคลิก เพื่อให้จำง่ายและเป็นจุดเริ่มต้นให้คนแต่งเพลง วาดภาพ และทำวิดีโอร่วมกันได้ เช่น Hatsune Miku</p>
+  </article>
 </div></div>
 <div class="screen hide" id="histEditScreen"><div class="page wide">
   <aside class="side"><button class="back" id="hxBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxHead">แก้ประวัติ</h2><p>ข้อมูลที่บันทึกจะแสดงให้ทุกคนเห็นทันที</p></aside>
@@ -976,7 +1222,17 @@ body.ingame #inviteToast{display:none}
   <aside class="info empty" id="info"><div class="ph"><i class="t"></i><i class="l"></i><i class="v"></i><i class="l"></i><i class="v"></i><i class="l"></i><i class="v"></i><i class="l"></i><i class="v"></i></div><div class="phc">ข้อมูลเพลงจะแสดงที่นี่หลังตอบ</div></aside>
   </div>
 </div>
-<div id="modal"><div class="box"><h2>จบเกมแล้ว</h2><div id="finalLbl">คะแนนรวมของคุณ</div><div id="final">0</div><div id="soloSum" style="display:none"><div class="meter"><i id="meterFill"></i></div><div id="finalSub"></div></div><div class="rank" id="rank"></div><button id="restartBtn">เริ่มใหม่</button><button class="ghost" id="homeBtn">กลับหน้าหลัก</button></div></div>
+<div id="modal"><div class="box rs">
+  <div class="rshead"><div class="hl"><div class="rsk" id="rsKick">จบเกมแล้ว</div>
+  <div id="finalLbl">คะแนนรวมของคุณ</div><div id="final">0</div>
+  <div id="soloSum" style="display:none"><div class="meter"><i id="meterFill"></i></div><div id="finalSub"></div></div></div>
+  <div class="rsbtns"><button id="restartBtn">เริ่มใหม่</button><button class="ghost" id="homeBtn">กลับหน้าหลัก</button></div></div>
+  <div class="rsgrid solo" id="rsGrid">
+    <section id="rsSongsBox"><h3 class="rsh" id="rsListH">ผลแต่ละเพลง</h3><ol class="rsl" id="rsList"></ol></section>
+    <section id="rsRankBox" hidden><h3 class="rsh">อันดับในห้อง</h3><div class="pod" id="rsPod"></div><div class="rank" id="rank"></div></section>
+    <section id="rsFlagBox"><h3 class="rsh" id="rsFlagH">เพลงที่ต้องแจ้งแก้ข้อมูล</h3><ol class="rsl" id="rsFlag"></ol><p class="rshint" id="rsFlagHint"></p></section>
+  </div>
+</div></div>
 
 <script>
 /* ===== คลังเพลง: เพิ่มเพลงได้โดยเติมบรรทัดใหม่ในรายการนี้ =====
@@ -1136,7 +1392,7 @@ function renderInfo(song,v,loading){
     : v ? 'ข้อมูลจาก <a href="https://vocadb.net/S/'+v.id+'" target="_blank" rel="noopener">VocaDB</a>'+(v.via==='search'?' (ค้นจากชื่อเพลง อาจไม่ตรง)':'')
     : 'ข้อมูลที่ใส่ไว้ในไฟล์ (บางรายการเป็นปีโดยประมาณ)';
   const el=$('info'); el.className='info';
-  el.innerHTML='<h3>'+esc(song.title)+'</h3><dl>'+row('เสียงร้อง',f('vocal'))+row('ผู้แต่ง',f('composer'))+row('Arrangement',f('arr'))+row('วันที่ปล่อย',f('date'))+'</dl><div class="foot">'+foot+'</div>';
+  el.innerHTML='<h3>'+esc(song.title)+'</h3><dl>'+row('เสียงร้อง',f('vocal'))+row('ผู้แต่ง',f('composer'))+row('Arrangement',f('arr'))+row('วันที่ปล่อย',f('date'))+'</dl><div class="foot">'+foot+'</div><button type="button" class="rpmark"></button>'; infoSong=song; rpMarkBtn(el.querySelector('.rpmark'));
 }
 function showInfo(song){
   renderInfo(song,null,USE_VOCADB);
@@ -1144,7 +1400,9 @@ function showInfo(song){
 }
 const PH_HTML='<div class="ph"><i class="t"></i><i class="l"></i><i class="v"></i><i class="l"></i><i class="v"></i><i class="l"></i><i class="v"></i><i class="l"></i><i class="v"></i></div><div class="phc">ข้อมูลเพลงจะแสดงที่นี่หลังตอบ</div>';
 function resetInfo(){ const el=$('info'); el.className='info empty'; el.innerHTML=PH_HTML; }
+let roundLog=[], rpFlag={};
 function showQuestion(){
+  if(idx===0){ roundLog=[]; rpFlag={}; }
   resetInfo(); getInfo(order[idx]);
   if(online){ online.picked=false; online.myChoice=null; online.rev=false; }
   clearTimers(); pause(); phase='idle';
@@ -1167,7 +1425,7 @@ function answer(btn,choice){
   if(online) return onlineAnswer(btn,choice);
   if(phase!=='playing' && phase!=='grace') return;
   phase='done'; clearTimers(); pause();
-  const right=order[idx].title;
+  const right=order[idx].title; roundLog[idx]={s:order[idx],ok:choice===right,pick:choice||null};
   document.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; if(b.textContent===right && choice!==right) b.classList.add('correct'); });
   if(choice===right){ btn.classList.add('correct'); correctCount++; score+=POINTS; $('score').textContent=score; $('hint').textContent="✔ ถูกต้อง! +"+POINTS; }
   else if(btn){ btn.classList.add('wrong'); $('hint').textContent="✘ คำตอบที่ถูกคือ "+right; }
@@ -1200,7 +1458,7 @@ function next(){
   if(online){ if(phase==='done'){ stopReveal(); netReady(); } else netSkip(); return; }
   stopReveal();
   if(idx<order.length-1){ idx++; showQuestion(); }
-  else { $('final').textContent=score+" / "+order.length*POINTS; $('soloSum').style.display=''; $('meterFill').style.width=Math.round(score/(order.length*POINTS)*100)+'%'; $('finalSub').textContent='ตอบถูก '+correctCount+' จาก '+order.length+' ข้อ'; $('modal').style.display="flex"; saveResult({mode:'solo',score,rounds:order.length,correct:correctCount}); }
+  else { $('final').textContent=score+" / "+order.length*POINTS; $('soloSum').style.display=''; $('meterFill').style.width=Math.round(score/(order.length*POINTS)*100)+'%'; $('finalSub').textContent='ตอบถูก '+correctCount+' จาก '+order.length+' ข้อ'; $('modal').style.display="flex"; rsRender('solo'); saveResult({mode:'solo',score,rounds:order.length,correct:correctCount}); }
 }
 /* สุ่มลำดับเพลง n ข้อ (ถ้า n มากกว่าคลังเพลง จะวนสุ่มซ้ำรอบใหม่) */
 function buildOrder(n){
@@ -1272,12 +1530,12 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','aboutScreen','profScreen','hmScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','aboutScreen','profScreen','hmScreen','myReqScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
 }
-function resetModal(){ $('soloSum').style.display='none'; $('finalLbl').textContent="คะแนนรวมของคุณ"; $('final').style.display=""; $('rank').innerHTML=""; $('restartBtn').style.display=""; $('restartBtn').textContent="เริ่มใหม่"; }
+function resetModal(){ $('rsList').innerHTML=''; $('rsFlag').innerHTML=''; $('rsPod').innerHTML=''; $('rank').innerHTML=''; $('rsRankBox').hidden=true; $('rsGrid').classList.add('solo'); $('rsKick').textContent='จบเกมแล้ว'; $('soloSum').style.display='none'; $('finalLbl').textContent="คะแนนรวมของคุณ"; $('final').style.display=""; $('rank').innerHTML=""; $('restartBtn').style.display=""; $('restartBtn').textContent="เริ่มใหม่"; }
 const onMsg=t=>{ $('onMsg').textContent=t; };
 
 /* ----- สร้างห้อง (โฮสต์) ----- */
@@ -1466,7 +1724,7 @@ function onlineTimeout(){
 }
 function onlineReveal(list){
   online.rev=true; clearTimers(); pause(); phase='done';
-  const right=order[idx].title, my=online.myChoice;
+  const right=order[idx].title, my=online.myChoice; roundLog[idx]={s:order[idx],ok:my===right,pick:my||null};
   document.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; b.classList.remove('picked'); const t=b.textContent; if(t===right) b.classList.add('correct'); else if(my&&t===my) b.classList.add('wrong'); });
   $('hint').textContent = my===right ? "✔ ถูกต้อง! +"+POINTS : (my ? "✘ คำตอบที่ถูกคือ "+right : "⏱ ไม่ได้ตอบ คำตอบคือ "+right);
   applyState(list); showInfo(order[idx]); reveal();
@@ -1479,7 +1737,7 @@ function endOnline(list){
   $('finalLbl').textContent="อันดับผู้เล่น"; $('final').style.display="none";
   $('rank').innerHTML=sorted.map((p,k)=>'<div class="pl'+(p.id===online.myId?' me':'')+'"><span class="nm">'+'<span class="rk">'+(k+1)+'</span>'+' '+esc(p.name)+'</span><span class="sc">'+p.score+'</span></div>').join('');
   $('restartBtn').style.display=online.host?'':'none'; $('restartBtn').textContent="กลับห้อง (เล่นใหม่)";
-  $('modal').style.display="flex";
+  $('modal').style.display="flex"; rsRender('online',sorted);
 }
 function returnLobby(){
   Object.values(online.roster).forEach(r=>{ r.score=0; r.ans=false; r.ready=false; });
@@ -1611,7 +1869,7 @@ function gsOpen(u){ pendingG=u; acct=null; profile=null; renderAcct(); $('gsModa
 async function onAuth(user){
   if(!user){ acct=null; profile=null; stopSocial(); renderAcct(); return; }
   if(needVerify(user)){ acct=null; profile=null; if(!authBusy){ try{ await auth.signOut(); }catch(e){} } renderAcct(); return; }
-  acct={uid:user.uid,email:user.email||'',gname:user.displayName||''};
+  acct={uid:user.uid,email:user.email||'',gname:user.displayName||'',photoURL:user.photoURL||''};
   try{
     const ref=db.collection('profiles').doc(user.uid); let snap=await ref.get();
     if(!snap.exists&&isG(user)){ gsOpen(user); return; }
@@ -1683,7 +1941,7 @@ async function openLeaderboard(){
 $('acctBtn').onclick=()=>{ if(acct) openAccount(); else openLogin(); };
 
 $('lbBack').onclick=()=>showScreen('startScreen');
-$('acctBack').onclick=()=>showScreen('startScreen');
+$('acctBack').onclick=()=>showScreen('profScreen');
 $('saveName').onclick=async()=>{
   const n=$('acctName').value.trim().slice(0,20); if(!n){ $('acctMsg').textContent='⚠ กรอกชื่อก่อน'; return; }
   try{ await db.collection('profiles').doc(acct.uid).update({name:n}); profile.name=n; renderAcct(); $('acctMsg').textContent='บันทึกชื่อแล้ว'; }
@@ -1823,7 +2081,7 @@ async function admWrite(fn,okMsg){
   catch(e){ admMsg('⚠ ทำไม่สำเร็จ ('+(e.code||e.message)+') ตรวจกฎ Firestore และสิทธิ์แอดมิน'); return false; }
 }
 $('adminBtn').onclick=openAdmin;
-$('adminBack').onclick=()=>showScreen('startScreen');
+$('adminBack').onclick=()=>showScreen('profScreen');
 $('admSearch').oninput=renderAdmin;
 $('admCancel').onclick=()=>{ admReset(); admMsg(''); };
 $('admSave').onclick=async()=>{
@@ -1896,7 +2154,7 @@ function authMsg(e){
   if(c==='auth/operation-not-allowed') return 'ยังไม่ได้เปิดล็อกอินด้วยอีเมลใน Firebase';
   return 'ไม่สำเร็จ ('+(c||(e&&e.message)||'?')+')';
 }
-$('loginBack').onclick=()=>{ if(pendingG) gsCancel(); showScreen('startScreen'); };
+$('loginBack').onclick=()=>{ if(pendingG) gsCancel(); showScreen('profScreen'); };
 document.querySelectorAll('#loginTabs .chip').forEach(b=>{ b.onclick=()=>setLoginMode(b.dataset.m); });
 $('loginForm').onsubmit=async ev=>{
   ev.preventDefault();
@@ -1937,7 +2195,6 @@ $('loginGoogle').onclick=async()=>{
   if(ex||!isG(u)) showScreen('startScreen'); else if(!pendingG) gsOpen(u);
 };
 /* ----- ลืมรหัสผ่าน: หน้าแยก ----- */
-$('abPlay').onclick=()=>showScreen('startScreen'); $('abHist').onclick=()=>showScreen('histScreen');
 $('loginForgot').onclick=()=>{ $('fpEmail').value=$('loginEmail').value.trim(); $('fpMsg').textContent=''; showScreen('forgotScreen'); };
 $('fpBack').onclick=()=>showScreen('loginScreen');
 $('fpEmail').onkeydown=e=>{ if(e.key==='Enter') $('fpSend').click(); };
@@ -1973,10 +2230,89 @@ $('gsOk').onclick=async()=>{
 /* ===== เมนูซ้าย 4 หน้า: เล่นเกม / อันดับ / คลังเพลง / ประวัติ ===== */
 const LNG=()=>document.documentElement.lang||'en';
 const pk=o=>o[LNG()]||o.en;
-const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',aboutScreen:'aboutScreen',profScreen:'profScreen',hmScreen:'profScreen'};
+const RSL={ok:{th:'ถูก',en:'Correct',ja:'正解'},ng:{th:'ผิด',en:'Wrong',ja:'不正解'},skip:{th:'ไม่ได้ตอบ',en:'No answer',ja:'未回答'},you:{th:'คุณตอบ',en:'You answered',ja:'あなたの回答'},kick:{th:'จบเกมแล้ว',en:'Game over',ja:'ゲーム終了'},sc:{th:'คะแนนของคุณ',en:'Your score',ja:'あなたのスコア'},tot:{th:'คะแนนรวมของคุณ',en:'Your total score',ja:'合計スコア'},rk:{th:'อันดับที่',en:'Rank',ja:'順位'},of:{th:'จาก',en:'of',ja:'/'},cor:{th:'ตอบถูก',en:'Correct',ja:'正解'},q:{th:'ข้อ',en:'',ja:'問'}};
+let rsL=[];
+Object.assign(RSL,{list:{th:'ผลแต่ละเพลง',en:'Song by song',ja:'曲ごとの結果'},flagT:{th:'เพลงที่ต้องแจ้งแก้ข้อมูล',en:'Songs to report',ja:'報告する曲'},flagH:{th:'กด ⚑ ที่เพลงเพื่อเก็บไว้แจ้งแก้ข้อมูล',en:'Tap ⚑ on a song to report wrong info',ja:'曲の ⚑ を押して誤りを報告'},rp:{th:'แจ้งข้อมูลผิด',en:'Report an error',ja:'誤りを報告'},mk:{th:'ข้อมูลผิด? ทำเครื่องหมายไว้แจ้งหลังจบเกม',en:'Wrong info? Mark it to report after the game',ja:'誤り？ゲーム後に報告するため印をつける'},mk2:{th:'ทำเครื่องหมายแล้ว แจ้งได้หลังจบเกม',en:'Marked: report it after the game',ja:'印をつけました（ゲーム後に報告）'}});
+/* ----- แจ้งข้อมูลผิดหลังจบเกม (popup ไม่พาออกจากหน้าสรุป) ----- */
+const RPF=[['rpTitle','title'],['rpUrl','url'],['rpStart','start'],['rpVocal','vocal'],['rpComposer','composer'],['rpArr','arr'],['rpDate','date']];
+let rpSong=null;
+const rpMsg=t=>{ $('rpMsg').textContent=t||''; };
+function rpOpen(song){
+  if(!FB_ON||!db){ alert('ระบบยังไม่พร้อม ลองอีกครั้ง'); return; }
+  if(!acct){ alert('ต้องล็อกอินก่อน'); return; }
+  rpSong=song; rpMsg(''); $('rpSend').disabled=false;
+  $('rpSong').textContent=song.title;
+  RPF.forEach(([id,k])=>{ $(id).value=k==='start'?fmtT(song.start||0):(song[k]||''); });
+  $('rpNote').value=''; $('rpModal').hidden=false; $('rpVocal').focus();
+}
+const rpClose=()=>{ $('rpModal').hidden=true; };
+$('rpX').onclick=rpClose;
+$('rpModal').onclick=e=>{ if(e.target===$('rpModal')) rpClose(); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!$('rpModal').hidden) rpClose(); });
+$('rsGrid').onclick=e=>{ const m=e.target.closest('[data-mk]'); if(m){ const x=rsL[+m.dataset.mk]; if(x){ const k=songKey(x.s); rpFlag[k]=!rpFlag[k]; rsSongs(); rsFlagged(); } return; } const b=e.target.closest('[data-rp]'); if(!b) return; const x=rsL[+b.dataset.rp]; if(x) rpOpen(x.s); };
+function rsRefreshRows(){ rsSongs(); rsFlagged(); }
+$('rpSend').onclick=async()=>{
+  if(!acct||!db||!rpSong){ rpMsg('⚠ ต้องล็อกอินก่อน'); return; }
+  const v=id=>$(id).value.trim(), c=rpSong;
+  const title=v('rpTitle'), url=v('rpUrl');
+  if(!title){ rpMsg('⚠ กรอกชื่อเพลงก่อน'); return; }
+  if(!ytId(url)){ rpMsg('⚠ ลิงก์ YouTube ไม่ถูกต้อง'); return; }
+  const data={title,url,start:parseTime(v('rpStart')),vocal:v('rpVocal'),composer:v('rpComposer'),arr:v('rpArr'),date:v('rpDate')};
+  const same=['title','url','vocal','composer','arr','date'].every(k=>String(data[k]||'')===String(c[k]||''))&&data.start===(c.start||45);
+  if(same&&!v('rpNote')){ rpMsg('⚠ ไม่มีอะไรเปลี่ยนจากข้อมูลเดิม'); return; }
+  const doc={old:reqOld(c),type:'edit',uid:acct.uid,name:String((profile&&profile.name)||'').slice(0,40),songId:c.id?String(c.id):'',songKey:songKey(c),songTitle:c.title,data,note:v('rpNote').slice(0,500),status:'pending',ts:firebase.firestore.FieldValue.serverTimestamp()};
+  rpMsg('กำลังส่ง...'); $('rpSend').disabled=true;
+  try{
+    await reqAdd(doc);
+    rpFlag[songKey(c)]=false; rsRefreshRows();
+    rpMsg('✓ ส่งเรื่องแล้ว แอดมินจะตรวจสอบก่อนแก้ในเว็บ ขอบคุณที่ช่วยกัน');
+    setTimeout(rpClose,1500);
+  }catch(err){ rpMsg('⚠ ส่งไม่สำเร็จ ('+(err.code||err.message)+') ตรวจกฎ Firestore ของคำร้อง'); $('rpSend').disabled=false; }
+};
+/* ปุ่มบนการ์ดข้อมูลเพลง: ทำเครื่องหมายไว้ แล้วแจ้งทีหลังจบเกม */
+var infoSong=null;
+function rpMarkBtn(b){ if(!b) return; const f=infoSong&&rpFlag[songKey(infoSong)]; b.classList.toggle('on',!!f); b.textContent='⚑ '+pk(f?RSL.mk2:RSL.mk); }
+$('info').addEventListener('click',e=>{ const b=e.target.closest('.rpmark'); if(!b||!infoSong) return; const k=songKey(infoSong); rpFlag[k]=!rpFlag[k]; rpMarkBtn(b); });
+function rsRender(mode,sorted){
+  const L=roundLog.filter(Boolean); rsL=L; const n=(online&&online.qs?online.qs.length:order.length)||L.length, ok=L.filter(x=>x.ok).length;
+  $('rsKick').textContent=pk(RSL.kick);
+  $('soloSum').style.display=''; $('meterFill').style.width=Math.round(ok/Math.max(1,n)*100)+'%';
+  const cs=pk(RSL.cor)+' '+ok+' '+pk(RSL.of)+' '+n+(pk(RSL.q)?' '+pk(RSL.q):'');
+  $('rsGrid').classList.toggle('solo',mode!=='online');
+  if(mode==='online'){
+    const me=sorted.find(p=>p.id===online.myId), pos=sorted.findIndex(p=>p.score===(me&&me.score))+1;
+    $('finalLbl').textContent=pk(RSL.sc); $('final').style.display=''; $('final').textContent=me?me.score:0;
+    $('finalSub').textContent=pk(RSL.rk)+' '+pos+' '+pk(RSL.of)+' '+sorted.length+' · '+cs;
+    let prev=null, rk=0; const rks=sorted.map((p,k)=>{ if(p.score!==prev){ rk=k+1; prev=p.score; } return rk; });
+    const pod=[1,0,2].filter(k=>sorted[k]).map(k=>{ const p=sorted[k]; return '<div class="pp p'+k+(p.id===online.myId?' me':'')+'"><div class="pav">'+esc((String(p.name||'?').trim()[0]||'?').toUpperCase())+'</div><b>'+esc(p.name)+'</b><span class="psc">'+p.score+'</span><div class="ped">'+rks[k]+'</div></div>'; }).join('');
+    $('rsPod').innerHTML=pod;
+    $('rank').innerHTML=sorted.slice(3).map((p,j)=>'<div class="pl'+(p.id===online.myId?' me':'')+'"><span class="nm"><span class="rk">'+rks[j+3]+'</span> '+esc(p.name)+'</span><span class="sc">'+p.score+'</span></div>').join('');
+    $('rsRankBox').hidden=false;
+  }else{
+    $('finalSub').textContent=cs;
+  }
+  $('rsListH').textContent=pk(RSL.list); $('rsFlagH').textContent=pk(RSL.flagT); $('rsFlagHint').textContent=pk(RSL.flagH);
+  rsSongs(); rsFlagged();
+  $('modal').scrollTop=0;
+}
+const rsCover=x=>'<img class="rsc" alt="" loading="lazy" src="https://i.ytimg.com/vi/'+esc(songKey(x.s))+'/mqdefault.jpg" onerror="this.hidden=true">';
+function rsSongs(){
+  $('rsList').innerHTML=rsL.map((x,k)=>{
+    const cls=x.ok?'ok':(x.pick?'ng':'sk'), st=x.ok?RSL.ok:(x.pick?RSL.ng:RSL.skip), sub=[x.s.vocal,x.s.composer].filter(Boolean).join(' · '), f=rpFlag[songKey(x.s)];
+    return '<li class="rsi '+cls+'">'+rsCover(x)+'<span class="rtx"><b>'+esc(x.s.title)+'</b>'+(sub?'<small>'+esc(sub)+'</small>':'')
+      +'<small class="rsa">'+esc(pk(RSL.you))+': '+esc(x.pick||'—')+'</small></span>'
+      +'<span class="rsm">'+(x.ok?'✔ ':(x.pick?'✘ ':''))+esc(pk(st))+'</span>'
+      +'<button type="button" class="rsmk'+(f?' on':'')+'" data-mk="'+k+'" aria-pressed="'+(f?'true':'false')+'" title="'+esc(pk(RSL.flagT))+'">⚑</button></li>'; }).join('');
+}
+function rsFlagged(){
+  const rows=rsL.map((x,k)=>[x,k]).filter(([x])=>rpFlag[songKey(x.s)]);
+  $('rsFlag').innerHTML=rows.map(([x,k])=>'<li class="rsi fg">'+rsCover(x)+'<span class="rtx"><b>'+esc(x.s.title)+'</b></span><button type="button" class="rsrp" data-rp="'+k+'">'+esc(pk(RSL.rp))+'</button><button type="button" class="rsmk on" data-mk="'+k+'" aria-label="✕">✕</button></li>').join('');
+  $('rsFlagHint').style.display=rows.length?'none':'';
+}
+const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',aboutScreen:'aboutScreen',profScreen:'profScreen',hmScreen:'profScreen',myReqScreen:'profScreen'};
 const _ssR=showScreen;
 const PGO=['profScreen','startScreen','rankScreen','libScreen','aboutScreen','histScreen'];
-const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','forgotScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','profScreen','hmScreen','aboutScreen'];
+const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','forgotScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','profScreen','hmScreen','myReqScreen','aboutScreen'];
 const PGC=['pgin-dn','pgin-up','pgout-dn','pgout-up','pgin-fw','pgin-bk','pgin-fd','pgout-fw','pgout-bk','pgout-fd'];
 let pgTimer=0, pgOld=null;
 const pgClean=()=>{ clearTimeout(pgTimer); document.querySelectorAll('.screen').forEach(e=>e.classList.remove(...PGC)); if(pgOld){ pgOld.classList.add('hide'); pgOld=null; } };
@@ -2005,6 +2341,7 @@ showScreen=function(id){
   if(id==='loginScreen') lgLock();
   if(id==='profScreen') prRefresh();
   if(id==='hmScreen') loadHist().then(renderHM);
+  if(id==='myReqScreen') loadMyReqs();
   if(id==='histScreen'){ loadHist(); renderHist(); }
 };
 document.querySelectorAll('#rail button').forEach(b=>{ b.onclick=()=>showScreen(b.dataset.p); });
@@ -2023,12 +2360,14 @@ function prRefresh(){
   const i=pfIn(), p=(typeof profile!=='undefined'&&profile)||{}, nm=i?(p.name||'บัญชี'):'ยังไม่ได้ล็อกอิน';
   $('prName').textContent=nm;
   $('prSub').textContent=i?acct.email:'ล็อกอินเพื่อบันทึกคะแนนและเล่นกับเพื่อน';
-  const av=$('prAv'); av.classList.toggle('guest',!i); if(i) av.textContent=(nm.trim()[0]||'?').toUpperCase(); else av.innerHTML=PF_SVG;
+  const av=$('prAv'), ph=i?(p.photo||(acct&&acct.photoURL)||''):''; av.classList.toggle('guest',!i); av.classList.toggle('hasph',!!ph);
+  if(i&&ph) av.innerHTML='<img alt="" referrerpolicy="no-referrer" src="'+esc(ph)+'">'; else if(i) av.textContent=(nm.trim()[0]||'?').toUpperCase(); else av.innerHTML=PF_SVG;
+  $('prCam').hidden=!i; $('prDelPh').hidden=!(i&&p.photo);
   $('prSignin').hidden=i; $('prAcct').hidden=!i; $('prOut').hidden=!i; $('prStats').hidden=!i;
   if(i){ const acc=p.rounds?Math.round(p.correct/p.rounds*100)+'%':'—';
     $('prStats').innerHTML=[['เกมที่เล่น',p.games||0],['คะแนนรวม',p.totalScore||0],['คะแนนสูงสุด/เกม',p.best||0],['ความแม่นยำ',acc]].map(([l,v])=>'<div class="prstat">'+l+'<b>'+v+'</b></div>').join(''); }
   $('prFrT').textContent=i?'ดูรายชื่อเพื่อน เพิ่มเพื่อน และตอบรับคำขอ':'ล็อกอินเพื่อเพิ่มและดูรายชื่อเพื่อน';
-  $('prAdmin').hidden=$('adminBtn').style.display==='none'; $('prHist').hidden=!(typeof isAdmin!=='undefined'&&isAdmin);
+  $('prAdmin').hidden=$('adminBtn').style.display==='none'; $('prMyReq').hidden=!i; $('prHist').hidden=!(typeof isAdmin!=='undefined'&&isAdmin);
   $('prFr').classList.toggle('dim',!i); $('prDot').hidden=!i||$('friendsDot').hidden;
   document.querySelectorAll('#prLang .chip').forEach(b=>b.classList.toggle('on',b.dataset.l===document.documentElement.lang));
 }
@@ -2043,6 +2382,36 @@ $('prSignin').onclick=()=>$('acctBtn').onclick();
 $('prOut').onclick=()=>$('logoutBtn').onclick();
 $('prAdmin').onclick=()=>$('adminBtn').onclick();
 $('prHist').onclick=()=>showScreen('hmScreen');
+/* ----- ธีม ----- */
+function setTheme(t,save){ const d=t==='dark'; if(d) document.documentElement.setAttribute('data-theme','dark'); else document.documentElement.removeAttribute('data-theme');
+  if(save){ try{ localStorage.setItem('vq_theme',d?'dark':'light'); }catch(e){} }
+  document.querySelectorAll('#prTheme .chip').forEach(b=>b.classList.toggle('on',b.dataset.t===(d?'dark':'light'))); }
+document.querySelectorAll('#prTheme .chip').forEach(b=>{ b.onclick=()=>setTheme(b.dataset.t,true); });
+setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light',false);
+/* ----- รูปโปรไฟล์: ครอปกลาง ย่อ 192px เก็บเป็น data URL ใน Firestore ----- */
+const phMsg=t=>{ $('prPhMsg').textContent=t||''; };
+function phResize(file){ return new Promise((ok,no)=>{
+  const url=URL.createObjectURL(file), im=new Image();
+  im.onload=()=>{ try{ const S=192, m=Math.min(im.naturalWidth,im.naturalHeight), c=document.createElement('canvas'); c.width=c.height=S;
+      const g=c.getContext('2d'); g.fillStyle='#fff'; g.fillRect(0,0,S,S);
+      g.drawImage(im,(im.naturalWidth-m)/2,(im.naturalHeight-m)/2,m,m,0,0,S,S);
+      URL.revokeObjectURL(url); ok(c.toDataURL('image/jpeg',.85)); }catch(e){ no(e); } };
+  im.onerror=()=>{ URL.revokeObjectURL(url); no(new Error('bad image')); }; im.src=url; }); }
+$('prCam').onclick=()=>{ if(!pfIn()) return; phMsg(''); $('prFile').value=''; $('prFile').click(); };
+$('prAv').onclick=()=>{ if(pfIn()) $('prCam').click(); };
+$('prFile').onchange=async()=>{
+  const f=$('prFile').files[0]; if(!f) return;
+  if(!/^image\//.test(f.type)){ phMsg('⚠ เลือกไฟล์รูปภาพเท่านั้น'); return; }
+  if(!db||!acct){ phMsg('⚠ ระบบยังไม่พร้อม ลองอีกครั้ง'); return; }
+  phMsg('กำลังอัปโหลด...');
+  try{ const d=await phResize(f); await db.collection('profiles').doc(acct.uid).update({photo:d}); profile.photo=d; prRefresh(); phMsg('เปลี่ยนรูปโปรไฟล์แล้ว'); }
+  catch(e){ phMsg('⚠ อัปโหลดไม่สำเร็จ ('+(e.code||e.message)+')'); }
+};
+$('prDelPh').onclick=async()=>{
+  if(!db||!acct) return; phMsg('กำลังลบ...');
+  try{ await db.collection('profiles').doc(acct.uid).update({photo:''}); delete profile.photo; prRefresh(); phMsg('ลบรูปโปรไฟล์แล้ว'); }
+  catch(e){ phMsg('⚠ ลบไม่สำเร็จ ('+(e.code||e.message)+')'); }
+};
 new MutationObserver(prRefresh).observe($('adminBtn'),{attributes:true,attributeFilter:['style']});
 $('prFr').onclick=()=>{ if(pfIn()) $('friendsBtn').onclick(); else openLogin(); };
 document.querySelectorAll('#prLang .chip').forEach(b=>{ b.onclick=()=>{ document.querySelector('#langSw [data-l="'+b.dataset.l+'"]').click(); prRefresh(); }; });
@@ -2056,7 +2425,7 @@ const PAGES=['profScreen','startScreen','rankScreen','libScreen','aboutScreen','
 let pgCool=0, pgAcc=0, pgAccT=0, pgTouchY=null;
 function pgCur(){ return PAGES.find(id=>{ const c=$(id).classList; return !c.contains('hide')&&![...c].some(x=>x.startsWith('pgout')); }); }
 function atEdge(t,scr,dir){
-  if(t&&t.closest&&t.closest('.libgrid,.rklist,.hside,.hdetail')) return false;   // เลื่อนในกล่องเพลง/อันดับ ไม่ย้ายหน้า
+  if(t&&t.closest&&t.closest('.libgrid,.rklist')) return false;   // เลื่อนในกล่องเพลง/อันดับ ไม่ย้ายหน้า
   for(let el=t;el&&el!==document.body;el=el.parentElement){
     if(el.nodeType!==1) continue;
     const oy=getComputedStyle(el).overflowY;
@@ -2091,7 +2460,8 @@ addEventListener('touchend',e=>{
 
 /* ----- อันดับ: 10 อันดับแรกเห็นทันที เลื่อนดูต่อได้ (ดึง 100 อันดับ) แถวล่างสุดปักอันดับของเรา ----- */
 const rankOpen=()=>!$('rankScreen').classList.contains('hide');
-const lbRow=(id,x,k,lab)=>'<div class="rr'+(acct&&id===acct.uid?' me':'')+'"><span class="n">'+(lab||(k+1))+'</span><span class="nm">'+esc(x.name||'ผู้เล่น')+'</span><span class="sc">'+(x.totalScore||0)+'</span></div>';
+const lav=(x,me)=>{ const ph=x.photo||(me&&acct&&acct.photoURL)||''; return '<i class="lav">'+(ph?'<img alt="" referrerpolicy="no-referrer" src="'+esc(ph)+'">':esc(((x.name||'?').trim()[0]||'?').toUpperCase()))+'</i>'; };
+const lbRow=(id,x,k,lab)=>'<div class="rr'+(acct&&id===acct.uid?' me':'')+'"><span class="n">'+(lab||(k+1))+'</span><span class="nm">'+lav(x,acct&&id===acct.uid)+esc(x.name||'ผู้เล่น')+'</span><span class="sc">'+(x.totalScore||0)+'</span></div>';
 const padRows=n=>{ let h=''; for(let k=n;k<5;k++) h+='<div class="rr ph"><span class="n">'+(k+1)+'</span><span class="nm"></span><span class="sc"></span></div>'; return h; };
 const dbReady=async()=>{ for(let i=0;i<40&&!db;i++) await new Promise(r=>setTimeout(r,250)); return !!db; };
 async function realRank(score){
@@ -2202,10 +2572,10 @@ $('rqSend').onclick=async()=>{
     if(same&&!v('rqNote')){ rqMsg('⚠ ไม่มีอะไรเปลี่ยนจากข้อมูลเดิม'); return; }
   }
   const e=reqMode==='edit';
-  const doc={type:reqMode,uid:acct.uid,name:String((profile&&profile.name)||'').slice(0,40),songId:e&&curSong.id?String(curSong.id):'',songKey:e?songKey(curSong):'',songTitle:e?curSong.title:'',data,note:v('rqNote').slice(0,500),status:'pending',ts:firebase.firestore.FieldValue.serverTimestamp()};
+  const doc={old:e?reqOld(curSong):null,type:reqMode,uid:acct.uid,name:String((profile&&profile.name)||'').slice(0,40),songId:e&&curSong.id?String(curSong.id):'',songKey:e?songKey(curSong):'',songTitle:e?curSong.title:'',data,note:v('rqNote').slice(0,500),status:'pending',ts:firebase.firestore.FieldValue.serverTimestamp()};
   rqMsg('กำลังส่ง...'); $('rqSend').disabled=true;
   try{
-    await db.collection('requests').add(doc);
+    await reqAdd(doc);
     rqMsg('✓ ส่งเรื่องแล้ว แอดมินจะตรวจสอบก่อนนำไปแก้หรือเพิ่มในเว็บ ขอบคุณที่ช่วยกัน');
     setTimeout(()=>{ if(!$('reqScreen').classList.contains('hide')) showScreen(e?'songScreen':'libScreen'); },1800);
   }catch(err){ rqMsg('⚠ ส่งไม่สำเร็จ ('+(err.code||err.message)+') ตรวจกฎ Firestore ของคำร้อง'); $('rqSend').disabled=false; }
@@ -2261,6 +2631,46 @@ $('admReq').onclick=async e=>{
   }catch(err){ admMsg('⚠ ทำไม่สำเร็จ ('+(err.code||err.message)+')'); b.disabled=false; }
 };
 
+
+/* ----- คำร้องของฉัน ----- */
+const reqOld=c=>({title:c.title||'',url:c.url||'',start:c.start||0,vocal:c.vocal||'',composer:c.composer||'',arr:c.arr||'',date:c.date||''});
+async function reqAdd(doc){
+  try{ return await db.collection('requests').add(doc); }
+  catch(e){ if(e&&e.code==='permission-denied'&&doc.old!==undefined){ const d2={...doc}; delete d2.old; return await db.collection('requests').add(d2); } throw e; }
+}
+const MRL={pending:{th:'รอตรวจ',en:'Pending',ja:'確認待ち'},approved:{th:'แก้ให้แล้ว',en:'Fixed',ja:'修正済み'},rejected:{th:'ปฏิเสธ',en:'Declined',ja:'却下'},add:{th:'ขอเพิ่มเพลง',en:'Song request',ja:'曲の追加依頼'},edit:{th:'แจ้งข้อมูลผิด',en:'Error report',ja:'誤りの報告'},empty:{th:'ยังไม่เคยแจ้งอะไร',en:'You have not reported anything yet',ja:'まだ報告はありません'},cur:{th:'ค่าที่แจ้ง',en:'You reported',ja:'報告内容'},note:{th:'หมายเหตุของคุณ',en:'Your note',ja:'あなたのメモ'},dec:{th:'แอดมินตรวจเมื่อ',en:'Reviewed on',ja:'確認日'},cnt:{th:'ทั้งหมด',en:'Total',ja:'合計'}};
+const mrFmt=t=>{ try{ const d=t&&t.toDate?t.toDate():null; return d?d.toLocaleString(({th:'th-TH',en:'en-US',ja:'ja-JP'})[LANG]||'th-TH',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}):''; }catch(e){ return ''; } };
+let mrData=null;
+async function loadMyReqs(){
+  const el=$('mrList'); if(!el) return;
+  if(!acct||!db){ el.innerHTML='<div class="note">ต้องล็อกอินก่อน</div>'; return; }
+  el.innerHTML='<div class="note">กำลังโหลด...</div>';
+  try{
+    const q=await db.collection('requests').where('uid','==',acct.uid).get();
+    mrData=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.ts&&b.ts.toMillis?b.ts.toMillis():1e15)-(a.ts&&a.ts.toMillis?a.ts.toMillis():1e15));
+    mrRender();
+  }catch(e){ el.innerHTML='<div class="note">โหลดไม่ได้ ('+esc(e.code||e.message)+') ตรวจกฎ Firestore ของคำร้อง</div>'; }
+}
+function mrRender(){
+  const el=$('mrList'); if(!mrData) return;
+  $('mrCount').textContent=mrData.length?pk(MRL.cnt)+' '+mrData.length:'';
+  if(!mrData.length){ el.innerHTML='<div class="note">'+esc(pk(MRL.empty))+'</div>'; return; }
+  const fv=(k,o)=>k==='start'?fmtT(o[k]||0):String(o[k]==null?'':o[k]);
+  el.innerHTML=mrData.map(r=>{
+    const d=cleanReq(r.data), st=MRL[r.status]?r.status:'pending', old=r.old||(r.status==='pending'&&r.type==='edit'?reqTarget(r):null);
+    const keys=Object.keys(RQL).filter(k=>r.type==='add'?fv(k,d):(old?fv(k,d)!==fv(k,old):false));
+    const lines=keys.map(k=>'<div class="mrdf"><span class="k">'+esc(RQL[k])+'</span>'+(old&&r.type==='edit'&&fv(k,old)?'<s>'+esc(fv(k,old))+'</s> → ':'')+'<b>'+esc(fv(k,d)||'—')+'</b></div>').join('');
+    const dec=r.decidedAt&&st!=='pending'?'<div class="mrmeta">'+esc(pk(MRL.dec))+' '+esc(mrFmt(r.decidedAt))+'</div>':'';
+    return '<article class="mri '+st+'"><div class="mrh"><span class="mrt">'+esc(pk(MRL[r.type==='add'?'add':'edit']))+'</span><span class="mrs">'+esc(pk(MRL[st]))+'</span></div>'
+      +'<h3>'+esc(r.type==='edit'?(r.songTitle||d.title):d.title)+'</h3><div class="mrmeta">'+esc(mrFmt(r.ts))+'</div>'
+      +(lines?'<div class="mrch">'+lines+'</div>':'')
+      +(r.note?'<div class="mrnote"><span class="k">'+esc(pk(MRL.note))+'</span> '+esc(r.note)+'</div>':'')+dec+'</article>';
+  }).join('');
+}
+$('prMyReq').onclick=()=>showScreen('myReqScreen');
+$('mrBack').onclick=()=>showScreen('profScreen');
+new MutationObserver(()=>{ if(!$('myReqScreen').classList.contains('hide')) mrRender(); }).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+
 /* ----- ประวัติ ----- */
 const HD={"ERAS": {"vocaloid": {"n": {"th": "Vocaloid", "en": "Vocaloid", "ja": "Vocaloid"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Yamaha พัฒนาร่วมกับมหาวิทยาลัยปอมเปว ฟาบรา (บาร์เซโลนา) ผู้ใช้ใส่เนื้อร้องกับทำนอง โปรแกรมจะร้องออกมาด้วยคลังเสียง (voicebank) ที่สร้างจากเสียงของนักร้องจริง ชื่อแรกของโครงการคือ \"Daisy\" ตามเพลง \"Daisy Bell\" แต่ถูกเปลี่ยนเป็น Vocaloid เพราะเรื่องลิขสิทธิ์", "en": "Yamaha's singing-voice synthesizer, developed with Pompeu Fabra University in Barcelona. You enter lyrics and a melody and the software sings them using a voicebank built from a real singer's voice. It was first called \"Daisy\", after the song \"Daisy Bell\", but the name was changed to Vocaloid for copyright reasons.", "ja": "ヤマハが開発した歌声合成ソフト。バルセロナのポンペウ・ファブラ大学と共同開発。歌詞とメロディを入力すると、実在の歌手の声から作ったボイスバンクで歌ってくれる。開発時の名前は「Daisy」（「デイジー・ベル」から）だったが、著作権の都合で Vocaloid に変更された。"}, "ev": [["2000-03", {"th": "Yamaha เริ่มพัฒนา โดยทำงานด้านประมวลผลสัญญาณร่วมกับกลุ่ม Music Technology Group ของมหาวิทยาลัยปอมเปว ฟาบรา", "en": "Yamaha begins development, with signal processing done jointly with the Music Technology Group at Pompeu Fabra University.", "ja": "ヤマハが開発を開始。信号処理はポンペウ・ファブラ大学の音楽技術グループと共同で行った。"}], ["2003-03", {"th": "ประกาศ Vocaloid ครั้งแรกที่งานแสดงสินค้า Musikmesse ในเยอรมนี (5–9 มีนาคม)", "en": "Vocaloid is first announced at the Musikmesse fair in Germany (5–9 March).", "ja": "ドイツの楽器見本市 Musikmesse（3月5〜9日）で Vocaloid が初めて発表される。"}], ["2003-07-24", {"th": "อัลบั้ม History of Logic System ของ Hideki Matsutake ใช้เสียงต้นแบบของ MEIKO และ KAITO", "en": "Hideki Matsutake's album History of Logic System features prototype Meiko and Kaito voices.", "ja": "松武秀樹のアルバム『History of Logic System』で MEIKO と KAITO の試作音声が使われる。"}], ["2004-01-15", {"th": "วางขายครั้งแรก พร้อมคลังเสียงภาษาอังกฤษชุดแรก Leon, Lola และ Miriam (ผลิตโดย Zero-G)", "en": "First commercial release, with the first English voicebanks Leon, Lola and Miriam (by Zero-G).", "ja": "初の商用リリース。最初の英語ボイスバンク Leon、Lola、Miriam（Zero-G製）が登場。"}], ["2004-11-05", {"th": "MEIKO คลังเสียงภาษาญี่ปุ่นชุดแรก (Yamaha ผลิต Crypton จำหน่าย)", "en": "MEIKO, the first Japanese voicebank (made by Yamaha, sold by Crypton).", "ja": "最初の日本語ボイスバンク MEIKO（ヤマハ製、クリプトン販売）が発売。"}], ["2006-02-17", {"th": "KAITO วางจำหน่ายโดย Crypton", "en": "KAITO is distributed by Crypton.", "ja": "KAITO がクリプトンから発売。"}], ["2007-08-31", {"th": "Hatsune Miku (Vocaloid 2)", "en": "Hatsune Miku (Vocaloid 2).", "ja": "初音ミク（Vocaloid 2）発売。"}], ["2007-12-27", {"th": "Kagamine Rin/Len", "en": "Kagamine Rin/Len.", "ja": "鏡音リン・レン発売。"}], ["2009-06-26", {"th": "Megpoid (GUMI) ของ Internet Co., Ltd. วางขายบน Vocaloid 2", "en": "Megpoid (GUMI) by Internet Co., Ltd. is released on Vocaloid 2.", "ja": "Internet社の Megpoid（GUMI）が Vocaloid 2 で発売。"}], ["2009-08-22", {"th": "Hatsune Miku แสดงสดในรูปภาพโปรเจกชันที่งาน Animelo Summer Live", "en": "Hatsune Miku performs live as a projection at Animelo Summer Live.", "ja": "Animelo Summer Live で初音ミクがプロジェクション映像でライブ出演。"}], ["2009-12-04", {"th": "Kaai Yuki ของ AH-Software วางขายบน Vocaloid 2", "en": "Kaai Yuki by AH-Software is released on Vocaloid 2.", "ja": "AH-Software の歌愛ユキが Vocaloid 2 で発売。"}], ["2011-10-21", {"th": "Vocaloid 3 เปิดตัว พร้อมผลิตภัณฑ์ภาษาญี่ปุ่นหลายตัว (Megpoid V3 วางขายวันเดียวกัน)", "en": "Vocaloid 3 launches with several Japanese products (V3 Megpoid is released the same day).", "ja": "Vocaloid 3 が複数の日本語製品と共に登場（V3 Megpoid も同日発売）。"}], ["2014-02-04", {"th": "MEIKO V3 วางขาย (เสียง Straight, Power, Dark, Whisper และ English)", "en": "MEIKO V3 is released (Straight, Power, Dark, Whisper and English).", "ja": "MEIKO V3 発売（Straight・Power・Dark・Whisper・English）。"}], ["2015-10-29", {"th": "ยุค Vocaloid 4: Kaai Yuki V4 (29 ต.ค.) และ Megpoid V4 (5 พ.ย.) วางขาย", "en": "The Vocaloid 4 era: Kaai Yuki V4 (29 Oct) and Megpoid V4 (5 Nov) are released.", "ja": "Vocaloid 4 の時代：歌愛ユキ V4（10月29日）と Megpoid V4（11月5日）が発売。"}], ["2018-07-12", {"th": "Vocaloid 5 วางขาย พร้อมหน้าตาโปรแกรมใหม่", "en": "Vocaloid 5 is released with an updated interface.", "ja": "Vocaloid 5 発売。インターフェースを刷新。"}], ["2022-10-13", {"th": "Vocaloid 6 วางขาย รองรับคลังเสียง Vocaloid 3 ขึ้นไป และเปิดตัว Vocaloid:AI (AI Megpoid วางขายวันเดียวกัน)", "en": "Vocaloid 6 is released, supporting Vocaloid 3 and later voices and introducing Vocaloid:AI (AI Megpoid arrives the same day).", "ja": "Vocaloid 6 発売。Vocaloid 3 以降の音源に対応し、Vocaloid:AI を導入（AI Megpoid も同日発売）。"}], ["2026-10-09", {"th": "Yamaha ประกาศ Vocaloid 7 กำหนดวางขาย 11 พฤศจิกายน 2026 และรองรับคลังเสียง Vocaloid 3–6", "en": "Yamaha announces Vocaloid 7, planned for release on 11 November 2026 and compatible with Vocaloid 3–6 voicebanks.", "ja": "ヤマハが Vocaloid 7 を発表。2026年11月11日発売予定で、Vocaloid 3〜6 の音源に対応。"}]], "src": [["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"], ["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"], ["Wikipedia: Megpoid", "https://en.wikipedia.org/wiki/Megpoid"], ["Wikipedia: Kaai Yuki", "https://en.wikipedia.org/wiki/Kaai_Yuki"], ["Vocaloid Wiki: MEIKO", "https://vocalsynth.fandom.com/wiki/MEIKO"]]}, "utau": {"n": {"th": "UTAU", "en": "UTAU", "ja": "UTAU"}, "s": {"th": "โปรแกรมสังเคราะห์เสียงร้องแบบแชร์แวร์ (รับบริจาค) สร้างโดยโปรแกรมเมอร์ชื่อ Ameya/Ayame ใช้ไฟล์เสียง WAV ที่ผู้ใช้อัดเองมาต่อกันเป็นเสียงร้อง (concatenative) คลังเสียงส่วนใหญ่ผู้สร้างแจกฟรี จึงมีตัวร้องจากแฟนๆ จำนวนมาก", "en": "A shareware (donation-supported) singing synthesizer by a programmer known as Ameya/Ayame. It strings together WAV recordings supplied by the user (concatenative synthesis). Most voicebanks are given away free by their creators, so there are a huge number of fan-made voices.", "ja": "Ameya/Ayame 氏が作った、寄付で支えられるシェアウェアの歌声合成ソフト。ユーザーが用意したWAV音源をつなげて歌わせる方式。音源の多くは作者が無料配布しており、ファン制作の歌声が数多くある。"}, "ev": [["2008-01-11", {"th": "Ameya ประกาศเครื่องมือบน Nico Nico Douga", "en": "Ameya announces the tool on Nico Nico Douga.", "ja": "Ameya 氏がニコニコ動画でツールを発表。"}], ["2008-02-05", {"th": "เผยวิดีโอแสดงหน้าจอ เพิ่มการยืด/หดเวลา การสร้าง oto.ini และการแก้ pitch bend", "en": "A video of the GUI is released, adding time stretching, oto.ini creation and pitch-bend editing.", "ja": "GUIを紹介する動画を公開。タイムストレッチ、oto.ini作成、ピッチベンド編集などが追加。"}], ["2008-03-15", {"th": "เปลี่ยนชื่อเป็น UTAU และวางจำหน่ายเป็นแชร์แวร์ในเดือนมีนาคม", "en": "Renamed UTAU; released as shareware in March.", "ja": "「UTAU」に改名。3月にシェアウェアとして公開。"}], ["2008-04-13", {"th": "คลังเสียง UTAU ชุดแรกของ Kasane Teto ออก หลังมุกวันเอพริลฟูล", "en": "Kasane Teto's first UTAU voicebank appears after the April Fools' joke.", "ja": "エイプリルフールのネタを経て、重音テトの最初のUTAU音源が公開。"}], ["2008-05-10", {"th": "\"Kenka Wakare\" ของ nwp8861 ร้องโดย Utane Uta ออกเป็นเพลงต้นฉบับ UTAU เพลงแรก", "en": "\"Kenka Wakare\" by nwp8861, sung by Utane Uta, is released as the first original UTAU song.", "ja": "nwp8861「喧嘩別れ」（歌：唄音ウタ）が最初のUTAUオリジナル曲として公開。"}], ["2008-06", {"th": "Ameya ปฏิเสธคำเรียก \"Jinriki Vocaloid\" และอธิบายว่า UTAU เป็นซอฟต์แวร์สังเคราะห์เสียงร้อง", "en": "Ameya rejects the \"Jinriki Vocaloid\" label and describes UTAU as singing voice synthesis software.", "ja": "Ameya 氏が「人力ボーカロイド」という呼称を否定し、UTAUを歌声合成ソフトと説明。"}], ["2011-05-27", {"th": "ออกเวอร์ชัน Mac (UTAU-Synth)", "en": "Mac version (UTAU-Synth) released.", "ja": "Mac版（UTAU-Synth）公開。"}], ["2012-07-19", {"th": "งานรวมตัว UTAU M@STER เริ่มจัดเป็นประจำ", "en": "The UTAU M@STER event begins regular gatherings.", "ja": "UTAU M@STER の定期開催が始まる。"}], ["2021-11", {"th": "OpenUtau เวอร์ชันเบต้า (โปรแกรมโอเพนซอร์สที่ใช้คลังเสียง UTAU ได้) ออกให้ใช้", "en": "The OpenUtau beta is released.", "ja": "OpenUtau のベータ版が公開。"}], ["2023-04-27", {"th": "Kasane Teto ออกเสียงแบบ Synthesizer V AI", "en": "Kasane Teto is released as a Synthesizer V AI voice database.", "ja": "重音テトの Synthesizer V AI ボイスが発売。"}]], "src": [["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "synthv": {"n": {"th": "Synthesizer V", "en": "Synthesizer V", "ja": "Synthesizer V"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงร้องของ Dreamtonics มีเวอร์ชันฟรี (Basic) และคลังเสียงแบบ AI ที่ให้เสียงเป็นธรรมชาติ ผู้พัฒนาหลักคือ Kanru Hua", "en": "A singing synthesizer from Dreamtonics, with a free Basic edition and AI voicebanks that sound natural. Its main developer is Kanru Hua.", "ja": "Dreamtonics の歌声合成ソフト。無料のBasic版と、自然な歌声のAIボイスがある。開発者は Kanru Hua 氏。"}, "ev": [["2019-08", {"th": "Kanru Hua ประกาศพัฒนาเจเนอเรชันที่สอง (ชื่อชั่วคราว Synthesizer V Release 2)", "en": "Kanru Hua announces development of the second generation, tentatively called Synthesizer V Release 2.", "ja": "Kanru Hua 氏が第2世代（仮称 Synthesizer V Release 2）の開発を発表。"}], ["2020-06-25", {"th": "เปิดตัว Synthesizer V Studio ด้วยข่าวประชาสัมพันธ์", "en": "Synthesizer V Studio is unveiled in a press release.", "ja": "プレスリリースで Synthesizer V Studio を発表。"}], ["2020-07-10", {"th": "Studio Pro วางขายให้ลูกค้าจีนผ่าน Taobao", "en": "Studio Pro goes on sale to Chinese customers on Taobao.", "ja": "Studio Pro が中国向けにTaobaoで発売。"}], ["2020-07-30", {"th": "AH-Software วาง Studio Pro ขายในญี่ปุ่น", "en": "AH-Software releases Studio Pro in Japan.", "ja": "AH-Software が日本でStudio Proを発売。"}], ["2020-07-31", {"th": "เวอร์ชัน Basic ฟรีเปิดให้ดาวน์โหลด", "en": "The free Basic edition is released.", "ja": "無料のBasic版を公開。"}], ["2020-10-30", {"th": "ประกาศ Synthesizer V AI และ Saki AI", "en": "Synthesizer V AI and Saki AI are announced.", "ja": "Synthesizer V AI と Saki AI を発表。"}], ["2020-12-24", {"th": "เวอร์ชัน 1.1.0 รองรับเสียง AI โดย Saki AI เป็นอัปเดตฟรี", "en": "Version 1.1.0 adds AI voice support, with Saki AI as a free update.", "ja": "バージョン1.1.0でAIボイスに対応。Saki AIは無料アップデート。"}], ["2021-12-23", {"th": "เวอร์ชัน 1.5.0 เพิ่มการร้องข้ามภาษาสำหรับเสียง AI (Pro)", "en": "Version 1.5.0 adds cross-lingual singing for AI voices (Pro).", "ja": "バージョン1.5.0でAIボイスのクロスリンガル歌唱に対応（Pro）。"}], ["2023-04-27", {"th": "Kasane Teto ออกเสียงแบบ Synthesizer V AI", "en": "Kasane Teto's Synthesizer V AI voice is released.", "ja": "重音テトの Synthesizer V AI ボイスが発売。"}], ["2023-06-21", {"th": "เวอร์ชัน 1.9.0 เพิ่มโหมดแร็ป (อังกฤษและจีนกลาง) และการร้องข้ามภาษากวางตุ้ง", "en": "Version 1.9.0 adds rap mode (English and Mandarin) and Cantonese cross-lingual synthesis.", "ja": "バージョン1.9.0でラップモード（英語・中国語）と広東語クロスリンガルに対応。"}], ["2023-12-20", {"th": "GUMI ออกเสียงแบบ Synthesizer V", "en": "GUMI is released for Synthesizer V.", "ja": "GUMI の Synthesizer V 版が発売。"}], ["2024-03-15", {"th": "Yi Xi ตัวร้องแร็ปภาษาจีนกลาง วางขายในจีนแผ่นดินใหญ่", "en": "Yi Xi, a Mandarin rap voice, goes on sale in mainland China.", "ja": "中国語ラップ向けの Yi Xi が中国本土で発売。"}], ["2025-03-21", {"th": "Synthesizer V Studio 2 วางขาย พร้อม Yi Xi 2", "en": "Synthesizer V Studio 2 is released together with Yi Xi 2.", "ja": "Synthesizer V Studio 2 が Yi Xi 2 と共に発売。"}]], "src": [["Synthesizer V Studio (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Synthesizer_V_Studio"], ["Yi Xi (SynthV Wiki)", "https://synthv.fandom.com/wiki/Yi_Xi_(Synthesizer_V_Studio)"], ["Megpoid (Wikipedia)", "https://en.wikipedia.org/wiki/Megpoid"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "cevio": {"n": {"th": "CeVIO / VoiSona", "en": "CeVIO / VoiSona", "ja": "CeVIO / VoiSona"}, "s": {"th": "ซอฟต์แวร์สังเคราะห์เสียงของ Techno-Speech ปัจจุบัน VoiSona (ชื่อเดิม CeVIO Pro) คือเทคโนโลยีรุ่นถัดไปของ CeVIO", "en": "Voice-synthesis software by Techno-Speech. VoiSona (formerly CeVIO Pro) is the next generation of CeVIO technology.", "ja": "Techno-Speech の音声合成ソフト。VoiSona（旧 CeVIO Pro）は CeVIO の次世代技術。"}, "ev": [["2013-04-26", {"th": "CeVIO Creative Studio FREE วางขายสำหรับเสียงพูด โดยมี Sato Sasara เป็นเสียงเดียว", "en": "CeVIO Creative Studio FREE is released for speech, with Sato Sasara as its only voice.", "ja": "CeVIO Creative Studio FREE が音声読み上げ向けに公開。声は さとうささら のみ。"}], ["2013-09-26", {"th": "เวอร์ชันเต็มของ CeVIO Creative Studio วางขาย (ฟังก์ชันร้องเพลงเวอร์ชันฟรีเปิดให้ใช้เมื่อเดือนมิถุนายน)", "en": "The full version of CeVIO Creative Studio is released (the FREE version gained singing in June).", "ja": "CeVIO Creative Studio の製品版が発売（無料版の歌唱機能は6月に公開）。"}], ["2014-11-14", {"th": "CeVIO Creative Studio S วางขาย และเวอร์ชันฟรีถูกแทนที่ด้วยตัวทดลองใช้ 1 เดือน", "en": "CeVIO Creative Studio S is released, and the FREE version is replaced by a one-month trial.", "ja": "CeVIO Creative Studio S 発売。無料版は1か月体験版に置き換えられる。"}], ["2015-05-22", {"th": "คลังเสียงร้องเพลงของ ONE วางขาย (เสียงพูดออกเมื่อ 27 มกราคม 2015)", "en": "ONE's singing voicebank is released (her speech voicebank came out on 27 January 2015).", "ja": "ONE の歌声音源が発売（読み上げ音源は2015年1月27日）。"}], ["2020-02-27", {"th": "ประกาศ CeVIO Pro ครั้งแรกพร้อมเดโมของ Sato Sasara", "en": "CeVIO Pro is first announced with a demo featuring Sato Sasara.", "ja": "さとうささら のデモと共に CeVIO Pro を初めて発表。"}], ["2020-10-29", {"th": "ประกาศ CeVIO AI อย่างเป็นทางการ (ประกาศครั้งแรกทางทวิตเตอร์เมื่อ 11 มิถุนายน 2020)", "en": "CeVIO AI is formally announced on Twitter (first teased on 11 June 2020).", "ja": "CeVIO AI を正式発表（初出は2020年6月11日のTwitter）。"}], ["2021-01-29", {"th": "CeVIO AI วางขายจริง พร้อมเสียง Yuzuki Yukari Rei (ตัวแก้ไขออกเมื่อ 27 มกราคม)", "en": "CeVIO AI is formally released with Yuzuki Yukari Rei (the editor came out on 27 January).", "ja": "CeVIO AI が結月ゆかり 麗 と共に正式発売（エディタは1月27日公開）。"}], ["2021-07-07", {"th": "Kafu วางขาย เป็นเสียง CeVIO AI ตัวแรกในรายการที่มีวันวางขาย", "en": "Kafu is released, the earliest CeVIO AI vocal on the list with a release date.", "ja": "可不（KAFU）が発売。リスト上で発売日が確認できる最初のCeVIO AI音源。"}], ["2022-02-19", {"th": "เปิดตัว Chis-A ซึ่งเป็นตัวร้องของ CeVIO Pro/VoiSona", "en": "Chis-A, the voice of CeVIO Pro/VoiSona, is revealed.", "ja": "CeVIO Pro/VoiSona の歌声 Chis-A が公開。"}], ["2022-02-24", {"th": "เปิดให้ใช้ CeVIO Pro เวอร์ชันอัลฟาฟรี", "en": "The CeVIO Pro alpha is released for free.", "ja": "CeVIO Pro のアルファ版を無料公開。"}], ["2022-05-26", {"th": "ประกาศเปลี่ยนชื่อ CeVIO Pro เป็น VoiSona", "en": "The rebrand from CeVIO Pro to VoiSona is announced.", "ja": "CeVIO Pro から VoiSona への名称変更を発表。"}], ["2022-09-01", {"th": "VoiSona เวอร์ชัน 1.0.0 วางขายอย่างเป็นทางการสำหรับ Windows และ Mac", "en": "VoiSona 1.0.0 is officially released for Windows and Mac.", "ja": "VoiSona 1.0.0 が Windows／Mac 向けに正式リリース。"}], ["2024-12-26", {"th": "VoiSona เวอร์ชัน iOS/iPadOS อย่างเป็นทางการออก", "en": "The official iOS/iPadOS version of VoiSona is released.", "ja": "VoiSona の iOS／iPadOS 正式版が公開。"}], ["2025-04-30", {"th": "Ying Can วางขาย เพิ่มภาษาจีนกลางให้เอนจิน VoiSona", "en": "Ying Can is released, adding Mandarin Chinese to the VoiSona engine.", "ja": "Ying Can が発売され、VoiSona が中国語（北京語）に対応。"}], ["2025-05-30", {"th": "Ui (CV: Shigure Ui) วางขายสำหรับ VoiSona", "en": "Ui (CV: Shigure Ui) is released for VoiSona.", "ja": "Ui（CV：しぐれうい）が VoiSona 向けに発売。"}]], "src": [["Wikipedia: CeVIO", "https://en.wikipedia.org/wiki/CeVIO"], ["CeVIO AI (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/CeVIO_AI"], ["VoiSona (CeVIO & VoiSona Wiki)", "https://cevio.fandom.com/wiki/VoiSona"], ["VoiSona: Ui", "https://voisona.com/song/news_detail/127/"]]}, "others": {"n": {"th": "อื่นๆ", "en": "Others", "ja": "その他"}, "s": {"th": "เรื่องราวอื่นๆ ในวงการเสียงสังเคราะห์ เช่น ตัวละครที่แฟนๆ สร้างขึ้นและโปรแกรมอื่นๆ", "en": "Other stories from the synthesized-voice scene, such as fan-made characters and other software.", "ja": "合成音声の世界のその他の話題。ファンが生んだキャラクターや他のソフトなど。"}, "ev": [["2007-11-01", {"th": "ภาพวาดแรกของ Akita Neru ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ", "en": "The first illustration of Akita Neru, a fan-made character derived from Miku.", "ja": "ミクから生まれたファン制作キャラ・亜北ネルの最初のイラスト。"}], ["2008-04-15", {"th": "Crypton อนุญาตให้ Neru เป็นตัวละครที่ดัดแปลงจากมิกุอย่างเป็นทางการ", "en": "Crypton licenses Neru as a Miku derivative.", "ja": "クリプトンがネルをミクの派生キャラとして許諾。"}]], "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}}, "CH": {"miku": {"n": "Hatsune Miku", "era": "vocaloid", "unv": false, "t": {"th": "ตัวละครเรือธงของ Crypton Future Media สร้างบนเอนจิน Vocaloid 2 ของ Yamaha ใช้เสียงจากตัวอย่างเสียงของ Saki Fujita วางขายเมื่อ 31 สิงหาคม 2007 เป็นคลังเสียง Vocaloid ที่ขายเชิงพาณิชย์ตัวที่สาม ชื่อ Miku มาจากคำญี่ปุ่นที่แปลว่า \"แรก\" \"เสียง\" และ \"อนาคต\" รหัส CV01 หมายถึงตัวแรกของซีรีส์ Character Vocal ออกแบบโดย Kei Garō โดยได้แรงบันดาลใจจากซินธ์ของ Yamaha รวมถึงสีเขียวมิ้นต์ฟ้าอันเป็นเอกลักษณ์ ตัวละครอายุ 16 ปี ผมทวินเทลสีเทอร์ควอยซ์\n\nเหตุการณ์สำคัญ: 22 สิงหาคม 2009 คอนเสิร์ตเสมือนจริงแบบฉายภาพครั้งแรกที่ Animelo Summer Live, 21 พฤศจิกายน 2009 ขึ้นแสดงต่างประเทศครั้งแรกที่ Anime Festival Asia (สิงคโปร์), 30 เมษายน 2010 Hatsune Miku Append (6 โทนเสียง), 31 พฤษภาคม 2010 อัลบั้มรวมเพลง Vocalogenesis ขึ้นอันดับ 1 ชาร์ต Oricon เป็นอัลบั้ม Vocaloid ชุดแรกที่ทำได้, 2 กรกฎาคม 2011 คอนเสิร์ตในสหรัฐฯ ครั้งแรกที่ Anime Expo (ลอสแอนเจลิส), 26 กันยายน 2013 เวอร์ชัน Vocaloid 3 ภาษาญี่ปุ่น (เสียงอังกฤษออก 31 สิงหาคม 2013), 6 พฤษภาคม–3 มิถุนายน 2014 เป็นศิลปินเปิดให้ทัวร์ ArtRave ของ Lady Gaga, 8 ตุลาคม 2014 ขึ้นรายการ Late Show with David Letterman, 30 สิงหาคม 2016 V4X English และปี 2017 มีเสียงภาษาจีนกลาง ทำให้เป็น Vocaloid ที่ร้องได้สามภาษาอย่างเป็นทางการตัวแรก\n\nปี 2019 Crypton ประกาศว่าจะออกจากเอนจิน Vocaloid และเปิดตัว Piapro Studio โดย Hatsune Miku NT วางขายเต็มรูปแบบเมื่อ 27 พฤศจิกายน 2020 ตามด้วย NT V2 (18 มีนาคม 2025) และ Hatsune Miku V6 ที่มีเสียง Original กับ Soft (14 เมษายน 2026) ด้านวัฒนธรรมแฟนเมด เครื่องมือแอนิเมชัน MikuMikuDance ช่วยให้แฟนๆ ทำแอนิเมชัน 3 มิติเอง ซีรีส์เกมจังหวะ Hatsune Miku: Project DIVA ของ Sega ขายได้เกิน 6 ล้านชุด และ Crypton เป็นผู้สนับสนุนเทศกาลหิมะซัปโปโร ซึ่งมีดีไซน์ Snow Miku", "en": "Crypton Future Media's flagship character, built on Yamaha's Vocaloid 2 engine with a voice based on samples from Saki Fujita. She was released on 31 August 2007 as the third commercially sold Vocaloid library. Her name combines Japanese words for \"first\", \"sound\" and \"future\", and her code CV01 marks her as the first of the Character Vocal Series. Kei Garō designed her, taking inspiration from Yamaha's synthesizers, including their signature turquoise. She is a 16-year-old with turquoise twintails.\n\nMilestones: 22 August 2009, her first projected virtual concert at Animelo Summer Live; 21 November 2009, first overseas appearance at Anime Festival Asia in Singapore; 30 April 2010, Hatsune Miku Append (six timbres); 31 May 2010, the compilation Vocalogenesis debuts at number one on the Oricon album chart, the first Vocaloid album to do so; 2 July 2011, U.S. concert debut at Anime Expo in Los Angeles; 26 September 2013, the Vocaloid 3 Japanese library (English followed on 31 August 2013); 6 May–3 June 2014, opening act for Lady Gaga's ArtRave tour; 8 October 2014, performance on the Late Show with David Letterman; 30 August 2016, V4X English, and in 2017 a Mandarin voicebank made her the first officially trilingual Vocaloid.\n\nIn 2019 Crypton announced she would leave the Vocaloid engine for Piapro Studio, and Hatsune Miku NT was fully released on 27 November 2020, followed by NT V2 (18 March 2025) and Hatsune Miku V6 with Original and Soft voicebanks (14 April 2026). In fan culture, the animation tool MikuMikuDance boosted fan-made 3D animation, Sega's Hatsune Miku: Project DIVA rhythm series has sold over six million copies, and Crypton sponsors the Sapporo Snow Festival, which features the \"Snow Miku\" design.", "ja": "クリプトン・フューチャー・メディアの看板キャラクター。ヤマハの Vocaloid 2 エンジンで動き、声は藤田咲の音声サンプルを元にしている。2007年8月31日に、商用発売された3番目のVocaloid音源として登場。名前は「初」「音」「未来」を合わせたもので、CV01はキャラクター・ボーカル・シリーズの第1弾を意味する。デザインはKEI（Kei Garō）。ヤマハのシンセサイザー、特にそのシグネチャーカラーのターコイズから着想を得た。16歳でターコイズのツインテールが特徴。\n\n主な出来事：2009年8月22日 Animelo Summer Live で初のプロジェクション・ライブ／2009年11月21日 シンガポールの Anime Festival Asia で初の海外出演／2010年4月30日 初音ミク Append（6種類の声色）／2010年5月31日 コンピ『Vocalogenesis』がオリコンアルバムチャートで初のVocaloid作品1位／2011年7月2日 ロサンゼルスの Anime Expo で米国初ライブ／2013年9月26日 Vocaloid 3 日本語版（英語版は8月31日）／2014年5月6日〜6月3日 レディー・ガガの「ArtRave」ツアーのオープニングアクト／2014年10月8日『レイト・ショー・ウィズ・デイヴィッド・レターマン』出演／2016年8月30日 V4X English、2017年には中国語音源も加わり、公式に3言語対応した初のVocaloidに。\n\n2019年にクリプトンはVocaloidエンジンから離れ Piapro Studio へ移行すると発表し、2020年11月27日に初音ミク NT を本発売。続いて NT V2（2025年3月18日）、Original と Soft を収録した初音ミク V6（2026年4月14日）が登場。ファン文化では、MikuMikuDance が3Dアニメ制作を後押しし、セガのリズムゲーム『初音ミク -Project DIVA-』シリーズは600万本超、クリプトンはさっぽろ雪まつりを支援し、「雪ミク」のデザインも生まれた。"}, "src": [["Wikipedia: Hatsune Miku", "https://en.wikipedia.org/wiki/Hatsune_Miku"]]}, "neru": {"n": "Akita Neru", "era": "others", "unv": false, "t": {"th": "ตัวละครที่แฟนๆ สร้างขึ้นจากมิกุ ภาพวาดแรกปรากฏ 1 พฤศจิกายน 2007 จากชุมชน 2channel ภาพลักษณ์คือสาวอารมณ์ไม่ดีที่ติดมือถือ ผมหางม้าข้างสีเหลือง ต่อมา Crypton อนุญาตให้เป็นตัวละครดัดแปลงของมิกุอย่างเป็นทางการเมื่อ 15 เมษายน 2008", "en": "A fan-made character derived from Miku. The first illustration appeared on 1 November 2007 on 2channel. She is known as a moody girl glued to her phone, with a yellow side ponytail. Crypton licensed her as a Miku derivative on 15 April 2008.", "ja": "ミクから生まれたファン制作キャラ。最初のイラストは2007年11月1日に2ちゃんねるで登場。携帯電話を手放さない不機嫌な少女で、黄色のサイドテール。2008年4月15日にクリプトンが派生キャラとして許諾。"}, "src": [["Know Your Meme: Akita Neru", "https://knowyourmeme.com/memes/akita-neru"]]}, "teto": {"n": "Kasane Teto", "era": "utau", "unv": false, "t": {"th": "ตัวละครที่เกิดจากมุกวันเอพริลฟูลปี 2008 บนกระดานข้อความ 2channel ผู้ใช้สุ่มนำคุณลักษณะที่เสนอกันมารวมเป็นตัวละครเสียงสังเคราะห์ปลอม ปรากฏในวิดีโอครั้งแรกเมื่อ 6 เมษายน 2008 และคลังเสียง UTAU ชุดแรกออกเมื่อ 13 เมษายน 2008 ผู้ให้เสียงคือ Oyamano Mayo ส่วน Sen เป็นผู้ออกแบบตัวละคร กลุ่ม TwinDrill ก่อตั้งปี 2009 เพื่อดูแลเธอ เวอร์ชัน Synthesizer V AI ประกาศ 3 เมษายน 2023 และวางขาย 27 เมษายน 2023 เป็นเวอร์ชันเชิงพาณิชย์เต็มรูปแบบชุดแรกพร้อมดีไซน์ใหม่ ต่อมามี VOICEPEAK (24 เมษายน 2025) และ Synthesizer V 2 AI (27 พฤศจิกายน 2025) เพลง \"Tetoris\" ของ Hiiragi Magnetite มียอดชมเกิน 100 ล้านครั้ง", "en": "Born as an April Fools' joke on the 2channel textboard in 2008, when users randomly combined suggested traits into a fake synthesized-voice character. She first appeared in a video on 6 April 2008 and her first UTAU voicebank came out on 13 April 2008. Her voice provider is Oyamano Mayo and Sen designed the character; the circle TwinDrill formed in 2009 to manage her. A Synthesizer V AI version was announced on 3 April 2023 and released on 27 April 2023, her first full commercial release, with a redesign. VOICEPEAK followed on 24 April 2025 and Synthesizer V 2 AI on 27 November 2025. \"Tetoris\" by Hiiragi Magnetite has passed 100 million views.", "ja": "2008年のエイプリルフールに匿名掲示板2ちゃんねるで、ユーザーが提案された特徴をランダムに組み合わせて作った偽の合成音声キャラクターが始まり。2008年4月6日に動画で初登場し、4月13日に最初のUTAU音源が公開された。声は小山乃舞世、キャラクターデザインは線。2009年にサークル「ツインドリル」が発足して管理。2023年4月3日に Synthesizer V AI 版を発表、4月27日に発売（初の本格的な商用版で、デザインも刷新）。その後 VOICEPEAK（2025年4月24日）、Synthesizer V 2 AI（2025年11月27日）が登場。柊マグネタイト「テトリス」は再生数1億回を超えている。"}, "src": [["Wikipedia: Kasane Teto", "https://en.wikipedia.org/wiki/Kasane_Teto"], ["Wikipedia: UTAU", "https://en.wikipedia.org/wiki/Utau"]]}, "kaito": {"n": "KAITO", "era": "vocaloid", "unv": false, "t": {"th": "พัฒนาโดย Yamaha และจำหน่ายโดย Crypton Future Media วางขายเมื่อ 14 กุมภาพันธ์ 2006 (Yamaha) และ 17 กุมภาพันธ์ 2006 (Crypton) ผู้ให้เสียงคือนักร้อง Naoto Fuga เขาเป็นคลังเสียงต้นฉบับตัวที่ห้าและตัวสุดท้ายของ Vocaloid รุ่นแรก และเป็นตัวที่สองที่เป็นภาษาญี่ปุ่น ช่วงพัฒนาในโครงการ \"Project Daisy\" มีรหัสเรียกว่า \"TARO\" เวอร์ชันแรกขายได้น้อยกว่าเป้า ราว 500 ชุดในปีแรกจากเป้า 1,000 ชุดขึ้นไป ยอดขายเริ่มดีขึ้นหลังเดือนมกราคม 2008 KAITO V3 วางขาย 15 กุมภาพันธ์ 2013 มีเสียง Straight, Soft, Whisper และ English โดยดีไซน์ปัจจุบันเป็นฉบับออกแบบใหม่ของ iXima ผมสั้นสีน้ำเงิน ผ้าพันคอสีน้ำเงิน และเล็บสีน้ำเงิน ในเดือนมีนาคม 2013 KAITO V3 เป็นสินค้าขายดีอันดับหนึ่งในหน้าซอฟต์แวร์เพลงของ Crypton เพลงที่มียอดชมสูงสุดของเขาคือ \"SHANTI\" ของ wotaku (13 ล้านครั้งบน YouTube)", "en": "Made by Yamaha and distributed by Crypton Future Media, released on 14 February 2006 (Yamaha) and 17 February 2006 (Crypton). His voice provider is the singer Naoto Fuga. He was the fifth and last of the original Vocaloid vocals and the second released in Japanese; during \"Project Daisy\" his codename was \"TARO\". The first release sold below target, about 500 units in its first year against a goal of over 1,000, and sales picked up only after January 2008. KAITO V3 (15 February 2013) has four voicebanks: Straight, Soft, Whisper and English. His current look is iXima's redesign: short blue hair, a blue muffler (scarf) and blue nails. In March 2013 KAITO V3 was the best-selling product on Crypton's music software page. His most-viewed song is \"SHANTI\" by wotaku, with 13 million YouTube views.", "ja": "ヤマハが開発しクリプトン・フューチャー・メディアが販売。2006年2月14日（ヤマハ）、2月17日（クリプトン）に発売。声の提供者は歌手の風雅なおと。初期Vocaloidの5つの音源の最後を飾り、日本語としては2番目。「Project Daisy」の開発中は「TARO」というコードネームだった。初代は売れ行きが目標を下回り、1年目は約500本（目標は1,000本以上）。2008年1月以降に売上が伸びた。2013年2月15日発売の KAITO V3 は Straight・Soft・Whisper・English の4種類。現在のデザインは iXima 氏によるリデザインで、青い短髪、青いマフラー、青い爪が特徴。2013年3月には KAITO V3 がクリプトンの音楽ソフト販売ページで売上1位となった。最も再生された曲は wotaku「SHANTI」（YouTubeで1,300万回）。"}, "src": [["Wikipedia: KAITO", "https://en.wikipedia.org/wiki/Kaito_(software)"]]}, "meiko": {"n": "MEIKO", "era": "vocaloid", "unv": false, "t": {"th": "คลังเสียงภาษาญี่ปุ่นชุดแรกของ Vocaloid ที่ Yamaha พัฒนาและ Crypton จำหน่าย วางขายเมื่อ 5 พฤศจิกายน 2004 ถือเป็น Vocaloid หญิงภาษาญี่ปุ่นคนแรกและเป็น Vocaloid ตัวแรกของ Crypton ชื่อ MEIKO มาจากผู้ให้เสียง Meiko Haigo นักร้องและนักแต่งเพลงชาวญี่ปุ่น ตัวละครวาดโดย Shogo Washizu (Wasshi) กล่องของเวอร์ชันแรกไม่ได้โชว์เสื้อแจ็กเก็ตสีแดงที่เป็นภาพจำของเธอ ต่อมา Crypton ออก MEIKO V3 เมื่อ 4 กุมภาพันธ์ 2014 (เสียง Straight, Power, Dark, Whisper และ English) เธอเป็น Vocaloid ที่ขายดีที่สุดของ Crypton อยู่นานจนกระทั่งมิกุวางขาย", "en": "The first Japanese Vocaloid voicebank, developed by Yamaha and sold by Crypton on 5 November 2004. She was the first Japanese female Vocaloid and Crypton's first. The name comes from her voice provider, the singer-songwriter Meiko Haigo. The character was drawn by Shogo Washizu (Wasshi); the original box art did not show her now-familiar red jacket. Crypton released MEIKO V3 on 4 February 2014 (Straight, Power, Dark, Whisper and English). She was Crypton's best-selling Vocaloid for a long time, until Hatsune Miku's release.", "ja": "ヤマハが開発しクリプトンが販売した、最初の日本語Vocaloid音源。2004年11月5日発売で、日本初の女性Vocaloidであり、クリプトン初のVocaloidでもある。名前は声の提供者であるシンガーソングライター・拝郷メイコに由来。キャラクターデザインは鷲津省吾（わっしぃ）。初代のパッケージには、今でおなじみの赤いジャケットは描かれていなかった。2014年2月4日に MEIKO V3（Straight・Power・Dark・Whisper・English）を発売。初音ミクの登場まで、長くクリプトンで最も売れたVocaloidだった。"}, "src": [["Vocaloid Wiki: MEIKO", "https://vocalsynth.fandom.com/wiki/MEIKO"], ["Wikipedia: Vocaloid", "https://en.wikipedia.org/wiki/Vocaloid"]]}, "luka": {"n": "Megurine Luka", "era": "vocaloid", "unv": false, "t": {"th": "Crypton Future Media วางขาย 30 มกราคม 2009 เสียงร้องโดย Yu Asakawa เป็น Vocaloid ตัวแรกที่รองรับทั้งภาษาญี่ปุ่นและอังกฤษเต็มรูปแบบ รหัส CV03 และเป็นตัวละครแรกของซีรีส์ที่ตั้งค่าเป็นผู้ใหญ่ (อายุ 20 ปี)", "en": "Crypton Future Media, released 30 January 2009, voiced by Yu Asakawa. The first Vocaloid to fully support both Japanese and English. Code CV03, and the first adult character in the series (officially 20).", "ja": "クリプトン、2009年1月30日発売。声は浅川悠。日本語と英語を完全にサポートした初のVocaloid。コード名CV03で、シリーズ初の大人キャラ（公式20歳）。"}, "src": [["Wikipedia: Megurine Luka", "https://en.wikipedia.org/wiki/Megurine_Luka"]]}, "rin": {"n": "Kagamine Rin", "era": "vocaloid", "unv": false, "t": {"th": "Kagamine Rin และ Len เป็นซีรีส์ Character Vocal ลำดับที่สองของ Crypton (รหัส CV02) ต่อจาก Hatsune Miku (CV01) และก่อน Megurine Luka (CV03) วางขายพร้อมกันเมื่อ 27 ธันวาคม 2007 บน Vocaloid 2 ผู้ให้เสียงคือ Asami Shimoda และ 27 ธันวาคมคือวันเกิดของตัวละครด้วย ชุดแรก \"ACT1\" ถูกเปลี่ยนเป็น \"ACT2\" ในปี 2008 หลังมีเสียงบ่นเรื่องคุณภาพเสียง ผู้ซื้อชุดเดิมขอรับแผ่นอัปเดตได้ถึง 20 กันยายน 2008 ต่อมา Append ออกเมื่อธันวาคม 2010 (ของ Rin เพิ่มเสียง Power, Warm และ Sweet) และอัปเดตเป็น V4X เมื่อ 24 ธันวาคม 2015 พร้อมเสียงญี่ปุ่นสามแบบต่อตัวและเสียงอังกฤษ ตัวละครอายุ 14 ปี สูง 152 ซม. หนัก 43 กก.", "en": "Rin and Len are Crypton's second Character Vocal Series release (codename CV02), after Hatsune Miku (CV01) and before Megurine Luka (CV03). They were released together on 27 December 2007 for Vocaloid 2, voiced by Asami Shimoda, and 27 December is also the characters' birthday. The original \"ACT1\" package was replaced by \"ACT2\" in 2008 after complaints about the vocals, and original buyers could claim the updated disc until 20 September 2008. Append followed in December 2010 (Rin's adds Power, Warm and Sweet), and the Vocaloid 4 update, V4X, came on 24 December 2015 with three Japanese vocals per character plus English. Rin is profiled as 14 years old, 152 cm and 43 kg.", "ja": "クリプトンのキャラクター・ボーカル・シリーズ第2弾（コードネームCV02）。初音ミク（CV01）の次、巡音ルカ（CV03）の前にあたる。2007年12月27日に Vocaloid 2 で2人同時に発売。声は下田麻美で、12月27日はキャラクターの誕生日でもある。初版「ACT1」は音質への指摘を受け、2008年に「ACT2」へ差し替えられ、初期購入者は2008年9月20日まで更新ディスクを請求できた。2010年12月に Append（リンはPower・Warm・Sweetを追加）、2015年12月24日に Vocaloid 4 版の V4X（キャラごとに日本語3種と英語）が登場。リンは14歳、152cm、43kg。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "len": {"n": "Kagamine Len", "era": "vocaloid", "unv": false, "t": {"th": "วางขายพร้อม Rin เมื่อ 27 ธันวาคม 2007 บน Vocaloid 2 พัฒนาโดย Crypton Future Media (เมืองซัปโปโร) และผู้ให้เสียงคือ Asami Shimoda เช่นเดียวกับ Rin ชุดแรก \"ACT1\" ถูกเปลี่ยนเป็น \"ACT2\" ในปี 2008 Append ของ Len ออกเมื่อธันวาคม 2010 (เพิ่มเสียง Power, Cold และ Serious) และ V4X ออกเมื่อ 24 ธันวาคม 2015 บน Vocaloid 4 ตัวละครอายุ 14 ปี สูง 156 ซม. หนัก 47 กก. วันเกิดตรงกับ Rin คือ 27 ธันวาคม ซีรีส์เรื่อง Evillious Chronicles ซึ่งใช้เสียงของคู่นี้เป็นหลัก เคยถูกนำเสนอในงาน Mikupa 2011 ที่ซัปโปโร", "en": "Released together with Rin on 27 December 2007 for Vocaloid 2, developed by Crypton Future Media (based in Sapporo) and voiced by Asami Shimoda, like Rin. The original \"ACT1\" package was replaced by \"ACT2\" in 2008. Len's Append came in December 2010 (adding Power, Cold and Serious) and V4X on 24 December 2015 for Vocaloid 4. He is profiled as 14 years old, 156 cm and 47 kg, with the same 27 December birthday as Rin. The Evillious Chronicles, which draws heavily on the pair's voices, was featured at Mikupa 2011 in Sapporo.", "ja": "2007年12月27日にリンと同時に Vocaloid 2 で発売。開発は札幌のクリプトン・フューチャー・メディア、声はリンと同じく下田麻美。初版「ACT1」は2008年に「ACT2」へ差し替えられた。2010年12月に Append（レンはPower・Cold・Seriousを追加）、2015年12月24日に Vocaloid 4 版の V4X が登場。14歳、156cm、47kg で、誕生日はリンと同じ12月27日。2人の声を多用した「悪ノ大罪（Evillious Chronicles）」は、2011年に札幌で開かれた「ミクパ」で取り上げられた。"}, "src": [["Wikipedia: Kagamine Rin/Len", "https://en.wikipedia.org/wiki/Kagamine_Rin/Len"]]}, "gumi": {"n": "GUMI (Megpoid)", "era": "vocaloid", "unv": false, "t": {"th": "Megpoid (ชื่อเล่น GUMI) พัฒนาโดย Internet Co., Ltd. ชื่อมาจาก \"Megumi\" รวมกับ \"-poid\" (คล้าย Vocaloid) ผู้ให้เสียงคือ Megumi Nakajima ซึ่ง \"Gumi\" เป็นชื่อเล่นสมัยเด็กของเธอ วางขายครั้งแรกบน Vocaloid 2 เมื่อ 26 มิถุนายน 2009 ต่อมามี V3 Megpoid (Adult, Power, Sweet, Whisper) วันที่ 21 ตุลาคม 2011, Megpoid English วันที่ 28 กุมภาพันธ์ 2013, V4 วันที่ 5 พฤศจิกายน 2015 และ AI Megpoid (Vocaloid 6) วันที่ 13 ตุลาคม 2022 รวมถึงเวอร์ชัน Synthesizer V วันที่ 20 ธันวาคม 2023 ภายในปี 2010 ความนิยมของเธอเทียบเท่าคลังเสียงของ Crypton และมีเพลงที่ใช้เสียงเธอมากกว่า 20,000 เพลง เช่น \"Matryoshka\" ของ Hachi และ \"Mozaik Role\" ของ Deco*27", "en": "Megpoid, nicknamed GUMI, was developed by Internet Co., Ltd. The name blends \"Megumi\" and \"-poid\" (like Vocaloid). Her voice provider is Megumi Nakajima, whose childhood nickname was \"Gumi\". She debuted on Vocaloid 2 on 26 June 2009. V3 Megpoid (Adult, Power, Sweet, Whisper) followed on 21 October 2011, Megpoid English on 28 February 2013, V4 on 5 November 2015 and AI Megpoid (Vocaloid 6) on 13 October 2022, plus a Synthesizer V version on 20 December 2023. By 2010 her popularity rivalled Crypton's voicebanks, and over 20,000 songs have used her voice, including \"Matryoshka\" by Hachi and \"Mozaik Role\" by Deco*27.", "ja": "Internet社が開発したMegpoid（愛称GUMI）。名前は「Megumi」と「-poid（Vocaloidのような）」を合わせたもの。声の提供者は中島愛で、「グミ」は彼女の幼少期のあだ名。2009年6月26日に Vocaloid 2 で発売。その後 V3 Megpoid（Adult・Power・Sweet・Whisper）が2011年10月21日、Megpoid English が2013年2月28日、V4 が2015年11月5日、AI Megpoid（Vocaloid 6）が2022年10月13日、Synthesizer V 版が2023年12月20日に登場。2010年にはクリプトン系の音源に並ぶ人気となり、2万曲以上で使われている。代表曲にHachi「マトリョシカ」、Deco*27「モザイクロール」など。"}, "src": [["Wikipedia: Megpoid", "https://en.wikipedia.org/wiki/Megpoid"]]}, "yixi": {"n": "Yi Xi", "era": "synthv", "unv": false, "t": {"th": "ตัวร้องผู้หญิงภาษาจีนกลางของ Synthesizer V พัฒนาโดย Dreamtonics เน้นด้านแร็ป เปิดเผยชื่อ Yi Xi เมื่อ 2 กุมภาพันธ์ 2024 วางขายให้ลูกค้าในจีนแผ่นดินใหญ่ผ่านร้าน Taobao ของ Dreamtonics เมื่อ 15 มีนาคม 2024 และเข้าร้าน AHS Store สำหรับลูกค้าต่างประเทศเมื่อ 14 พฤศจิกายน 2024 อัปเดต v101 (4 เมษายน 2024) เพิ่มภาษาสเปนสำหรับการร้องข้ามภาษา เธอสามารถร้องภาษาอังกฤษ ญี่ปุ่น และกวางตุ้งได้ด้วยฟังก์ชันนี้ ต่อมาถูกแทนที่ด้วย Yi Xi 2 พร้อม Synthesizer V Studio 2 เมื่อ 21 มีนาคม 2025 แหล่งข้อมูลที่ตรวจสอบไม่ได้ระบุชื่อผู้ให้เสียง", "en": "A Mandarin female voice for Synthesizer V by Dreamtonics, specialised for rap. Her name, Yi Xi, was revealed on 2 February 2024. She went on sale to mainland China via Dreamtonics' Taobao store on 15 March 2024 and reached international customers on the AHS Store on 14 November 2024. The v101 update (4 April 2024) added Spanish to cross-lingual singing; she can also sing in English, Japanese and Cantonese that way. She was succeeded by Yi Xi 2 with Synthesizer V Studio 2 on 21 March 2025. The source checked does not name her voice provider.", "ja": "Dreamtonicsが開発したSynthesizer Vの中国語（北京語）女性ボイスで、ラップに特化している。2024年2月2日に名前が公開され、同年3月15日にDreamtonicsのTaobaoストアで中国本土向けに発売、11月14日にAHS Storeで海外向けにも販売開始。v101アップデート（2024年4月4日）でクロスリンガル歌唱にスペイン語が追加され、英語・日本語・広東語でも歌える。2025年3月21日にSynthesizer V Studio 2と共にYi Xi 2へ移行。確認した情報源には声の提供者の記載なし。"}, "src": [["SynthV Wiki: Yi Xi (Synthesizer V Studio)", "https://synthv.fandom.com/wiki/Yi_Xi_(Synthesizer_V_Studio)"]]}, "ui": {"n": "Ui", "era": "cevio", "unv": false, "t": {"th": "Ui (雨衣) เป็นคลังเสียงร้องภาษาญี่ปุ่นของ VoiSona พัฒนาโดย INCOLORE ร่วมกับ Techno-Speech วางขายเมื่อ 30 พฤษภาคม 2025 ผู้ให้เสียงและผู้วาดตัวละครคือ Shigure Ui ศิลปินภาพประกอบและ VTuber ชื่อ Ui มาจากชื่อของเธอโดยตัดนามสกุล \"Shigure\" ออก คันจิ 雨衣 อ่านว่า \"Amekoromo\" แปลว่าเสื้อกันฝน ตัวละครเป็นเด็กหญิงอายุ 14 ปี สูง 149 ซม. วันเกิด 30 พฤษภาคม ผมบ็อบสั้นสีขาว ถือร่มสีน้ำเงิน เสียงใส น่ารัก ไม่มีลักษณะแปลกเด่น จึงเหมาะกับเพลงหลากหลาย", "en": "Ui (雨衣) is a Japanese song voice for VoiSona, developed by INCOLORE with Techno-Speech and released on 30 May 2025. Her voice provider and illustrator is Shigure Ui, an illustrator and VTuber; the name is hers without the surname \"Shigure\". The kanji 雨衣 can be read \"Amekoromo\", meaning raincoat. The character is a 14-year-old, 149 cm tall, with a 30 May birthday, short white bob hair and a blue umbrella. The voice is clear and cute with few unusual traits, so it suits a wide range of songs.", "ja": "INCOLOREがTechno-Speechと共同で開発した、VoiSona向けの日本語ソングボイス。2025年5月30日発売。声とキャラクターデザインは、イラストレーター兼VTuberのしぐれうい。名前は彼女の名前から姓「しぐれ」を除いたもの。雨衣は「あめころも」とも読め、レインコートの意味。14歳、身長149cm、誕生日は5月30日、白いショートボブと青い傘が特徴。クリアでかわいらしく癖が少ない歌声で、幅広い曲に合う。"}, "src": [["VoiSona: Ui 発売のお知らせ", "https://voisona.com/song/news_detail/127/"], ["CeVIO & VoiSona Wiki: Ui", "https://cevio.fandom.com/wiki/Ui"]]}, "chisa": {"n": "Chis-A", "era": "cevio", "unv": false, "t": {"th": "Chis-A (知声) เป็นเสียงร้องของ Techno-Speech, Inc. ไม่ใช่ Vocaloid มีการยื่นจดเครื่องหมายการค้าในญี่ปุ่นเมื่อ 1 ธันวาคม 2021 และ 31 มกราคม 2022 มีตัวอย่างเสียงที่ยังไม่เปิดชื่อของ CeVIO Pro ออกทางทวิตเตอร์ ที่ทางการอธิบายว่า \"เป็นกลางและเท่\" จากนั้นเปิดตัวชื่อ Chis-A พร้อมภาพและโปรไฟล์ตัวละครเมื่อ 19 กุมภาพันธ์ 2022 (ผู้วาดคือ cherico) และเปิดให้ใช้ CeVIO Pro เวอร์ชันอัลฟาฟรีเมื่อ 24 กุมภาพันธ์ 2022 โดยมี Chis-A เป็นคลังเสียงเริ่มต้น หลังประกาศเปลี่ยนชื่อเป็น VoiSona (26 พฤษภาคม 2022) VoiSona 1.0.0 วางขายเมื่อ 1 กันยายน 2022 พร้อมคลังเสียงภาษาญี่ปุ่นของ Chis-A ที่ใช้ได้ฟรี และคลังเสียงภาษาอังกฤษออกเมื่อ 24 กุมภาพันธ์ 2023 ด้วยโทนเสียงกลางๆ ที่สร้างด้วย deep learning ตัวละครเป็น AI นักร้องอายุ 19 ปี อาศัยอยู่ในเครือข่ายภายในห้องแล็บและเรียนรู้จากข้อมูลเพลงใหม่ทุกวัน ผมหน้าม้าสีเทาปลายส้ม ถักเปียยาวและตาสีเขียวมรกต ไม่ได้เปิดเผยตัวผู้ให้เสียง", "en": "Chis-A (知声) is a singing voice from Techno-Speech, Inc., and not a Vocaloid. Its trademark was filed in Japan on 1 December 2021, and on 31 January 2022 an unnamed CeVIO Pro vocal, described by the official account as \"neutral and cool\", was previewed on Twitter. Chis-A was revealed with artwork and a profile on 19 February 2022 (illustrated by cherico), and the CeVIO Pro alpha, with Chis-A as the default library, was released free on 24 February 2022. After the rebrand to VoiSona was announced (26 May 2022), VoiSona 1.0.0 launched on 1 September 2022 with the Japanese Chis-A library included free. An English library followed on 24 February 2023, built with deep learning and an androgynous tone. The character is a 19-year-old singing AI living in a lab's internal network and learning from new song data every day, with grey bangs tipped in orange, a long thin braid and emerald-green eyes. Her voice provider has not been revealed.", "ja": "Techno-Speech社の歌声で、Vocaloidではない。2021年12月1日に日本で商標出願。2022年1月31日、公式がTwitterで「ニュートラルでクール」と評した名前未公開のCeVIO Proの歌声を先行公開。2022年2月19日にイラストとプロフィール付きで Chis-A として公開された（イラストはcherico）。2月24日にはChis-Aを標準音源としたCeVIO Proアルファ版を無料公開。VoiSonaへの名称変更発表（2022年5月26日）を経て、2022年9月1日に VoiSona 1.0.0 を発売。日本語版 Chis-A は無料で付属する。英語版は2023年2月24日に登場し、ディープラーニングによる中性的な声質が特徴。キャラクターは研究所の内部ネットワークに住み、毎日新しい歌のデータを学習する19歳の歌うAI。オレンジの毛先のグレーの前髪、長く細い三つ編み、エメラルドグリーンの瞳が特徴。声の提供者は非公開。"}, "src": [["Chis-A (Vocaloid Wiki)", "https://vocalsynth.fandom.com/wiki/Chis-A"], ["Techno-Speech: Chis-A English library", "https://www.techno-speech.com/news-20230224a-en"], ["VoiSona (CeVIO & VoiSona Wiki)", "https://cevio.fandom.com/wiki/VoiSona"]]}, "kaai": {"n": "Kaai Yuki", "era": "vocaloid", "unv": false, "t": {"th": "คลังเสียงของ AH-Software วางขายเป็นปลั๊กอินสำหรับ Vocaloid 2 เมื่อ 4 ธันวาคม 2009 เสียงมาจากการบันทึกเสียงของเด็กประถมคนหนึ่งที่ไม่เปิดเผยชื่อ ต่อมามีเวอร์ชัน Vocaloid 4 (เสียง Natural) ซึ่งวางขายเมื่อ 29 ตุลาคม 2015 ตัวละครถูกตั้งเป็นเด็กประถมอายุ 9 ปี สะพายกระเป๋าเรียนสีแดง (randoseru) ที่เป็นลวดลายอ้างอิงถึงคอนโทรลเลอร์เป่า WX5 ของ Yamaha ความนิยมของเธอพุ่งขึ้นในช่วงต้นทศวรรษ 2020 จากเพลง \"Lagtrain\" และ \"Kyoufuu All Back\" ซึ่งเอ็มวีแอนิเมชันของเพลงหลังขึ้นอันดับ 1 บน Billboard Japan Niconico Vocaloid Songs Top 20 ติดต่อกัน 13 สัปดาห์", "en": "A voicebank by AH-Software, released as a Vocaloid 2 plugin on 4 December 2009. Her voice comes from recordings of an unidentified elementary-school student. A Vocaloid 4 version (Natural voicebank) followed on 29 October 2015. The character is a 9-year-old schoolgirl whose red randoseru backpack is a motif of Yamaha's WX5 wind controller. Her popularity surged in the early 2020s through \"Lagtrain\" and \"Kyoufuu All Back\"; the animated video for the latter topped the Billboard Japan Niconico Vocaloid Songs Top 20 for 13 weeks.", "ja": "AH-Softwareのボイスで、2009年12月4日に Vocaloid 2 のプラグインとして発売。声は身元非公開の小学生の録音による。2015年10月29日に Vocaloid 4 版（Natural音源）が登場。キャラクターは9歳の小学生で、赤いランドセルはヤマハのウィンドコントローラーWX5をモチーフにしている。2020年代初頭に「ラグトレイン」や「強風オールバック」で人気が急上昇し、後者のアニメMVはBillboard JAPANニコニコVOCALOID SONGS TOP20で13週連続1位を獲得。"}, "src": [["Wikipedia: Kaai Yuki", "https://en.wikipedia.org/wiki/Kaai_Yuki"]]}}};
 HD.CH.teto.also=['synthv'];   // Teto มีทั้งคลังเสียง UTAU และ Synthesizer V AI
@@ -2291,7 +2701,7 @@ let hEra='vocaloid', hChar=null;
 const HL={era:{th:'โปรแกรมสังเคราะห์เสียง',en:'Software',ja:'ソフト'},ch:{th:'ตัวละคร / ตัวร้อง',en:'Characters & voices',ja:'キャラクター／ボイス'},src:{th:'แหล่งข้อมูล',en:'Sources',ja:'出典'},unv:{th:'⚠ ข้อมูลส่วนนี้ยังไม่ผ่านการตรวจสอบ',en:'⚠ This part hasn\'t been verified yet',ja:'⚠ この部分は未確認です'},pick:{th:'เลือกตัวละครเพื่อดูประวัติ',en:'Pick a character to read about',ja:'キャラクターを選んで読む'}};
 const srcHtml=a=>a&&a.length?'<div class="hsrc">'+pk(HL.src)+': '+a.map(s=>'<a href="'+esc(s[1])+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>').join(' · ')+'</div>':'';
 let hMode='soft', hSel='vocaloid';
-Object.assign(HL,{empty:{th:'ยังไม่มีรายการ',en:'No entries yet',ja:'項目がありません'},soft:{th:'ประวัติโปรแกรมเสียงสังเคราะห์',en:'Software history',ja:'ソフトの歴史'},voice:{th:'ประวัติเสียงร้อง',en:'Voice history',ja:'ボイスの歴史'},ov:{th:'ภาพรวม',en:'Overview',ja:'概要'},hist:{th:'ประวัติ',en:'History',ja:'歴史'}});
+Object.assign(HL,{pick:{th:'เลือกประวัติ',en:'Choose',ja:'選ぶ'},pickT:{th:'เลือกประวัติที่ต้องการดู',en:'Choose which history to read',ja:'読みたい歴史を選ぶ'},empty:{th:'ยังไม่มีรายการ',en:'No entries yet',ja:'項目がありません'},soft:{th:'ประวัติโปรแกรมเสียงสังเคราะห์',en:'Software history',ja:'ソフトの歴史'},voice:{th:'ประวัติเสียงร้อง',en:'Voice history',ja:'ボイスの歴史'},ov:{th:'ภาพรวม',en:'Overview',ja:'概要'},hist:{th:'ประวัติ',en:'History',ja:'歴史'}});
 const hAv=n=>esc(String(n).trim().charAt(0).toUpperCase());
 /* รูปโลโก้/ตัวละครของหน้าประวัติ: ใส่ได้เฉพาะรูปที่คุณมีสิทธิ์ใช้งานเท่านั้น
    วิธีใช้: อัปโหลดรูปไว้ในโฟลเดอร์ img/ ของ GitHub แล้วใส่ path ตามคีย์ด้านล่าง
@@ -2311,6 +2721,8 @@ function renderHist(){
   const E=HX.E, C=HX.C;
   { const pool=hMode==='soft'?E:C; if(!pool[hSel]) hSel=Object.keys(pool)[0]||''; }
   document.querySelectorAll('#hMode button').forEach(b=>{ b.classList.toggle('on',b.dataset.mode===hMode); b.textContent=pk(b.dataset.mode==='soft'?HL.soft:HL.voice); });
+  { const _p=hMode==='soft'?E[hSel]:C[hSel]; $('hPickN').textContent=_p?(hMode==='soft'?pk(_p.n):_p.n):''; }
+  $('hpT').textContent=pk(HL.pickT); $('hPick').querySelector('.hpk').textContent=pk(HL.pick);
   $('hEras').innerHTML=(hMode==='soft'?Object.keys(E).filter(k=>k!=='others').map(k=>[k,pk(E[k].n)]):Object.keys(C).map(k=>[k,C[k].n])).map(a=>'<button type="button" class="chip'+(a[0]===hSel?' on':'')+'" data-sel="'+a[0]+'">'+esc(a[1])+'</button>').join('');
   let side, det;
   if(!hSel){ side=''; det='<p>'+esc(pk(HL.empty))+'</p>'; }
@@ -2324,6 +2736,7 @@ function renderHist(){
     det='<h3>'+esc(c.n)+'</h3><div class="hsub">'+esc(hEras(c))+'</div>'+(c.unv?'<div class="warn">'+esc(pk(HL.unv))+'</div>':'')+'<h4 class="hh">'+esc(pk(HL.hist))+'</h4><p>'+esc(pk(c.t))+'</p>'+srcHtml(c.src);
   }
     $('hSide').innerHTML=side; $('hDetail').innerHTML=det; $('hDetail').scrollTop=0; $('hSide').scrollTop=0;
+  { const he=$('hEras'), on=he.querySelector('.on'); if(on) he.scrollTo({left:Math.max(0,on.offsetLeft-(he.clientWidth-on.offsetWidth)/2)}); }
   renderHAdm();
 }
 /* ----- แอดมิน: เพิ่ม/แก้/ลบ หน้าประวัติ ----- */
@@ -2420,6 +2833,11 @@ async function hAct(a){
   }catch(e){ alert('ทำไม่สำเร็จ ('+(e.code||e.message)+')'); }
 }
 { const _ca=checkAdmin; checkAdmin=async function(){ await _ca(); if(!$('histScreen').classList.contains('hide')) renderHist(); }; }
+const hpClose=()=>{ $('hPickModal').hidden=true; };
+$('hPick').onclick=()=>{ $('hPickModal').hidden=false; const on=$('hEras').querySelector('.on'); (on||$('hEras').querySelector('.chip')||$('hpX')).focus(); };
+$('hpX').onclick=hpClose;
+$('hPickModal').onclick=e=>{ if(e.target===$('hPickModal')) hpClose(); const c=e.target.closest('[data-sel]'); if(c){ hSel=c.dataset.sel; renderHist(); hpClose(); $('hPick').focus(); } };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!$('hPickModal').hidden) hpClose(); });
 document.getElementById('histScreen').onclick=e=>{
   const m=e.target.closest('[data-mode]'), c=e.target.closest('[data-sel]'), ha=e.target.closest('[data-ha]');
   if(ha){ hAct(ha.dataset.ha); }
@@ -2508,7 +2926,7 @@ $('frLists').onclick=async e=>{
 };
 $('myUid').onclick=async()=>{ try{ await navigator.clipboard.writeText(acct.uid); fmsg('คัดลอก UID แล้ว ส่งให้เพื่อนได้เลย'); }catch(e){ fmsg('แตะค้างที่รหัสเพื่อคัดลอก'); } };
 $('friendsBtn').onclick=()=>{ fmsg(''); renderFriends(); showScreen('friendsScreen'); };
-$('frBack').onclick=()=>showScreen('startScreen');
+$('frBack').onclick=()=>showScreen('profScreen');
 
 /* ----- เชิญเพื่อนในล็อบบี้ ----- */
 function renderInviteBox(){
@@ -2771,6 +3189,93 @@ const E=[
 ['มีเพลงนี้ในคลังแล้ว','This song is already in the library','この曲はすでにライブラリにあります'],
 ['แก้ไขเพลง','Edit song','曲を編集'],
 ['บันทึกการแก้ไข','Save changes','変更を保存'],
+["เพลงที่ต้องแจ้งแก้ข้อมูล", "Songs to report", "報告する曲"],
+["กด ⚑ ที่เพลงเพื่อเก็บไว้แจ้งแก้ข้อมูล", "Tap ⚑ on a song to report wrong info", "曲の ⚑ を押して誤りを報告"],
+["คำร้องของฉัน", "My requests", "自分の報告"],
+["ดูเรื่องที่แจ้งไปและสถานะการแก้ไข", "See what you reported and its status", "報告内容と対応状況を見る"],
+["ต้องล็อกอินก่อน", "Please log in first", "先にログインしてください"],
+["แจ้งข้อมูลผิด", "Report an error", "誤りを報告"],
+["ส่งเรื่อง", "Submit", "送信"],
+["ชื่อเพลง", "Song title", "曲名"],
+["ลิงก์ YouTube", "YouTube link", "YouTubeリンク"],
+["เวลาเริ่มเล่น", "Start time", "再生開始時間"],
+["หมายเหตุถึงแอดมิน (ไม่บังคับ)", "Note to admin (optional)", "管理者へのメモ（任意）"],
+["เลือกประวัติ", "Choose", "選ぶ"],
+["เลือกประวัติที่ต้องการดู", "Choose which history to read", "読みたい歴史を選ぶ"],
+["ธีม", "Theme", "テーマ"],
+["สว่าง", "Light", "ライト"],
+["มืด", "Dark", "ダーク"],
+["เปลี่ยนรูปโปรไฟล์", "Change profile photo", "プロフィール画像を変更"],
+["ลบรูปโปรไฟล์", "Remove profile photo", "プロフィール画像を削除"],
+["⚠ เลือกไฟล์รูปภาพเท่านั้น", "⚠ Please choose an image file", "⚠ 画像ファイルを選んでください"],
+["⚠ ระบบยังไม่พร้อม ลองอีกครั้ง", "⚠ Not ready yet. Try again.", "⚠ 準備ができていません。もう一度お試しください"],
+["กำลังอัปโหลด...", "Uploading...", "アップロード中..."],
+["เปลี่ยนรูปโปรไฟล์แล้ว", "Profile photo updated", "プロフィール画像を変更しました"],
+["กำลังลบ...", "Removing...", "削除中..."],
+["ลบรูปโปรไฟล์แล้ว", "Profile photo removed", "プロフィール画像を削除しました"],
+["จบเกมแล้ว", "Game over", "ゲーム終了"],
+["อันดับในห้อง", "Room ranking", "ルーム内ランキング"],
+["ผลแต่ละเพลง", "Song results", "曲ごとの結果"],
+["หลักการทำงาน", "How it works", "しくみ"],
+["ใช้งานอย่างไร", "How you use it", "使い方"],
+["ต่างจากเสียงอ่านข้อความอย่างไร", "How it differs from text-to-speech", "読み上げ音声との違い"],
+["เสียงอ่านข้อความ (TTS) ทำหน้าที่อ่านประโยคให้ฟังเหมือนการพูด ส่วนเสียงสังเคราะห์สำหรับร้องเพลงต้องทำได้มากกว่านั้น คือร้องให้ตรงระดับเสียงและความยาวของแต่ละโน้ต ลากเสียง สั่นเสียง และใส่อารมณ์ได้", "Text-to-speech reads sentences aloud like speech. A singing synthesizer has to do more: hit the pitch and length of every note, hold and slide between sounds, add vibrato and express emotion.", "読み上げ音声は文章を話すように読み上げます。歌声合成はそれ以上に、一音ごとの音程と長さを合わせ、音を伸ばしたり、ビブラートや感情を付けたりする必要があります。"],
+["เทคโนโลยีรุ่นใหม่", "Newer technology", "新しい技術"],
+["โปรแกรมรุ่นแรกใช้วิธีนำเสียงที่บันทึกไว้มาต่อกัน ส่วนรุ่นใหม่บางตัวใช้ AI เรียนรู้จากเสียงร้องจริง ทำให้เสียงต่อเนื่องและเป็นธรรมชาติขึ้น", "Early programs joined recorded sounds together. Some newer ones use AI that learns from real singing, which makes the voice flow more smoothly and naturally.", "初期のソフトは録音した音をつなぎ合わせていました。新しいソフトの中には、実際の歌声から学習するAIを使うものもあり、より滑らかで自然な歌声になります。"],
+["ทำไมถึงมีตัวละคร", "Why do voices have characters?", "なぜキャラクターがいるの?"],
+["แต่ละเสียงมักมาพร้อมตัวละครที่มีชื่อ หน้าตา และบุคลิก เพื่อให้จำง่ายและเป็นจุดเริ่มต้นให้คนแต่งเพลง วาดภาพ และทำวิดีโอร่วมกันได้ เช่น Hatsune Miku", "Each voice usually comes with a named character with a look and a personality. That makes it easy to remember and gives composers, illustrators and video makers something to build on together, like Hatsune Miku.", "多くの声には、名前・見た目・性格を持つキャラクターが付いています。覚えやすく、作曲者や絵師、動画制作者が一緒に作品を作るきっかけにもなります。初音ミクがその例です。"],
+["เสียงสังเคราะห์คืออะไร", "What is a singing synthesizer?", "歌声合成とは?"],
+["ซอฟต์แวร์ที่ทำให้คอมพิวเตอร์ ‘ร้องเพลง’ ได้ คุณพิมพ์เนื้อร้อง กำหนดโน้ต แล้วโปรแกรมจะร้องตามให้ นี่คือเทคโนโลยีเบื้องหลังเพลงส่วนใหญ่ในเกมนี้", "Software that lets a computer sing. You type the lyrics and set the notes, and the program sings them for you. It's the technology behind most of the songs in this game.", "コンピューターに歌わせるソフトウェアです。歌詞と音符を入力すると、ソフトがその通りに歌ってくれます。このゲームの曲の多くを支える技術です。"],
+["พื้นฐาน", "The basics", "基本"],
+["เสียงมาจากไหน", "Where does the voice come from?", "声はどこから来る?"],
+["ทีมพัฒนาบันทึกเสียงนักร้องหรือนักพากย์จริงขณะออกเสียงพยางค์จำนวนมาก แล้วนำไปสร้างเป็นคลังเสียง (voicebank) โปรแกรมจะนำเสียงเหล่านี้มาต่อและปรับให้ตรงกับโน้ตและเนื้อร้อง เช่น เสียงของ Hatsune Miku มาจากการบันทึกเสียงของ Saki Fujita", "The developers record a real singer or voice actor pronouncing a large set of syllables and build them into a voicebank. The program joins and adjusts these sounds to match the notes and lyrics. For example, Hatsune Miku's voice comes from recordings of Saki Fujita.", "開発チームが実在の歌手や声優にたくさんの音節を発声してもらい、録音して音声ライブラリ(ボイスバンク)を作ります。ソフトはその音をつなぎ合わせ、音符と歌詞に合うよう調整します。たとえば初音ミクの声は藤田咲さんの録音から作られています。"],
+["เขียนทำนองเป็นโน้ตลงในโปรแกรม", "Write the melody as notes in the program", "メロディを音符としてソフトに入力する"],
+["ใส่เนื้อร้องลงในแต่ละโน้ต", "Put a lyric syllable on each note", "音符ごとに歌詞を入れる"],
+["ปรับแต่งการร้อง เช่น ความยาว ความดัง การสั่นเสียง และอารมณ์ (เรียกว่าการจูน)", "Tune the performance: length, volume, vibrato and emotion", "歌い方を調整する(長さ、強弱、ビブラート、感情など。「調声」と呼ばれます)"],
+["ส่งออกเป็นไฟล์เสียงแล้วมิกซ์กับดนตรี", "Export the audio and mix it with the music", "音声を書き出し、伴奏とミックスする"],
+["สร้างเพลงอย่างไร", "How is a song made?", "曲はどう作る?"],
+["ใครเป็นคนแต่งเพลง", "Who writes the songs?", "誰が曲を作る?"],
+["ใครก็เริ่มได้ ผู้แต่งที่ใช้เสียงสังเคราะห์มักเรียกว่าโปรดิวเซอร์ (P) เพลงมักถูกอัปโหลดลงเว็บ แล้วนักวาด นักทำวิดีโอ และแฟนๆ ก็มาร่วมสร้างผลงานต่อกัน", "Anyone can start. Composers who use these voices are often called producers (P). Songs are usually posted online, and illustrators, video makers and fans build on them.", "誰でも始められます。合成音声を使う作曲者は「P(プロデューサー)」と呼ばれることが多く、曲はネットに投稿され、絵師や動画制作者、ファンが広げていきます。"],
+["ตัวละครที่ควรรู้", "Characters to know", "知っておきたいキャラクター"],
+["ตัวละครที่ทำให้วงการเป็นที่รู้จักไปทั่วโลก ผมเปียคู่สีเทอร์ควอยซ์เป็นเอกลักษณ์", "The character who made the scene known worldwide, with her signature turquoise twin tails.", "世界中にシーンを広めたキャラクター。ターコイズのツインテールが象徴です。"],
+["เสียงคู่ในชุดเดียวกัน เสียงสดใสและเสียงทุ้มกว่า นิยมใช้ในเพลงจังหวะเร็วและเพลงที่เล่าเรื่อง", "A pair in one package, with a bright voice and a deeper one. Popular for upbeat songs and story-driven songs.", "1つのパッケージに入った二人組で、明るい声と少し低めの声が特徴。アップテンポな曲や物語性のある曲で人気です。"],
+["เสียงโตเต็มวัยและเป็นสองภาษา ร้องได้ทั้งญี่ปุ่นและอังกฤษ", "A mature voice that sings in both Japanese and English.", "大人びた声で、日本語と英語の両方を歌えます。"],
+["รุ่นบุกเบิกของวงการ MEIKO เป็นหนึ่งในตัวละครยุคแรกสุด และ KAITO เป็นเสียงชายคู่กัน", "The pioneers of the scene. MEIKO is among the earliest characters, with KAITO as the male voice alongside her.", "シーンの草分け。MEIKOは最初期のキャラクターで、KAITOは男性の声として並びます。"],
+["เสียงที่คนแต่งเพลงนิยมเพราะเสียงชัดเจน ปรับให้เป็นธรรมชาติได้ง่าย", "A favorite among composers for its clear voice that is easy to make sound natural.", "声がはっきりしていて自然に調整しやすく、作曲者に人気です。"],
+["ตัวละครจากโปรแกรม UTAU ที่แฟนๆ รักมาก มีผมเกลียวสว่านสีแดงเป็นเอกลักษณ์", "A beloved UTAU character, known for her red drill-shaped twin tails.", "UTAUのキャラクターで、赤いドリルツインテールが特徴。ファンに愛されています。"],
+["โปรแกรมที่ควรรู้", "Software to know", "知っておきたいソフト"],
+["โปรแกรมของ Yamaha เปิดตัวปี 2004 เป็นจุดเริ่มต้นของวงการ มีตัวละครอย่าง Hatsune Miku", "Yamaha's software, launched in 2004, which started the scene. Home of characters like Hatsune Miku.", "ヤマハのソフトで2004年に登場し、シーンの始まりとなりました。初音ミクなどのキャラクターがいます。"],
+["โปรแกรมฟรีที่เปิดตัวปี 2008 ใครก็สร้างคลังเสียงของตัวเองได้ เช่น Kasane Teto", "A free program released in 2008 where anyone can make their own voicebank, such as Kasane Teto.", "2008年公開の無料ソフトで、誰でも自分のボイスバンクを作れます。重音テトなどが有名です。"],
+["โปรแกรมของ Dreamtonics ใช้ AI ช่วยสร้างเสียง ให้เสียงร้องที่เป็นธรรมชาติ", "Dreamtonics' software, which uses AI to produce natural-sounding singing.", "Dreamtonics社のソフトで、AIを使って自然な歌声を生成します。"],
+["ซอฟต์แวร์จากญี่ปุ่นที่ทั้งร้องเพลงและพูดได้ มีเสียงอย่าง Satou Sasara และ Suzuki Tsudumi", "Japanese software that can both sing and speak, with voices like Sato Sasara and Suzuki Tsudumi.", "歌も喋りもできる日本のソフトで、さとうささら、すずきつづみなどがいます。"],
+["ศัพท์ที่ควรรู้", "Terms to know", "知っておきたい用語"],
+["คลังเสียงที่ใช้ร้องเพลง เปรียบเหมือน ‘นักร้อง’ หนึ่งคนในโปรแกรม", "The sound library used for singing. Think of it as one 'singer' inside the program.", "歌うための音声ライブラリ。ソフトの中の「歌手」一人にあたります。"],
+["จูน (Tuning)", "Tuning", "調声(チューニング)"],
+["การปรับรายละเอียดการร้อง เช่น จังหวะ ความดัง และอารมณ์ ให้เหมือนคนร้อง", "Fine-tuning the performance, such as timing, volume and emotion, to make it sound human.", "タイミングや強弱、感情などを細かく調整し、人が歌っているように聞かせる作業です。"],
+["โปรดิวเซอร์ (P)", "Producer (P)", "プロデューサー(P)"],
+["คนที่แต่งเพลงด้วยเสียงสังเคราะห์ มักต่อท้ายชื่อด้วยคำว่า P", "A person who writes songs with a synthesized voice. Their name often ends in 'P'.", "合成音声で曲を作る人。名前の末尾に「P」を付けることが多いです。"],
+["คัฟเวอร์", "Cover", "カバー"],
+["การนำเพลงที่มีอยู่แล้วมาร้องหรือทำใหม่ จะใช้เสียงสังเคราะห์หรือนักร้องจริงก็ได้", "Singing or remaking an existing song, using either a synthesized voice or a real singer.", "既存の曲を歌ったり作り直したりすること。合成音声でも実在の歌手でも行われます。"],
+["วิดีโอประกอบเพลง มักทำโดยนักวาดหรือนักทำวิดีโอที่มาร่วมกับโปรดิวเซอร์", "The music video for a song, often made by an illustrator or video maker working with the producer.", "曲に付けるビデオ。絵師や動画制作者がプロデューサーと組んで作ることが多いです。"],
+["นักร้องคัฟเวอร์ (Utaite)", "Utaite", "歌い手"],
+["คนที่ร้องคัฟเวอร์เพลงโวคาลอยด์ด้วยเสียงของตัวเอง แล้วเผยแพร่ทางอินเทอร์เน็ต", "People who sing covers of these songs in their own voice and share them online.", "合成音声の曲を自分の声で歌い、ネットに公開する人たちです。"],
+["ข้อดีและข้อจำกัด", "Strengths and limits", "長所と限界"],
+["ข้อดี", "Strengths", "長所"],
+["ร้องได้ทุกช่วงเสียงและเร็วเกินกว่าคนทั่วไปร้องได้ ไม่ต้องหานักร้อง คนเดียวก็ทำเพลงทั้งเพลงได้", "It can sing any range and faster than most people can. No singer needed, so one person can make a whole song.", "どんな音域でも、人より速いフレーズでも歌えます。歌手を探す必要がなく、一人で曲を完成させられます。"],
+["ข้อจำกัด", "Limits", "限界"],
+["ต้องจูนละเอียดจึงจะฟังเป็นธรรมชาติ และแต่ละคลังเสียงรองรับภาษาไม่เหมือนกัน", "It takes careful tuning to sound natural, and each voicebank supports different languages.", "自然に聞こえるには細かい調整が必要で、ボイスバンクごとに対応言語が異なります。"],
+["คำถามที่พบบ่อย", "FAQ", "よくある質問"],
+["ต้องอ่านโน้ตเป็นไหม", "Do I need to read music?", "楽譜は読める必要がある?"],
+["ไม่จำเป็น โปรแกรมส่วนใหญ่ใช้หน้าจอเปียโนโรลที่ลากวางโน้ตได้เลย", "Not necessarily. Most programs use a piano roll where you simply drag and place notes.", "必須ではありません。多くのソフトはピアノロール画面で、音符を置くだけで入力できます。"],
+["ใช้ได้กี่ภาษา", "Which languages work?", "どの言語で歌える?"],
+["ขึ้นกับแต่ละคลังเสียง ส่วนใหญ่เป็นญี่ปุ่นและอังกฤษ บางตัวรองรับจีนด้วย", "It depends on the voicebank. Most cover Japanese and English, and some also support Chinese.", "ボイスバンクによって異なります。多くは日本語と英語で、中国語に対応するものもあります。"],
+["นำไปใช้เชิงพาณิชย์ได้ไหม", "Can I use it commercially?", "商用利用はできる?"],
+["ขึ้นกับเงื่อนไขของแต่ละตัวละครและแต่ละโปรแกรม ควรอ่านข้อตกลงการใช้งานก่อนเสมอ", "It depends on each character's and program's terms. Always read the license first.", "キャラクターやソフトごとの規約によります。必ず先に利用規約を確認してください。"],
+["เริ่มจากตรงไหนดี", "Where to start", "どこから始める?"],
+["ลองฟังเพลงจริงในคลังเพลง เล่นเกมทายเพลง หรืออ่านประวัติของแต่ละโปรแกรมและตัวละคร", "Listen to real songs in the library, play the guessing game, or read the history of each program and character.", "ライブラリで実際の曲を聴いたり、曲当てゲームで遊んだり、各ソフトやキャラクターの歴史を読んでみましょう。"],
+["เล่นเกม", "Play", "プレイ"],
+["เปิดคลังเพลง", "Open song library", "ライブラリを開く"],
+["ดูประวัติโปรแกรม", "See software history", "ソフトの歴史を見る"],
 ["เสียงสังเคราะห์คืออะไร", "What is a singing synthesizer?", "歌声合成とは?"],
 ["ซอฟต์แวร์ที่ทำให้คอมพิวเตอร์ ‘ร้องเพลง’ ได้ คุณพิมพ์เนื้อร้อง กำหนดโน้ต แล้วโปรแกรมจะร้องตามให้ นี่คือเทคโนโลยีเบื้องหลังเพลงส่วนใหญ่ในเกมนี้", "Software that lets a computer sing. You type the lyrics and set the notes, and the program sings them for you. It's the technology behind most of the songs in this game.", "コンピューターに歌わせるソフトウェアです。歌詞と音符を入力すると、ソフトがその通りに歌ってくれます。このゲームの曲の多くを支える技術です。"],
 ["พื้นฐาน", "The basics", "基本"],
