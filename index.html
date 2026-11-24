@@ -6,6 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
 <title>Vocaloid Quiz</title>
+<meta name="description" content="ฟังเพลง Vocaloid แล้วทายชื่อเพลง เล่นคนเดียวหรือเล่นกับเพื่อนออนไลน์ · Guess the Vocaloid song from a short clip">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vocaloid Quiz">
+<meta property="og:title" content="Vocaloid Quiz — ฟังเพลงแล้วทายชื่อ">
+<meta property="og:description" content="ฟังเพลง Vocaloid แล้วทายชื่อเพลง เล่นคนเดียวหรือเล่นกับเพื่อนออนไลน์">
+<meta property="og:url" content="https://vocaloid-quiz-iota.vercel.app/">
+<meta property="og:image" content="https://vocaloid-quiz-iota.vercel.app/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vocaloid Quiz — ฟังเพลงแล้วทายชื่อ">
+<meta name="twitter:description" content="ฟังเพลง Vocaloid แล้วทายชื่อเพลง เล่นคนเดียวหรือเล่นกับเพื่อนออนไลน์">
+<meta name="twitter:image" content="https://vocaloid-quiz-iota.vercel.app/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Kanit:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -894,6 +907,27 @@ html[data-theme=dark] #modal .rsmk:hover{background:rgba(255,255,255,.1)}
 .cbub[data-tail=t]::before{top:-8px;border-right:0;border-bottom:0}
 .cbub.out{opacity:0;transition:opacity .4s}
 @keyframes cbin{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
+/* ===== หน้ายืนยันอีเมล ===== */
+#verifyScreen .panel .go{width:100%}
+#verifyScreen #vfResend{display:block;width:100%;min-height:46px;margin-top:10px;padding:0 18px;border:2px solid var(--teal-d);border-radius:999px;background:transparent;color:var(--teal-d);font:700 .95rem var(--body);cursor:pointer}
+#verifyScreen #vfResend:hover:not(:disabled){background:var(--mint)}
+#verifyScreen #vfResend:disabled{opacity:.55;cursor:default}
+#verifyScreen .page{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:24px;padding-bottom:24px}
+#verifyScreen .libhead{justify-content:center;padding-top:0}
+#verifyScreen .vfbody{width:min(460px,100%);margin-top:14px}
+#verifyScreen .gsmail{font:600 1.05rem var(--body);overflow-wrap:anywhere}
+#verifyScreen .vflink{display:block;margin:14px auto 0;padding:6px;border:0;background:none;color:var(--mute);font:600 .9rem var(--body);text-decoration:underline;cursor:pointer}
+/* ===== หน้าแก้ประวัติแบบปุ่ม ===== */
+.hxmenu{display:flex;flex-direction:column;margin-bottom:18px}
+.hxm{display:flex;align-items:center;gap:12px;width:100%;min-height:64px;padding:12px 4px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;color:var(--ink);text-align:left;cursor:pointer;box-shadow:none;font-family:var(--body)}
+.hxm:hover{background:var(--mint)}
+.hxm .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.hxm b{font:700 1.02rem var(--disp)}
+.hxm small{color:var(--mute);font-size:.86rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hxm small.em{font-style:italic;opacity:.7}
+.hxm .ch{flex:none;width:20px;height:20px;color:var(--mute)}
+#hxSecBody textarea{min-height:120px}
+#hxSecBody #hxEv{min-height:260px}
 @media(max-width:699px){#aboutScreen .libhead{padding-top:44px}}
 @media(max-width:620px){.abgrid,.abgrid.ab4{grid-template-columns:1fr}.ablead{font-size:1.02rem}}
 /* ===== เพื่อน/คำเชิญ ===== */
@@ -1022,7 +1056,7 @@ body.ingame #inviteToast{display:none}
   </div>
 </div></div>
 <div class="screen hide" id="songScreen"><div class="page wide">
-  <aside class="side"><button class="back" id="sgBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับไปคลังเพลง</button><h2>รายละเอียดเพลง</h2></aside>
+  <aside class="side"><button class="back" id="sgBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>รายละเอียดเพลง</h2></aside>
   <div class="panel">
     <img class="sgcover" id="sgImg" alt="">
     <h3 class="sgt" id="sgTitle"></h3>
@@ -1069,22 +1103,34 @@ body.ingame #inviteToast{display:none}
 <div class="screen hide" id="histEditScreen"><div class="page wide">
   <aside class="side"><button class="back" id="hxBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxHead">แก้ประวัติ</h2><p>ข้อมูลที่บันทึกจะแสดงให้ทุกคนเห็นทันที</p></aside>
   <div class="panel"><div class="addbox" id="hxForm">
-    <label class="fl" for="hxKey">รหัส (ตัวพิมพ์เล็ก a-z 0-9 - _ ใช้ภายใน)</label><input id="hxKey" type="text" autocomplete="off" maxlength="30">
-    <div id="hxEraRow"><label class="fl" for="hxEra">โปรแกรมหลัก</label><select id="hxEra" class="tin"></select>
-      <label class="fl" for="hxAlso">โปรแกรมอื่นที่ใช้ด้วย (รหัส คั่นด้วยจุลภาค ไม่บังคับ)</label><input id="hxAlso" type="text" autocomplete="off"></div>
-    <div id="hxNameChar"><label class="fl" for="hxName">ชื่อ</label><input id="hxName" type="text" autocomplete="off"></div>
-    <div id="hxNameEra"><label class="fl">ชื่อ (ไทย / อังกฤษ / ญี่ปุ่น)</label><div class="two"><input id="hxNTh" type="text" placeholder="ไทย"><input id="hxNEn" type="text" placeholder="English"><input id="hxNJa" type="text" placeholder="日本語"></div></div>
-    <label class="fl">คำอธิบาย / ประวัติ (ไทย / อังกฤษ / ญี่ปุ่น)</label>
-    <textarea id="hxTTh" placeholder="ไทย"></textarea><textarea id="hxTEn" placeholder="English"></textarea><textarea id="hxTJa" placeholder="日本語"></textarea>
-    <div id="hxEvRow"><label class="fl" for="hxEv">ไทม์ไลน์ (บรรทัดละ 1 เหตุการณ์: วันที่ | ไทย | อังกฤษ | ญี่ปุ่น)</label><textarea id="hxEv" rows="6"></textarea>
-      <label class="fl">หมายเหตุท้ายหน้า (ไม่บังคับ)</label><textarea id="hxNoteTh" placeholder="ไทย"></textarea><textarea id="hxNoteEn" placeholder="English"></textarea><textarea id="hxNoteJa" placeholder="日本語"></textarea></div>
-    <label class="fl" for="hxSrc">แหล่งข้อมูล (บรรทัดละ 1 แหล่ง: ชื่อ | ลิงก์ https://...)</label><textarea id="hxSrc" rows="3"></textarea>
-    <label class="fl" for="hxImg">รูปฝั่งซ้าย (ลิงก์หรือ path เช่น img/miku.png ใส่เฉพาะรูปที่มีสิทธิ์ใช้)</label><input id="hxImg" type="text" autocomplete="off">
-    <label class="fl" for="hxImgC">เครดิตรูป (ไม่บังคับ)</label><input id="hxImgC" type="text" autocomplete="off">
-    <label class="chk" id="hxUnvRow"><input id="hxUnv" type="checkbox"> ข้อมูลยังไม่ผ่านการตรวจสอบ (แสดงป้ายเตือน)</label>
+    <div id="hxMenu" class="hxmenu"></div>
     <div class="row"><button class="go" id="hxSave" type="button" style="max-width:260px">บันทึก</button></div>
     <div class="note" id="hxMsg" role="status"></div>
+    <div id="hxHold" hidden>
+      <div class="hxg" data-t="รหัส"><label class="fl" for="hxKey">รหัส (ตัวพิมพ์เล็ก a-z 0-9 - _ ใช้ภายใน)</label><input id="hxKey" type="text" autocomplete="off" maxlength="30"></div>
+      <div class="hxg" data-t="โปรแกรม"><div id="hxEraRow"><label class="fl" for="hxEra">โปรแกรมหลัก</label><select id="hxEra" class="tin"></select>
+        <label class="fl" for="hxAlso">โปรแกรมอื่นที่ใช้ด้วย (รหัส คั่นด้วยจุลภาค ไม่บังคับ)</label><input id="hxAlso" type="text" autocomplete="off"></div></div>
+      <div class="hxg" data-t="ชื่อ"><div id="hxNameChar"><label class="fl" for="hxName">ชื่อ</label><input id="hxName" type="text" autocomplete="off"></div></div>
+      <div class="hxg" data-t="ชื่อ (ไทย)"><div class="xe"><label class="fl" for="hxNTh">ชื่อ (ไทย)</label><input id="hxNTh" type="text" autocomplete="off"></div></div>
+      <div class="hxg" data-t="ชื่อ (English)"><div class="xe"><label class="fl" for="hxNEn">ชื่อ (English)</label><input id="hxNEn" type="text" autocomplete="off"></div></div>
+      <div class="hxg" data-t="ชื่อ (日本語)"><div class="xe"><label class="fl" for="hxNJa">ชื่อ (日本語)</label><input id="hxNJa" type="text" autocomplete="off"></div></div>
+      <div class="hxg" data-t="คำอธิบาย / ประวัติ (ไทย)"><label class="fl" for="hxTTh">คำอธิบาย / ประวัติ (ไทย)</label><textarea id="hxTTh"></textarea></div>
+      <div class="hxg" data-t="คำอธิบาย / ประวัติ (English)"><label class="fl" for="hxTEn">คำอธิบาย / ประวัติ (English)</label><textarea id="hxTEn"></textarea></div>
+      <div class="hxg" data-t="คำอธิบาย / ประวัติ (日本語)"><label class="fl" for="hxTJa">คำอธิบาย / ประวัติ (日本語)</label><textarea id="hxTJa"></textarea></div>
+      <div class="hxg" data-t="ไทม์ไลน์"><div id="hxEvRow" class="xe"><label class="fl" for="hxEv">ไทม์ไลน์ (บรรทัดละ 1 เหตุการณ์: วันที่ | ไทย | อังกฤษ | ญี่ปุ่น)</label><textarea id="hxEv" rows="10"></textarea></div></div>
+      <div class="hxg" data-t="หมายเหตุท้ายหน้า (ไทย)"><div class="xe"><label class="fl" for="hxNoteTh">หมายเหตุท้ายหน้า (ไทย) (ไม่บังคับ)</label><textarea id="hxNoteTh"></textarea></div></div>
+      <div class="hxg" data-t="หมายเหตุท้ายหน้า (English)"><div class="xe"><label class="fl" for="hxNoteEn">หมายเหตุท้ายหน้า (English) (ไม่บังคับ)</label><textarea id="hxNoteEn"></textarea></div></div>
+      <div class="hxg" data-t="หมายเหตุท้ายหน้า (日本語)"><div class="xe"><label class="fl" for="hxNoteJa">หมายเหตุท้ายหน้า (日本語) (ไม่บังคับ)</label><textarea id="hxNoteJa"></textarea></div></div>
+      <div class="hxg" data-t="แหล่งข้อมูล"><label class="fl" for="hxSrc">แหล่งข้อมูล (บรรทัดละ 1 แหล่ง: ชื่อ | ลิงก์ https://...)</label><textarea id="hxSrc" rows="5"></textarea></div>
+      <div class="hxg" data-t="รูปภาพ"><label class="fl" for="hxImg">รูปฝั่งซ้าย (ลิงก์หรือ path เช่น img/miku.png ใส่เฉพาะรูปที่มีสิทธิ์ใช้)</label><input id="hxImg" type="text" autocomplete="off">
+        <label class="fl" for="hxImgC">เครดิตรูป (ไม่บังคับ)</label><input id="hxImgC" type="text" autocomplete="off"></div>
+      <div class="hxg" data-t="สถานะการตรวจสอบ"><div id="hxUnvRow"><label class="chk"><input id="hxUnv" type="checkbox"> ข้อมูลยังไม่ผ่านการตรวจสอบ (แสดงป้ายเตือน)</label></div></div>
+    </div>
   </div></div>
+</div></div>
+<div class="screen hide" id="hxSecScreen"><div class="page wide">
+  <aside class="side"><button class="back" id="hxsBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxsHead">แก้ไข</h2><p>แก้เสร็จแล้วกด "เสร็จ" แล้วกลับไปกด "บันทึก" ที่หน้าก่อนหน้า</p></aside>
+  <div class="panel"><div class="addbox" id="hxSecBody"></div><div class="row"><button class="go" id="hxsDone" type="button" style="max-width:260px">เสร็จ</button></div></div>
 </div></div>
 <div class="screen hide" id="setupScreen"><div class="page">
   <aside class="side"><button class="back" id="setupBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตั้งค่าเกม</h2><p>เลือกจำนวนเพลงและเวลา แล้วเริ่มเล่นได้เลย</p></aside>
@@ -1115,7 +1161,7 @@ body.ingame #inviteToast{display:none}
   <div class="panel"><div class="lobbylist" id="lbList" style="margin:0">กำลังโหลด...</div></div>
 </div></div>
 <div class="screen hide" id="addScreen"><div class="page">
-  <aside class="side"><button class="back" id="addBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับหน้าหลัก</button><h2>เพิ่มเพลงเอง</h2><p>เพิ่มเพลงจาก YouTube เข้าคลังของคุณ เพลงที่เพิ่มจะเก็บไว้ในเครื่องนี้ ล็อกอินแล้วซิงก์ข้ามเครื่องได้</p><div class="note" id="libCount" style="min-height:0;margin-top:16px;font-weight:600"></div></aside>
+  <aside class="side"><button class="back" id="addBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เพิ่มเพลงเอง</h2><p>เพิ่มเพลงจาก YouTube เข้าคลังของคุณ เพลงที่เพิ่มจะเก็บไว้ในเครื่องนี้ ล็อกอินแล้วซิงก์ข้ามเครื่องได้</p><div class="note" id="libCount" style="min-height:0;margin-top:16px;font-weight:600"></div></aside>
   <div class="panel addbox">
     <label class="fl" for="fTitle">ชื่อเพลง</label>
     <input id="fTitle" type="text" autocomplete="off">
@@ -1163,20 +1209,30 @@ body.ingame #inviteToast{display:none}
 <div class="screen hide" id="loginScreen"><div class="page">
   <aside class="side"><button class="back" id="loginBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="loginTitle">เข้าสู่ระบบ</h2><p>ล็อกอินเพื่อบันทึกคะแนน ขึ้นตารางอันดับ และซิงก์เพลงข้ามเครื่อง</p></aside>
   <div class="panel">
-    <div id="gsBox" hidden><h3 class="rkh" style="margin:0 0 6px">สมัครด้วย Google</h3><div class="gsmail" id="gsMail"></div><label class="fl" for="gsName">ชื่อที่แสดงในเกม</label><input class="tin" id="gsName" maxlength="20" autocomplete="nickname"><div class="note" style="margin:6px 0 0">ดึงมาจากบัญชี Google แก้ไขได้ก่อนกดยืนยัน</div><label class="fl" for="gsPass" style="margin-top:16px">รหัสผ่าน</label><input class="tin" id="gsPass" type="password" autocomplete="new-password" placeholder="อย่างน้อย 6 ตัวอักษร"><div class="note" style="margin:6px 0 0">ตั้งไว้เพื่อให้เข้าสู่ระบบด้วยอีเมลและรหัสผ่านได้อีกทางหนึ่ง</div><button class="go" id="gsOk" type="button" style="margin-top:16px">ยืนยันการสมัคร</button><button class="chip quiet" id="gsCancel" type="button" style="padding-left:0;margin-top:8px">ยกเลิก</button><div class="note" id="gsMsg" style="margin:10px 0 0;min-height:1.4em;font-weight:500"></div></div>
+    <div id="gsBox" hidden><h3 class="rkh" style="margin:0 0 6px">สมัครด้วย Google</h3><div class="gsmail" id="gsMail"></div><label class="fl" for="gsName">ชื่อที่แสดงในเกม</label><input class="tin" id="gsName" maxlength="20" autocomplete="nickname"><div class="note" style="margin:6px 0 0">ดึงมาจากบัญชี Google แก้ไขได้ก่อนกดยืนยัน</div><label class="fl" for="gsPass" style="margin-top:16px">รหัสผ่าน</label><input class="tin" id="gsPass" type="password" autocomplete="new-password" placeholder="อย่างน้อย 8 ตัวอักษร"><div class="note" style="margin:6px 0 0">ตั้งไว้เพื่อให้เข้าสู่ระบบด้วยอีเมลและรหัสผ่านได้อีกทางหนึ่ง</div><button class="go" id="gsOk" type="button" style="margin-top:16px">ยืนยันการสมัคร</button><button class="chip quiet" id="gsCancel" type="button" style="padding-left:0;margin-top:8px">ยกเลิก</button><div class="note" id="gsMsg" style="margin:10px 0 0;min-height:1.4em;font-weight:500"></div></div>
     <div class="chips seg" id="loginTabs"><button type="button" class="chip on" data-m="in">เข้าสู่ระบบ</button><button type="button" class="chip" data-m="up">สมัครสมาชิก</button></div>
     <form id="loginForm" style="margin-top:20px" novalidate>
       <label class="fl" for="loginEmail">อีเมล</label>
       <input class="tin" id="loginEmail" type="email" autocomplete="email" inputmode="email">
       <div id="loginNameBox" style="display:none"><label class="fl" for="loginName">ชื่อที่แสดงในเกม</label><input class="tin" id="loginName" maxlength="20" autocomplete="nickname" placeholder="ไม่เกิน 20 ตัวอักษร" disabled></div>
       <label class="fl" for="loginPass">รหัสผ่าน</label>
-      <input class="tin" id="loginPass" type="password" autocomplete="current-password" placeholder="อย่างน้อย 6 ตัวอักษร">
+      <input class="tin" id="loginPass" type="password" autocomplete="current-password" placeholder="อย่างน้อย 8 ตัวอักษร">
       <button class="go" id="loginSubmit" type="submit" style="margin-top:6px">เข้าสู่ระบบ</button>
       <div class="note" id="loginMsg" style="margin:10px 0 0;min-height:1.4em;font-weight:500"></div>
       <button class="chip quiet" id="loginForgot" type="button" style="padding-left:0">ลืมรหัสผ่าน?</button>
     </form>
     <div class="or">หรือ</div>
     <button class="go alt" id="loginGoogle" type="button">ดำเนินการต่อด้วย Google</button>
+  </div>
+</div></div>
+<div class="screen hide" id="verifyScreen"><div class="page libpage">
+  <div class="libhead"><h2>กรุณายืนยันอีเมล</h2></div>
+  <div class="vfbody">
+    <div class="gsmail" id="vfMail"></div>
+    <div class="note" id="vfMsg" style="margin:10px 0 22px;font-weight:500;font-size:1rem;line-height:1.6"></div>
+    <button class="ghost" id="vfResend" type="button">ส่งลิงก์ยืนยันอีกครั้ง</button>
+    <button class="vflink" id="vfBack" type="button">กลับไปหน้าเข้าสู่ระบบ</button>
+    <div class="note" id="vfSub" style="margin:12px 0 0;min-height:1.4em"></div>
   </div>
 </div></div>
 <div class="screen hide" id="forgotScreen"><div class="page">
@@ -1200,7 +1256,7 @@ body.ingame #inviteToast{display:none}
   </div>
 </div></div>
 <div class="screen hide" id="adminScreen"><div class="page wide">
-  <aside class="side"><button class="back" id="adminBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับหน้าหลัก</button><h2>จัดการคลังเพลง</h2><p id="adminInfo"></p>
+  <aside class="side"><button class="back" id="adminBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>จัดการคลังเพลง</h2><p id="adminInfo"></p>
     <button class="go alt" id="adminImport" style="margin-top:22px;max-width:300px" hidden>นำเข้าเพลงที่มีอยู่</button>
   </aside>
   <div class="panel adm">
@@ -1267,48 +1323,6 @@ body.ingame #inviteToast{display:none}
    ชื่อเพลง | ลิงก์ YouTube | เวลาเริ่ม | ลิงก์สำรอง | เสียงร้อง | ผู้แต่ง | Arrangement | วันที่ปล่อย
    เวลาเริ่มใส่เป็นวินาที (50) หรือ นาที:วินาที (0:50) | บรรทัดที่ขึ้นต้นด้วย # = หมายเหตุ */
 const SONG_LIST = `
-ODDS&ENDS | https://www.youtube.com/watch?v=L_sAipsAhPA | 0:45 | | Hatsune Miku | ryo (supercell) | ryo (supercell) | 
-Alien Alien | https://www.youtube.com/watch?v=2t1NMRse6aI | 0:45 | | Hatsune Miku | Nayutalien | Nayutalien | 
-Unknown Mother-Goose | https://www.youtube.com/watch?v=P_CSdxSGfaA | 0:45 | | Hatsune Miku | wowaka | wowaka | 
-Unhappy Refrain | https://www.youtube.com/watch?v=uMlv9VWAxko | 0:45 | | Hatsune Miku | wowaka | wowaka | 
-Ura-Omote Lovers | https://www.youtube.com/watch?v=b_cuMcDWwsI | 0:45 | | Hatsune Miku | wowaka | wowaka | 
-Sand Planet | https://www.youtube.com/watch?v=AS4q9yaWJkI | 0:45 | | Hatsune Miku | Hachi (Kenshi Yonezu) | Hachi (Kenshi Yonezu) | 
-Matryoshka | https://www.youtube.com/watch?v=HOz-9FzIDf0 | 0:45 | | Hatsune Miku, GUMI | Hachi (Kenshi Yonezu) | Hachi (Kenshi Yonezu) | 
-The Disappearance of Hatsune Miku | https://www.youtube.com/watch?v=VWVtIg5cdDU | 0:45 | | Hatsune Miku | cosMo@Bousou-P | cosMo@Bousou-P | 
-*Hello, Planet. | https://www.youtube.com/watch?v=1gHHgx8bTxc | 0:45 | | Hatsune Miku | sasakure.UK | sasakure.UK | 
-Servant of Evil | https://www.youtube.com/watch?v=GC6YNb6ZLKg | 0:45 | | Kagamine Len | mothy (akuno-P) | mothy (akuno-P) | 
-Gimme×Gimme | https://www.youtube.com/watch?v=ERo-sPa1a5g | 0:40 | | Hatsune Miku, Kagamine Rin | Hachioji-P, Giga | Hachioji-P, Giga | 
-Deep Sea Girl | https://www.youtube.com/watch?v=T6kVa48UbUw | 0:45 | | Hatsune Miku | Yuuyu-P | Yuuyu-P | 
-Po Pi Po | https://www.youtube.com/watch?v=5BuVV8zpYyk | 0:40 | | Hatsune Miku | LamazeP | LamazeP | 
-Cantarella | https://www.youtube.com/watch?v=UJ_HgbaY7So | 0:45 | | KAITO, Hatsune Miku | Kurousa-P | Kurousa-P | 
-Karakuri Pierrot | https://www.youtube.com/watch?v=xxFkW3PCT5M | 0:45 | | Hatsune Miku | 40mP | 40mP | 
-World's End Dancehall | https://www.youtube.com/watch?v=ZB75e7vzX0I | 0:45 | | Hatsune Miku, Megurine Luka | wowaka | wowaka | 
-Dance Robot Dance | https://www.youtube.com/watch?v=g7dvpD_zlIM | 0:45 | | Hatsune Miku | Nayutalien | Nayutalien | 
-Just Be Friends | https://www.youtube.com/watch?v=rLYtecBVHrs | 0:45 | | Megurine Luka | Dixie Flatline | Dixie Flatline | 
-Luka Luka Night Fever | https://www.youtube.com/watch?v=tvj6Hnu03Yg | 0:40 | | Megurine Luka | samfree | samfree | 
-ECHO | https://www.youtube.com/watch?v=cQKGUgOfD8U | 0:45 | | GUMI | Crusher-P | Crusher-P | 
-Teo | https://www.youtube.com/watch?v=aH7IAnH5bIk | 0:45 | | Hatsune Miku | Omoi | Omoi | 
-Miku Miku ni Shite Ageru | https://www.youtube.com/watch?v=qQL45VEvnWQ | 0:35 | | Hatsune Miku | ika | ika | 
-Rabbit Hole | https://www.youtube.com/watch?v=eSW2LVbPThw | 0:45 | | Hatsune Miku | DECO*27 | DECO*27 | 
-Monitoring | https://www.youtube.com/watch?v=kbNdx0yqbZE | 0:45 | | Hatsune Miku | DECO*27 | DECO*27 | 
-Animal | https://www.youtube.com/watch?v=-vPerYio1fM | 0:45 | | Hatsune Miku | DECO*27 | DECO*27 | 
-Love Me, Love Me, Love Me | https://www.youtube.com/watch?v=KxNOBCyGhnk | 0:40 | | Hatsune Miku | Kikuo | Kikuo | 
-Packaged | https://www.youtube.com/watch?v=cA01J0FEDig | 0:30 | | Hatsune Miku | kz (livetune) | kz (livetune) | 
-DAYBREAK FRONTLINE | https://www.youtube.com/watch?v=emrt46SRyYs | 0:40 | | IA | Orangestar | Orangestar | 
-The Intense Voice of Hatsune Miku | https://www.youtube.com/watch?v=MFEaIgMkR_0 | 0:40 | | Hatsune Miku | cosMo@Bousou-P | cosMo@Bousou-P | 
-KING | https://www.youtube.com/watch?v=JWT8vQ0PUIE | 0:45 | | Kasane Teto | Kanaria | Kanaria | 
-Hikou Shoujo | https://www.youtube.com/watch?v=JGRgYC1p8qk | 0:40 | | Hatsune Miku | Nayutalien | Nayutalien | 
-Wakusei Loop | https://www.youtube.com/watch?v=LNX0GsjBP2w | 0:40 | | Hatsune Miku | Nayutalien | Nayutalien | 
-Saturn no Polka | https://www.youtube.com/watch?v=n6bmgM4aemQ | 0:40 | | Hatsune Miku | Nayutalien | Nayutalien | 
-Zombie | https://www.youtube.com/watch?v=NkBq2bYuvJI | 0:45 | | Hatsune Miku | DECO*27 | DECO*27 | 
-Volt Tackle | https://www.youtube.com/watch?v=C-7TIDIKc98 | 0:45 | | Hatsune Miku | DECO*27 | DECO*27 | 
-Hello, SEKAI | https://www.youtube.com/watch?v=t5U0rrj0dio | 0:45 | | Hatsune Miku | DECO*27 | DECO*27 | 
-Yowamushi Montblanc | https://www.youtube.com/watch?v=euRzG6zmEb8 | 0:45 | | Hatsune Miku | DECO*27 | DECO*27 | 
-Headphone Actor | https://www.youtube.com/watch?v=0kSRyKPkC4w | 0:45 | | IA | Jin (Shizen no Teki-P) | Jin (Shizen no Teki-P) | 
-Surges | https://www.youtube.com/watch?v=gVaO4HtIdlk | 0:45 | | IA, Hatsune Miku | Orangestar | Orangestar | 
-Asu no Yozora Shoukaihan | https://www.youtube.com/watch?v=XogSflwXgpw | 0:45 | | IA | Orangestar | Orangestar | 
-Kaisei | https://www.youtube.com/watch?v=BwGpXK3W6tE | 0:45 | | IA | Orangestar | Orangestar | 
-Sora Kanade Ressha | https://www.youtube.com/watch?v=xzoShzMIlIM | 0:45 | | IA, Hatsune Miku | Orangestar | Orangestar | 
 `;
 
 const ytId = u => (String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/)||[])[1];
@@ -1584,7 +1598,7 @@ const COUNTDOWN=5, MAXP=8, CODE_CH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 let online=null;   // {host, peer, conns, hostConn, code, myId, roster, players, started, qs, i}
 const mkCode=()=>Array.from({length:4},()=>CODE_CH[Math.random()*CODE_CH.length|0]).join('');
 const loadPeer=()=>new Promise((res,rej)=>{ if(window.Peer) return res(); const t=document.createElement('script'); t.src=PEER_SRC; t.onload=res; t.onerror=()=>rej(new Error('โหลด PeerJS ไม่ได้ (ตรวจอินเทอร์เน็ต)')); document.head.appendChild(t); });
-function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','aboutScreen','profScreen','hmScreen','myReqScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
+function showScreen(id){ ['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','hxSecScreen','aboutScreen','profScreen','hmScreen','myReqScreen'].forEach(x=>$(x).classList.add('hide')); if(id) $(id).classList.remove('hide'); }
 function makeChoices(s){
   const wrong=shuffle([...new Set(DECOYS.concat(SONGS.filter(x=>x.title!==s.title).map(x=>x.title)))]).slice(0,3);
   return shuffle([s.title,...wrong]);
@@ -1955,6 +1969,8 @@ const FIREBASE_CONFIG = {
 };
 const FB_ON = !String(FIREBASE_CONFIG.apiKey).startsWith('YOUR_');
 const FB_VER = "10.12.2";
+/* Firebase App Check (กันบอต): ใส่ reCAPTCHA v3 site key ที่นี่หลังลงทะเบียนใน Firebase Console > App Check ถ้าเว้นว่างจะไม่เปิดใช้ */
+const APPCHECK_KEY = "";
 let auth=null, db=null, acct=null, profile=null, correctCount=0;
 const loadJs=src=>new Promise((res,rej)=>{ const t=document.createElement('script'); t.src=src; t.onload=res; t.onerror=()=>rej(new Error('โหลด '+src+' ไม่ได้')); document.head.appendChild(t); });
 async function initFirebase(){
@@ -1962,8 +1978,19 @@ async function initFirebase(){
   $('lbBtn').style.display=''; $('acctBtn').style.display='';
   try{
     for(const m of ['app','auth','firestore']) await loadJs('https://www.gstatic.com/firebasejs/'+FB_VER+'/firebase-'+m+'-compat.js');
-    firebase.initializeApp(FIREBASE_CONFIG); auth=firebase.auth(); db=firebase.firestore();
+    /* iOS Safari บล็อกคุกกี้ข้ามโดเมน ทำให้ล็อกอิน Google ผ่าน firebaseapp.com พัง
+       ถ้าเว็บนี้ proxy /__/auth/ ไว้ (vercel.json) จะใช้โดเมนตัวเองแทนอัตโนมัติ */
+    try{
+      if(location.protocol==='https:'&&!/firebaseapp\.com$|web\.app$/.test(location.hostname)){
+        const r=await fetch('/__/auth/handler',{method:'GET',cache:'no-store'});
+        if(r.ok&&/text\/html/.test(r.headers.get('content-type')||'')&&!/<title>[^<]*(404|not found)/i.test((await r.text()).slice(0,2000))) FIREBASE_CONFIG.authDomain=location.host;
+      }
+    }catch(e){}
+    firebase.initializeApp(FIREBASE_CONFIG);
+    if(APPCHECK_KEY){ try{ await loadJs('https://www.gstatic.com/firebasejs/'+FB_VER+'/firebase-app-check-compat.js'); firebase.appCheck().activate(APPCHECK_KEY,true); }catch(e){ console.warn('app check',e); } }
+    auth=firebase.auth(); db=firebase.firestore();
     loadShared();
+    auth.getRedirectResult().catch(e=>{ if(e&&e.code) alert(authErrMsg(e)); });
     auth.onAuthStateChanged(onAuth);
   }catch(e){ console.warn(e); }
 }
@@ -1971,7 +1998,7 @@ const cleanSong=x=>JSON.parse(JSON.stringify(x));
 const sameSong=(a,b)=>ytId(a.url)===ytId(b.url);
 let pendingG=null, signupName='', authBusy=false;
 const VERIFY_FROM=Date.parse('2026-11-19T08:00:00Z');
-const needVerify=u=>(u.providerData||[]).some(p=>p.providerId==='password')&&!u.emailVerified&&Date.parse((u.metadata&&u.metadata.creationTime)||'')>=VERIFY_FROM;
+const needVerify=u=>(u.providerData||[]).some(p=>p.providerId==='password')&&!(u.providerData||[]).some(p=>p.providerId==='google.com')&&!u.emailVerified&&Date.parse((u.metadata&&u.metadata.creationTime)||'')>=VERIFY_FROM;
 function lgLock(){ const f=$('loginForm'), nb=$('loginNameBox'); if(!f) return; const d=nb.style.display; f.style.minHeight=''; nb.style.display='block'; const h=f.offsetHeight; nb.style.display=d; if(h) f.style.minHeight=h+'px'; }
 const isG=u=>(u.providerData||[]).some(p=>p.providerId==='google.com');
 function gsOpen(u){ pendingG=u; acct=null; profile=null; renderAcct(); $('gsModal').hidden=false; }
@@ -2007,10 +2034,10 @@ async function saveResult(r){
   try{
     await db.runTransaction(async tx=>{
       const d=(await tx.get(ref)).data()||{};
-      const n={totalScore:(d.totalScore||0)+r.score,games:(d.games||0)+1,correct:(d.correct||0)+r.correct,rounds:(d.rounds||0)+r.rounds,best:Math.max(d.best||0,r.score)};
+      const n={totalScore:(d.totalScore||0)+r.score,games:(d.games||0)+1,correct:(d.correct||0)+r.correct,rounds:(d.rounds||0)+r.rounds,best:Math.max(d.best||0,r.score),upd:firebase.firestore.FieldValue.serverTimestamp()};
       tx.set(ref,n,{merge:true});
       tx.set(ref.collection('games').doc(),{ts:firebase.firestore.FieldValue.serverTimestamp(),mode:r.mode,score:r.score,rounds:r.rounds,correct:r.correct});
-      profile={...d,...n};
+      profile={...d,...n}; delete profile.upd;
     });
   }catch(e){ console.warn('save result failed',e); }
 }
@@ -2018,13 +2045,22 @@ function renderAcct(){
   if(!FB_ON) return;
   $('acctBtn').textContent = acct ? ''+((profile&&profile.name)||'บัญชี') : 'ล็อกอิน';
 }
+const IN_APP=/FBAN|FBAV|Instagram|Line\/|MicroMessenger|TikTok|Twitter|; wv\)/i.test(navigator.userAgent);
+function authErrMsg(e){
+  const c=(e&&e.code)||'';
+  if(c==='auth/unauthorized-domain') return 'โดเมนนี้ยังไม่ได้อนุญาตใน Firebase (Authentication > Settings > Authorized domains)\n('+c+')';
+  if(c==='auth/network-request-failed') return 'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ต ('+c+')';
+  if(c==='auth/web-storage-unsupported'||c==='auth/operation-not-supported-in-this-environment') return 'เบราว์เซอร์นี้บล็อกการเก็บข้อมูล ปิดโหมดส่วนตัว/ปิด "ป้องกันการติดตามข้ามเว็บไซต์" หรือใช้ล็อกอินด้วยอีเมลแทน ('+c+')';
+  return 'ล็อกอินไม่สำเร็จ ('+(c||(e&&e.message)||'unknown')+')';
+}
 async function signIn(){
   if(!auth){ alert('ระบบบัญชียังโหลดไม่เสร็จ ลองอีกครั้ง'); return; }
+  if(IN_APP){ alert('Google ไม่อนุญาตให้ล็อกอินในเบราว์เซอร์ของแอปนี้ (LINE/Facebook/Instagram ฯลฯ)\nกรุณาเปิดลิงก์ใน Safari หรือ Chrome หรือใช้ล็อกอินด้วยอีเมลแทน'); return; }
   const prov=new firebase.auth.GoogleAuthProvider();
   try{ await auth.signInWithPopup(prov); }
   catch(e){
-    if(e.code==='auth/popup-blocked') auth.signInWithRedirect(prov);
-    else if(e.code!=='auth/popup-closed-by-user'&&e.code!=='auth/cancelled-popup-request') alert('ล็อกอินไม่สำเร็จ ('+e.code+')');
+    if(e.code==='auth/popup-blocked'||e.code==='auth/operation-not-supported-in-this-environment'){ try{ await auth.signInWithRedirect(prov); }catch(e2){ alert(authErrMsg(e2)); } }
+    else if(e.code!=='auth/popup-closed-by-user'&&e.code!=='auth/cancelled-popup-request') alert(authErrMsg(e));
   }
 }
 async function openAccount(){
@@ -2257,7 +2293,7 @@ function authMsg(e){
   if(c==='auth/invalid-email') return 'อีเมลไม่ถูกต้อง';
   if(['auth/user-not-found','auth/wrong-password','auth/invalid-credential','auth/invalid-login-credentials'].includes(c)) return 'อีเมลหรือรหัสผ่านไม่ถูกต้อง';
   if(c==='auth/email-already-in-use') return 'อีเมลนี้สมัครไว้แล้ว ลองเข้าสู่ระบบแทน';
-  if(c==='auth/weak-password') return 'รหัสผ่านง่ายเกินไป (อย่างน้อย 6 ตัว)';
+  if(c==='auth/weak-password') return 'รหัสผ่านง่ายเกินไป (อย่างน้อย 8 ตัว)';
   if(c==='auth/too-many-requests') return 'ลองหลายครั้งเกินไป รอสักครู่แล้วลองใหม่';
   if(c==='auth/network-request-failed') return 'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ต';
   if(c==='auth/operation-not-allowed') return 'ยังไม่ได้เปิดล็อกอินด้วยอีเมลใน Firebase';
@@ -2271,21 +2307,22 @@ $('loginForm').onsubmit=async ev=>{
   const em=$('loginEmail').value.trim(), pw=$('loginPass').value;
   if(!em||!pw){ lmsg('⚠ กรอกอีเมลและรหัสผ่านก่อน'); return; }
   if(loginMode==='up'&&!$('loginName').value.trim()){ lmsg('⚠ กรอกชื่อก่อน'); return; }
-  if(loginMode==='up'&&pw.length<6){ lmsg('⚠ รหัสผ่านต้องยาวอย่างน้อย 6 ตัว'); return; }
+  if(loginMode==='up'&&pw.length<8){ lmsg('⚠ รหัสผ่านต้องยาวอย่างน้อย 8 ตัว'); return; }
   if(loginMode==='up') signupName=$('loginName').value.trim().slice(0,20);
   $('loginSubmit').disabled=true; lmsg('กำลังดำเนินการ...');
   authBusy=true;
   try{
     if(loginMode==='in'){
       const c=await auth.signInWithEmailAndPassword(em,pw);
-      if(needVerify(c.user)){ try{ await c.user.sendEmailVerification(); }catch(_){} await auth.signOut(); lmsg('⚠ ยังไม่ได้ยืนยันอีเมล เราส่งลิงก์ยืนยันให้อีกครั้งแล้ว'); }
+      if(needVerify(c.user)){ try{ await c.user.sendEmailVerification(); }catch(_){} await auth.signOut(); vfOpen(em,pw); }
       else{ $('loginPass').value=''; lmsg(''); showScreen('startScreen'); }
     }else{
       const c=await auth.createUserWithEmailAndPassword(em,pw);
       try{ await db.collection('profiles').doc(c.user.uid).set({name:signupName,totalScore:0,games:0,correct:0,rounds:0,best:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()}); }catch(_){}
       try{ await c.user.sendEmailVerification(); }catch(_){}
-      await auth.signOut(); $('loginPass').value=''; $('loginName').value=''; setLoginMode('in');
-      lmsg('ส่งลิงก์ยืนยันไปที่อีเมลแล้ว กดลิงก์ในอีเมล (ตรวจกล่องสแปมด้วย) แล้วกลับมาเข้าสู่ระบบ');
+      await auth.signOut(); $('loginName').value=''; setLoginMode('in'); lmsg('');
+      vfOpen(em,pw);
+      $('loginPass').value='';
     }
   }catch(e){ lmsg('⚠ '+authMsg(e)); }
   signupName=''; authBusy=false;
@@ -2302,6 +2339,18 @@ $('loginGoogle').onclick=async()=>{
   await signIn(); const u=auth&&auth.currentUser; if(!u) return;
   let ex=true; try{ ex=(await db.collection('profiles').doc(u.uid).get()).exists; }catch(e){}
   if(ex||!isG(u)) showScreen('startScreen'); else if(!pendingG) gsOpen(u);
+};
+/* ----- หน้ากรุณายืนยันอีเมล ----- */
+let vfEm='', vfPw='';
+const vfTx=()=>{ const g=/@(gmail|googlemail)\.com$/i.test(vfEm); return pk({th:'ส่งลิงก์ยืนยันอีเมลไปที่ '+(g?'Gmail':'อีเมล')+' แล้ว กรุณากดลิงก์ในอีเมลเพื่อยืนยัน',en:'We sent a verification link to your '+(g?'Gmail':'email')+'. Please tap the link in the email to verify.',ja:(g?'Gmail':'メール')+'に確認リンクを送信しました。メール内のリンクを押して確認してください。'}); };
+function vfOpen(em,pw){ vfEm=em; vfPw=pw; $('vfMail').textContent=em; $('vfMsg').textContent=vfTx(); $('vfSub').textContent=''; $('vfResend').disabled=false; showScreen('verifyScreen'); }
+new MutationObserver(()=>{ if(!$('verifyScreen').classList.contains('hide')&&vfEm) $('vfMsg').textContent=vfTx(); }).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+$('vfBack').onclick=()=>{ vfPw=''; showScreen('loginScreen'); };
+$('vfResend').onclick=async()=>{
+  if(!auth||!vfEm) return; const m=$('vfSub'); $('vfResend').disabled=true; m.textContent='กำลังส่ง...'; authBusy=true;
+  try{ const c=await auth.signInWithEmailAndPassword(vfEm,vfPw); await c.user.sendEmailVerification(); await auth.signOut(); m.textContent='ส่งลิงก์ยืนยันอีกครั้งแล้ว (ตรวจกล่องสแปมด้วย)'; }
+  catch(e){ m.textContent='⚠ '+authMsg(e); }
+  authBusy=false; $('vfResend').disabled=false;
 };
 /* ----- ลืมรหัสผ่าน: หน้าแยก ----- */
 $('loginForgot').onclick=()=>{ $('fpEmail').value=$('loginEmail').value.trim(); $('fpMsg').textContent=''; showScreen('forgotScreen'); };
@@ -2326,13 +2375,13 @@ $('gsOk').onclick=async()=>{
   const u=pendingG; if(!u) return; const n=$('gsName').value.trim().slice(0,20);
   if(!n){ $('gsMsg').textContent='⚠ กรอกชื่อก่อน'; return; }
   const pw=$('gsPass').value; if(!pw){ $('gsMsg').textContent='⚠ กรอกรหัสผ่านก่อน'; return; }
-  if(pw.length<6){ $('gsMsg').textContent='⚠ รหัสผ่านต้องยาวอย่างน้อย 6 ตัว'; return; }
+  if(pw.length<8){ $('gsMsg').textContent='⚠ รหัสผ่านต้องยาวอย่างน้อย 8 ตัว'; return; }
   $('gsOk').disabled=true; $('gsMsg').textContent='กำลังสมัคร...';
   try{
     { if(!u.email) throw {message:'no email'}; await u.linkWithCredential(firebase.auth.EmailAuthProvider.credential(u.email,pw)); }
     await db.collection('profiles').doc(u.uid).set({name:n,totalScore:0,games:0,correct:0,rounds:0,best:0,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
     pendingG=null; gsMode(false); $('gsMsg').textContent=''; await onAuth(u); showScreen('startScreen');
-  }catch(e){ $('gsMsg').textContent='⚠ '+(e.code==='auth/weak-password'?'รหัสผ่านง่ายเกินไป (อย่างน้อย 6 ตัว)':e.code==='auth/provider-already-linked'||e.code==='auth/email-already-in-use'?'อีเมลนี้มีรหัสผ่านอยู่แล้ว':(e.code||e.message)); }
+  }catch(e){ $('gsMsg').textContent='⚠ '+(e.code==='auth/weak-password'?'รหัสผ่านง่ายเกินไป (อย่างน้อย 8 ตัว)':e.code==='auth/provider-already-linked'||e.code==='auth/email-already-in-use'?'อีเมลนี้มีรหัสผ่านอยู่แล้ว':(e.code||e.message)); }
   $('gsOk').disabled=false;
 };
 
@@ -2418,10 +2467,10 @@ function rsFlagged(){
   $('rsFlag').innerHTML=rows.map(([x,k])=>'<li class="rsi fg">'+rsCover(x)+'<span class="rtx"><b>'+esc(x.s.title)+'</b></span><button type="button" class="rsrp" data-rp="'+k+'">'+esc(pk(RSL.rp))+'</button><button type="button" class="rsmk on" data-mk="'+k+'" aria-label="✕">✕</button></li>').join('');
   $('rsFlagHint').style.display=rows.length?'none':'';
 }
-const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',aboutScreen:'aboutScreen',profScreen:'profScreen',hmScreen:'profScreen',myReqScreen:'profScreen'};
+const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',hxSecScreen:'histScreen',aboutScreen:'aboutScreen',profScreen:'profScreen',hmScreen:'profScreen',myReqScreen:'profScreen'};
 const _ssR=showScreen;
 const PGO=['profScreen','startScreen','rankScreen','libScreen','aboutScreen','histScreen'];
-const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','forgotScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','profScreen','hmScreen','myReqScreen','aboutScreen'];
+const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','forgotScreen','verifyScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','hxSecScreen','profScreen','hmScreen','myReqScreen','aboutScreen'];
 const PGC=['pgin-dn','pgin-up','pgout-dn','pgout-up','pgin-fw','pgin-bk','pgin-fd','pgout-fw','pgout-bk','pgout-fd'];
 let pgTimer=0, pgOld=null;
 const pgClean=()=>{ clearTimeout(pgTimer); document.querySelectorAll('.screen').forEach(e=>e.classList.remove(...PGC)); if(pgOld){ pgOld.classList.add('hide'); pgOld=null; } };
@@ -2866,7 +2915,7 @@ function openHx(mode){
   $('hxHead').textContent=(mode==='add'?'เพิ่ม':'แก้ไข')+(kind==='era'?'โปรแกรม':'เสียงร้อง');
   $('hxKey').value=mode==='edit'?hSel:''; $('hxKey').readOnly=mode==='edit';
   $('hxEraRow').style.display=$('hxNameChar').style.display=$('hxUnvRow').style.display=kind==='char'?'':'none';
-  $('hxNameEra').style.display=$('hxEvRow').style.display=kind==='era'?'':'none';
+  document.querySelectorAll('#hxHold .xe').forEach(e=>{ e.style.display=kind==='era'?'':'none'; });
   $('hxEra').innerHTML=Object.keys(HX.E).map(k=>'<option value="'+esc(k)+'">'+esc(pk(HX.E[k].n))+' ('+esc(k)+')</option>').join('');
   const tx=kind==='era'?(item&&item.s):(item&&item.t), tri=o=>o||{th:'',en:'',ja:''};
   $('hxTTh').value=tri(tx).th; $('hxTEn').value=tri(tx).en; $('hxTJa').value=tri(tx).ja;
@@ -2879,7 +2928,7 @@ function openHx(mode){
   }
   $('hxSrc').value=(item?item.src:[]).map(x=>x[0]+' | '+x[1]).join('\n');
   const o=hOver[hSel]||{}; $('hxImg').value=mode==='edit'?(o.img||''):''; $('hxImgC').value=mode==='edit'?(o.imgc||''):'';
-  showScreen('histEditScreen');
+  hxMenu(); showScreen('histEditScreen');
 }
 async function saveHx(){
   const kind=hMode==='soft'?'era':'char', key=hxv('hxKey').toLowerCase(), msg=t=>{ $('hxMsg').textContent=t; };
@@ -2924,6 +2973,24 @@ $('hmScreen').onclick=async e=>{
   await hAct(a); renderHM();
 };
 $('hxBack').onclick=()=>showScreen('hmScreen');
+/* ----- หน้าแก้ประวัติ: เมนูปุ่มแต่ละส่วน กดแล้วไปหน้าแก้ไขส่วนนั้น ----- */
+function hxSum(g){
+  const v=[...g.querySelectorAll('input:not([type=checkbox]),textarea,select')].filter(e=>e.offsetParent!==null||e.closest('#hxHold')).map(e=>e.tagName==='SELECT'?(e.selectedOptions[0]&&e.selectedOptions[0].textContent)||'':e.value.trim()).filter(Boolean);
+  const cb=g.querySelector('input[type=checkbox]'); if(cb) return cb.checked?'ยังไม่ผ่านการตรวจสอบ':'ผ่านการตรวจสอบแล้ว';
+  if(g.dataset.t==='ไทม์ไลน์'){ const n=(g.querySelector('textarea').value.match(/^.+$/gm)||[]).length; return n?n+' เหตุการณ์':''; }
+  return v.join(' · ');
+}
+function hxMenu(){
+  const el=$('hxMenu'); if(!el) return;
+  const gs=[...$('hxHold').querySelectorAll('.hxg')].filter(g=>[...g.children].some(c=>c.style.display!=='none'));
+  el.innerHTML=gs.map((g,i)=>{ const sm=hxSum(g); return '<button type="button" class="hxm" data-hg="'+[...$('hxHold').children].indexOf(g)+'"><span class="tx"><b>'+esc(g.dataset.t)+'</b><small'+(sm?'':' class="em"')+'>'+esc(sm?(sm.length>70?sm.slice(0,70)+'…':sm):'ยังไม่ได้กรอก')+'</small></span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>'; }).join('');
+}
+let hxOpenG=null;
+[...$('hxHold').children].forEach((c,i)=>{ c.dataset.i=i; });
+$('hxMenu').onclick=e=>{ const b=e.target.closest('[data-hg]'); if(!b) return; const g=$('hxHold').children[+b.dataset.hg]; if(!g) return; hxOpenG=g; $('hxsHead').textContent=g.dataset.t; $('hxSecBody').appendChild(g); showScreen('hxSecScreen'); const f=g.querySelector('input:not([readonly]):not([type=checkbox]),textarea,select'); if(f) f.focus(); };
+function hxSecClose(){ if(hxOpenG){ const h=$('hxHold'); h.appendChild(hxOpenG); hxOpenG=null; [...h.children].sort((a,b)=>a.dataset.i-b.dataset.i).forEach(c=>h.appendChild(c)); } hxMenu(); showScreen('histEditScreen'); }
+$('hxsBack').onclick=hxSecClose; $('hxsDone').onclick=hxSecClose;
+
 async function hAct(a){
   if(!isAdmin||!db) return;
   const kind=hMode==='soft'?'era':'char';
@@ -3089,19 +3156,19 @@ const E=[
 ['ล็อกอินเพื่อบันทึกคะแนน ขึ้นตารางอันดับ และซิงก์เพลงข้ามเครื่อง','Sign in to save your scores, appear on the leaderboard, and sync songs across devices.','ログインすると、スコアの保存、ランキング掲載、端末間での曲の同期ができます。'],
 ['อีเมล','Email','メールアドレス'],
 ['รหัสผ่าน','Password','パスワード'],
-['อย่างน้อย 6 ตัวอักษร','At least 6 characters','6文字以上'],
+['อย่างน้อย 8 ตัวอักษร','At least 8 characters','8文字以上'],
 ['ลืมรหัสผ่าน?','Forgot password?','パスワードをお忘れですか？'],
 ['หรือ','Or','または'],
 ['ดำเนินการต่อด้วย Google','Continue with Google','Googleで続ける'],
 ['กำลังดำเนินการ...','Working...','処理中...'],
 ['กรอกอีเมลและรหัสผ่านก่อน','Enter your email and password first','先にメールアドレスとパスワードを入力してください'],
-['รหัสผ่านต้องยาวอย่างน้อย 6 ตัว','The password must be at least 6 characters','パスワードは6文字以上にしてください'],
+['รหัสผ่านต้องยาวอย่างน้อย 8 ตัว','The password must be at least 8 characters','パスワードは8文字以上にしてください'],
 ['กรอกอีเมลก่อน แล้วกด "ลืมรหัสผ่าน?"','Enter your email first, then press "Forgot password?"','先にメールアドレスを入力して「パスワードをお忘れですか？」を押してください'],
 ['ส่งลิงก์รีเซ็ตรหัสผ่านไปที่อีเมลแล้ว (ตรวจกล่องสแปมด้วย)','A password reset link was sent to your email (check spam too).','パスワード再設定のリンクをメールで送信しました（迷惑メールも確認してください）'],
 ['อีเมลไม่ถูกต้อง','Invalid email address','メールアドレスが正しくありません'],
 ['อีเมลหรือรหัสผ่านไม่ถูกต้อง','Incorrect email or password','メールアドレスまたはパスワードが正しくありません'],
 ['อีเมลนี้สมัครไว้แล้ว ลองเข้าสู่ระบบแทน','This email is already registered. Try signing in instead.','このメールアドレスはすでに登録されています。ログインをお試しください'],
-['รหัสผ่านง่ายเกินไป (อย่างน้อย 6 ตัว)','The password is too weak (at least 6 characters)','パスワードが簡単すぎます（6文字以上）'],
+['รหัสผ่านง่ายเกินไป (อย่างน้อย 8 ตัว)','The password is too weak (at least 8 characters)','パスワードが簡単すぎます（8文字以上）'],
 ['ลองหลายครั้งเกินไป รอสักครู่แล้วลองใหม่','Too many attempts. Wait a moment and try again.','試行回数が多すぎます。しばらくしてからお試しください'],
 ['เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ต','Couldn\'t connect. Check your internet.','接続できません。ネット接続を確認してください'],
 ['ยังไม่ได้เปิดล็อกอินด้วยอีเมลใน Firebase','Email sign-in isn\'t enabled in Firebase yet','Firebaseでメールログインがまだ有効になっていません'],
@@ -3298,6 +3365,11 @@ const E=[
 ['มีเพลงนี้ในคลังแล้ว','This song is already in the library','この曲はすでにライブラリにあります'],
 ['แก้ไขเพลง','Edit song','曲を編集'],
 ['บันทึกการแก้ไข','Save changes','変更を保存'],
+["กลับไปหน้าเข้าสู่ระบบ", "Back to log in", "ログインに戻る"],
+["กรุณายืนยันอีเมล", "Please verify your email", "メールアドレスを確認してください"],
+["เปิดอีเมลของคุณแล้วกดลิงก์ยืนยัน จากนั้นกลับมากดปุ่มด้านล่าง", "Open your email and tap the verification link, then come back and press the button below", "メールを開いて確認リンクを押し、戻ってきて下のボタンを押してください"],
+["ฉันยืนยันแล้ว เข้าสู่ระบบ", "I've verified, log me in", "確認しました。ログイン"],
+["ส่งลิงก์ยืนยันอีกครั้ง", "Resend verification link", "確認リンクを再送"],
 ["แชท", "Chat", "チャット"],
 ["พิมพ์ข้อความ...", "Type a message...", "メッセージを入力..."],
 ["ข้อความแชท", "Chat message", "チャットメッセージ"],
@@ -3418,8 +3490,8 @@ const E=[
 ["รหัสผ่าน", "Password", "パスワード"],
 ["รหัสผ่าน (ไม่บังคับ)", "Password (optional)", "パスワード(任意)"],
 ["ตั้งไว้เพื่อให้เข้าสู่ระบบด้วยอีเมลและรหัสผ่านได้อีกทางหนึ่ง", "Lets you also sign in with your email and password.", "メールとパスワードでもログインできるようになります。"],
-["⚠ รหัสผ่านต้องยาวอย่างน้อย 6 ตัว", "⚠ Password must be at least 6 characters", "⚠ パスワードは6文字以上にしてください"],
-["รหัสผ่านง่ายเกินไป (อย่างน้อย 6 ตัว)", "Password too weak (at least 6 characters)", "パスワードが簡単すぎます(6文字以上)"],
+["⚠ รหัสผ่านต้องยาวอย่างน้อย 8 ตัว", "⚠ Password must be at least 8 characters", "⚠ パスワードは8文字以上にしてください"],
+["รหัสผ่านง่ายเกินไป (อย่างน้อย 8 ตัว)", "Password too weak (at least 8 characters)", "パスワードが簡単すぎます(8文字以上)"],
 ["อีเมลนี้มีรหัสผ่านอยู่แล้ว", "This email already has a password", "このメールにはすでにパスワードがあります"],
 ["ส่งลิงก์ยืนยันไปที่อีเมลแล้ว กดลิงก์ในอีเมล (ตรวจกล่องสแปมด้วย) แล้วกลับมาเข้าสู่ระบบ", "Verification link sent. Click it in your email (check spam too), then come back and sign in.", "確認リンクをメールに送信しました。リンクを開いてからログインしてください(迷惑メールもご確認ください)。"],
 ["⚠ ยังไม่ได้ยืนยันอีเมล เราส่งลิงก์ยืนยันให้อีกครั้งแล้ว", "⚠ Email not verified yet. We've sent the verification link again.", "⚠ メールが未確認です。確認リンクを再送しました。"],
@@ -3670,6 +3742,41 @@ showScreen=function(id){ _ss(id); document.body.classList.toggle('ingame',!id); 
 let saved=null; try{ saved=localStorage.getItem('vq_lang'); }catch(e){}
 setLang(saved||'en');
 })();
+
+/* ===== ปุ่มย้อนกลับของเบราว์เซอร์ (History API) — ปุ่มในเว็บยังใช้ได้เหมือนเดิม ===== */
+const hsView=()=>{ let v=[...document.querySelectorAll('.screen')].filter(e=>!e.classList.contains('hide')&&![...e.classList].some(c=>c.startsWith('pgout'))); if(v.length>1) v=v.filter(e=>e.id!=='startScreen'); return v.length?v[v.length-1].id:'game'; };
+const hsPop=()=>[['hPickModal',()=>hpClose()],['rpModal',()=>rpClose()]].find(([id])=>{ const e=document.getElementById(id); return e&&!e.hidden; });
+let hsStack=['startScreen'], hsCur='startScreen', hsCand='', hsN=0, hsSilent=false, hsRep=0;
+try{ history.scrollRestoration='manual'; history.replaceState({s:'startScreen',i:0},''); }catch(e){}
+const hsMark=(v,mode)=>{ try{ if(mode==='replace'){ hsStack[hsStack.length-1]=v; history.replaceState({s:v,i:hsStack.length-1},''); } else { hsStack.push(v); history.pushState({s:v,i:hsStack.length-1},''); } }catch(e){} hsCur=v; };
+setInterval(()=>{
+  const v=hsView(); if(v!==hsCand){ hsCand=v; hsN=0; return; } if(++hsN<1||v===hsCur) return;
+  if(Date.now()<hsRep){ hsMark(v,'replace'); hsRep=0; return; }
+  if(hsStack.length>1&&hsStack[hsStack.length-2]===v&&hsCur!=='game'&&v!=='game'){ hsStack.pop(); hsCur=v; hsSilent=true; try{ history.back(); }catch(e){ hsSilent=false; } return; }
+  hsMark(v,v==='verifyScreen'?'replace':'push');
+},120);
+window.addEventListener('popstate',e=>{
+  if(hsSilent){ hsSilent=false; return; }
+  const st=e.state, cur=hsCur;
+  let t=(st&&st.s)||'startScreen', i=(st&&typeof st.i==='number')?st.i:0;
+  const stay=()=>{ hsStack.push(cur); try{ history.pushState({s:cur,i:hsStack.length-1},''); }catch(_){} };
+  hsStack.length=Math.min(hsStack.length,i+1);
+  const pp=hsPop(); if(pp){ pp[1](); hsStack.length=i; stay(); return; }
+  if(cur==='game'){
+    if($('modal').style.display==='flex'||getComputedStyle($('modal')).display!=='none'){ hsStack.length=i; stay(); $('homeBtn').click(); return; }
+    if(!confirm(pk({th:'ออกจากเกมใช่ไหม?',en:'Leave the game?',ja:'ゲームを終了しますか？'}))){ hsStack.length=i; stay(); return; }
+    if(online){ leaveRoom(); hsRep=Date.now()+900; hsStack.length=Math.max(1,i+1); return; }
+    clearTimers(); pause(); $('modal').style.display='none';
+  }else if(cur==='lobbyScreen'&&online){
+    if(!confirm(pk({th:'ออกจากห้องใช่ไหม?',en:'Leave the room?',ja:'ルームを退出しますか？'}))){ hsStack.length=i; stay(); return; }
+    leaveRoom(); hsRep=Date.now()+900; return;
+  }
+  if(t==='game'||t==='hxSecScreen'||t==='lobbyScreen') t=t==='hxSecScreen'?'histEditScreen':'startScreen';
+  if(t==='verifyScreen'||(t==='loginScreen'&&acct)) t='startScreen';
+  if(!$(t)) t='startScreen';
+  hsStack[Math.min(i,hsStack.length-1)]=t; hsStack.length=Math.min(hsStack.length,i+1); hsCur=t; hsCand=t; hsN=0;
+  showScreen(t); try{ history.replaceState({s:t,i:hsStack.length-1},''); }catch(_){}
+});
 initFirebase();
 </script>
 </body>
