@@ -686,7 +686,7 @@ body.rail #pf{display:block}
 #histScreen .hfill .bigav{width:100%;max-width:none;aspect-ratio:3/4;margin:0;border:0;border-radius:14px;background:var(--mint);color:var(--teal);font-size:5rem}
 #histScreen .hside:empty{display:none}
 #histScreen .hfill{position:static;display:block}
-#histScreen .hfill img{width:100%;height:auto;max-height:460px;object-fit:cover;display:block;border-radius:14px}
+#histScreen .hfill img{width:auto;height:auto;max-width:100%;max-height:460px;object-fit:contain;display:block;margin:0 auto;border-radius:14px}
 #histScreen .hcap{position:static;padding:8px 0 0;background:none;color:var(--ink)}
 #histScreen .hcap b{display:none}
 #histScreen .hcap i{display:none}
@@ -2872,7 +2872,7 @@ function hPic(key,name,fallback,sub){
   const ov=hOver[key]&&hOver[key].img?[hOver[key].img,hOver[key].imgc||'']:null; const v=ov||HIST_IMG[key]; const u=Array.isArray(v)?v[0]:v, cr=Array.isArray(v)?v[1]:'';
   const ph='<div class="bigav">'+fallback+'</div>';
   const cap='<div class="hcap"><b>'+esc(name)+'</b><i>'+esc(sub)+'</i>'+(cr?'<small>'+esc(cr)+'</small>':'')+'</div>';
-  const inner=u?'<img src="'+esc(u)+'" alt="'+esc(name)+'" onerror="this.outerHTML=this.dataset.f" data-f="'+esc(ph)+'">':ph;
+  const inner=u?'<img referrerpolicy="no-referrer" src="'+esc(u)+'" alt="'+esc(name)+'" onerror="this.outerHTML=this.dataset.f" data-f="'+esc(ph)+'">':ph;
   return '<div class="hfill">'+inner+'</div>'+cap;
 }
 function renderHist(){
