@@ -6,6 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f766e">
 <title>Vocaloid Quiz</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22b%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%2314b8a6%22/%3E%3Cstop offset=%221%22 stop-color=%22%230f766e%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22url(%23b)%22/%3E%3Cg fill=%22%23fff%22%3E%3Cellipse cx=%2225%22 cy=%2246%22 rx=%2210.5%22 ry=%228%22 transform=%22rotate(-22 25 46)%22/%3E%3Crect x=%2231.5%22 y=%2214%22 width=%225.5%22 height=%2233%22 rx=%222%22/%3E%3Cpath d=%22M37 14c3 10 15 10 15 22 0-5-4-8-9-9z%22/%3E%3C/g%3E%3C/svg%3E">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0f766e">
 <meta name="description" content="ฟังเพลง Vocaloid แล้วทายชื่อเพลง เล่นคนเดียวหรือเล่นกับเพื่อนออนไลน์ · Guess the Vocaloid song from a short clip">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Vocaloid Quiz">
@@ -939,6 +943,11 @@ html[data-theme=dark] #modal .rsmk:hover{background:rgba(255,255,255,.1)}
 body.rail #chat{left:176px}
 @media(max-width:1099px){body.rail #chat{left:88px}}
 @media(max-width:699px){body.rail #chat{left:12px;bottom:92px}}
+/* หน้าผู้ดูแลระบบ: กรอบของแท็บคลังเพลง/ประวัติสูงเท่ากัน เนื้อหาเลื่อนในกรอบ */
+@media(min-width:900px){
+  #hmScreen .panel.hm{margin:0}
+  #adminScreen .panel.adm,#hmScreen .panel.hm{height:calc(100vh - 120px);height:calc(100dvh - 120px);min-height:420px;overflow-y:auto;overscroll-behavior:contain}
+}
 @media(max-width:699px){#aboutScreen .libhead{padding-top:44px}}
 @media(max-width:620px){.abgrid,.abgrid.ab4{grid-template-columns:1fr}.ablead{font-size:1.02rem}}
 /* ===== เพื่อน/คำเชิญ ===== */
