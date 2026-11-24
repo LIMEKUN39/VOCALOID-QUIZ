@@ -822,7 +822,7 @@ button,a,[role=button],label,summary{cursor:pointer}
 /* ===== คำร้องของฉัน ===== */
 #myReqScreen .page{align-self:flex-start;margin-top:0}
 #myReqScreen .libhead{margin-bottom:6px}
-#myReqScreen .libhead .back{flex-basis:100%;justify-self:start;width:max-content}
+#myReqScreen .libhead .back{flex:none;margin-right:100%;width:max-content}
 .mrlist{max-width:720px;display:flex;flex-direction:column;margin-top:10px}
 .mri{padding:20px 0;border-bottom:1px solid var(--line)}
 .mrh{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
@@ -928,6 +928,17 @@ html[data-theme=dark] #modal .rsmk:hover{background:rgba(255,255,255,.1)}
 .hxm .ch{flex:none;width:20px;height:20px;color:var(--mute)}
 #hxSecBody textarea{min-height:120px}
 #hxSecBody #hxEv{min-height:260px}
+/* ===== หน้าสองคอลัมน์: ฝั่งซ้ายเริ่มที่ความสูงเดียวกันเสมอ ไม่ขยับตามความสูงของกรอบขวา ===== */
+@media(min-width:900px){.screen>.page:not(.libpage){margin:48px auto auto}}
+/* ===== แท็บในหน้าผู้ดูแลระบบ ===== */
+.admtabs{display:flex;gap:26px;margin:0 0 18px;border-bottom:2px solid var(--line)}
+.admtabs button{position:relative;margin:0 0 -2px;padding:8px 2px 10px;border:0;border-bottom:3px solid transparent;border-radius:0;background:none;color:var(--mute);font:600 1rem var(--disp);cursor:pointer;min-height:44px}
+.admtabs button:hover{color:var(--teal-d)}
+.admtabs button.on{color:var(--teal-d);border-bottom-color:var(--teal-d);cursor:default}
+/* แชทไม่ทับแถบนำทางด้านซ้าย */
+body.rail #chat{left:176px}
+@media(max-width:1099px){body.rail #chat{left:88px}}
+@media(max-width:699px){body.rail #chat{left:12px;bottom:92px}}
 @media(max-width:699px){#aboutScreen .libhead{padding-top:44px}}
 @media(max-width:620px){.abgrid,.abgrid.ab4{grid-template-columns:1fr}.ablead{font-size:1.02rem}}
 /* ===== เพื่อน/คำเชิญ ===== */
@@ -1030,9 +1041,10 @@ body.ingame #inviteToast{display:none}
     <button type="button" class="prout" id="prOut" hidden>ออกจากระบบ</button>
   </div></div></div>
 <div class="screen hide" id="hmScreen"><div class="page wide">
-  <aside class="side"><button class="back" id="hmBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>จัดการประวัติ</h2><p>เพิ่ม แก้ไข หรือลบรายการในหน้าประวัติ ข้อมูลที่บันทึกจะแสดงให้ทุกคนเห็นทันที</p></aside>
+  <aside class="side"><button class="back" id="hmBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>จัดการประวัติ</h2></aside>
   <div class="panel hm">
-    <div class="hmh"><h3 class="rkh">ประวัติโปรแกรมเสียงสังเคราะห์</h3><button type="button" class="chip" data-hm="add:era">+ เพิ่มโปรแกรม</button></div>
+    <div class="admtabs" role="tablist"><button type="button" role="tab" data-go="adminScreen">จัดการคลังเพลง</button><button type="button" role="tab" data-go="hmScreen" class="on" aria-selected="true">จัดการประวัติ</button></div>
+        <div class="hmh"><h3 class="rkh">ประวัติโปรแกรมเสียงสังเคราะห์</h3><button type="button" class="chip" data-hm="add:era">+ เพิ่มโปรแกรม</button></div>
     <div class="hml" id="hmEras"></div>
     <div class="hmh"><h3 class="rkh">ประวัติเสียงร้อง</h3><button type="button" class="chip" data-hm="add:char">+ เพิ่มเสียงร้อง</button></div>
     <div class="hml" id="hmChars"></div>
@@ -1101,7 +1113,7 @@ body.ingame #inviteToast{display:none}
   </article>
 </div></div>
 <div class="screen hide" id="histEditScreen"><div class="page wide">
-  <aside class="side"><button class="back" id="hxBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxHead">แก้ประวัติ</h2><p>ข้อมูลที่บันทึกจะแสดงให้ทุกคนเห็นทันที</p></aside>
+  <aside class="side"><button class="back" id="hxBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxHead">แก้ประวัติ</h2></aside>
   <div class="panel"><div class="addbox" id="hxForm">
     <div id="hxMenu" class="hxmenu"></div>
     <div class="row"><button class="go" id="hxSave" type="button" style="max-width:260px">บันทึก</button></div>
@@ -1129,11 +1141,11 @@ body.ingame #inviteToast{display:none}
   </div></div>
 </div></div>
 <div class="screen hide" id="hxSecScreen"><div class="page wide">
-  <aside class="side"><button class="back" id="hxsBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxsHead">แก้ไข</h2><p>แก้เสร็จแล้วกด "เสร็จ" แล้วกลับไปกด "บันทึก" ที่หน้าก่อนหน้า</p></aside>
+  <aside class="side"><button class="back" id="hxsBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="hxsHead">แก้ไข</h2></aside>
   <div class="panel"><div class="addbox" id="hxSecBody"></div><div class="row"><button class="go" id="hxsDone" type="button" style="max-width:260px">เสร็จ</button></div></div>
 </div></div>
 <div class="screen hide" id="setupScreen"><div class="page">
-  <aside class="side"><button class="back" id="setupBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตั้งค่าเกม</h2><p>เลือกจำนวนเพลงและเวลา แล้วเริ่มเล่นได้เลย</p></aside>
+  <aside class="side"><button class="back" id="setupBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตั้งค่าเกม</h2></aside>
   <div class="panel">
     <div class="fl">จำนวนเพลง</div>
     <div class="cnt"><span id="cnt">10</span> <small>เพลง</small></div>
@@ -1157,11 +1169,11 @@ body.ingame #inviteToast{display:none}
   </div>
 </div></div>
 <div class="screen hide" id="lbScreen"><div class="page">
-  <aside class="side"><button class="back" id="lbBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตารางอันดับ</h2><p>จัดอันดับจากคะแนนรวมทุกเกม แสดง 20 อันดับแรก</p></aside>
+  <aside class="side"><button class="back" id="lbBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ตารางอันดับ</h2></aside>
   <div class="panel"><div class="lobbylist" id="lbList" style="margin:0">กำลังโหลด...</div></div>
 </div></div>
 <div class="screen hide" id="addScreen"><div class="page">
-  <aside class="side"><button class="back" id="addBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เพิ่มเพลงเอง</h2><p>เพิ่มเพลงจาก YouTube เข้าคลังของคุณ เพลงที่เพิ่มจะเก็บไว้ในเครื่องนี้ ล็อกอินแล้วซิงก์ข้ามเครื่องได้</p><div class="note" id="libCount" style="min-height:0;margin-top:16px;font-weight:600"></div></aside>
+  <aside class="side"><button class="back" id="addBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เพิ่มเพลงเอง</h2><div class="note" id="libCount" style="min-height:0;margin-top:16px;font-weight:600"></div></aside>
   <div class="panel addbox">
     <label class="fl" for="fTitle">ชื่อเพลง</label>
     <input id="fTitle" type="text" autocomplete="off">
@@ -1207,7 +1219,7 @@ body.ingame #inviteToast{display:none}
   </div>
 </div></div>
 <div class="screen hide" id="loginScreen"><div class="page">
-  <aside class="side"><button class="back" id="loginBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="loginTitle">เข้าสู่ระบบ</h2><p>ล็อกอินเพื่อบันทึกคะแนน ขึ้นตารางอันดับ และซิงก์เพลงข้ามเครื่อง</p></aside>
+  <aside class="side"><button class="back" id="loginBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2 id="loginTitle">เข้าสู่ระบบ</h2></aside>
   <div class="panel">
     <div id="gsBox" hidden><h3 class="rkh" style="margin:0 0 6px">สมัครด้วย Google</h3><div class="gsmail" id="gsMail"></div><label class="fl" for="gsName">ชื่อที่แสดงในเกม</label><input class="tin" id="gsName" maxlength="20" autocomplete="nickname"><div class="note" style="margin:6px 0 0">ดึงมาจากบัญชี Google แก้ไขได้ก่อนกดยืนยัน</div><label class="fl" for="gsPass" style="margin-top:16px">รหัสผ่าน</label><input class="tin" id="gsPass" type="password" autocomplete="new-password" placeholder="อย่างน้อย 8 ตัวอักษร"><div class="note" style="margin:6px 0 0">ตั้งไว้เพื่อให้เข้าสู่ระบบด้วยอีเมลและรหัสผ่านได้อีกทางหนึ่ง</div><button class="go" id="gsOk" type="button" style="margin-top:16px">ยืนยันการสมัคร</button><button class="chip quiet" id="gsCancel" type="button" style="padding-left:0;margin-top:8px">ยกเลิก</button><div class="note" id="gsMsg" style="margin:10px 0 0;min-height:1.4em;font-weight:500"></div></div>
     <div class="chips seg" id="loginTabs"><button type="button" class="chip on" data-m="in">เข้าสู่ระบบ</button><button type="button" class="chip" data-m="up">สมัครสมาชิก</button></div>
@@ -1236,7 +1248,7 @@ body.ingame #inviteToast{display:none}
   </div>
 </div></div>
 <div class="screen hide" id="forgotScreen"><div class="page">
-  <aside class="side"><button class="back" id="fpBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ลืมรหัสผ่าน</h2><p>กรอกอีเมลที่สมัครไว้ เราจะส่งลิงก์สำหรับตั้งรหัสผ่านใหม่ให้</p></aside>
+  <aside class="side"><button class="back" id="fpBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>ลืมรหัสผ่าน</h2></aside>
   <div class="panel">
     <label class="fl" for="fpEmail">อีเมล</label>
     <input class="tin" id="fpEmail" type="email" autocomplete="email" inputmode="email">
@@ -1245,7 +1257,7 @@ body.ingame #inviteToast{display:none}
   </div>
 </div></div>
 <div class="screen hide" id="friendsScreen"><div class="page">
-  <aside class="side"><button class="back" id="frBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เพื่อน</h2><p>เพิ่มเพื่อนด้วย UID แล้วเชิญเข้าห้องออนไลน์ได้</p></aside>
+  <aside class="side"><button class="back" id="frBack"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>เพื่อน</h2></aside>
   <div class="panel">
     <div class="fl">UID ของคุณ (แตะเพื่อคัดลอก แล้วส่งให้เพื่อน)</div>
     <div class="uid" id="myUid" role="button" tabindex="0"></div>
@@ -1260,7 +1272,7 @@ body.ingame #inviteToast{display:none}
     <button class="go alt" id="adminImport" style="margin-top:22px;max-width:300px" hidden>นำเข้าเพลงที่มีอยู่</button>
   </aside>
   <div class="panel adm">
-    <div class="addbox" style="margin-bottom:22px"><div class="fl" style="font-size:1rem;color:var(--ink)">คำร้องที่รอตรวจ</div><div id="admReq" style="margin-top:10px"></div></div>
+    <div class="admtabs" role="tablist"><button type="button" role="tab" data-go="adminScreen" class="on" aria-selected="true">จัดการคลังเพลง</button><button type="button" role="tab" data-go="hmScreen">จัดการประวัติ</button></div>    <div class="addbox" style="margin-bottom:22px"><div class="fl" style="font-size:1rem;color:var(--ink)">คำร้องที่รอตรวจ</div><div id="admReq" style="margin-top:10px"></div></div>
     <div class="addbox">
       <div class="fl" id="admFormTitle" style="font-size:1rem;color:var(--ink)">เพิ่มเพลงใหม่</div>
       <label class="fl" for="admTitle">ชื่อเพลง</label><input id="admTitle" type="text" autocomplete="off">
@@ -2467,7 +2479,7 @@ function rsFlagged(){
   $('rsFlag').innerHTML=rows.map(([x,k])=>'<li class="rsi fg">'+rsCover(x)+'<span class="rtx"><b>'+esc(x.s.title)+'</b></span><button type="button" class="rsrp" data-rp="'+k+'">'+esc(pk(RSL.rp))+'</button><button type="button" class="rsmk on" data-mk="'+k+'" aria-label="✕">✕</button></li>').join('');
   $('rsFlagHint').style.display=rows.length?'none':'';
 }
-const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',hxSecScreen:'histScreen',aboutScreen:'aboutScreen',profScreen:'profScreen',hmScreen:'profScreen',myReqScreen:'profScreen'};
+const RAIL={startScreen:'startScreen',rankScreen:'rankScreen',libScreen:'libScreen',songScreen:'libScreen',reqScreen:'libScreen',histScreen:'histScreen',histEditScreen:'histScreen',hxSecScreen:'histScreen',aboutScreen:'aboutScreen',profScreen:'profScreen',hmScreen:'profScreen',myReqScreen:'profScreen',setupScreen:'startScreen',onlineScreen:'startScreen',lobbyScreen:'startScreen',addScreen:'libScreen',lbScreen:'rankScreen',accountScreen:'profScreen',adminScreen:'profScreen',friendsScreen:'profScreen',loginScreen:'profScreen',forgotScreen:'profScreen',verifyScreen:'profScreen'};
 const _ssR=showScreen;
 const PGO=['profScreen','startScreen','rankScreen','libScreen','aboutScreen','histScreen'];
 const ALLS=['startScreen','setupScreen','onlineScreen','lobbyScreen','addScreen','accountScreen','lbScreen','adminScreen','loginScreen','forgotScreen','verifyScreen','friendsScreen','rankScreen','libScreen','songScreen','reqScreen','histScreen','histEditScreen','hxSecScreen','profScreen','hmScreen','myReqScreen','aboutScreen'];
@@ -2525,7 +2537,7 @@ function prRefresh(){
   if(i){ const acc=p.rounds?Math.round(p.correct/p.rounds*100)+'%':'—';
     $('prStats').innerHTML=[['เกมที่เล่น',p.games||0],['คะแนนรวม',p.totalScore||0],['คะแนนสูงสุด/เกม',p.best||0],['ความแม่นยำ',acc]].map(([l,v])=>'<div class="prstat">'+l+'<b>'+v+'</b></div>').join(''); }
   $('prFrT').textContent=i?'ดูรายชื่อเพื่อน เพิ่มเพื่อน และตอบรับคำขอ':'ล็อกอินเพื่อเพิ่มและดูรายชื่อเพื่อน';
-  $('prAdmin').hidden=$('adminBtn').style.display==='none'; $('prMyReq').hidden=!i; $('prHist').hidden=!(typeof isAdmin!=='undefined'&&isAdmin);
+  $('prAdmin').hidden=$('adminBtn').style.display==='none'; $('prMyReq').hidden=!i; $('prHist').hidden=true;
   $('prFr').classList.toggle('dim',!i); $('prDot').hidden=!i||$('friendsDot').hidden;
   document.querySelectorAll('#prLang .chip').forEach(b=>b.classList.toggle('on',b.dataset.l===document.documentElement.lang));
 }
@@ -2964,6 +2976,7 @@ function renderHM(){
   $('hmChars').innerHTML=(Object.keys(HX.C).map(k=>row(k,'char',HX.C[k].n)).join('')+gone('char'))||'<div class="empty">'+esc(pk(HL.empty))+'</div>';
 }
 $('hmBack').onclick=()=>showScreen('profScreen');
+document.addEventListener('click',e=>{ const t=e.target.closest('.admtabs [data-go]'); if(t&&!t.classList.contains('on')) showScreen(t.dataset.go); });
 $('hmScreen').onclick=async e=>{
   const b=e.target.closest('[data-hm]'); if(!b||!isAdmin) return;
   const [a,kind,key]=b.dataset.hm.split(':'); hMode=kind==='era'?'soft':'voice';
