@@ -1066,18 +1066,18 @@ body.ingame #inviteToast{display:none}
     <button type="button" class="prout" id="prOut" hidden>ออกจากระบบ</button>
   </div></div></div>
 <div class="screen hide" id="hmScreen"><div class="page wide">
-  <aside class="side"><button class="back" id="hmBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>จัดการประวัติ</h2></aside>
+  <aside class="side"><button class="back" id="hmBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>จัดการประวัติ</h2>
+    <details class="admbulk hmbulk"><summary>นำเข้าประวัติเสียงร้องหลายตัวจากข้อความ</summary>
+      <textarea id="hmBulkTx" rows="8" spellcheck="false" placeholder="รหัส | ชื่อ | โปรแกรม | โปรแกรมอื่น (คั่นด้วย ,) | ประวัติไทย | ประวัติอังกฤษ | ประวัติญี่ปุ่น | ชื่อแหล่งข้อมูล | ลิงก์แหล่งข้อมูล&#10;ตัวอย่าง: ia | IA | vocaloid | | ข้อความไทย... | English text... | 日本語... | Wikipedia | https://en.wikipedia.org/wiki/IA_(software)&#10;1 ตัวต่อ 1 บรรทัด (ห้ามขึ้นบรรทัดใหม่กลางข้อความ) ช่องที่ 5 เป็นต้นไปเว้นว่างได้บางส่วน"></textarea>
+      <button class="go alt" id="hmBulkBtn" type="button" style="max-width:300px">นำเข้า</button>
+      <div class="hmmsg" id="hmBulkMsg"></div>
+    </details></aside>
   <div class="panel hm">
     <div class="admtabs" role="tablist"><button type="button" role="tab" data-go="adminScreen">จัดการคลังเพลง</button><button type="button" role="tab" data-go="hmScreen" class="on" aria-selected="true">จัดการประวัติ</button></div>
         <div class="hmh"><h3 class="rkh">ประวัติโปรแกรมเสียงสังเคราะห์</h3><button type="button" class="chip" data-hm="add:era">+ เพิ่มโปรแกรม</button></div>
     <div class="hml" id="hmEras"></div>
     <div class="hmh"><h3 class="rkh">ประวัติเสียงร้อง</h3><button type="button" class="chip" data-hm="add:char">+ เพิ่มเสียงร้อง</button></div>
     <div class="hml" id="hmChars"></div>
-    <details class="admbulk hmbulk"><summary>นำเข้าประวัติเสียงร้องหลายตัวจากข้อความ</summary>
-      <textarea id="hmBulkTx" rows="8" spellcheck="false" placeholder="รหัส | ชื่อ | โปรแกรม | โปรแกรมอื่น (คั่นด้วย ,) | ประวัติไทย | ประวัติอังกฤษ | ประวัติญี่ปุ่น | ชื่อแหล่งข้อมูล | ลิงก์แหล่งข้อมูล&#10;ตัวอย่าง: ia | IA | vocaloid | | ข้อความไทย... | English text... | 日本語... | Wikipedia | https://en.wikipedia.org/wiki/IA_(software)&#10;1 ตัวต่อ 1 บรรทัด (ห้ามขึ้นบรรทัดใหม่กลางข้อความ) ช่องที่ 5 เป็นต้นไปเว้นว่างได้บางส่วน"></textarea>
-      <button class="go alt" id="hmBulkBtn" type="button" style="max-width:300px">นำเข้า</button>
-      <div class="hmmsg" id="hmBulkMsg"></div>
-    </details>
   </div></div></div>
 <div class="screen hide" id="myReqScreen"><div class="page libpage">
   <div class="libhead"><button class="back" id="mrBack" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>กลับ</button><h2>คำร้องของฉัน</h2><span class="note" id="mrCount"></span></div>
@@ -3508,6 +3508,9 @@ const E=[
 ['มีเพลงนี้ในคลังแล้ว','This song is already in the library','この曲はすでにライブラリにあります'],
 ['แก้ไขเพลง','Edit song','曲を編集'],
 ['บันทึกการแก้ไข','Save changes','変更を保存'],
+["นำเข้าประวัติเสียงร้องหลายตัวจากข้อความ", "Import multiple voice histories from text", "テキストから複数のボイス履歴をインポート"],
+["นำเข้าหลายเพลงจากข้อความ", "Import multiple songs from text", "テキストから複数の曲をインポート"],
+["นำเข้า", "Import", "インポート"],
 ["เพลง Vocaloid ที่ลง YouTube ในแต่ละวัน", "Vocaloid songs posted to YouTube each day", "毎日YouTubeに投稿されるVocaloid曲"],
 ["เพลงใหม่รายวัน", "New songs by day", "日別の新曲"],
 ["วันนี้", "Today", "今日"],
